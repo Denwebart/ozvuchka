@@ -1,104 +1,15 @@
-
 /**
-* Theme: Adminto Admin Template
+* Theme: Adminox Dashboard
 * Author: Coderthemes
 * Dashboard
 */
 
-!function($) {
-    "use strict";
-
-    var Dashboard1 = function() {
-    	this.$realData = []
-    };
-
-    //creates Bar chart
-    Dashboard1.prototype.createBarChart  = function(element, data, xkey, ykeys, labels, lineColors) {
-        Morris.Bar({
-            element: element,
-            data: data,
-            xkey: xkey,
-            ykeys: ykeys,
-            labels: labels,
-            hideHover: 'auto',
-            resize: true, //defaulted to true
-            gridLineColor: '#eeeeee',
-            barSizeRatio: 0.2,
-            barColors: lineColors
-        });
-    },
-
-    //creates line chart
-    Dashboard1.prototype.createLineChart = function(element, data, xkey, ykeys, labels, opacity, Pfillcolor, Pstockcolor, lineColors) {
-        Morris.Line({
-          element: element,
-          data: data,
-          xkey: xkey,
-          ykeys: ykeys,
-          labels: labels,
-          fillOpacity: opacity,
-          pointFillColors: Pfillcolor,
-          pointStrokeColors: Pstockcolor,
-          behaveLikeLine: true,
-          gridLineColor: '#eef0f2',
-          hideHover: 'auto',
-          resize: true, //defaulted to true
-          pointSize: 0,
-          lineColors: lineColors
-        });
-    },
-
-    //creates Donut chart
-    Dashboard1.prototype.createDonutChart = function(element, data, colors) {
-        Morris.Donut({
-            element: element,
-            data: data,
-            resize: true, //defaulted to true
-            colors: colors
-        });
-    },
-    
-    
-    Dashboard1.prototype.init = function() {
-
-        //creating bar chart
-        var $barData  = [
-            { y: '2010', a: 75 },
-            { y: '2011', a: 42 },
-            { y: '2012', a: 75 },
-            { y: '2013', a: 38 },
-            { y: '2014', a: 19 },
-            { y: '2015', a: 93 }
-        ];
-        this.createBarChart('morris-bar-example', $barData, 'y', ['a'], ['Statistics'], ['#188ae2']);
-
-        //create line chart
-        var $data  = [
-            { y: '2008', a: 50, b: 0 },
-            { y: '2009', a: 75, b: 50 },
-            { y: '2010', a: 30, b: 80 },
-            { y: '2011', a: 50, b: 50 },
-            { y: '2012', a: 75, b: 10 },
-            { y: '2013', a: 50, b: 40 },
-            { y: '2014', a: 75, b: 50 },
-            { y: '2015', a: 100, b: 70 }
-          ];
-        this.createLineChart('morris-line-example', $data, 'y', ['a','b'], ['Series A','Series B'],['0.9'],['#ffffff'],['#999999'], ['#10c469','#188ae2']);
-
-        //creating donut chart
-        var $donutData = [
-                {label: "Download Sales", value: 12},
-                {label: "In-Store Sales", value: 30},
-                {label: "Mail-Order Sales", value: 20}
-            ];
-        this.createDonutChart('morris-donut-example', $donutData, ['#ff8acc', '#5b69bc', "#35b8e0"]);
-    },
-    //init
-    $.Dashboard1 = new Dashboard1, $.Dashboard1.Constructor = Dashboard1
-}(window.jQuery),
-
-//initializing 
-function($) {
-    "use strict";
-    $.Dashboard1.init();
-}(window.jQuery);
+jQuery(function(e){"use strict"
+var o=window.AdminoxAdmin||{}
+o.dashboardEcharts=function(){if(e("#platform_type_dates_donut").length){var o=echarts.init(document.getElementById("platform_type_dates_donut")),t={timeline:{show:!0,data:["06-16","05-16","04-16"],label:{formatter:function(e){return e.slice(0,5)}},x:10,y:null,x2:10,y2:0,width:250,height:50,backgroundColor:"rgba(0,0,0,0)",borderColor:"#eaeaea",borderWidth:0,padding:5,controlPosition:"left",autoPlay:!0,loop:!0,playInterval:2e3,lineStyle:{width:1,color:"#bdbdbd",type:""}},options:[{color:["#dddddd","#64c5b1","#414b4f","#ee4b82","#45bbe0"],title:{text:"",subtext:""},tooltip:{trigger:"item",formatter:"{a} <br/>{b} : {c} ({d}%)"},legend:{show:!1,x:"left",orient:"vertical",padding:0,data:["iPhone 7","Windows","Desktop","Mobiles","Others"]},toolbox:{show:!0,color:["#bdbdbd","#bdbdbd","#bdbdbd","#bdbdbd"],feature:{mark:{show:!1},dataView:{show:!1,readOnly:!0},magicType:{show:!0,type:["pie","funnel"],option:{funnel:{x:"10%",width:"80%",funnelAlign:"center",max:50},pie:{roseType:"none"}}},restore:{show:!1},saveAsImage:{show:!0}}},series:[{name:"06-16",type:"pie",radius:[20,"80%"],roseType:"none",center:["50%","45%"],width:"50%",itemStyle:{normal:{label:{show:!0},labelLine:{show:!0}},emphasis:{label:{show:!1},labelLine:{show:!1}}},data:[{value:35,name:"iPhone 7"},{value:16,name:"Windows"},{value:27,name:"Desktop"},{value:29,name:"Mobiles"},{value:12,name:"Others"}]}]},{series:[{name:"05-16",type:"pie",data:[{value:42,name:"iPhone 7"},{value:51,name:"Windows"},{value:39,name:"Desktop"},{value:25,name:"Mobiles"},{value:9,name:"Others"}]}]},{series:[{name:"04-16",type:"pie",data:[{value:29,name:"iPhone 7"},{value:16,name:"Windows"},{value:24,name:"Desktop"},{value:19,name:"Mobiles"},{value:5,name:"Others"}]}]}]}
+o.setOption(t)}if(e("#user_type_bar").length){var o=echarts.init(document.getElementById("user_type_bar")),a={grid:{zlevel:0,x:50,x2:50,y:20,y2:20,borderWidth:0,backgroundColor:"rgba(0,0,0,0)",borderColor:"rgba(0,0,0,0)"},tooltip:{trigger:"axis",axisPointer:{type:"shadow",lineStyle:{color:"rgba(0,0,0,.5)",width:1},shadowStyle:{color:"rgba(0,0,0,.1)"}}},legend:{data:[]},toolbox:{orient:"vertical",show:!0,showTitle:!0,color:["#bdbdbd","#bdbdbd","#bdbdbd","#bdbdbd"],feature:{mark:{show:!1},dataZoom:{show:!0,title:{dataZoom:"Data Zoom",dataZoomReset:"Reset Zoom"}},dataView:{show:!1,readOnly:!0},magicType:{show:!0,title:{bar:"Bar",line:"Area",stack:"Stacked Bar",tiled:"Tiled Bar"},type:["bar","line","stack","tiled"]},restore:{show:!1},saveAsImage:{show:!0,title:"Save as Image"}}},calculable:!0,xAxis:[{type:"category",boundaryGap:!1,data:["2016-06-01","2016-05-01","2016-04-01","2016-03-01","2016-02-01","2016-01-01","2015-12-01","2015-11-01","2015-10-01","2015-09-01"],axisLine:{show:!0,onZero:!0,lineStyle:{color:"#64c5b1",type:"solid",width:"2",shadowColor:"rgba(0,0,0,0)",shadowBlur:5,shadowOffsetX:3,shadowOffsetY:3}},axisTick:{show:!1},splitLine:{show:!1,lineStyle:{color:"#fff",type:"solid",width:0,shadowColor:"rgba(0,0,0,0)"}}}],yAxis:[{type:"value",splitLine:{show:!1,lineStyle:{color:"fff",type:"solid",width:0,shadowColor:"rgba(0,0,0,0)"}},axisLabel:{show:!1},axisTick:{show:!1},axisLine:{show:!1,onZero:!0,lineStyle:{color:"#dddddd",type:"solid",width:"0",shadowColor:"rgba(0,0,0,0)",shadowBlur:5,shadowOffsetX:3,shadowOffsetY:3}}}],series:[{name:"Registered Users",type:"bar",smooth:!0,symbol:"none",symbolSize:2,showAllSymbol:!0,barWidth:10,barGap:"10%",itemStyle:{normal:{color:"#64c5b1",borderWidth:2,borderColor:"#64c5b1",areaStyle:{color:"#64c5b1",type:"default"}}},data:[2323,2144,4534,1989,3232,2323,2144,4534,1989,3232,2323,2144,4534,1989,3232,2323,2144,4534,1989,3232,2323,2144,4534,1989,3232,2323,2144,4534,1989,3232]},{name:"Guest Visitors",type:"bar",smooth:!0,symbol:"none",symbolSize:2,showAllSymbol:!0,barWidth:10,barGap:"10%",itemStyle:{normal:{color:"#dddddd",borderWidth:2,borderColor:"#dddddd",areaStyle:{color:"#dddddd",type:"default"}}},data:[5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343]}]}
+o.setOption(a)}if(e("#page_views_today").length){var o=echarts.init(document.getElementById("page_views_today")),a={grid:{zlevel:0,x:20,x2:20,y:20,y2:20,borderWidth:0,backgroundColor:"rgba(0,0,0,0)",borderColor:"rgba(0,0,0,0)"},tooltip:{trigger:"axis",axisPointer:{type:"shadow",lineStyle:{color:"rgba(0,0,0,.5)",width:1},shadowStyle:{color:"rgba(0,0,0,.1)"}}},legend:{data:[]},toolbox:{orient:"vertical",show:!0,showTitle:!0,color:["#bdbdbd","#bdbdbd","#bdbdbd","#bdbdbd"],feature:{mark:{show:!1},dataZoom:{show:!0,title:{dataZoom:"Data Zoom",dataZoomReset:"Reset Zoom"}},dataView:{show:!1,readOnly:!0},magicType:{show:!0,title:{line:"Line",bar:"Bar"},type:["line","bar"],option:{}},restore:{show:!1},saveAsImage:{show:!0,title:"Save as Image"}}},calculable:!0,xAxis:[{type:"category",boundaryGap:!1,data:["0h-2h","2h-4h","4h-6h","6h-8h","8h-10h","10h-12h","12h-14h","14h-16h","16h-18h","18h-20h","20h-22h","22h-24h"],axisLine:{show:!0,onZero:!0,lineStyle:{color:"#ddd",type:"solid",width:"1",shadowColor:"rgba(0,0,0,0)",shadowBlur:5,shadowOffsetX:3,shadowOffsetY:3}},axisTick:{show:!1},splitLine:{show:!1,lineStyle:{color:"#fff",type:"solid",width:0,shadowColor:"rgba(0,0,0,0)"}}}],yAxis:[{type:"value",splitLine:{show:!1,lineStyle:{color:"fff",type:"solid",width:0,shadowColor:"rgba(0,0,0,0)"}},axisLabel:{show:!1},axisTick:{show:!1},axisLine:{show:!1,onZero:!0,lineStyle:{color:"#ff0000",type:"solid",width:"0",shadowColor:"rgba(0,0,0,0)",shadowBlur:5,shadowOffsetX:3,shadowOffsetY:3}}}],series:[{name:"Page Views",type:"line",smooth:!0,symbol:"none",symbolSize:2,showAllSymbol:!0,barWidth:10,itemStyle:{normal:{color:"#64c5b1",borderWidth:2,borderColor:"#64c5b1",areaStyle:{color:"rgba(100,197,177,0)",type:"default"}}},data:[1545,1343,1445,2675,2878,1789,1745,2343,2445,1675,1878,2789,1545,1343,1445,2675,2878,1789,1745,2343,2445,1675,1878,2789]},{name:"Page Views",type:"line",smooth:!0,symbol:"none",symbolSize:2,showAllSymbol:!0,barWidth:10,itemStyle:{normal:{color:"#dddddd",borderWidth:2,borderColor:"#dddddd)",areaStyle:{color:"rgba(221,221,221,0)",type:"default"}}},data:[5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343,5656,6567,7675,3423,4343]}]}
+o.setOption(a)}},e(document).ready(function(){o.dashboardEcharts()}),e(window).load(function(){})}),!function(e){"use strict"
+var o=function(){}
+o.prototype.init=function(){c3.generate({bindto:"#donut-chart",data:{columns:[["Male",46],["Female",24]],type:"donut"},donut:{title:"Candidates",width:30,label:{show:!1}},color:{pattern:["#64c5b1","#ddd"]}}),c3.generate({bindto:"#pie-chart",data:{columns:[["Done",46],["Due",24],["Hold",30]],type:"pie"},color:{pattern:["#dddddd","#64c5b1","#e68900"]},pie:{label:{show:!1}}})},e.ChartC3=new o,e.ChartC3.Constructor=o}(window.jQuery),function(e){"use strict"
+e.ChartC3.init()}(window.jQuery)
