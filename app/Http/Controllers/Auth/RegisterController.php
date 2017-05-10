@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Mail\ActivateAccount;
+use App\Mail\ActivateSuccess;
+use App\Helpers\Translit;
+use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -27,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -38,7 +45,19 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
+	
+	/**
+	 * Register redirect path.
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function redirectTo()
+	{
+		return url()->previous();
+	}
+	
     /**
      * Get a validator for an incoming registration request.
      *
@@ -48,24 +67,105 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+	        'login'       => 'required|unique:users|max:10|regex:/^[0-9A-Za-zА-Яа-яЁёЇїІіЄєЭэ\-\']+$/u',
+	        'email'       => 'required|unique:users|email|max:150',
+	        'alias'       => 'unique:users',
+	        'password'    => 'required|min:6|max:100|confirmed',
+	        'is_agree'    => 'required|integer|in:1',
         ]);
     }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
+	
+	/**
+	 * Create a new user instance after a valid registration.
+	 *
+	 * @param  array  $data
+	 * @return User
+	 */
+	protected function create(array $data)
+	{
+		$newUser = \App\Models\User::create([
+			'alias' => Translit::make($data['login']),
+			'login' => $data['login'],
+			'email' => $data['email'],
+			'password' => bcrypt($data['password']),
+		]);
+		
+		// Send user message for activation account.
+		if($newUser) {
+			Mail::to($newUser)->send(new ActivateAccount($newUser, $this->redirectPath()));
+		}
+		
+		return $newUser;
+	}
+	
+	/**
+	 * Replaced method for ajax (don't login after register, confirmation of registration)
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function register(Request $request)
+	{
+		$this->validator($request->all())->validate();
+		
+		event(new Registered($user = $this->create($request->all())));
+		
+		// доделать проверку, если зарегистрирован
+		if ($request->ajax()) {
+			return response()->json([
+				'success' => true,
+				'status' => 200,
+				'user' => $this->guard()->user(),
+				'message' => trans('auth.afterRegistration')
+			]);
+		}
+		
+		// доделать, если не ajax
+		return $this->registered($request, $user)
+			?: redirect($this->redirectPath());
+	}
+	
+	/**
+	 * Activation user.
+	 *
+	 * @param $userId
+	 * @param $token
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function activation($userId, $token)
+	{
+		$user = User::findOrFail($userId);
+		
+		// Check token in user DB. if null then check data (user make first activation).
+		if (!$user->isActive()) {
+			// Check token from url.
+			if (md5($user->email) == $token) {
+				// Change status and login user.
+				$user->role = User::ROLE_USER;
+				$user->save();
+				
+				\Session::flash('flash_message', trans('interface.ActivatedSuccess'));
+				
+				// Make login user.
+				Auth::login($user, true);
+				
+				// Send user message for activation account.
+				Mail::to($user)->send(new ActivateSuccess($user));
+			} else {
+				// Wrong token.
+				\Session::flash('flash_message_error', trans('interface.ActivatedWrong'));
+			}
+		} else {
+			// User was activated early.
+			\Session::flash('flash_message_error', trans('interface.ActivatedAlready'));
+		}
+		
+		return \Request::get('redirect')
+			? redirect(urldecode(\Request::get('redirect')))
+			: redirect('/');
+	}
 }
