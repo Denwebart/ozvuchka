@@ -11,12 +11,8 @@
 |
 */
 
-//Auth::routes();
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+// Activation user.
+Route::get('activate/{id}/{token}', '\App\Http\Controllers\Auth\RegisterController@activation')->name('activation');
 
 Route::get('/', 'PagesController@index');

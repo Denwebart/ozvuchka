@@ -72,7 +72,7 @@
                 <div class="col-xs-12">
 
                     <div class="checkbox checkbox-success">
-                        <input id="is_agree" type="checkbox" name="is_agree" checked="">
+                        <input id="is_agree" type="checkbox" name="is_agree" value="1">
                         <label for="is_agree">
                             I accept <a href="#">Terms and Conditions</a>
                         </label>

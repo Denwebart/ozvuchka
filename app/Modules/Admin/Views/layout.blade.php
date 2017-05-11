@@ -43,7 +43,6 @@
     </script>
 </head>
 
-
 <body>
 
 <!-- Begin page -->
@@ -56,10 +55,10 @@
         <div class="topbar-left">
             <!--<a href="index.html" class="logo"><span>Code<span>Fox</span></span><i class="mdi mdi-layers"></i></a>-->
             <!-- Image logo -->
-            <a href="index.html" class="logo">
-                        <span>
-                            <img src="{{ asset('backend/images/logo.png') }}" alt="" height="25">
-                        </span>
+            <a href="{{ url('/') }}" class="logo">
+                <span>
+                    <img src="{{ asset('backend/images/logo.png') }}" alt="" height="25">
+                </span>
                 <i>
                     <img src="{{ asset('backend/images/logo_sm.png') }}" alt="" height="28">
                 </i>
@@ -78,8 +77,7 @@
                         </button>
                     </li>
                     <li class="dropdown hidden-xs mega-menu">
-                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-light">Mega <b
-                                    class=" fa fa-angle-down"></b></a>
+                        <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-light">Mega <b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu dropdown-menu-yamm">
                             <li>
                                 <!-- Content container to add padding -->
@@ -98,40 +96,19 @@
                                                 <h5 class="m-t-0">Pages</h5>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-air-play text-muted"></i> Dashboard</a>
+                                                <a href="javascript:void(0);"><i class="fi-air-play text-muted"></i> Dashboard</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-target text-muted"></i> Admin UI </a>
+                                                <a href="javascript:void(0);"><i class="fi-target text-muted"></i> Admin UI </a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-help text-muted"></i> Tickets <span class="badge badge-danger">New</span></a>
+                                                <a href="javascript:void(0);"><i class="fi-help text-muted"></i> Tickets <span class="badge badge-danger">New</span></a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-paper text-muted"></i>Task Board</a>
+                                                <a href="javascript:void(0);"><i class="fi-paper text-muted"></i>Task Board</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-bar-graph-2 text-muted"></i> Charts</a>
-                                            </li>
-                                        </ul>
-
-                                        <ul class="col-sm-6 col-md-3 list-unstyled megamenu-list">
-                                            <li>
-                                                <h5 class="m-t-0">&nbsp;</h5>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;"><i class="fi-briefcase text-muted"></i> UI Kit </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;"><i class="fi-box text-muted"></i> Icons </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;"><i class="fi-mail text-muted"></i> Email <span class="badge badge-success">32</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;"><i class="fi-disc text-muted"></i>Forms</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:;"><i class="fi-layout text-muted"></i> Tables</a>
+                                                <a href="javascript:void(0);"><i class="fi-bar-graph-2 text-muted"></i> Charts</a>
                                             </li>
                                         </ul>
 
@@ -140,19 +117,40 @@
                                                 <h5 class="m-t-0">&nbsp;</h5>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-map text-muted"></i> Maps </a>
+                                                <a href="javascript:void(0);"><i class="fi-briefcase text-muted"></i> UI Kit </a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-clock text-muted"></i> Calendar </a>
+                                                <a href="javascript:void(0);"><i class="fi-box text-muted"></i> Icons </a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-marquee-plus text-muted"></i> Extra Pages <span class="label label-info">22</span></a>
+                                                <a href="javascript:void(0);"><i class="fi-mail text-muted"></i> Email <span class="badge badge-success">32</span></a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-paper-stack text-muted"></i>Sample Pages</a>
+                                                <a href="javascript:void(0);"><i class="fi-disc text-muted"></i>Forms</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;"><i class="fi-bar-graph-2 text-muted"></i> Charts</a>
+                                                <a href="javascript:void(0);"><i class="fi-layout text-muted"></i> Tables</a>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="col-sm-6 col-md-3 list-unstyled megamenu-list">
+                                            <li>
+                                                <h5 class="m-t-0">&nbsp;</h5>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);"><i class="fi-map text-muted"></i> Maps </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);"><i class="fi-clock text-muted"></i> Calendar </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);"><i class="fi-marquee-plus text-muted"></i> Extra Pages <span class="label label-info">22</span></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);"><i class="fi-paper-stack text-muted"></i>Sample Pages</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);"><i class="fi-bar-graph-2 text-muted"></i> Charts</a>
                                             </li>
                                         </ul>
 
@@ -163,25 +161,22 @@
                     </li>
 
                     <li class="dropdown hidden-xs">
-                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-light"> Projects <b
-                                    class=" fa fa-angle-down"></b></a>
+                        <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-light"> Projects <b class=" fa fa-angle-down"></b></a>
                         <ul role="menu" class="dropdown-menu">
                             <li>
-                                <a href="javascript:;"><span> Adminox Admin </span></a>
+                                <a href="javascript:void(0);"><span> Adminox Admin </span></a>
                             </li>
                             <li>
-                                <a href="javascript:;"><span> Frontend </span></a>
+                                <a href="javascript:void(0);"><span> Frontend </span></a>
                             </li>
                             <li>
-                                <a href="javascript:;"><span> Admin RTL </span></a>
+                                <a href="javascript:void(0);"><span> Admin RTL </span></a>
                             </li>
                             <li>
-                                <a href="javascript:;"><span> Dark Admin </span></a>
+                                <a href="javascript:void(0);"><span> Dark Admin </span></a>
                             </li>
                         </ul>
                     </li>
-
-
                 </ul>
 
                 <!-- Right(Notification) -->
@@ -317,7 +312,6 @@
         </div><!-- end navbar -->
     </div>
     <!-- Top Bar End -->
-
 
     <!-- ========== Left Sidebar Start ========== -->
     <div class="left side-menu">
@@ -535,8 +529,6 @@
     </div>
     <!-- Left Sidebar End -->
 
-
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -554,16 +546,12 @@
 
     </div>
 
-
     <!-- ============================================================== -->
     <!-- End Right content here -->
     <!-- ============================================================== -->
 
-
 </div>
 <!-- END wrapper -->
-
-
 
 <!-- jQuery  -->
 <script src="{{ asset('backend/js/jquery.min.js') }}"></script>

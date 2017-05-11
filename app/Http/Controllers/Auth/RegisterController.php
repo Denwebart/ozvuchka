@@ -69,7 +69,6 @@ class RegisterController extends Controller
         return Validator::make($data, [
 	        'login'       => 'required|unique:users|max:10|regex:/^[0-9A-Za-zА-Яа-яЁёЇїІіЄєЭэ\-\']+$/u',
 	        'email'       => 'required|unique:users|email|max:150',
-	        'alias'       => 'unique:users',
 	        'password'    => 'required|min:6|max:100|confirmed',
 	        'is_agree'    => 'required|integer|in:1',
         ]);
@@ -78,13 +77,14 @@ class RegisterController extends Controller
 	/**
 	 * Create a new user instance after a valid registration.
 	 *
-	 * @param  array  $data
-	 * @return User
+	 * @param array $data
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	protected function create(array $data)
 	{
-		$newUser = \App\Models\User::create([
-			'alias' => Translit::make($data['login']),
+		$newUser = User::create([
 			'login' => $data['login'],
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
@@ -145,7 +145,7 @@ class RegisterController extends Controller
 			// Check token from url.
 			if (md5($user->email) == $token) {
 				// Change status and login user.
-				$user->role = User::ROLE_USER;
+				$user->role = User::ROLE_MODERATOR;
 				$user->save();
 				
 				\Session::flash('flash_message', trans('interface.ActivatedSuccess'));

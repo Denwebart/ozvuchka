@@ -15,7 +15,7 @@ class ChangeUsersTable extends Migration
 	{
 		Schema::table('users', function (Blueprint $table) {
 			$table->renameColumn('name', 'login');
-			$table->tinyInteger('role')->default(3)->after('id');
+			$table->tinyInteger('role')->default(0)->after('id');
 			$table->boolean('is_active')->default(0)->after('email');
 			$table->string('avatar')->nullable()->after('is_active');
 			$table->string('firstname', 100)->nullable()->after('avatar');
