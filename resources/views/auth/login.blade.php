@@ -12,6 +12,7 @@
         <p class="m-b-0">Login to your Admin account</p>
     </div>
     <div class="account-content">
+
         <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
 
             {{ csrf_field() }}
