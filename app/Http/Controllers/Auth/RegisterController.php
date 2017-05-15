@@ -124,7 +124,7 @@ class RegisterController extends Controller
 		
 		// доделать, если не ajax
 		return $this->registered($request, $user)
-			?: redirect($this->redirectPath());
+			?: redirect($this->redirectPath())->with('status', trans('auth.afterRegistration'));
 	}
 	
 	/**
