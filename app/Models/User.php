@@ -49,8 +49,8 @@ class User extends Authenticatable
 	/**
 	 * Path of avatar of user
 	 */
-	protected $imagePath = '/uploads/users/{alias}/';
-	protected $defaultImagePath = '/img/default-avatar.png';
+	protected $imagePath = '/uploads/users/{login}/';
+	protected $defaultImagePath = '/images/default-avatar.png';
 	
 	/**
 	 * Role
@@ -72,7 +72,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
 	    'role',
-	    'alias',
 	    'login',
 	    'email',
 	    'avatar',
