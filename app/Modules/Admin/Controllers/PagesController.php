@@ -4,6 +4,7 @@ namespace Modules\Admin\Controllers;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class PagesController extends Controller
 {
