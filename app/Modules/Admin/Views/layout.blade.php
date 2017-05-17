@@ -21,6 +21,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}">
 
+    @stack('styles')
+
     <!-- C3 charts css -->
     <link href="{{ asset('backend/plugins/c3/c3.min.css') }}" rel="stylesheet" type="text/css"  />
 
@@ -413,9 +415,13 @@
 <!-- Dashboard init -->
 <script src="{{ asset('backend/pages/jquery.dashboard.js') }}"></script>
 
+@stack('scripts')
+
 <!-- App js -->
 <script src="{{ asset('backend/js/jquery.core.js') }}"></script>
 <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
+
+@stack('scriptsBottom')
 
 </body>
 </html>

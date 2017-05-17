@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 /**
  * App\Models\Page
@@ -386,17 +385,20 @@ class Page extends Model
 	/**
 	 * Get page url
 	 *
+	 * @param bool $withoutDomain
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getUrl()
+	public function getUrl($withoutDomain = false)
 	{
 		if($this->parent_id) {
-			return url($this->parent->getUrl() . '/' . $this->alias);
+			$url = $this->parent->getUrl() . '/' . $this->alias;
 		} else {
-			return url($this->alias);
+			$url = $this->alias == '/' ? '' : $this->alias;
 		}
+		
+		return $withoutDomain ? '/' . $url : url($url);
 	}
 
 	/**

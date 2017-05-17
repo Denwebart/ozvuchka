@@ -10,7 +10,7 @@ class PagesController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return View
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
@@ -25,7 +25,7 @@ class PagesController extends Controller
 	 * Show the form for creating a new resource.
 	 *
 	 * @param Request $request
-	 * @return View
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
@@ -83,7 +83,7 @@ class PagesController extends Controller
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param $id
-	 * @return View
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
@@ -194,9 +194,8 @@ class PagesController extends Controller
 	 */
 	protected function getPages()
 	{
-		return Page::select(['id', 'parent_id', 'alias', 'type', 'is_container', 'is_published', 'title', 'menu_title', 'published_at'])
-			->with('parent', 'children', 'products')
-			->orderBy('created_at', 'DESC')
-			->paginate(20);
+		return Page::select(['id', 'parent_id', 'alias', 'type', 'is_container', 'is_published', 'title', 'menu_title', 'meta_title', 'meta_desc', 'meta_key'])
+			->with('parent')
+			->get();
 	}
 }
