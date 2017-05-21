@@ -1974,9 +1974,14 @@ textarea.form-control {
 .input-group-btn .btn-lg {
   padding: 10px 17px;
 }
+.has-success .control-label,
+.has-warning .control-label,
+.has-error .control-label {
+    color: #313a46;
+}
 .has-success .checkbox,
 .has-success .checkbox-inline,
-.has-success .control-label,
+/*.has-success .control-label,*/
 .has-success .help-block,
 .has-success .radio,
 .has-success .radio-inline,
@@ -1989,7 +1994,7 @@ textarea.form-control {
 }
 .has-warning .checkbox,
 .has-warning .checkbox-inline,
-.has-warning .control-label,
+/*.has-warning .control-label,*/
 .has-warning .help-block,
 .has-warning .radio,
 .has-warning .radio-inline,
@@ -2002,7 +2007,7 @@ textarea.form-control {
 }
 .has-error .checkbox,
 .has-error .checkbox-inline,
-.has-error .control-label,
+/*.has-error .control-label,*/
 .has-error .help-block,
 .has-error .radio,
 .has-error .radio-inline,

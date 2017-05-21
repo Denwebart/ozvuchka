@@ -86,11 +86,11 @@
                                 @if($page->meta_title && $page->meta_desc && $page->meta_key)
                                     <span class="label label-success">Заполнены</span>
                                 @elseif(!$page->meta_title && !$page->meta_desc && !$page->meta_key)
-                                    <span class="label label-danger">Не заполнены</span>
+                                    <span class="label @if($page->is_published) label-danger @else label-muted @endif">Не заполнены</span>
                                 @else
-                                    @if(!$page->meta_title) <span class="label label-danger">Нет тега Title</span>@endif
-                                    @if(!$page->meta_desc) <span class="label label-danger">Нет тега Description</span>@endif
-                                    @if(!$page->meta_key) <span class="label label-warning">Нет тега Keywords</span>@endif
+                                    @if(!$page->meta_title) <span class="label @if($page->is_published) label-danger @else label-muted @endif">Нет тега Title</span>@endif
+                                    @if(!$page->meta_desc) <span class="label @if($page->is_published) label-danger @else label-muted @endif">Нет тега Description</span>@endif
+                                    @if(!$page->meta_key) <span class="label @if($page->is_published) label-warning @else label-muted @endif">Нет тега Keywords</span>@endif
                                 @endif
                             </td>
 
@@ -127,6 +127,7 @@
 @endpush
 
 @push('scripts')
+<!-- DataTables -->
 <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables/dataTables.bootstrap.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables/dataTables.responsive.min.js') }}"></script>
@@ -135,6 +136,7 @@
 
 @push('scriptsBottom')
 <script type="text/javascript">
+    /* DataTables */
     $(document).ready(function () {
         $('#datatable').dataTable({
             "language": {

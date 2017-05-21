@@ -101,7 +101,8 @@
                         {{--</label>--}}
                         {{--<div class="col-md-7 col-sm-7">--}}
                             {{--{!! Form::file('logo.' . $key, ['id' => 'logo.' . $key, 'class' => 'dropify-ajax', 'data-height' => '100', 'data-default-file' => ($setting->value) ? $setting->getImageUrl() : '', 'data-max-file-size' => '3M', 'data-setting-id' => $setting->id, 'data-delete-url' => route('admin.settings.deleteImage'), 'data-upload-url' => route('admin.settings.uploadImage')]) !!}--}}
-                            {{--<span class="help-block error">--}}
+                            {{--<span class="error help-block text-danger font-12">
+                        <i class="fa fa-times-circle"></i>--}}
                                     {{--<strong class="text"></strong>--}}
                                 {{--</span>--}}
                         {{--</div>--}}

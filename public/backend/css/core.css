@@ -227,6 +227,9 @@ a:focus {
 .font-light {
   font-weight: 300;
 }
+.font-12 {
+    font-size: 12px !important;
+}
 .font-13 {
   font-size: 13px !important;
 }
