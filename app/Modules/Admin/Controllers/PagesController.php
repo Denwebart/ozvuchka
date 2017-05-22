@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Controllers;
 
+use App\Helpers\Translit;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
