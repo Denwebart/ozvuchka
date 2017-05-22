@@ -21,6 +21,9 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}">
 
+    <!-- Toastr css -->
+    <link href="{{ asset('backend/plugins/jquery-toastr/jquery.toast.min.css') }}" rel="stylesheet" />
+
     @stack('styles')
 
     <!-- C3 charts css -->
@@ -415,11 +418,64 @@
 <!-- Dashboard init -->
 <script src="{{ asset('backend/pages/jquery.dashboard.js') }}"></script>
 
+<!-- Toastr js -->
+<script src="{{ asset('backend/plugins/jquery-toastr/jquery.toast.min.js') }}" type="text/javascript"></script>
+
 @stack('scripts')
 
 <!-- App js -->
 <script src="{{ asset('backend/js/jquery.core.js') }}"></script>
 <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
+
+<!-- Toastr js -->
+<script type="text/javascript">
+    function notification(text, status, params) {
+        var options = {
+            text: text,
+            icon: status,
+            loaderBg: "#1ea69a",
+            position: "top-right",
+            hideAfter: 3e3,
+            stack: 1
+        };
+
+        switch(status) {
+            case 'success':
+                options['loaderBg'] = "#5ba035"; break;
+            case 'error':
+                options['loaderBg'] = "#bf441d"; break;
+            case 'warning':
+                options['loaderBg'] = "#da8609"; break;
+            case 'info':
+                options['loaderBg'] = "#3b98b5"; break;
+        }
+
+        if(params) {
+            $.each(params, function (index, value) {
+                options[index] = value;
+            });
+        }
+
+        return $.toast(options);
+    }
+
+    @if(Session::has('successMessage'))
+        Command: notification('{{ Session::get('successMessage') }}', 'success');
+    @endif
+
+    @if(Session::has('errorMessage'))
+        Command: notification('{{ Session::get('errorMessage') }}', 'error');
+    @endif
+
+    @if(Session::has('warningMessage'))
+        Command: notification('{{ Session::get('warningMessage') }}', 'warning');
+    @endif
+
+    @if(Session::has('infoMessage'))
+        Command: notification('{{ Session::get('infoMessage') }}', 'info');
+    @endif
+
+</script>
 
 @stack('scriptsBottom')
 

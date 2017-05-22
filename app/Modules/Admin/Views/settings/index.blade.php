@@ -223,7 +223,7 @@
     </div>
     <div class="col-lg-6">
         <div class="card-box">
-            @include('admin::menus.menu')
+{{--            @include('admin::menus.menu')--}}
         </div>
     </div><!-- end col -->
 </div>
@@ -231,14 +231,85 @@
 @endsection
 
 @push('styles')
+<!-- Switchery -->
+<link rel="stylesheet" href="{{ asset('backend/plugins/switchery/switchery.min.css') }}">
 <!-- X editable -->
 <link href="{{ asset('backend/plugins/bootstrap-xeditable/css/bootstrap-editable.css') }}" rel="stylesheet" />
 <link href="{{ asset('backend/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('scripts')
+<!-- Switchery -->
+<script src="{{ asset('backend/plugins/switchery/switchery.min.js') }}"></script>
 <!-- Xeditable -->
 <script src="{{ asset('backend/plugins/moment/moment.js') }}" type="text/javascript"></script>
 <script src="{{ asset('backend/plugins/bootstrap-xeditable/js/bootstrap-editable.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('backend/pages/jquery.xeditable.init.js') }}" type="text/javascript"></script>
+@endpush
+
+@push('scriptsBottom')
+<!-- Xeditable -->
+<script type="text/javascript">
+    //modify buttons style
+    $.fn.editableform.buttons =
+        '<button type="submit" class="btn btn-primary editable-submit btn-sm waves-effect waves-light"><i class="zmdi zmdi-check"></i></button>' +
+        '<button type="button" class="btn editable-cancel btn-sm waves-effect"><i class="zmdi zmdi-close"></i></button>';
+
+    $.fn.editableform.defaults.params = function (params) {
+        params._token = $("meta[name='csrf-token']").attr('content');
+        return params;
+    };
+
+    // Edit settings
+    function getSettingsEditableOptions() {
+        return {
+            url: "{{ route('admin.settings.setValue') }}",
+            mode: 'inline',
+            prepend: false,
+            emptytext: 'не задано',
+            ajaxOptions: {
+                dataType: 'json',
+                sourceCache: 'false',
+                type: 'POST'
+            },
+            success: function(response, newValue) {
+                if(response.success) {
+                    notification(response.message, 'success');
+                    return true;
+                } else {
+                    notification(response.message);
+                    return response.error;
+                }
+                return false;
+            }
+        }
+    }
+    $('.editable-text').editable(getSettingsEditableOptions());
+
+    // Change active status or boolean value
+    $('[data-plugin=switchery], .ajax-checkbox').on('change', function () {
+        if($(this).is(':checked')) {
+            var value = 1;
+        } else {
+            var value = 0;
+        }
+        var url = $(this).data('url') ? $(this).data('url') : "{{ route('admin.settings.setIsActive') }}";
+        $.ajax({
+            url: url,
+            dataType: "text json",
+            type: "POST",
+            data: {id: $(this).data('id'), value: value, name: $(this).attr('name')},
+            beforeSend: function(request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function(response) {
+                if(response.success){
+                    notification(response.message, 'success');
+                } else {
+                    notification(response.message, 'error');
+                }
+            }
+        });
+    });
+</script>
 @endpush
