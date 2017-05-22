@@ -115,6 +115,17 @@ class User extends Authenticatable
 		return $this->hasMany(Page::class);
 	}
 	
+	/**Comments of User
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function comments()
+	{
+		return $this->hasMany(Page::class);
+	}
+	
 	/**
 	 * Принятые звонки
 	 *
@@ -182,6 +193,4 @@ class User extends Authenticatable
 		$separator = ($this->firstname && $this->lastname) ? ' ' : '';
 		return $this->firstname . $separator . $this->lastname;
 	}
-	
-	
 }
