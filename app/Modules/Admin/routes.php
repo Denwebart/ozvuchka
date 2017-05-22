@@ -15,5 +15,17 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::resource('users', 'UsersController');
 	
 	Route::get('settings', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
+	Route::post('settings/upload_image/', ['as' => 'settings.uploadImage', 'uses' => 'SettingsController@uploadImage']);
+	Route::post('settings/delete_image/', ['as' => 'settings.deleteImage', 'uses' => 'SettingsController@deleteImage']);
+	Route::post('settings/set_is_active/', ['as' => 'settings.setIsActive', 'uses' => 'SettingsController@setIsActive']);
+	Route::post('settings/set_value/', ['as' => 'settings.setValue', 'uses' => 'SettingsController@setValue']);
+	Route::get('settings/widgets', ['as' => 'settings.widgets', 'uses' => 'SettingsController@widgets']);
+	Route::get('settings/checkout', ['as' => 'settings.checkout', 'uses' => 'SettingsController@checkout']);
+	Route::get('settings/properties', ['as' => 'settings.properties', 'uses' => 'SettingsController@properties']);
 	
+	Route::post('menus/rename', ['as' => 'menus.rename', 'uses' => 'MenusController@rename']);
+	Route::post('menus/delete', ['as' => 'menus.delete', 'uses' => 'MenusController@delete']);
+	Route::post('menus/position', ['as' => 'menus.position', 'uses' => 'MenusController@changePosition']);
+	Route::post('menus/add', ['as' => 'menus.add', 'uses' => 'MenusController@add']);
+	Route::get('menus/autocomplete', ['as' => 'menus.autocomplete', 'uses' => 'MenusController@pagesAutocomplete']);
 });

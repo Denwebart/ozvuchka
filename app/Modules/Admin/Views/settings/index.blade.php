@@ -27,15 +27,51 @@
 </div>
 <!-- end row -->
 
-{{--<div class="row">--}}
-    {{--<div class="col-lg-6">--}}
-        {{--<div class="card-box">--}}
+<div class="row">
+    <div class="col-lg-6">
 
-            {{--<h4 class="header-title m-t-0 m-b-10"><b>Общая информация</b></h4>--}}
+        <div class="card-box">
+            <h4 class="header-title m-t-0 m-b-20">Социальные сети</h4>
+            <p class="text-muted font-13 m-b-15">
+                Ссылки на группу или страницу в социальных сетях.
+            </p>
 
-            {{--<p class="text-muted font-13 m-b-15"></p>--}}
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    @foreach($settings[\App\Models\Setting::CATEGORY_SITE]['socialLinks'] as $key => $setting)
+                        <tr>
+                            <td width="25%">
+                                <div title="{{ $setting->description }}" data-toggle="tooltip">
+                                    <i class="fa fa-{{ $key }}"></i>
+                                    {{ $setting->title }}
+                                </div>
+                            </td>
+                            <td width="60%">
+                                <a href="#" class="editable-text" data-type="text" data-value="{{ $setting->value }}" data-pk="{{ $setting->id }}" data-title="Введите ссылку">
+                                    {{ $setting->value }}
+                                </a>
+                            </td>
+                            <td width="15%">
+                                <div class="switchery-demo">
+                                    {!! Form::hidden('is_active', 0) !!}
+                                    {!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-            {{--<div class="form-horizontal form-editable">--}}
+
+
+        <div class="card-box">
+
+            <h4 class="header-title m-t-0 m-b-10"><b>Общая информация</b></h4>
+
+            <p class="text-muted font-13 m-b-15"></p>
+
+            <div class="form-horizontal form-editable">
                 {{--<div class="form-group">--}}
                     {{--<label class="col-md-3 col-sm-3 control-label">--}}
                         {{--{{ $settings[\App\Models\Setting::CATEGORY_SITE]['siteTitle']->title }}--}}
@@ -54,41 +90,23 @@
                     {{--</div>--}}
                 {{--</div>--}}
 
-                {{--<div class="form-group">--}}
-                    {{--<label class="col-md-3 col-sm-3 control-label">--}}
-                        {{--{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->title }}--}}
-                        {{--@if($settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->description)--}}
-                            {{--<small>{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->description }}</small>--}}
-                        {{--@endif--}}
-                    {{--</label>--}}
-                    {{--<div class="col-md-7 col-sm-7">--}}
-                        {{--<a href="#" class="editable-text" data-value="{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->value }}" data-type="textarea" data-pk="{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->id }}">{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->value }}</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-md-2 col-sm-2">--}}
-                        {{--<div class="switchery-demo">--}}
-                            {{--{!! Form::hidden('is_active', 0) !!}--}}
-                            {{--{!! Form::checkbox('is_active', 1, $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->id]) !!}--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class="form-group">--}}
-                    {{--<label class="col-md-3 col-sm-3 control-label">--}}
-                        {{--{{ $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->title }}--}}
-                        {{--@if($settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->description)--}}
-                            {{--<small>{{ $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->description }}</small>--}}
-                        {{--@endif--}}
-                    {{--</label>--}}
-                    {{--<div class="col-md-7 col-sm-7">--}}
-                        {{--<a href="#" class="editable-text" data-value="{{ $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->value }}" data-type="textarea" data-pk="{{ $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->id }}">{{ $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->value }}</a>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-md-2 col-sm-2">--}}
-                        {{--<div class="switchery-demo">--}}
-                            {{--{!! Form::hidden('is_active', 0) !!}--}}
-                            {{--{!! Form::checkbox('is_active', 1, $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $settings[\App\Models\Setting::CATEGORY_SITE]['footerText']->id]) !!}--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-3 control-label">
+                        {{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->title }}
+                        @if($settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->description)
+                            <small>{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->description }}</small>
+                        @endif
+                    </label>
+                    <div class="col-md-7 col-sm-7">
+                        <a href="#" class="editable-text" data-value="{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->value }}" data-type="textarea" data-pk="{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->id }}">{{ $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->value }}</a>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <div class="switchery-demo">
+                            {!! Form::hidden('is_active', 0) !!}
+                            {!! Form::checkbox('is_active', 1, $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $settings[\App\Models\Setting::CATEGORY_SITE]['copyright']->id]) !!}
+                        </div>
+                    </div>
+                </div>
 
                 {{--{!! Form::open(['files' => true]) !!}--}}
                 {{--@foreach($settings[\App\Models\Setting::CATEGORY_SITE]['logo'] as $key => $setting)--}}
@@ -114,80 +132,18 @@
                     {{--</div>--}}
                 {{--@endforeach--}}
                 {{--{!! Form::close() !!}--}}
+            </div>
+        </div>
 
-            {{--<!-- Мета-данные -->--}}
-                {{--<h4 class="header-title m-t-0 m-b-10"><b>Мета-теги</b></h4>--}}
-                {{--<p class="text-muted font-13 m-b-15">--}}
-                    {{--Предназначены исключительно для поисковых систем.--}}
-                    {{--Не отображаются на страницах сайта. <br>--}}
-                {{--</p>--}}
-                {{--<div class="form-horizontal form-editable">--}}
-                    {{--@foreach($settings[\App\Models\Setting::CATEGORY_SITE]['meta'] as $key => $setting)--}}
-                        {{--@if(in_array($key, ['robots','author','copyright']))--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label class="col-md-3 col-sm-3 control-label" title="{{ $setting->description }}" data-toggle="tooltip">--}}
-                                    {{--{{ $setting->title }}--}}
-                                {{--</label>--}}
-                                {{--<div class="col-md-7 col-sm-7">--}}
-                                    {{--<a href="#" class="editable-text" data-value="{{ $setting->value }}" @if($key == 'robots') data-type="text" @else data-type="textarea" @endif data-pk="{{ $setting->id }}">{{ $setting->value }}</a>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-2 col-sm-2">--}}
-                                    {{--<div class="switchery-demo">--}}
-                                        {{--{!! Form::hidden('is_active', 0) !!}--}}
-                                        {{--{!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--@endif--}}
-                    {{--@endforeach--}}
-                {{--</div>--}}
-                {{--<p class="text-muted font-13 m-b-15">--}}
-                {{--Мета-теги title, description, keywords будут использованы в том случае,--}}
-                {{--если мета-данные страницы не будут заполнены.<br>--}}
-                {{--</p>--}}
-            {{--</div>--}}
-        {{--</div>--}}
+        <div class="card-box">
 
-        {{--<div class="card-box">--}}
+            <h4 class="header-title m-t-0 m-b-10"><b>Контактная информация</b></h4>
 
-            {{--<h4 class="header-title m-t-0 m-b-10"><b>Социальные сети</b></h4>--}}
+            <p class="text-muted font-13 m-b-15">
+                Контактная информация, которая будет отображена на сайте.
+            </p>
 
-            {{--<p class="text-muted font-13 m-b-15">--}}
-                {{--Ссылки на группу или страницу в социальных сетях.--}}
-            {{--</p>--}}
-
-            {{--<div class="form-horizontal form-editable">--}}
-                {{--@foreach($settings[\App\Models\Setting::CATEGORY_SITE]['socialButtons'] as $key => $setting)--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label class="col-md-3 col-sm-3 control-label" title="{{ $setting->description }}" data-toggle="tooltip">--}}
-                            {{--<i class="fa fa-{{ $key }}"></i>--}}
-                            {{--{{ $setting->title }}--}}
-                        {{--</label>--}}
-                        {{--<div class="col-md-7 col-sm-7">--}}
-                            {{--<a href="#" class="editable-text" data-value="{{ $setting->value }}" data-type="text" data-pk="{{ $setting->id }}">--}}
-                                {{--{{ $setting->value }}--}}
-                            {{--</a>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-md-2 col-sm-2">--}}
-                            {{--<div class="switchery-demo">--}}
-                                {{--{!! Form::hidden('is_active', 0) !!}--}}
-                                {{--{!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--@endforeach--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<div class="card-box">--}}
-
-            {{--<h4 class="header-title m-t-0 m-b-10"><b>Контактная информация</b></h4>--}}
-
-            {{--<p class="text-muted font-13 m-b-15">--}}
-                {{--Контактная информация, которая будет отображена на сайте.--}}
-            {{--</p>--}}
-
-            {{--<div class="form-horizontal form-editable">--}}
+            <div class="form-horizontal form-editable">
                 {{--@foreach($settings[\App\Models\Setting::CATEGORY_SITE]['contactInfo'] as $key => $setting)--}}
                     {{--<div class="form-group">--}}
                         {{--<label class="col-md-3 col-sm-3 control-label">--}}
@@ -208,15 +164,15 @@
                         {{--</div>--}}
                     {{--</div>--}}
                 {{--@endforeach--}}
-            {{--</div>--}}
+            </div>
 
-            {{--<h5 class="header-title m-t-20 m-b-10"><b>Координаты на карте</b></h5>--}}
-            {{--<p class="text-muted font-13 m-b-15">--}}
-                {{--Карта будет отображена на странице с контактами только в том случае,--}}
-                {{--если заполнены и включены обе настройки.--}}
-            {{--</p>--}}
+            <h5 class="header-title m-t-20 m-b-10"><b>Координаты на карте</b></h5>
+            <p class="text-muted font-13 m-b-15">
+                Карта будет отображена на странице с контактами только в том случае,
+                если заполнены и включены обе настройки.
+            </p>
 
-            {{--<div class="form-horizontal form-editable">--}}
+            <div class="form-horizontal form-editable">
                 {{--@foreach($settings[\App\Models\Setting::CATEGORY_CONTACT_PAGE]['map'] as $key => $setting)--}}
                     {{--<div class="form-group">--}}
                         {{--<label class="col-md-3 col-sm-3 control-label">--}}
@@ -233,18 +189,18 @@
                         {{--</div>--}}
                     {{--</div>--}}
                 {{--@endforeach--}}
-            {{--</div>--}}
-        {{--</div>--}}
+            </div>
+        </div>
 
-        {{--<div class="card-box">--}}
+        <div class="card-box">
 
-            {{--<h4 class="header-title m-t-0 m-b-10"><b>Системные настроки</b></h4>--}}
+            <h4 class="header-title m-t-0 m-b-10"><b>Системные настроки</b></h4>
 
-            {{--<p class="text-muted font-13 m-b-15">--}}
+            <p class="text-muted font-13 m-b-15">
 
-            {{--</p>--}}
+            </p>
 
-            {{--<div class="form-horizontal form-editable">--}}
+            <div class="form-horizontal form-editable">
                 {{--@foreach($settings[\App\Models\Setting::CATEGORY_SYSTEM]['premoderation'] as $key => $setting)--}}
                     {{--<div class="form-group">--}}
                         {{--<label class="col-md-10 col-sm-10 control-label">--}}
@@ -261,14 +217,27 @@
                         {{--</div>--}}
                     {{--</div>--}}
                 {{--@endforeach--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-lg-6">--}}
-        {{--<div class="card-box">--}}
-            {{--@include('admin::menus.menu')--}}
-        {{--</div>--}}
-    {{--</div><!-- end col -->--}}
-{{--</div>--}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card-box">
+            @include('admin::menus.menu')
+        </div>
+    </div><!-- end col -->
+</div>
 
 @endsection
+
+@push('styles')
+<!-- X editable -->
+<link href="{{ asset('backend/plugins/bootstrap-xeditable/css/bootstrap-editable.css') }}" rel="stylesheet" />
+<link href="{{ asset('backend/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('scripts')
+<!-- Xeditable -->
+<script src="{{ asset('backend/plugins/moment/moment.js') }}" type="text/javascript"></script>
+<script src="{{ asset('backend/plugins/bootstrap-xeditable/js/bootstrap-editable.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('backend/pages/jquery.xeditable.init.js') }}" type="text/javascript"></script>
+@endpush
