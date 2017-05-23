@@ -5,9 +5,9 @@
  */
 ?>
 
-<h4 class="header-title m-t-0 m-b-10"><b>Меню сайта</b></h4>
+<h4 class="header-title m-t-0 m-b-20">Меню сайта</h4>
 <p class="text-muted font-13 m-b-15">
-    {{--Правый клик мыши на пункте меню для редактирования или удаления. <br>--}}
+    Правый клик мыши на пункте меню для редактирования или удаления. <br>
     Зажать и перетащить пункт меню для смены порядка.
 </p>
 
@@ -42,78 +42,80 @@
 </div>
 
 @push('styles')
-    <link href="{{ asset('backend/plugins/bootstrap-sweetalert/sweet-alert.css') }}" rel="stylesheet" type="text/css" />
+<!-- Sweet Alert -->
+<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('backend/plugins/bootstrap-sweetalert/sweet-alert.min.js') }}"></script>
-    <script type="text/javascript">
+<!-- Sweet-Alert  -->
+<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+<script type="text/javascript">
 
-        /* Change position */
-        var sortableOptions = {
-            cursor: 'move',
-            axis: 'y',
-            update: function (event, ui) {
-                var positions = $(this).sortable('toArray');
-                var menuType = $(ui.item).data('menu-type');
-                $.ajax({
-                    data: {positions: positions, menuType: menuType},
-                    type: 'POST',
-                    url: '{{ route('admin.menus.position') }}',
-                    beforeSend: function(request) {
-                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                    },
-                    success: function(response) {
-                        if(response.success) {
-                            Command: toastr["success"](response.message);
-                        } else {
-                            Command: toastr["error"](response.message);
-                        }
-                    },
-                });
+    /* Change position */
+    var sortableOptions = {
+        cursor: 'move',
+        axis: 'y',
+        update: function (event, ui) {
+            var positions = $(this).sortable('toArray');
+            var menuType = $(ui.item).data('menu-type');
+            $.ajax({
+                data: {positions: positions, menuType: menuType},
+                type: 'POST',
+                url: '{{ route('admin.menus.position') }}',
+                beforeSend: function(request) {
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function(response) {
+                    if(response.success) {
+                        notification(response.message, 'success');
+                    } else {
+                        notification(response.message, 'error');
+                    }
+                },
+            });
+        }
+    };
+    $(".sortable, .sortable-sublist").sortable(sortableOptions);
+
+    /* Remame item */
+    function getMenuEditableOptions() {
+        return {
+            url: "{{ route('admin.menus.rename') }}",
+            mode: 'inline',
+            prepend: false,
+            clear: false,
+            emptytext: 'не задано',
+            ajaxOptions: {
+                dataType: 'json',
+                sourceCache: 'false',
+                type: 'POST'
+            },
+            success: function(response, newValue) {
+                if(response.success) {
+                    notification(response.message, 'success');
+                    $('.editable-menu-item[data-page-id='+ response.pageId +']')
+                        .text(newValue);
+                    return true;
+                } else {
+                    notification(response.message, 'error');
+                    return response.error;
+                }
+                return false;
             }
         };
-        $(".sortable, .sortable-sublist").sortable(sortableOptions);
+    }
+    $('.editable-menu-item').editable(getMenuEditableOptions());
 
-        /* Remame item */
-        function getMenuEditableOptions() {
-            return {
-                url: "{{ route('admin.menus.rename') }}",
-                mode: 'inline',
-                prepend: false,
-                clear: false,
-                emptytext: 'не задано',
-                ajaxOptions: {
-                    dataType: 'json',
-                    sourceCache: 'false',
-                    type: 'POST'
-                },
-                success: function(response, newValue) {
-                    if(response.success) {
-                        Command: toastr["success"](response.message);
-                        $('.editable-menu-item[data-page-id='+ response.pageId +']')
-                                .text(newValue);
-                        return true;
-                    } else {
-                        Command: toastr["error"](response.message);
-                        return response.error;
-                    }
-                    return false;
-                }
-            };
-        }
-        $('.editable-menu-item').editable(getMenuEditableOptions());
+    /* Delete item */
+    $('#menus').on('click', '.delete-item', function(e) {
+        e.preventDefault();
+        var menuType = $(this).data('menu-type'),
+            menuTitle = $(this).data('menu-title'),
+            itemId = $(this).data('item-id'),
+            pageId = $(this).data('page-id'),
+            itemTitle = $(this).data('itemTitle');
 
-        /* Delete item */
-        $('#menus').on('click', '.delete-item', function(e) {
-            e.preventDefault();
-            var menuType = $(this).data('menu-type'),
-                menuTitle = $(this).data('menu-title'),
-                itemId = $(this).data('item-id'),
-                pageId = $(this).data('page-id'),
-                itemTitle = $(this).data('itemTitle');
-
-            sweetAlert(
+        sweetAlert(
             {
                 title: "Удалить пункт меню?",
                 text: 'Вы точно хотите удалить пункт меню "'+ itemTitle +'" из меню "'+ menuTitle +'"?',
@@ -133,74 +135,76 @@
                     },
                     success: function(response) {
                         if(response.success) {
-                            Command: toastr["success"](response.message);
+                            notification(response.message, 'success');
                             $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
                             $(".sortable, .sortable-sublist").sortable(sortableOptions);
                             $('.editable-menu-item').editable(getMenuEditableOptions());
                         } else {
-                            Command: toastr["error"](response.message);
+                            notification(response.message, 'error');
                         }
                     },
                 });
             });
-        });
+    });
 
-        /* Add new menu item */
-        $('#menus').on('click', '.open-menu-item-form', function (e) {
-            e.preventDefault();
-            var menuType = $(this).data('menuType'),
-                    $form = $('.new-menu-item-form[data-menu-type='+ menuType +']');
-            if($form.is(':visible')) {
-                $form.hide();
-            } else {
-                $('.new-menu-item-form').hide();
-                $form.show();
+    /* Add new menu item: open form for added new item */
+    $('#menus').on('click', '.open-menu-item-form', function (e) {
+        e.preventDefault();
+        var menuType = $(this).data('menuType'),
+            $form = $('.new-menu-item-form[data-menu-type='+ menuType +']');
+        if($form.is(':visible')) {
+            $form.hide();
+        } else {
+            $('.new-menu-item-form').hide();
+            $form.show();
+        }
+    });
+
+    /* Add new menu item: autocomplete for search page for added new item */
+    $('[id^="new-item-in-menu-"]').autocomplete({
+        source: "<?php echo URL::route('admin.menus.autocomplete') ?>",
+        minLength: 2,
+        select: function(e, ui) {
+            $(this).val(ui.item.value);
+            $(this).attr('data-page-id', ui.item.id);
+        }
+    });
+
+    /* Add new menu item: add new item */
+    $('#menus').on('click', '.add-menu-item', function (e) {
+        e.preventDefault();
+
+        var menuType = $(this).data('menuType'),
+            input = $('[name^="new-item-in-menu-'+ menuType +'"]'),
+            pageId = input.data('pageId'),
+            pageTitle = input.val();
+
+        $.ajax({
+            data: {pageId: pageId, pageTitle: pageTitle, menuType: menuType},
+            type: 'POST',
+            url: '{{ route('admin.menus.add') }}',
+            beforeSend: function(request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function(response) {
+                if(response.success) {
+                    notification(response.message, 'success');
+
+                    input.removeAttr('data-page-id');
+                    input.val('');
+
+                    $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
+                    $(".sortable, .sortable-sublist").sortable(sortableOptions);
+                    $('.editable-menu-item').editable(getMenuEditableOptions());
+                } else {
+                    notification(response.message, 'error');
+
+                    input.removeAttr('data-page-id');
+                    input.val('');
+                }
             }
         });
+    });
 
-        $('[id^="new-item-in-menu-"]').autocomplete({
-            source: "<?php echo URL::route('admin.menus.autocomplete') ?>",
-            minLength: 2,
-            select: function(e, ui) {
-                $(this).val(ui.item.value);
-                $(this).attr('data-page-id', ui.item.id);
-            }
-        });
-
-        $('#menus').on('click', '.add-menu-item', function (e) {
-            e.preventDefault();
-
-            var menuType = $(this).data('menuType'),
-                input = $('[name^="new-item-in-menu-'+ menuType +'"]'),
-                pageId = input.data('pageId'),
-                pageTitle = input.val();
-
-            $.ajax({
-                data: {pageId: pageId, pageTitle: pageTitle, menuType: menuType},
-                type: 'POST',
-                url: '{{ route('admin.menus.add') }}',
-                beforeSend: function(request) {
-                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                },
-                success: function(response) {
-                    if(response.success) {
-                        Command: toastr["success"](response.message);
-
-                        input.removeAttr('data-page-id');
-                        input.val('');
-
-                        $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
-                        $(".sortable, .sortable-sublist").sortable(sortableOptions);
-                        $('.editable-menu-item').editable(getMenuEditableOptions());
-                    } else {
-                        Command: toastr["error"](response.message);
-
-                        input.removeAttr('data-page-id');
-                        input.val('');
-                    }
-                },
-            });
-        });
-
-    </script>
+</script>
 @endpush

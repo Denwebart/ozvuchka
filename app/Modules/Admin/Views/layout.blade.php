@@ -427,7 +427,7 @@
 <script src="{{ asset('backend/js/jquery.core.js') }}"></script>
 <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
 
-<!-- Toastr js -->
+<!-- Toastr js - Notifications -->
 <script type="text/javascript">
     function notification(text, status, params) {
         var options = {
