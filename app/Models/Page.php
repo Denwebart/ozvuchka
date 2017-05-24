@@ -182,22 +182,6 @@ class Page extends Model
 			if(trim(strip_tags($page->content)) == '') {
 				$page->content = '';
 			}
-			
-			\Cache::forget('leadersOfSells');
-			\Cache::forget('widgets.carousel.sale');
-			
-			\Cache::forget('page.' . $page->id . '.children');
-			\Cache::forget('page.' . $page->parent_id . '.children');
-			
-			\Cache::forget('widgets.articles.from-' . $page->id);
-			\Cache::forget('widgets.articles.from-' . $page->parent_id);
-			
-			\Cache::forget('sitemapItems');
-			\Cache::forget('sitemapItems.children-' . $page->id);
-			\Cache::forget('sitemapItems.children-' . $page->parent_id);
-			
-			\Cache::forget('catalog.' . $page->id . '.subcategories');
-			\Cache::forget('catalog.' . $page->parent_id . '.subcategories');
 		});
 		
 		static::deleting(function($page) {
@@ -207,24 +191,7 @@ class Page extends Model
 			}
 			
 			$page->children()->delete();
-			$page->products()->delete();
 			$page->deleteImagesFolder();
-			
-			\Cache::forget('leadersOfSells');
-			\Cache::forget('widgets.carousel.sale');
-			
-			\Cache::forget('page.' . $page->id . '.children');
-			\Cache::forget('page.' . $page->parent_id . '.children');
-			
-			\Cache::forget('widgets.articles.from-' . $page->id);
-			\Cache::forget('widgets.articles.from-' . $page->parent_id);
-			
-			\Cache::forget('sitemapItems');
-			\Cache::forget('sitemapItems.children-' . $page->id);
-			\Cache::forget('sitemapItems.children-' . $page->parent_id);
-			
-			\Cache::forget('catalog.' . $page->id . '.subcategories');
-			\Cache::forget('catalog.' . $page->parent_id . '.subcategories');
 		});
 	}
 
@@ -301,7 +268,7 @@ class Page extends Model
 	 */
 	public function canBeDeleted()
 	{
-		return ($this->type != self::TYPE_SYSTEM_PAGE || !$this->type) ? true : false;
+		return ($this->type != self::TYPE_SYSTEM_PAGE) ? true : false;
 	}
 
 	/**
@@ -393,12 +360,12 @@ class Page extends Model
 	public function getUrl($withoutDomain = false)
 	{
 		if($this->parent_id) {
-			$url = $this->parent->getUrl() . '/' . $this->alias;
+			$url = $this->parent->getUrl($withoutDomain) . '/' . $this->alias;
 		} else {
-			$url = $this->alias == '/' ? '' : $this->alias;
+			$url = $this->alias == '/' ? '/' : '/' . $this->alias;
 		}
 		
-		return $withoutDomain ? '/' . $url : url($url);
+		return $withoutDomain ? $url : url($url);
 	}
 
 	/**

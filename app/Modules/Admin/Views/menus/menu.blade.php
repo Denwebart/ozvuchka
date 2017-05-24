@@ -149,6 +149,7 @@
                 success: function(response) {
                     if(response.success) {
                         notification(response.message, 'success');
+
                         $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
                         $(".sortable, .sortable-sublist").sortable(sortableOptions);
                         $('.editable-menu-item').editable(getMenuEditableOptions());
@@ -157,7 +158,7 @@
                     }
                 },
             });
-        });
+        }, function(dismiss) {});
     });
 
     /* Add new menu item: open form for added new item */

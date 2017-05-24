@@ -36,82 +36,8 @@
     </div>
 
     <div class="col-md-12">
-        <div class="card-box">
-
-            <table class="table table-hover m-0 tickets-list table-actions-bar dt-responsive nowrap" cellspacing="0" width="100%" id="datatable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Тип</th>
-                        <th>Заголовок</th>
-                        <th>URL</th>
-                        <th>Статус публикации</th>
-                        <th>Мета-теги</th>
-                        <th class="hidden-sm">Действия</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach($pages as $page)
-                        <tr>
-                            <td>
-                                <b>#{{ $page->id }}</b>
-                            </td>
-
-                            <td>
-                                @if($page->is_container)
-                                    <i class="fi-folder"></i>
-                                @else
-                                    <i class="fi-paper"></i>
-                                @endif
-                            </td>
-
-                            <td>
-                                {{ $page->getTitle() }}
-                            </td>
-
-                            <td>
-                                {{ $page->getUrl(true) }}
-                            </td>
-
-                            <td>
-                                @if($page->is_published)
-                                    <span class="label label-success">Опубликована</span>
-                                @else
-                                    <span class="label label-muted">Не опубликована</span>
-                                @endif
-                            </td>
-
-                            <td>
-                                @if($page->meta_title && $page->meta_desc && $page->meta_key)
-                                    <span class="label label-success">Заполнены</span>
-                                @elseif(!$page->meta_title && !$page->meta_desc && !$page->meta_key)
-                                    <span class="label @if($page->is_published) label-danger @else label-muted @endif">Не заполнены</span>
-                                @else
-                                    @if(!$page->meta_title) <span class="label @if($page->is_published) label-danger @else label-muted @endif">Нет тега Title</span>@endif
-                                    @if(!$page->meta_desc) <span class="label @if($page->is_published) label-danger @else label-muted @endif">Нет тега Description</span>@endif
-                                    @if(!$page->meta_key) <span class="label @if($page->is_published) label-warning @else label-muted @endif">Нет тега Keywords</span>@endif
-                                @endif
-                            </td>
-
-                            <td>
-                                <div class="btn-group dropdown">
-                                    <a href="javascript: void(0);" class="table-action-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a href="{{ route('admin.pages.edit', ['id' => $page->id]) }}"><i class="mdi mdi-pencil m-r-10 text-muted font-18 vertical-middle"></i>Редактировать</a></li>
-                                        @if($page->is_published)
-                                            <li><a href="#"><i class="mdi mdi-eye-off m-r-10 text-muted font-18 vertical-middle"></i>Снять с публикации</a></li>
-                                        @else
-                                            <li><a href="#"><i class="mdi mdi-eye m-r-10 text-muted font-18 vertical-middle"></i>Опубликовать</a></li>
-                                        @endif
-                                        <li><a href="#"><i class="mdi mdi-delete m-r-10 text-muted font-18 vertical-middle"></i>Удалить</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="card-box" id="table-container">
+            @include('admin::pages._table')
         </div>
     </div><!-- end col -->
 </div>
@@ -124,6 +50,8 @@
 <link href="{{ asset('backend/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('backend/plugins/datatables/buttons.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('backend/plugins/datatables/responsive.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<!-- Sweet Alert -->
+<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
 @push('scripts')
@@ -132,17 +60,67 @@
 <script src="{{ asset('backend/plugins/datatables/dataTables.bootstrap.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/datatables/responsive.bootstrap.min.js') }}"></script>
+<!-- Sweet-Alert  -->
+<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
 @endpush
 
 @push('scriptsBottom')
 <script type="text/javascript">
-    /* DataTables */
     $(document).ready(function () {
-        $('#datatable').dataTable({
+        /* DataTables */
+        var dataTableOptions = {
             "language": {
                 "url": "/backend/plugins/datatables/dataTables.russian.json"
             },
             "stateSave": true
+        };
+        $('#datatable').dataTable(dataTableOptions);
+
+        /* Deleting pages */
+        $('#table-container').on('click', '.button-delete', function (e) {
+            var itemId = $(this).data('itemId'),
+                itemTitle = $(this).data('itemTitle'),
+                countChildren = $(this).data('countChildren'),
+                countMenus = $(this).data('countMenus');
+
+            var text = '';
+            if(countMenus) {
+                text = text + '\n Страница будет удалена из меню.';
+            }
+            if(countChildren) {
+                text = text + '\n Все вложенные страницы (' + countChildren + ' шт.) будут удалены.';
+            }
+
+            swal({
+                title: "Удалить страницу?",
+                text: 'Вы точно хотите удалить страницу "'+ itemTitle +'"?' + text,
+                type: "error",
+                showCancelButton: true,
+                cancelButtonText: 'Отмена',
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'Удалить'
+            }).then(function() {
+                $.ajax({
+                    url: "/admin/pages/" + itemId,
+                    dataType: "text json",
+                    type: "DELETE",
+                    data: {},
+                    beforeSend: function (request) {
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            notification(response.message, 'success');
+
+                            $('#table-container').html(response.resultHtml);
+
+                            $('#datatable').dataTable(dataTableOptions);
+                        } else {
+                            notification(response.message, 'warning');
+                        }
+                    }
+                });
+            }, function(dismiss) {});
         });
     });
 </script>

@@ -163,6 +163,42 @@ class PagesController extends Controller
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)	 */
 	public function destroy($id)
 	{
+		$page = Page::find($id);
+		if($page->canBeDeleted()) {
+			$page->delete();
+			
+			$pages = $this->getPages();
+			
+			if(\Request::ajax()) {
+				return \Response::json([
+					'success' => true,
+					'message' => 'Страница успешно удалена.',
+					'resultHtml' => view('admin::pages._table', compact('pages'))->render(),
+				]);
+			} else {
+				return back()->with('successMessage', 'Страница успешно удалена.');
+			}
+		} else {
+			if(\Request::ajax()) {
+				return \Response::json([
+					'success' => false,
+					'message' => 'Эта страница не может быть удалена.'
+				]);
+			} else {
+				return back()->with('warningMessage', 'Эта страница не может быть удалена.');
+			}
+		}
+	}
+	
+	/**
+	 * Change published status.
+	 *
+	 * @param $id
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)	 */
+	public function changePublishedStatus($id)
+	{
 		if(\Request::ajax()) {
 			
 			$page = Page::find($id);
@@ -174,9 +210,7 @@ class PagesController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => 'Страница успешно удалена.',
-					'itemsCount' => view('parts.count')->with('models', $pages)->render(),
-					'itemsPagination' => view('parts.pagination')->with('models', $pages)->render(),
-					'itemsTable' => view('admin::pages.table')->with('pages', $pages)->render(),
+					'resultHtml' => view('admin::pages._table', compact('pages'))->render(),
 				]);
 			} else {
 				return \Response::json([
@@ -197,7 +231,7 @@ class PagesController extends Controller
 	protected function getPages()
 	{
 		return Page::select(['id', 'parent_id', 'alias', 'type', 'is_container', 'is_published', 'title', 'menu_title', 'meta_title', 'meta_desc', 'meta_key'])
-			->with('parent')
+			->with('parent', 'children')
 			->get();
 	}
 }
