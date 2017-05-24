@@ -60,6 +60,8 @@
 <script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
 <!-- For Sortable -->
 <script src="{{ asset('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Autocomplete -->
+<script type="text/javascript" src="{{ asset('backend/plugins/autocomplete/jquery.autocomplete.min.js') }}"></script>
 @endpush
 
 @push('scriptsBottom')
@@ -128,36 +130,34 @@
             pageId = $(this).data('page-id'),
             itemTitle = $(this).data('itemTitle');
 
-        sweetAlert(
-            {
-                title: "Удалить пункт меню?",
-                text: 'Вы точно хотите удалить пункт меню "'+ itemTitle +'" из меню "'+ menuTitle +'"?',
-                type: "error",
-                showCancelButton: true,
-                cancelButtonText: 'Отмена',
-                confirmButtonClass: 'btn-danger waves-effect waves-light',
-                confirmButtonText: 'Удалить'
-            },
-            function(){
-                $.ajax({
-                    data: {menuType: menuType, itemId: itemId},
-                    type: 'POST',
-                    url: '{{ route('admin.menus.delete') }}',
-                    beforeSend: function(request) {
-                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                    },
-                    success: function(response) {
-                        if(response.success) {
-                            notification(response.message, 'success');
-                            $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
-                            $(".sortable, .sortable-sublist").sortable(sortableOptions);
-                            $('.editable-menu-item').editable(getMenuEditableOptions());
-                        } else {
-                            notification(response.message, 'error');
-                        }
-                    },
-                });
+        swal({
+            title: "Удалить пункт меню?",
+            text: 'Вы точно хотите удалить пункт меню "'+ itemTitle +'" из меню "'+ menuTitle +'"?',
+            type: "error",
+            showCancelButton: true,
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn-danger',
+            confirmButtonText: 'Удалить'
+        }).then(function() {
+            $.ajax({
+                data: {menuType: menuType, itemId: itemId},
+                type: 'POST',
+                url: '{{ route('admin.menus.delete') }}',
+                beforeSend: function(request) {
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function(response) {
+                    if(response.success) {
+                        notification(response.message, 'success');
+                        $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
+                        $(".sortable, .sortable-sublist").sortable(sortableOptions);
+                        $('.editable-menu-item').editable(getMenuEditableOptions());
+                    } else {
+                        notification(response.message, 'error');
+                    }
+                },
             });
+        });
     });
 
     /* Add new menu item: open form for added new item */
@@ -166,20 +166,22 @@
         var menuType = $(this).data('menuType'),
             $form = $('.new-menu-item-form[data-menu-type='+ menuType +']');
         if($form.is(':visible')) {
-            $form.hide();
+            $form.hide()
+                .find('input').removeAttr('data-page-id').val('');
         } else {
-            $('.new-menu-item-form').hide();
+            $('.new-menu-item-form').hide()
+                .find('input').removeAttr('data-page-id').val('');
             $form.show();
         }
     });
 
     /* Add new menu item: autocomplete for search page for added new item */
     $('[id^="new-item-in-menu-"]').autocomplete({
-        source: "<?php echo URL::route('admin.menus.autocomplete') ?>",
-        minLength: 2,
-        select: function(e, ui) {
-            $(this).val(ui.item.value);
-            $(this).attr('data-page-id', ui.item.id);
+        serviceUrl: "<?php echo URL::route('admin.menus.autocomplete') ?>",
+        minChars: 2,
+        onSelect: function(suggestion) {
+            $(this).val(suggestion.value)
+                .data('pageId', suggestion.data);
         }
     });
 
@@ -203,8 +205,7 @@
                 if(response.success) {
                     notification(response.message, 'success');
 
-                    input.removeAttr('data-page-id');
-                    input.val('');
+                    input.removeAttr('data-page-id').val('');
 
                     $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
                     $(".sortable, .sortable-sublist").sortable(sortableOptions);
@@ -212,8 +213,7 @@
                 } else {
                     notification(response.message, 'error');
 
-                    input.removeAttr('data-page-id');
-                    input.val('');
+                    input.removeAttr('data-page-id').val('');
                 }
             }
         });

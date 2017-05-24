@@ -126,6 +126,7 @@ class MenusController extends Controller
 
 	/**
 	 * Autocomplete pages for adding to menus
+	 * (with jQuery-Autocomplete https://github.com/devbridge/jQuery-Autocomplete)
 	 *
 	 * @param Request $request
 	 * @return mixed
@@ -134,14 +135,20 @@ class MenusController extends Controller
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function pagesAutocomplete(Request $request) {
-		$term = $request->get('term');
-		$pages = Page::where('title', 'like', "%$term%")
-			->orWhere('menu_title', 'like', "%$term%")
+		$query = $request->get('query');
+		$pages = Page::where('title', 'like', "%$query%")
+			->orWhere('menu_title', 'like', "%$query%")
 			->get(['id', 'title', 'menu_title']);
-		$result = [];
+		$result = ['query' => "Unit", 'suggestions' => []];
 		foreach($pages as $item) {
-			$result[] = ['id' => $item->id, 'value' => $item->getTitle()];
+			$title = ($item->menu_title && $item->title)
+				? $item->menu_title . ' (' . $item->title . ')'
+				: $item->getTitle();
+			$result['suggestions'][] = [
+				'value' => $title, 'data' => $item->id
+			];
 		}
+		
 		return \Response::json($result);
 	}
 

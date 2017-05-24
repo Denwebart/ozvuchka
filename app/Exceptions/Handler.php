@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\Errors;
 use Exception;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -34,16 +37,37 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
     }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
+	
+	/**
+	 * Render an exception into an HTTP response.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param Exception $exception
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
     public function render($request, Exception $exception)
     {
+	    if ($exception instanceof TokenMismatchException)
+	    {
+		    if(!$request->ajax()) {
+			    return back();
+		    } else {
+			    return \Response::json([
+				    'success' => 'false',
+				    'message' => 'Сессия истекла. Обновите страницу и попробуйте снова.'
+			    ]);
+		    }
+	    }
+	
+	    if ($exception instanceof ModelNotFoundException)
+	    {
+		    if(!$request->ajax()) {
+			    return Errors::error404($request);
+		    }
+	    }
+	    
         return parent::render($request, $exception);
     }
 
