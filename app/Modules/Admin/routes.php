@@ -10,6 +10,8 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	
 	Route::resource('pages', 'PagesController', ['except' => ['show']]);
 	
+	Route::get('letters/important', ['as' => 'letters.important', 'uses' => 'LettersController@important']);
+	Route::get('letters/trash', ['as' => 'letters.trash', 'uses' => 'LettersController@trash']);
 	Route::resource('letters', 'LettersController');
 	
 	Route::resource('users', 'UsersController');
