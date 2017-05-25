@@ -45,9 +45,9 @@ class RequestedCall extends Model
 	const STATUS_NOT_PHONED = 2;
 	
 	public static $statuses = [
-		self::STATUS_NONE       => '-',
-		self::STATUS_PHONED     => 'Решено',
-		self::STATUS_NOT_PHONED => 'Не решено',
+		self::STATUS_NONE       => 'Не обработан',
+		self::STATUS_PHONED     => 'Дозвонились',
+		self::STATUS_NOT_PHONED => 'Не дозвонились',
 	];
 
 	/**
