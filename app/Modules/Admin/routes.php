@@ -11,6 +11,8 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('pages/change-published-status/{id}', ['as' => 'pages.changePublishedStatus', 'uses' => 'PagesController@changePublishedStatus']);
 	Route::resource('pages', 'PagesController', ['except' => ['show']]);
 	
+	Route::resource('calls', 'RequestedCallsController', ['except' => ['create', 'store', 'show']]);
+	
 	Route::get('letters/important', ['as' => 'letters.important', 'uses' => 'LettersController@important']);
 	Route::get('letters/trash', ['as' => 'letters.trash', 'uses' => 'LettersController@trash']);
 	Route::resource('letters', 'LettersController');

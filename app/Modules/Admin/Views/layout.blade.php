@@ -342,6 +342,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('admin.calls.index') }}">
+                            <i class="fa fa-phone"></i>
+                            <span>Звонки</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.letters.index') }}">
                             <i class="fi-mail"></i>
                             <span>Письма</span>
