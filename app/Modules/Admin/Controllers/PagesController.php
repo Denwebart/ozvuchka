@@ -205,24 +205,24 @@ class PagesController extends Controller
 		if(!$page->isMain()) {
 			if($request->has('is_published')) {
 				$page->is_published = !$request->get('is_published');
-				if($page->save()) {
-					if(\Request::ajax()) {
-						return \Response::json([
-							'success' => true,
-							'message' => $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.',
-							'isPublished' => (integer) $page->is_published,
-							'isPublishedText' => Page::$is_published[$page->is_published],
-						]);
-					} else {
-						return back()->with('successMessage', $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.');
-					}
+				$page->save();
+				
+				if(\Request::ajax()) {
+					return \Response::json([
+						'success' => true,
+						'message' => $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.',
+						'isPublished' => (integer) $page->is_published,
+						'isPublishedText' => Page::$is_published[$page->is_published],
+					]);
+				} else {
+					return back()->with('successMessage', $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.');
 				}
 			}
 		} else {
 			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Главная страница должна быть всегда опубликована.'
+					'message' => 'Главная страница должна быть всегда опубликована.',
 				]);
 			} else {
 				return back()->with('warningMessage', 'Главная страница должна быть всегда опубликована.');

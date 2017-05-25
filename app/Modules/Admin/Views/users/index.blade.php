@@ -37,42 +37,103 @@
 
 
 <div class="row">
-    @foreach($users as $user)
-        <div class="col-md-4">
-            <div class="card-box">
-                <div class="member-card-alt">
-                    <div class="thumb-xl member-thumb m-b-10 pull-left">
-                        <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-thumbnail" alt="profile-image">
-                    </div>
-
-                    <div class="member-card-alt-info">
-                        <h4 class="m-b-5 m-t-0">{{ $user->login }}</h4>
-                        @if($user->getFullName())
-                            <p class="text-muted">{{ $user->getFullName() }}</p>
-                        @endif
-                        <p>
-                            <span class="label @if($user->role == \App\Models\User::ROLE_ADMIN) label-success @elseif($user->role == \App\Models\User::ROLE_MODERATOR) label-info @else label-muted @endif m-b-10">
-                                {{ \App\Models\User::$roles[$user->role] }}
-                            </span>
-                        </p>
-                        <p class="text-muted">
-                            <span> <a href="#" class="text-custom">{{ $user->email }}</a> </span>
-                        </p>
-                        <p class="text-muted font-13">
-                             {{ $user->description }}
-                        </p>
-
-                        <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-primary btn-sm m-t-15 waves-effect waves-light"> Редактировать </a>
-                        <button type="button" class="btn btn-link text-danger btn-sm m-t-15 waves-effect waves-light"> Удалить </button>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div> <!-- end col -->
-    @endforeach
+    <div id="table-container">
+        @include('admin::users._table')
+    </div>
 </div>
-    <!-- end row -->
-
+<!-- end row -->
 @endsection
+
+@push('styles')
+<!-- Sweet Alert -->
+<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+@endpush
+
+@push('scripts')
+<!-- Sweet-Alert  -->
+<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+@endpush
+
+@push('scriptsBottom')
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        /* Deleting users :mark user as deleted */
+        $('#table-container').on('click', '.button-delete', function (e) {
+            var itemId = $(this).data('itemId'),
+                itemTitle = $(this).data('itemTitle'),
+                hasActivities = $(this).data('hasActivities');
+            var text = '';
+            if(hasActivities) {
+                text = text + '\n Пользователь будет отмечен удаленным, активность пользователя возможно будет восстановить.';
+            } else {
+                text = text + '\n Пользователь будет безвозвратно удален с сайта.'
+            }
+
+            swal({
+                title: "Удалить пользователя?",
+                text: 'Вы точно хотите удалить пользователя '+ itemTitle +'?' + text,
+                type: "error",
+                showCancelButton: true,
+                cancelButtonText: 'Отмена',
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'Удалить'
+            }).then(function() {
+                $.ajax({
+                    url: "/admin/users/" + itemId,
+                    dataType: "text json",
+                    type: "DELETE",
+                    data: {},
+                    beforeSend: function (request) {
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            notification(response.message, 'success');
+
+                            $('#table-container').html(response.resultHtml);
+                        } else {
+                            notification(response.message, 'warning');
+                        }
+                    }
+                });
+            }, function(dismiss) {});
+        });
+
+        /* Deleting users :mark user as undeleted */
+        $('#table-container').on('click', '.button-undelete', function (e) {
+            var itemId = $(this).data('itemId');
+            var itemTitle = $(this).data('itemTitle');
+
+            swal({
+                title: "Восстановить пользователя?",
+                text: 'Вы точно хотите восстановить активность пользователя '+ itemTitle +'?',
+                type: "success",
+                showCancelButton: true,
+                cancelButtonText: 'Отмена',
+                confirmButtonClass: 'btn-success',
+                confirmButtonText: 'Восстановить'
+            }).then(function() {
+                $.ajax({
+                    url: "/admin/users/undelete/" + itemId,
+                    dataType: "text json",
+                    type: "POST",
+                    data: {},
+                    beforeSend: function (request) {
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            notification(response.message, 'success');
+
+                            $('#table-container').html(response.resultHtml);
+                        } else {
+                            notification(response.message, 'warning');
+                        }
+                    }
+                });
+            }, function(dismiss) {});
+        });
+    });
+</script>
+@endpush

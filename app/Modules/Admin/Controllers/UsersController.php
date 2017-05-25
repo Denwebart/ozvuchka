@@ -150,70 +150,80 @@ class UsersController extends Controller
 	}
 	
 	/**
-	 * Remove the specified resource from storage.
+	 * Mark user as deleted.
 	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
+	 * @param Request $request
+	 * @param $id
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
-		if(\Request::ajax()) {
+		$user = User::find($id);
+		
+		if(!$user->isSuperadmin() && !$user->is(\Auth::user())) {
+			$user->delete();
 			
-			$user = User::find($id);
+			$users = $this->getUsers();
 			
-			if($user->id != 1 || $user->id == \Auth::user()->id) {
-				$user->delete();
-				
-				$users = $this->getUsers();
-				
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пользователь успешно удалён.',
-					'itemsCount' => view('parts.count')->with('models', $users)->render(),
-					'itemsPagination' => view('parts.pagination')->with('models', $users)->render(),
-					'itemsTable' => view('admin::users.table')->with('users', $users)->render(),
+					'resultHtml' => view('admin::users._table', compact('users'))->render(),
 				]);
 			} else {
+				return back()->with('successMessage', 'Пользователь успешно удалён.');
+			}
+		} else {
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
 					'message' => 'Пользователь ' . $user->login . ' не может быть удалён.'
 				]);
+			} else {
+				return back()->with('warningMessage', 'Пользователь ' . $user->login . ' не может быть удалён.');
 			}
 		}
 	}
 	
 	/**
-	 * Undelete the specified resource from storage.
+	 * Mark user as undeleted
 	 *
 	 * @param Request $request
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\JsonResponse
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function undelete(Request $request)
+	public function undelete(Request $request, $id)
 	{
-		if(\Request::ajax()) {
+		$user = User::find($id);
+		
+		if(is_object($user) && !$user->is(\Auth::user())) {
+			$user->deleted_at = null;
+			$user->save();
 			
-			$user = User::find($request->get('userId'));
+			$users = $this->getUsers();
 			
-			if(is_object($user) && ($user->id != 1 || $user->id == \Auth::user()->id)) {
-				$user->deleted_at = null;
-				$user->is_active = 1;
-				$user->save();
-				
-				$users = $this->getUsers();
-				
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пользователь успешно восстановлен.',
-					'itemsTable' => view('admin::users.table')->with('users', $users)->render(),
+					'resultHtml' => view('admin::users._table', compact('users'))->render(),
 				]);
 			} else {
+				return back()->with('successMessage', 'Пользователь успешно восстановлен.');
+			}
+		} else {
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Ошибка. Пользователь не может быть восстановлен.'
+					'message' => 'Ошибка. Пользователь не восстановлен.',
 				]);
+			} else {
+				return back()->with('warningMessage', 'Ошибка. Пользователь не восстановлен.');
 			}
 		}
 	}
@@ -227,16 +237,15 @@ class UsersController extends Controller
 	 */
 	protected function getUsers()
 	{
-		return User::select('id', 'login', 'email', 'role', 'firstname', 'lastname', 'description', 'avatar', 'created_at')
+		return User::select('id', 'login', 'email', 'role', 'firstname', 'lastname', 'description', 'avatar', 'created_at', 'deleted_at')
+			->orderBy('deleted_at', 'ASC')
 			->orderBy(\DB::raw('CASE role
 						WHEN 1 THEN 1
                         WHEN 2 THEN 2
                         WHEN 0 THEN 3
                         END'))
-//			->whereIsActive(1)
-			->orderBy('is_active', 'DESC')
 			->orderBy('created_at', 'ASC')
-			->with(['comments', 'pages'])
+			->with(['comments', 'pages', 'requestedCalls'])
 			->get();
 	}
 }

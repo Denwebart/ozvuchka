@@ -70,8 +70,8 @@
                                                 <input type="checkbox" id="chk1">
                                                 <label for="chk1" class="toggle"></label>
                                             </div>
-                                            <p class="title">{{ $letter->name }}</p><span
-                                                    class="star-toggle @if($letter->is_important) fa fa-star text-warning @else fa fa-star-o @endif"></span>
+                                            <p class="title">{{ $letter->name }}</p>
+                                            <span class="star-toggle @if($letter->is_important) fa fa-star text-warning @else fa fa-star-o @endif"></span>
                                         </div>
                                         <div class="col col-2">
                                             <div class="subject">
@@ -81,19 +81,20 @@
                                                     <del>{{ $letter->subject }}</del>
                                                 @endif
                                             </div>
-                                            <div class="date">{{ \App\Helpers\Date::format($letter->created_at, true, true) }}</div>
+                                            <div class="date">
+                                                {{ \App\Helpers\Date::format($letter->created_at, true, true) }}
+                                            </div>
                                         </div>
                                     </a>
                                 </li>
                             @endforeach
                         </ul>
                     @else
-                        <div class="background-icon">
+                        <div class="background-icon text-center">
                             <p>Писем нет</p>
                             <i class="fa fa-envelope"></i>
                         </div>
                     @endif
-
                 </div> <!-- panel body -->
 
                 @if(count($letters))

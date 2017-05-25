@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -99,7 +100,11 @@ class User extends Authenticatable
 		});
 		
 		static::deleting(function($user) {
-			$user->pages()->delete();
+			if(count($user->pages) || count($user->comments) || count($user->requestedCalls)) {
+				$user->deleted_at = Carbon::now();
+				$user->save();
+				return false;
+			}
 		});
 	}
 	
@@ -158,6 +163,42 @@ class User extends Authenticatable
 	{
 		return $this->role == self::ROLE_NONE && is_null($this->remember_token)
 			? false : true;
+	}
+	
+	/**
+	 * Is superadmin?
+	 * @return bool
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function isSuperadmin()
+	{
+		return $this->id == 1 ? true : false;
+	}
+	
+	/**
+	 * Is user has admin permission?
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function hasAdminPermission()
+	{
+		return $this->role == self::ROLE_ADMIN ? true : false;
+	}
+	
+	/**
+	 * Is user has moderator permission?
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function hasModeratorPermission()
+	{
+		return $this->role == self::ROLE_MODERATOR || $this->role == self::ROLE_ADMIN ? true : false;
 	}
 	
 	/**

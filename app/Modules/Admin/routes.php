@@ -15,6 +15,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::get('letters/trash', ['as' => 'letters.trash', 'uses' => 'LettersController@trash']);
 	Route::resource('letters', 'LettersController');
 	
+	Route::post('users/undelete/{id}', ['as' => 'users.undelete', 'uses' => 'UsersController@undelete']);
 	Route::resource('users', 'UsersController');
 	
 	Route::get('settings', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
