@@ -193,30 +193,39 @@ class PagesController extends Controller
 	/**
 	 * Change published status.
 	 *
+	 * @param Request $request
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)	 */
-	public function changePublishedStatus($id)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function changePublishedStatus(Request $request, $id)
 	{
-		if(\Request::ajax()) {
-			
-			$page = Page::find($id);
-			if($page->canBeDeleted()) {
-				$page->delete();
-				
-				$pages = $this->getPages();
-				
-				return \Response::json([
-					'success' => true,
-					'message' => 'Страница успешно удалена.',
-					'resultHtml' => view('admin::pages._table', compact('pages'))->render(),
-				]);
-			} else {
+		$page = Page::find($id);
+		if(!$page->isMain()) {
+			if($request->has('is_published')) {
+				$page->is_published = !$request->get('is_published');
+				if($page->save()) {
+					if(\Request::ajax()) {
+						return \Response::json([
+							'success' => true,
+							'message' => $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.',
+							'isPublished' => (integer) $page->is_published,
+							'isPublishedText' => Page::$is_published[$page->is_published],
+						]);
+					} else {
+						return back()->with('successMessage', $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.');
+					}
+				}
+			}
+		} else {
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Эта страница не может быть удалена.'
+					'message' => 'Главная страница должна быть всегда опубликована.'
 				]);
+			} else {
+				return back()->with('warningMessage', 'Главная страница должна быть всегда опубликована.');
 			}
 		}
 	}

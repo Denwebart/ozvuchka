@@ -8,6 +8,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	
 	Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
 	
+	Route::post('pages/change-published-status/{id}', ['as' => 'pages.changePublishedStatus', 'uses' => 'PagesController@changePublishedStatus']);
 	Route::resource('pages', 'PagesController', ['except' => ['show']]);
 	
 	Route::get('letters/important', ['as' => 'letters.important', 'uses' => 'LettersController@important']);

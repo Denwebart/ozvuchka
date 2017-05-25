@@ -122,6 +122,44 @@
                 });
             }, function(dismiss) {});
         });
+
+        /* Change published status for pages */
+        $('#table-container').on('click', '.button-change-published-status', function (e) {
+            var $button = $(this);
+                itemId = $button.data('itemId'),
+                itemPublishedStatus = $button.data('isPublished');
+
+            $.ajax({
+                url: "/admin/pages/change-published-status/" + itemId,
+                dataType: "text json",
+                type: "POST",
+                data: {'is_published': itemPublishedStatus},
+                beforeSend: function (request) {
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function (response) {
+                    if (response.success) {
+                        notification(response.message, 'success');
+                        $button.data('isPublished', response.isPublished);
+                        if(response.isPublished) {
+                            $button.find('span').text('Снять с публикации');
+                        } else {
+                            $button.find('span').text('Опубликовать');
+                        }
+                        $button.find('i').toggleClass('mdi-eye-off').toggleClass('mdi-eye');
+                        $('.item[data-page-id='+ itemId +']').find('.published-status .label')
+                            .toggleClass('label-muted').toggleClass('label-success')
+                            .text(response.isPublishedText);
+                        var $metaDataLabel = $('.item[data-page-id='+ itemId +']').find('.meta-data .label');
+                        if(!$metaDataLabel.hasClass('label-success')) {
+                            $metaDataLabel.toggleClass('label-muted').toggleClass('label-danger').toggleClass('label-warning');
+                        }
+                    } else {
+                        notification(response.message, 'error');
+                    }
+                }
+            });
+        });
     });
 </script>
 @endpush
