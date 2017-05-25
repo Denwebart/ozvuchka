@@ -8,7 +8,6 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\RequestedCall;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,7 +18,7 @@ class RequestedCallsController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('admin', ['only' => ['destroy']]);
+//		$this->middleware('admin', ['only' => ['destroy']]);
 	}
 	
 	/**
@@ -91,21 +90,28 @@ class RequestedCallsController extends Controller
 	 */
 	public function destroy($id)
 	{
-		if(\Request::ajax()) {
-			if(RequestedCall::destroy($id)){
-				$calls = $this->getCalls();
+		if(RequestedCall::destroy($id)){
+			$calls = $this->getCalls();
+			
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => true,
 					'message' => 'Звонок успешно удалён.',
-					'itemsCount' => view('parts.count')->with('models', $calls)->render(),
-					'itemsPagination' => view('parts.pagination')->with('models', $calls)->render(),
-					'itemsTable' => view('admin::requestedCalls.table')->with('calls', $calls)->render(),
+					'resultHtml' => view('admin::requestedCalls._table', compact('calls'))->render(),
 				]);
-			} else {
+			}
+			else {
+				return back()->with('successMessage', 'Звонок успешно удалён.');
+			}
+		} else {
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
 					'message' => 'Произошла ошибка, звонок не был удалён.'
 				]);
+			}
+			else {
+				return back()->with('errorMessage', 'Произошла ошибка, звонок не был удалён.');
 			}
 		}
 	}

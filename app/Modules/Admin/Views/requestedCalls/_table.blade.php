@@ -56,8 +56,10 @@
             </td>
 
             <td>
-                <a href="#" title="Редактировать" data-toggle="tooltip" class="table-action-btn"><i class="mdi mdi-pencil"></i></a>
-                <a href="#" title="Удалить" data-toggle="tooltip" class="table-action-btn"><i class="mdi mdi-close"></i></a>
+                <a href="#" class="table-action-btn" title="Редактировать" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                @if(Auth::user()->hasAdminPermission())
+                    <a href="#" class="button-delete table-action-btn" data-item-id="{{ $call->id }}" title="Удалить" data-toggle="tooltip"><i class="mdi mdi-close"></i></a>
+                @endif
             </td>
         </tr>
     @endforeach

@@ -30,7 +30,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card-box" id="table-container">
-            @include('admin::requestedCalls._table')
+            @if(count($calls))
+                @include('admin::requestedCalls._table')
+            @else
+                <div class="background-icon text-center">
+                    <p>Заказанных звонков нет</p>
+                    <i class="fa fa-phone"></i>
+                </div>
+            @endif
         </div>
     </div><!-- end col -->
 </div>
@@ -65,28 +72,18 @@
             "language": {
                 "url": "/backend/plugins/datatables/dataTables.russian.json"
             },
-            "stateSave": true
+            "stateSave": true,
+            "order": [[ 4, "desc" ]]
         };
         $('#datatable').dataTable(dataTableOptions);
 
-        /* Deleting pages */
+        /* Deleting requested calls */
         $('#table-container').on('click', '.button-delete', function (e) {
-            var itemId = $(this).data('itemId'),
-                itemTitle = $(this).data('itemTitle'),
-                countChildren = $(this).data('countChildren'),
-                countMenus = $(this).data('countMenus');
-
-            var text = '';
-            if(countMenus) {
-                text = text + '\n Страница будет удалена из меню.';
-            }
-            if(countChildren) {
-                text = text + '\n Все вложенные страницы (' + countChildren + ' шт.) будут удалены.';
-            }
+            var itemId = $(this).data('itemId');
 
             swal({
-                title: "Удалить страницу?",
-                text: 'Вы точно хотите удалить страницу "'+ itemTitle +'"?' + text,
+                title: "Удалить звонок?",
+                text: 'Вы точно хотите удалить заказанный звонок ?',
                 type: "error",
                 showCancelButton: true,
                 cancelButtonText: 'Отмена',
@@ -94,7 +91,7 @@
                 confirmButtonText: 'Удалить'
             }).then(function() {
                 $.ajax({
-                    url: "/admin/pages/" + itemId,
+                    url: "/admin/calls/" + itemId,
                     dataType: "text json",
                     type: "DELETE",
                     data: {},
@@ -108,50 +105,15 @@
                             $('#table-container').html(response.resultHtml);
 
                             $('#datatable').dataTable(dataTableOptions);
+                            if(!response.itemsCount) {
+                                $('.white-bg').removeClass('card-box');
+                            }
                         } else {
-                            notification(response.message, 'warning');
+                            notification(response.message, 'error');
                         }
                     }
                 });
             }, function(dismiss) {});
-        });
-
-        /* Change published status for pages */
-        $('#table-container').on('click', '.button-change-published-status', function (e) {
-            var $button = $(this);
-                itemId = $button.data('itemId'),
-                itemPublishedStatus = $button.data('isPublished');
-
-            $.ajax({
-                url: "/admin/pages/change-published-status/" + itemId,
-                dataType: "text json",
-                type: "POST",
-                data: {'is_published': itemPublishedStatus},
-                beforeSend: function (request) {
-                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                },
-                success: function (response) {
-                    if (response.success) {
-                        notification(response.message, 'success');
-                        $button.data('isPublished', response.isPublished);
-                        if(response.isPublished) {
-                            $button.find('span').text('Снять с публикации');
-                        } else {
-                            $button.find('span').text('Опубликовать');
-                        }
-                        $button.find('i').toggleClass('mdi-eye-off').toggleClass('mdi-eye');
-                        $('.item[data-page-id='+ itemId +']').find('.published-status .label')
-                            .toggleClass('label-muted').toggleClass('label-success')
-                            .text(response.isPublishedText);
-                        var $metaDataLabel = $('.item[data-page-id='+ itemId +']').find('.meta-data .label');
-                        if(!$metaDataLabel.hasClass('label-success')) {
-                            $metaDataLabel.toggleClass('label-muted').toggleClass('label-danger').toggleClass('label-warning');
-                        }
-                    } else {
-                        notification(response.message, 'error');
-                    }
-                }
-            });
         });
     });
 </script>

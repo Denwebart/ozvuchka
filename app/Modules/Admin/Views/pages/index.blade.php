@@ -37,7 +37,14 @@
 
     <div class="col-md-12">
         <div class="card-box" id="table-container">
-            @include('admin::pages._table')
+            @if(count($pages))
+                @include('admin::pages._table')
+            @else
+                <div class="background-icon text-center">
+                    <p>Страниц нет</p>
+                    <i class="fa fa-file-text-o"></i>
+                </div>
+            @endif
         </div>
     </div><!-- end col -->
 </div>

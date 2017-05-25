@@ -102,6 +102,8 @@ class LettersController extends Controller
 	 */
 	protected function getLetters()
 	{
-		return Letter::whereNull('deleted_at')->orderBy('created_at', 'DESC')->paginate(20);
+		return Letter::whereNull('deleted_at')
+			->orderBy('created_at', 'DESC')
+			->paginate(20);
 	}
 }
