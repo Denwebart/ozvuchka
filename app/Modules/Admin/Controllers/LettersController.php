@@ -53,6 +53,7 @@ class LettersController extends Controller
 		if(\Request::ajax()) {
 			if(Letter::destroy($id)){
 				$letters = $this->getLetters();
+				
 				return \Response::json([
 					'success' => true,
 					'message' => 'Письмо успешно удалёно.',

@@ -31,7 +31,7 @@
             </td>
 
             <td>
-                {{ $call->phone }}
+                {{ \App\Helpers\Str::phoneFormat($call->phone) }}
             </td>
 
             <td width="30%">
@@ -56,7 +56,7 @@
             </td>
 
             <td>
-                <a href="#" class="table-action-btn" title="Редактировать" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                <a href="#" class="button-edit table-action-btn" data-toggle="modal" data-target="#editing-call-modal" data-modal-id="editing-call-modal" data-item-id="{{ $call->id }}"><i class="mdi mdi-pencil" title="Редактировать" data-toggle="tooltip"></i></a>
                 @if(Auth::user()->hasAdminPermission())
                     <a href="#" class="button-delete table-action-btn" data-item-id="{{ $call->id }}" title="Удалить" data-toggle="tooltip"><i class="mdi mdi-close"></i></a>
                 @endif

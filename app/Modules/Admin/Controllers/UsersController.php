@@ -165,9 +165,9 @@ class UsersController extends Controller
 		if(!$user->isSuperadmin() && !$user->is(\Auth::user())) {
 			$user->delete();
 			
-			$users = $this->getUsers();
-			
 			if(\Request::ajax()) {
+				$users = $this->getUsers();
+				
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пользователь успешно удалён.',
@@ -205,9 +205,9 @@ class UsersController extends Controller
 			$user->deleted_at = null;
 			$user->save();
 			
-			$users = $this->getUsers();
-			
 			if(\Request::ajax()) {
+				$users = $this->getUsers();
+				
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пользователь успешно восстановлен.',

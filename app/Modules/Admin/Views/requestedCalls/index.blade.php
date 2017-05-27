@@ -29,19 +29,48 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card-box" id="table-container">
-            @if(count($calls))
-                @include('admin::requestedCalls._table')
-            @else
-                <div class="background-icon text-center">
-                    <p>Заказанных звонков нет</p>
-                    <i class="fa fa-phone"></i>
-                </div>
-            @endif
+        <div class="card-box">
+            <div id="table-container">
+                @if(count($calls))
+                    @include('admin::requestedCalls._table')
+                @else
+                    <div class="background-icon text-center">
+                        <p>Заказанных звонков нет</p>
+                        <i class="fa fa-phone"></i>
+                    </div>
+                @endif
+            </div>
         </div>
     </div><!-- end col -->
 </div>
 <!-- end row -->
+
+<!-- Responsive modal for editing requestd calls -->
+<div id="editing-call-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Редактирование информации о заказанном звонке</h4>
+            </div>
+            <div class="ajax-modal-content"></div>
+            <div class="sk-circle loader">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.modal -->
 
 @endsection
 
@@ -52,6 +81,10 @@
 <link href="{{ asset('backend/plugins/datatables/responsive.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 <!-- Sweet Alert -->
 <link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+<!-- Modal container - Custom box css -->
+<link href="{{ asset('backend/plugins/custombox/css/custombox.min.css') }}" rel="stylesheet">
+<!-- Spinkit css -->
+<link href="{{ asset('backend/plugins/spinkit/spinkit.css') }}" rel="stylesheet" />
 @endpush
 
 @push('scripts')
@@ -62,6 +95,9 @@
 <script src="{{ asset('backend/plugins/datatables/responsive.bootstrap.min.js') }}"></script>
 <!-- Sweet-Alert  -->
 <script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+<!-- Modal container - Modal-Effect -->
+<script src="{{ asset('backend/plugins/custombox/js/custombox.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/custombox/js/custombox.legacy.min.js') }}"></script>
 @endpush
 
 @push('scriptsBottom')
@@ -73,6 +109,7 @@
                 "url": "/backend/plugins/datatables/dataTables.russian.json"
             },
             "stateSave": true,
+//            "stateDuration": 1,
             "order": [[ 4, "desc" ]]
         };
         $('#datatable').dataTable(dataTableOptions);
@@ -105,9 +142,6 @@
                             $('#table-container').html(response.resultHtml);
 
                             $('#datatable').dataTable(dataTableOptions);
-                            if(!response.itemsCount) {
-                                $('.white-bg').removeClass('card-box');
-                            }
                         } else {
                             notification(response.message, 'error');
                         }
@@ -115,6 +149,81 @@
                 });
             }, function(dismiss) {});
         });
+
+        /* Editing requested calls: open popup form */
+        $('#table-container').on('click', '.button-edit', function (e) {
+            var itemId = $(this).data('itemId');
+
+            $.ajax({
+                url: "/admin/calls/" + itemId + "/edit",
+                dataType: "text json",
+                type: "GET",
+                data: {},
+                beforeSend: function (request) {
+                    $('#editing-call-modal .ajax-modal-content').html('');
+                    $('#editing-call-modal .loader').show();
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#editing-call-modal .ajax-modal-content').html(response.resultHtml);
+                        $('#editing-call-modal .loader').hide();
+                    } else {
+                        $('#editing-call-modal .ajax-modal-content').html('<div class="modal-body">' + response.message+ '</div>');
+                    }
+                }
+            });
+        });
+
+        /* Editing requested calls: update */
+        $('#editing-call-modal').on('click', '.button-update', function(e) {
+
+            var $form = $('#editing-call-form'),
+                formData = $form.serializeArray(),
+                url = $form.attr('action');
+
+            $.ajax({
+                url: url,
+                dataType: "text json",
+                type: "POST",
+                headers: {"X-HTTP-Method-Override": "PUT"},
+                data: formData,
+                beforeSend: function (request) {
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#editing-call-modal .ajax-modal-content').html('');
+                        Custombox.modal.close('editing-call-modal');
+
+                        notification(response.message, 'success');
+
+                        $('#table-container').html(response.resultHtml);
+
+                        $('#datatable').dataTable(dataTableOptions);
+                    } else {
+                        $.each(response.errors, function(index, value) {
+                            var errorDiv = '.' + index + '_error';
+                            $form.find(errorDiv).parent().addClass('has-error');
+                            $form.find(errorDiv).show().find('strong').text(value);
+                        });
+
+                        notification(response.message, 'error');
+                    }
+                }
+            });
+        });
+
+//        $('#editing-call-form').on('submit', function(e) {
+//            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+//
+//            var $form = $(this),
+//                formData = $form.serializeArray(),
+//                url = $(this).attr('action');
+//
+//            console.log(formData)
+//
+//        });
     });
 </script>
 @endpush

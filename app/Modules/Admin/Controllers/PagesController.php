@@ -167,9 +167,9 @@ class PagesController extends Controller
 		if($page->canBeDeleted()) {
 			$page->delete();
 			
-			$pages = $this->getPages();
-			
 			if(\Request::ajax()) {
+				$pages = $this->getPages();
+				
 				return \Response::json([
 					'success' => true,
 					'message' => 'Страница успешно удалена.',
