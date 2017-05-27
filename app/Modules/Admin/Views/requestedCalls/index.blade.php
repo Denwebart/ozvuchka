@@ -189,12 +189,14 @@
                 headers: {"X-HTTP-Method-Override": "PUT"},
                 data: formData,
                 beforeSend: function (request) {
+                    $('#editing-call-modal .ajax-modal-content').html('');
+                    $('#editing-call-modal .loader').show();
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
                 success: function (response) {
                     if (response.success) {
+                        $('#editing-call-modal').find('.close').trigger('click');
                         $('#editing-call-modal .ajax-modal-content').html('');
-                        Custombox.modal.close('editing-call-modal');
 
                         notification(response.message, 'success');
 
@@ -213,17 +215,6 @@
                 }
             });
         });
-
-//        $('#editing-call-form').on('submit', function(e) {
-//            e.preventDefault ? e.preventDefault() : e.returnValue = false;
-//
-//            var $form = $(this),
-//                formData = $form.serializeArray(),
-//                url = $(this).attr('action');
-//
-//            console.log(formData)
-//
-//        });
     });
 </script>
 @endpush
