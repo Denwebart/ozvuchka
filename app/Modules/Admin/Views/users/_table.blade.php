@@ -10,7 +10,7 @@
         <div class="card-box">
             <div class="member-card-alt">
                 <div class="thumb-xl member-thumb pull-left">
-                    <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-thumbnail" alt="profile-image">
+                    <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-thumbnail" alt="{{ $user->login }}">
                     @if(!$user->deleted_at)
                         <i class="mdi mdi-account-circle member-star text-success" title="Пользователь активен" data-toggle="tooltip"></i>
                     @else
@@ -42,7 +42,7 @@
                         </a>
                     @endif
                     <!-- Deleted/undeleted -->
-                    @if(Auth::user()->hasAdminPermission())
+                    @if(Auth::user()->hasAdminPermission() && !Auth::user()->is($user))
                         @if($user->deleted_at)
                             <button type="button" class="button-undelete btn btn-link text-success btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-item-title="{{ $user->login }}">Восстановить</button>
                         @else

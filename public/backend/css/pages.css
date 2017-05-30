@@ -381,9 +381,10 @@ File: Menu
 .member-card .member-thumb {
   position: relative;
 }
-.member-card .member-star {
+.member-card .member-star,
+.profile-user-box .user-avatar .user-status {
   position: absolute;
-  top: 12px;
+  top: 10px;
   right: 10px;
   font-size: 16px;
   background-color: #ffffff;
@@ -405,7 +406,7 @@ File: Menu
 }
 .member-card-alt .member-star {
   position: absolute;
-  top: 12px;
+  top: 10px;
   right: 10px;
   font-size: 16px;
   background-color: #ffffff;
@@ -1150,6 +1151,21 @@ ul.sitemap-icon ul li a {
   position: relative;
   border-radius: 5px;
 }
+.profile-user-box .user-avatar {
+    position: relative;
+    display: inline-block;
+}
+.profile-user-box .user-avatar img {
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.profile-user-box .user-avatar .user-status {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
 /* =============
    Search result
 ============= */
