@@ -8,8 +8,8 @@
                 <span><img src="{{ asset('backend/images/logo_dark.png') }}" alt="" height="30"></span>
             </a>
         </h2>
-        <h5 class="text-uppercase font-bold m-b-5 m-t-50">Register</h5>
-        <p class="m-b-0">Get access to our admin panel</p>
+        <h5 class="text-uppercase font-bold m-b-5 m-t-50">Регистрация</h5>
+        <p class="m-b-0">Нового пользователя</p>
     </div>
     <div class="account-content">
 
@@ -65,8 +65,8 @@
 
                 <div class="form-group m-b-20{{ $errors->has('login') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
-                        <label for="login">Full Name</label>
-                        <input class="form-control" type="text" id="login" name="login" value="{{ old('login') }}" required="" placeholder="Enter your login">
+                        <label for="login">Логин</label>
+                        <input class="form-control" type="text" id="login" name="login" value="{{ old('login') }}" required="" placeholder="Введите логин">
 
                         @if ($errors->has('login'))
                             <span class="help-block">
@@ -78,7 +78,7 @@
 
                 <div class="form-group m-b-20{{ $errors->has('email') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
-                        <label for="email">Email address</label>
+                        <label for="email">Email</label>
                         <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required="" placeholder="john@deo.com">
 
                         @if ($errors->has('email'))
@@ -91,8 +91,8 @@
 
                 <div class="form-group m-b-20{{ $errors->has('password') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
-                        <label for="password">Password</label>
-                        <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
+                        <label for="password">Пароль</label>
+                        <input class="form-control" type="password" required="" id="password" name="password" placeholder="Введите пароль">
 
                         @if ($errors->has('password'))
                             <span class="help-block">
@@ -104,8 +104,8 @@
 
                 <div class="form-group m-b-20{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                     <div class="col-xs-12">
-                        <label for="password">Password confirmation</label>
-                        <input class="form-control" type="password" required="" id="password_confirmation" name="password_confirmation" placeholder="Repeat your password">
+                        <label for="password">Подтверждение пароля</label>
+                        <input class="form-control" type="password" required="" id="password_confirmation" name="password_confirmation" placeholder="Повторите пароль">
 
                         @if ($errors->has('password_confirmation'))
                             <span class="help-block">
@@ -121,7 +121,7 @@
                         <div class="checkbox checkbox-success">
                             <input id="is_agree" type="checkbox" name="is_agree" value="1">
                             <label for="is_agree">
-                                I accept <a href="#">Terms and Conditions</a>
+                                Я согласен с <a href="#">Правилами сайта</a>
                             </label>
                             @if ($errors->has('is_agree'))
                                 <span class="help-block error is_agree_error">
@@ -135,31 +135,15 @@
 
                 <div class="form-group text-center m-t-10">
                     <div class="col-xs-12">
-                        <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">Sign Up Free</button>
+                        <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">Зарегистрироваться</button>
                     </div>
                 </div>
 
             </form>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center">
-                        <button type="button" class="btn m-r-5 btn-facebook waves-effect waves-light">
-                            <i class="fa fa-facebook"></i>
-                        </button>
-                        <button type="button" class="btn m-r-5 btn-googleplus waves-effect waves-light">
-                            <i class="fa fa-google"></i>
-                        </button>
-                        <button type="button" class="btn m-r-5 btn-twitter waves-effect waves-light">
-                            <i class="fa fa-twitter"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row m-t-50">
+            <div class="row m-t-20">
                 <div class="col-sm-12 text-center">
-                    <p class="text-muted">Already have an account?  <a href="{{ route('login') }}" class="text-dark m-l-5"><b>Sign In</b></a></p>
+                    <p class="text-muted">Уже есть аккаунт?  <a href="{{ route('login') }}" class="text-dark m-l-5"><b>Войти</b></a></p>
                 </div>
             </div>
 
