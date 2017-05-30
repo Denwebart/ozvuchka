@@ -11,12 +11,12 @@
 {!! Form::hidden('returnBack', 1, ['id' => 'returnBack']) !!}
 {!! Form::hidden('deleteImage', 0, ['id' => 'deleteImage']) !!}
 
+<!-- TinyMCE image -->
+{{ Form::file('editorImage', ['style' => 'display:none', 'id' => 'editorImage']) }}
+{{ Form::hidden('tempPath', $page->getTempPath(), ['id' => 'tempPath']) }}
+
+<!-- Creating a page with a specific type -->
 {!! Form::hidden('type', $page->type) !!}
-{{--@if($page->type == \App\Models\Page::TYPE_CATALOG)--}}
-    {{--{!! Form::hidden('is_catalog', 1) !!}--}}
-{{--@else--}}
-    {{--{!! Form::hidden('is_catalog', 0) !!}--}}
-{{--@endif--}}
 
 <div class="row">
     <div class="col-lg-6 col-sm-12 col-xs-12 m-b-15">
@@ -24,13 +24,11 @@
             {!! Form::label('parent_id', 'Категория', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
                 @if($page->canBeDeleted())
-                    <select class="selectpicker" data-style="btn-custom">
-                        @foreach(\App\Models\Page::getCategory() as $item)
-                            <option>{{ $item }}</option>
+                    <select name="parent_id" id="parent_id" class="selectpicker" data-style="btn-custom">
+                        @foreach(\App\Models\Page::getCategory() as $key => $item)
+                            <option value="{{ $key }}" @if($page->parent_id == $key) selected @endif>{{ $item }}</option>
                         @endforeach
                     </select>
-
-                    {{--{!! Form::select('parent_id', \App\Models\Page::getCategory(), $page->parent_id, ['id' => 'parent_id', 'class' => 'form-control']) !!}--}}
                 @else
                     {!! Form::hidden('parent_id', $page->parent_id) !!}
                     {!! Form::select('parent_id', \App\Models\Page::getCategory(), $page->parent_id, ['id' => 'parent_id', 'class' => 'form-control', 'disabled' => true]) !!}
@@ -44,12 +42,18 @@
             </div>
         </div>
         <div class="form-group @if($errors->has('alias')) has-error @endif">
-            {!! Form::label('alias', 'Алиас', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
+            <div class="col-sm-2 col-md-2">
+                <!-- Info text: image_alt -->
+                <span class="m-l-10 text-muted pull-right m-t-5" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Алиас - это название создаваемой страницы сайта, которое будет отображаться рядом с доменным именем сайта в строке браузера. Если поле не заполнено - заполняется автоматически. Желательно не менять, если страница уже проиндексирована поисковиками." data-original-title="Алиас">
+                    <i class="fa fa-question-circle-o"></i>
+                </span>
+                {!! Form::label('alias', 'Алиас', ['class' => 'control-label pull-right']) !!}
+            </div>
             <div class="col-sm-10 col-md-10">
                 @if(!$page->isMain())
-                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control']) !!}
+                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
                 @else
-                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control', 'disabled' => true]) !!}
+                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control maxlength', 'maxlength' => 255, 'disabled' => true]) !!}
                 @endif
 
                 @if($errors->has('alias'))
@@ -63,7 +67,7 @@
         <div class="form-group @if($errors->has('title')) has-error @endif">
             {!! Form::label('title', 'Заголовок', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::text('title', $page->title, ['id' => 'title', 'class' => 'form-control']) !!}
+                {!! Form::text('title', $page->title, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
 
                 @if($errors->has('title'))
                     <span class="error help-block text-danger font-12">
@@ -76,7 +80,7 @@
         <div class="form-group @if($errors->has('menu_title')) has-error @endif">
             {!! Form::label('menu_title', 'Заголовок меню', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::text('menu_title', $page->menu_title, ['id' => 'menu_title', 'class' => 'form-control']) !!}
+                {!! Form::text('menu_title', $page->menu_title, ['id' => 'menu_title', 'class' => 'form-control maxlength', 'maxlength' => 50]) !!}
 
                 @if($errors->has('menu_title'))
                     <span class="error help-block text-danger font-12">
@@ -96,7 +100,7 @@
                     {!! Form::label('is_container', 'Категория', ['class' => 'control-label m-l-5']) !!}
                 </div>
                 <div class="col-md-6">
-                    <span class="help-block m-t-0">
+                    <span class="help-block">
                         <small>Будет ли содержать вложенные страницы?</small>
                     </span>
                 </div>
@@ -129,7 +133,11 @@
             </div>
             <div class="col-sm-6 col-md-6 @if($errors->has('image_alt')) has-error @endif">
                 {!! Form::label('image_alt', 'Альт для изображения', ['class' => 'control-label m-b-5']) !!}
-                {!! Form::textarea('image_alt', $page->image_alt, ['id' => 'image_alt', 'class' => 'form-control', 'rows' => 8]) !!}
+                <!-- Info text: image_alt -->
+                <span class="m-l-10 text-muted" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
+                    <i class="fa fa-question-circle-o"></i>
+                </span>
+                {!! Form::textarea('image_alt', $page->image_alt, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 8]) !!}
 
                 @if($errors->has('image_alt'))
                     <span class="error help-block text-danger font-12">
@@ -145,7 +153,7 @@
         <div class="form-group @if($errors->has('meta_title')) has-error @endif">
             {!! Form::label('meta_title', 'Мета-тег Title', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::textarea('meta_title', $page->meta_title, ['id' => 'meta_title', 'class' => 'form-control', 'rows' => 2]) !!}
+                {!! Form::textarea('meta_title', $page->meta_title, ['id' => 'meta_title', 'class' => 'form-control maxlength', 'maxlength' => 100, 'rows' => 2]) !!}
 
                 <span class="help-block @if($errors->has('meta_title')) hidden @endif">
                     <small>Самый важный SEO-тег. Рекомендуемая длина - 65 символов.</small>
@@ -161,7 +169,7 @@
         <div class="form-group @if($errors->has('meta_desc')) has-error @endif">
             {!! Form::label('meta_desc', 'Мета-тег Description', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::textarea('meta_desc', $page->meta_desc, ['id' => 'meta_desc', 'class' => 'form-control', 'rows' => 3]) !!}
+                {!! Form::textarea('meta_desc', $page->meta_desc, ['id' => 'meta_desc', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 3]) !!}
 
                 <span class="help-block @if($errors->has('meta_desc')) hidden @endif">
                     <small>Второй по важности SEO-тег. Рекомендуемая длина - 160 символов.</small>
@@ -177,7 +185,7 @@
         <div class="form-group @if($errors->has('meta_key')) has-error @endif">
             {!! Form::label('meta_key', 'Мета-тег Keywords', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::textarea('meta_key', $page->meta_key, ['id' => 'meta_key', 'class' => 'form-control', 'rows' => 3]) !!}
+                {!! Form::textarea('meta_key', $page->meta_key, ['id' => 'meta_key', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 3]) !!}
 
                 <span class="help-block @if($errors->has('meta_key')) hidden @endif">
                     <small>Необязательный SEO-тег. Существительные в единственном числе через запятую.</small>
@@ -204,11 +212,15 @@
                 {!! Form::label('is_published', 'Опубликована', ['class' => 'control-label m-l-5']) !!}
             </div>
             <div class="col-md-6">
-                @if(!$page->published_at)
-                    (сохраните, чтоб опубликовать)
-                @else
-                    {{ \App\Helpers\Date::format($page->published_at) }}
-                @endif
+                <span class="help-block">
+                    <small>
+                        @if(!$page->published_at)
+                            (сохраните, чтоб опубликовать)
+                        @else
+                            {{ \App\Helpers\Date::format($page->published_at, true, true) }}
+                        @endif
+                    </small>
+                </span>
 
                 @if($errors->has('is_published'))
                     <span class="error help-block text-danger font-12">
@@ -218,38 +230,41 @@
                 @endif
             </div>
         </div>
-        {{--<div class="form-group">--}}
-        {{--{!! Form::label('published_at', 'Дата/время публикации', ['class' => 'col-sm-2 col-md-2 control-label']) !!}--}}
-        {{--<div class="col-md-5">--}}
-        {{--<div class="input-group">--}}
-        {{--<input name="published_date" type="text" class="form-control" placeholder="день.месяц.год" id="datepicker" value="">--}}
-        {{--<span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>--}}
-        {{--</div><!-- input-group -->--}}
-        {{--</div>--}}
-        {{--<div class="col-md-5">--}}
-        {{--<div class="input-group">--}}
-        {{--<div class="bootstrap-timepicker">--}}
-        {{--<input name="published_time" id="timepicker" type="text" class="form-control" value="">--}}
-        {{--</div>--}}
-        {{--<span class="input-group-addon bg-primary b-0 text-white"><i class="glyphicon glyphicon-time"></i></span>--}}
-        {{--</div><!-- input-group -->--}}
-        {{--</div>--}}
-        {{--</div>--}}
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                {!! Form::label('published_at', 'Отложить публикацию:', ['class' => 'control-label m-b-10']) !!}
+                <!-- Info text: published_at -->
+                <span class="m-l-10 text-muted" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Страница будет опубликована на сайте не сразу, а в заданное время." data-original-title="Отложенная публикация">
+                    <i class="fa fa-question-circle-o"></i>
+                </span>
+            </div>
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="input-group">
+                    <input name="published_date" type="text" class="form-control datepicker" placeholder="Дата" value="">
+                    <span class="input-group-addon"><i class="mdi mdi-calendar"></i></span>
+                </div><!-- input-group -->
+            </div>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <input name="published_time" type="text" class="form-control timepicker" placeholder="Время"  value="">
+                    <span class="input-group-addon"><i class="mdi mdi-clock"></i></span>
+                </div><!-- input-group -->
+            </div>
+            <div class="col-sm-5 col-sm-offset-2 m-t-20">
+                <div class="input-group">
+                    <input name="published_at" type="text" class="form-control datetimepicker" placeholder="Дата публикации"  value="">
+                    <span class="input-group-addon"><i class="mdi mdi-clock"></i></span>
+                </div><!-- input-group -->
+            </div>
+        </div>
     </div><!-- end col -->
 
     <div class="col-md-7 col-sm-12 col-xs-12">
         <div class="form-group @if($errors->has('content')) has-error @endif">
             <div class="col-md-12">
                 {!! Form::label('content', 'Текст страницы', ['class' => 'control-label m-b-5']) !!}
-                {{--@if($page->type == \App\Models\Page::TYPE_CATALOG)--}}
-                    {{--<span class="help-block">--}}
-                        {{--<small>--}}
-                            {{--Отображается вверху страницы, над списком товаров.--}}
-                        {{--</small>--}}
-                    {{--</span>--}}
-                {{--@endif--}}
 
-                {!! Form::textarea('content', $page->content, ['id' => 'content', 'class' => 'form-control editor', 'rows' => 10]) !!}
+                {!! Form::textarea('content', $page->content, ['id' => 'content', 'class' => 'form-control editor maxlength', 'maxlength' => 20000, 'rows' => 10]) !!}
 
                 @if($errors->has('content'))
                     <span class="error help-block text-danger font-12">
@@ -265,15 +280,8 @@
         <div class="form-group @if($errors->has('introtext')) has-error @endif">
             <div class="col-md-12">
                 {!! Form::label('introtext', 'Краткое описание страницы', ['class' => 'control-label m-b-5']) !!}
-                {{--@if($page->type == \App\Models\Page::TYPE_CATALOG)--}}
-                    {{--<span class="help-block">--}}
-                        {{--<small>--}}
-                            {{--Отображается внизу страницы, после списка товаров.--}}
-                        {{--</small>--}}
-                    {{--</span>--}}
-                {{--@endif--}}
 
-                {!! Form::textarea('introtext', $page->introtext, ['id' => 'introtext', 'class' => 'form-control editor', 'rows' => 10]) !!}
+                {!! Form::textarea('introtext', $page->introtext, ['id' => 'introtext', 'class' => 'form-control editor maxlength', 'maxlength' => 10000, 'rows' => 10]) !!}
 
                 @if($errors->has('introtext'))
                     <span class="error help-block text-danger font-12">
@@ -305,24 +313,34 @@
 </div><!-- end row -->
 
 @push('styles')
+<!-- Switchery Checkbox -->
 <link href="{{ asset('backend/plugins/switchery/switchery.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('backend/plugins/fileuploads/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('backend/plugins/summernote/summernote.css') }}" rel="stylesheet" type="text/css" />
-{{--<link href="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">--}}
-{{--<link href="{{ asset('backend/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">--}}
+<!-- Bootstrap Select -->
+<link href="{{ asset('backend/plugins/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet" />
+<!-- Date and Time Pickers -->
+<link href="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+<!-- File Upload - Dropify -->
+<link href="{{ asset('backend/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('scripts')
-<!-- Init Js file -->
-<script type="text/javascript" src="{{ asset('backend/pages/jquery.form-advanced.init.js') }}"></script>
-
-
+<!-- Bootstrap MaxLength -->
+<script src="{{ asset('backend/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
+<!-- Switchery Checkbox -->
 <script src="{{ asset('backend/plugins/switchery/switchery.min.js') }}"></script>
-<script src="{{ asset('backend/plugins/fileuploads/js/dropify.min.js') }}"></script>
-<script src="{{ asset('backend/plugins/summernote/summernote.min.js') }}"></script>
-<script src="{{ asset('backend/plugins/summernote/lang/summernote-ru-RU.js') }}"></script>
-{{--<script src="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>--}}
-{{--<script src="{{ asset('backend/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>--}}
+<!-- Bootstrap Select -->
+<script src="{{ asset('backend/plugins/bootstrap-select/js/bootstrap-select.min.js') }}" type="text/javascript"></script>
+<!-- Date and Time Pickers -->
+<script src="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.js') }}"></script>
+<script src="{{ asset('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/moment/moment.js') }}"></script>
+<script src="{{ asset('backend/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+<!-- File Upload - Dropify -->
+<script src="{{ asset('backend/plugins/dropify/js/dropify.min.js') }}"></script>
+<!-- Wysiwig Editor - TinyMCE -->
+<script src="{{ asset('backend/plugins/tinymce/tinymce.min.js') }}"></script>
 
 <script type="text/javascript">
 
@@ -336,34 +354,39 @@
         $("#main-form").submit();
     });
 
+    // Bootstrap MaxLength
+    $(".maxlength").maxlength({
+        alwaysShow: true
+    });
+
+    // Date and Time Pickers
+    $(".datepicker").datepicker({
+        autoClose: true
+    });
+    $(".timepicker").timepicker({
+        defaultTime: '10:00',
+        showMeridian: false
+    });
+    $(".datetimepicker").datetimepicker();
 
     // Image Uploader
-//    var drEvent = $('.dropify').dropify({
-//        messages: {
-//            'default': 'Кликните или перетащите файл.',
-//            'replace': 'Кликните или перетащите файл для замены.',
-//            'remove': 'Удалить',
-//            'error': 'Ошибка.'
-//        },
-//        error: {
-//            'fileSize': 'Размер файла слишком большой (максимум 3Мб).'
-//        }
-//    });
-//
-//    drEvent.on('dropify.afterClear', function(event, element){
-//        $('#deleteImage').val(1);
-//    });
+    var drEvent = $('.dropify').dropify({
+        messages: {
+            'default': 'Кликните или перетащите файл.',
+            'replace': 'Кликните или перетащите файл для замены.',
+            'remove': 'Удалить',
+            'error': 'Ошибка.'
+        },
+        error: {
+            'fileSize': 'Размер файла слишком большой (максимум 3Мб).'
+        }
+    });
 
-    // WYSIWYG
-//    $(document).ready(function() {
-//        $('.editor').summernote({
-//            lang: 'ru-RU',
-//            height: 300,                 // set editor height
-//            minHeight: null,             // set minimum height of editor
-//            maxHeight: null,             // set maximum height of editor
-//            focus: false                  // set focus to editable area after initializing summernote
-//        });
-//    });
+    // Image delete
+    drEvent.on('dropify.afterClear', function(event, element){
+        $('#deleteImage').val(1);
+    });
+
 
 
     //        // Time Picker
@@ -390,4 +413,8 @@
     //        });
 
 </script>
+@endpush
+
+@push('scriptsBottom')
+    @include('admin::tinymce-init', ['imagePath' => $page->getImageEditorPath()])
 @endpush

@@ -307,7 +307,7 @@
                             <li><a href="javascript:void(0)">Экран блокировки</a></li>
                             <li class="divider"></li>
                             <!-- Logout form -->
-                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                         </ul>
                     </li>

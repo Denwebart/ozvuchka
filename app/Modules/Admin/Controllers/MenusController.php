@@ -3,7 +3,7 @@
  * Class MenusController
  *
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 
 namespace Modules\Admin\Controllers;
@@ -21,7 +21,7 @@ class MenusController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function rename(Request $request)
 	{
@@ -66,7 +66,7 @@ class MenusController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function delete(Request $request)
 	{
@@ -103,7 +103,7 @@ class MenusController extends Controller
 	 * @return mixed
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function changePosition(Request $request)
 	{
@@ -132,7 +132,7 @@ class MenusController extends Controller
 	 * @return mixed
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function pagesAutocomplete(Request $request) {
 		$query = $request->get('query');
@@ -159,7 +159,7 @@ class MenusController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function add(Request $request)
 	{

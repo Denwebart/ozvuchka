@@ -393,6 +393,10 @@ File: Menu
   line-height: 20px;
   text-align: center;
 }
+.member-card-alt {
+    display: inline-block;
+    width: 100%;
+}
 .member-card-alt .member-thumb {
   position: relative;
 }

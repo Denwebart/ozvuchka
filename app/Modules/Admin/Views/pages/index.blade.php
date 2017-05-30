@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
 
@@ -29,10 +29,10 @@
 
 <div class="row">
     <div class="col-sm-12 text-xs-center">
-        <button class="btn btn-inverse m-b-20 pull-right">
+        <a href="{{ route('admin.pages.create') }}" class="btn btn-inverse m-b-20 pull-right">
             <i class="fa fa-plus m-r-5"></i>
             Добавить страницу
-        </button>
+        </a>
     </div>
 
     <div class="col-md-12">
@@ -137,7 +137,7 @@
                 itemPublishedStatus = $button.data('isPublished');
 
             $.ajax({
-                url: "/admin/pages/change-published-status/" + itemId,
+                url: "/admin/pages/change_published_status/" + itemId,
                 dataType: "text json",
                 type: "POST",
                 data: {'is_published': itemPublishedStatus},

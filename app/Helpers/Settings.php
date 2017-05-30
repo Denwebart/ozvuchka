@@ -3,7 +3,7 @@
  * Class Settings
  *
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 
 namespace App\Helpers;
@@ -17,7 +17,7 @@ class Settings
 	 * @return \Illuminate\Database\Eloquent\Model|mixed|null|static
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function get($key)
 	{
@@ -33,7 +33,7 @@ class Settings
 	 * @return array
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function getCategory($category)
 	{
@@ -63,7 +63,7 @@ class Settings
 	 * @return array
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function getAll()
 	{

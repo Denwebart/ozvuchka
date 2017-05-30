@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
 
@@ -189,7 +189,7 @@
                 headers: {"X-HTTP-Method-Override": "PUT"},
                 data: formData,
                 beforeSend: function (request) {
-                    $('#editing-call-modal .ajax-modal-content').html('');
+                    $('#editing-call-modal .ajax-modal-content').hide();
                     $('#editing-call-modal .loader').show();
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -204,6 +204,8 @@
 
                         $('#datatable').dataTable(dataTableOptions);
                     } else {
+                        $('#editing-call-modal .loader').hide();
+                        $('#editing-call-modal .ajax-modal-content').show();
                         $.each(response.errors, function(index, value) {
                             var errorDiv = '.' + index + '_error';
                             $form.find(errorDiv).parent().addClass('has-error');

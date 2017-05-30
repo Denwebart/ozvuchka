@@ -38,7 +38,7 @@ class RequestedCallsController extends Controller
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function edit($id)
 	{
@@ -66,7 +66,7 @@ class RequestedCallsController extends Controller
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function update(Request $request, $id)
 	{
@@ -89,7 +89,7 @@ class RequestedCallsController extends Controller
 			$data['updated_at'] = Carbon::now();
 		}
 		
-		$rules = RequestedCall::rules();
+		$rules = RequestedCall::$rules;
 		$rules['status'] = 'integer|between:1,2';
 		$messages = ['status.between' => 'Вы не можете сохранить, не выставив статус.'];
 		$validator = \Validator::make($data, $rules, $messages);
@@ -166,7 +166,7 @@ class RequestedCallsController extends Controller
 	 *
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	protected function getCalls()
 	{

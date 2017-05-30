@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
 
@@ -50,7 +50,9 @@
 
             <td>
                 @if($call->user)
-                    <img src="{{ $call->user->getAvatarUrl() }}" alt="{{ $call->user->login }}" title="{{ $call->user->login }}" data-toggle="tooltip" class="img-circle thumb-sm" />
+                    <a href="{{ route('admin.users.show', ['id' => $call->user->id]) }}">
+                        <img src="{{ $call->user->getAvatarUrl() }}" alt="{{ $call->user->login }}" title="{{ $call->user->login }}" data-toggle="tooltip" class="img-circle thumb-sm" />
+                    </a>
                 @endif
                 {{ \App\Helpers\Date::getRelative($call->updated_at) }}
             </td>

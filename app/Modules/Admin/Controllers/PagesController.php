@@ -14,7 +14,7 @@ class PagesController extends Controller
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function index()
 	{
@@ -29,17 +29,14 @@ class PagesController extends Controller
 	 * @param Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function create(Request $request)
 	{
 		$page = new Page();
 		$page->is_published = Page::PUBLISHED;
-		if($request->has('type') && array_key_exists($request->get('type'), Page::$types) && $request->get('type') != Page::TYPE_SYSTEM_PAGE) {
-			$page->type = $request->get('type');
-		}
 		
-		$backUrl = \Request::has('back_url') ? urldecode(\Request::get('back_url')) : URL::previous();
+		$backUrl = $request->has('back_url') ? urldecode($request->get('back_url')) : URL::previous();
 		
 		return view('admin::pages.create', compact('page', 'backUrl'));
 	}
@@ -55,8 +52,6 @@ class PagesController extends Controller
 		$page = new Page();
 		$data = $request->except('image');
 		$data = array_merge($data, $page->setData($data));
-		$pageTitle = $data['menu_title'] ? $data['menu_title'] : $data['title'];
-		$data['alias'] = Translit::generateAlias($pageTitle, $data['alias']);
 		
 		$validator = \Validator::make($data, Page::rules());
 		
@@ -71,12 +66,15 @@ class PagesController extends Controller
 			$page->save();
 			
 			$page->setImage($request);
+			$page->content = $page->saveEditorImages($data['tempPath']);
+			$page->introtext = $page->saveEditorImages($data['tempPath'], 'introtext');
 			$page->save();
 			
 			if($request->get('returnBack')) {
 				return redirect($request->get('backUrl'))->with('successMessage', 'Страница создана!');
 			} else {
-				return redirect(route('admin.pages.edit', ['id' => $page->id, 'back_url' => urlencode($request->get('backUrl'))]))->with('successMessage', 'Страница создана!');
+				return redirect(route('admin.pages.edit', ['id' => $page->id, 'back_url' => urlencode($request->get('backUrl'))]))
+					->with('successMessage', 'Страница создана!');
 			}
 		}
 	}
@@ -84,16 +82,17 @@ class PagesController extends Controller
 	/**
 	 * Show the form for editing the specified resource.
 	 *
+	 * @param Request $request
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
 		$page = Page::findOrFail($id);
 		
-		$backUrl = \Request::has('back_url') ? urldecode(\Request::get('back_url')) : URL::previous();
+		$backUrl = $request->has('back_url') ? urldecode($request->get('back_url')) : URL::previous();
 		
 		return view('admin::pages.edit', compact('page', 'backUrl'));
 	}
@@ -110,13 +109,7 @@ class PagesController extends Controller
 		$page = Page::findOrFail($id);
 		$data = $request->except('image');
 		$data = array_merge($data, $page->setData($data));
-		$pageTitle = $data['menu_title'] ? $data['menu_title'] : $data['title'];
-		if(!$page->isMain()) {
-			$data['alias'] = Translit::generateAlias($pageTitle, $data['alias']);
-		} else {
-			$data['alias'] = '/';
-		}
-		
+
 		$rules = Page::rules($page->id);
 		$messages = [];
 		// validation rule for main page
@@ -144,6 +137,8 @@ class PagesController extends Controller
 			
 			$page->fill($data);
 			$page->setImage($request);
+			$page->content = $page->saveEditorImages($data['tempPath']);
+			$page->introtext = $page->saveEditorImages($data['tempPath'], 'introtext');
 			$page->save();
 			
 			if($request->get('returnBack')) {
@@ -160,7 +155,7 @@ class PagesController extends Controller
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)	 */
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)	 */
 	public function destroy($id)
 	{
 		$page = Page::find($id);
@@ -197,7 +192,7 @@ class PagesController extends Controller
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function changePublishedStatus(Request $request, $id)
 	{
@@ -235,7 +230,7 @@ class PagesController extends Controller
 	 *
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	protected function getPages()
 	{

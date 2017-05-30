@@ -70,21 +70,11 @@ class RequestedCall extends Model
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	protected static $rules = [
+	public static $rules = [
 		'user_id' => 'integer',
 		'name' => 'required|max:50|regex:/^[A-Za-zА-Яа-яЁёЇїІіЄє \-\']+$/u',
 		'phone' => 'required|max:50|regex:/^[0-9]+$/u',
 	];
-	
-	/**
-	 * Get validation rules
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public static function rules() {
-		return self::$rules;
-	}
 	
 	/**
 	 * @return mixed

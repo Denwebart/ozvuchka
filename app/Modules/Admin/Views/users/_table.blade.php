@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
 
@@ -9,7 +9,7 @@
     <div class="user col-md-4" data-user-id="{{ $user->id }}">
         <div class="card-box">
             <div class="member-card-alt">
-                <div class="thumb-xl member-thumb m-b-10 pull-left">
+                <div class="thumb-xl member-thumb pull-left">
                     <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-thumbnail" alt="profile-image">
                     @if(!$user->deleted_at)
                         <i class="mdi mdi-account-circle member-star text-success" title="Пользователь активен" data-toggle="tooltip"></i>
@@ -35,11 +35,14 @@
                         {{ $user->description }}
                     </p>
 
+                    <!-- Edit -->
                     @if(Auth::user()->hasAdminPermission() || Auth::user()->is($user))
                         <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-default btn-sm m-t-15 waves-effect waves-light">
                             Редактировать
                         </a>
-                        <!-- Deleted/undeleted -->
+                    @endif
+                    <!-- Deleted/undeleted -->
+                    @if(Auth::user()->hasAdminPermission())
                         @if($user->deleted_at)
                             <button type="button" class="button-undelete btn btn-link text-success btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-item-title="{{ $user->login }}">Восстановить</button>
                         @else

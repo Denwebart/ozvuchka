@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
 
@@ -42,9 +42,15 @@
             </p>
         @endif
         <p class="text-muted font-13 m-b-0">
+            @if($page->is_published)
+                Опубликована: {{ \App\Helpers\Date::format($page->published_at, true) }}.
+            @endif
             Последнее обновение:
             @if($page->updated_at)
-                {{ \App\Helpers\Date::format($page->updated_at) }}
+                {{ \App\Helpers\Date::format($page->updated_at, true) }}
+                @if(\App\Helpers\Date::format($page->updated_at, true) != \App\Helpers\Date::getRelative($page->updated_at, true))
+                    ({{ \App\Helpers\Date::getRelative($page->updated_at, true) }})
+                @endif
             @else
                 cтраница не обновлялась.
             @endif
@@ -77,7 +83,6 @@
             @include('admin::pages._form')
 
             {!! Form::close() !!}
-
         </div>
     </div><!-- end col -->
 </div>

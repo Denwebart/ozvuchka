@@ -8,11 +8,13 @@ namespace App\Models;
 
 use App\Helpers\Str;
 use App\Helpers\Translit;
+use App\Traits\Rules;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 /**
  * App\Models\Page
@@ -63,6 +65,8 @@ use Illuminate\Support\Facades\File;
  */
 class Page extends Model
 {
+	use Rules;
+	
 	protected $table = 'pages';
 
 	protected $imagePath = '/uploads/pages/';
@@ -147,25 +151,6 @@ class Page extends Model
 		'meta_key' => 'max:300',
 	];
 
-	/**
-	 * Get validation rules
-	 * 
-	 * @param bool $id
-	 * @return array
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public static function rules($id = false)
-	{
-		$rules = self::$rules;
-		if ($id) {
-			foreach ($rules as &$rule) {
-				$rule = str_replace(':id', $id, $rule);
-			}
-		}
-		return $rules;
-	}
-
 	public static function boot()
 	{
 		parent::boot();
@@ -176,12 +161,7 @@ class Page extends Model
 			} else {
 				$page->alias = '/';
 			}
-			if(trim(strip_tags($page->introtext)) == '') {
-				$page->introtext = '';
-			}
-			if(trim(strip_tags($page->content)) == '') {
-				$page->content = '';
-			}
+			$page->deleteEditorImages();
 		});
 		
 		static::deleting(function($page) {
@@ -423,6 +403,74 @@ class Page extends Model
 	{
 		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
 	}
+	
+	/**
+	 * Getting the path for loading images through the editor
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImageEditorPath() {
+		return $this->imagePath . $this->id . '/editor/';
+	}
+	
+	/**
+	 * Get a temporary path for loading an image
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getTempPath() {
+		return '/uploads/temp/' . \Illuminate\Support\Str::random(20) . '/';
+	}
+	
+	/**
+	 * Moving images from a temporary folder
+	 *
+	 * @param $tempPath
+	 * @param string $field
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function saveEditorImages($tempPath, $field = 'content')
+	{
+		$moveDirectory = File::copyDirectory(public_path($tempPath), public_path($this->getImageEditorPath()));
+		if($moveDirectory) {
+			File::deleteDirectory(public_path($tempPath));
+		}
+		
+		return str_replace($tempPath, $this->getImageEditorPath(), $this->$field);
+	}
+	
+	/**
+	 * Deliting images wich where uploaded by editor
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function deleteEditorImages()
+	{
+		$fieldsValue = $this->introtext . $this->content;
+		// Deleting files from directory
+		if(File::exists(public_path($this->getImageEditorPath()))) {
+			$files = File::allFiles(public_path($this->getImageEditorPath()));
+			foreach($files as $file)
+			{
+				if(strpos($fieldsValue, $file->getFilename()) === false) {
+					if(File::exists($file)) {
+						$filename = $file->getPath() . $file->getFilename();
+						File::delete($filename);
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Get categories array
@@ -508,7 +556,7 @@ class Page extends Model
 		}
 
 		$data['user_id'] = $this->user_id ? $this->user_id : Auth::user()->id;
-
+		
 		return $data;
 	}
 
@@ -521,7 +569,7 @@ class Page extends Model
 	 */
 	public function getImagesPath()
 	{
-		return public_path() . $this->imagePath . $this->id . '/';
+		return public_path($this->imagePath . $this->id . '/');
 	}
 
 	/**
@@ -582,6 +630,7 @@ class Page extends Model
 	/**
 	 * Delete old image
 	 *
+	 * @return bool
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
@@ -595,6 +644,8 @@ class Page extends Model
 			}
 		}
 		$this->image = null;
+		
+		return true;
 	}
 
 	/**
