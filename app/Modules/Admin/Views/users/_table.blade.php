@@ -9,17 +9,21 @@
     <div class="user col-md-4" data-user-id="{{ $user->id }}">
         <div class="card-box">
             <div class="member-card-alt">
-                <div class="thumb-xl member-thumb pull-left">
+                <a href="{{ route('admin.users.show', ['id' => $user->id]) }}" class="thumb-xl member-thumb pull-left">
                     <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-thumbnail" alt="{{ $user->login }}">
                     @if(!$user->deleted_at)
                         <i class="mdi mdi-account-circle member-star text-success" title="Пользователь активен" data-toggle="tooltip"></i>
                     @else
                         <i class="mdi mdi-close-circle  member-star text-danger" title="Пользователь удален" data-toggle="tooltip"></i>
                     @endif
-                </div>
+                </a>
 
                 <div class="member-card-alt-info">
-                    <h4 class="m-b-5 m-t-0">{{ $user->login }}</h4>
+                    <h4 class="m-b-5 m-t-0">
+                        <a href="{{ route('admin.users.show', ['id' => $user->id]) }}">
+                            {{ $user->login }}
+                        </a>
+                    </h4>
                     @if($user->getFullName())
                         <p class="text-muted">{{ $user->getFullName() }}</p>
                     @endif

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Rules;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -45,7 +46,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Rules;
 	
 	/**
 	 * Path of avatar of user
@@ -186,7 +187,7 @@ class User extends Authenticatable
 	 */
 	public function hasAdminPermission()
 	{
-		return $this->role == self::ROLE_ADMIN ? true : false;
+		return $this->isSuperadmin() || $this->role == self::ROLE_ADMIN ? true : false;
 	}
 	
 	/**

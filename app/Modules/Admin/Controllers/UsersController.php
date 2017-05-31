@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Controllers;
 
+use App\Helpers\Errors;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -92,11 +93,11 @@ class UsersController extends Controller
 	 */
 	public function edit(Request $request, $id)
 	{
-		if (!\Auth::user()->isAdmin() && \Auth::user()->id != $id) {
+		$user = User::findOrFail($id);
+		
+		if (!\Auth::user()->hasAdminPermission() && !\Auth::user()->is($user)) {
 			return Errors::error403($request);
 		}
-		
-		$user = User::findOrFail($id);
 		
 		$backUrl = \Request::has('back_url') ? urldecode(\Request::get('back_url')) : \URL::previous();
 		
@@ -112,11 +113,12 @@ class UsersController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		if (!\Auth::user()->isAdmin() && \Auth::user()->id != $id) {
+		$user = User::findOrFail($id);
+		
+		if (!\Auth::user()->hasAdminPermission() && !\Auth::user()->is($user)) {
 			return Errors::error403($request);
 		}
 		
-		$user = User::findOrFail($id);
 		$data = $request->except('avatar');
 		
 		$rules = User::rules($user->id);

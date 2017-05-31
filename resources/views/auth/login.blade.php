@@ -20,7 +20,7 @@
             <div class="form-group m-b-20{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="col-xs-12">
                     <label for="email">Email или Логин</label>
-                    <input class="form-control" type="email" name="email" id="email" value="{{ old('email') }}" required="" placeholder="Введите email-адрес или логин">
+                    <input class="form-control" type="text" name="email" id="email" value="{{ old('email') }}" placeholder="Введите email-адрес или логин">
 
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -34,7 +34,7 @@
                 <div class="col-xs-12">
                     <a href="{{ route('password.request') }}" class="text-muted pull-right"><small>Забыли пароль?</small></a>
                     <label for="password">Пароль</label>
-                    <input class="form-control" type="password" name="password" id="password" required="" placeholder="Введите пароль">
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Введите пароль">
 
                     @if ($errors->has('password'))
                         <span class="help-block">

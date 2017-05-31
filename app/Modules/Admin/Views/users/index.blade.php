@@ -99,6 +99,7 @@
                             notification(response.message, 'success');
 
                             $('#table-container').html(response.resultHtml);
+                            $('[data-toggle="tooltip"]').tooltip();
                         } else {
                             notification(response.message, 'warning');
                         }
@@ -134,6 +135,7 @@
                             notification(response.message, 'success');
 
                             $('#table-container').html(response.resultHtml);
+                            $('[data-toggle="tooltip"]').tooltip();
                         } else {
                             notification(response.message, 'warning');
                         }
