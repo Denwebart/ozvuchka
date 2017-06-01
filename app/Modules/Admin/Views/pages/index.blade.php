@@ -85,6 +85,8 @@
 
         /* Deleting pages */
         $('#table-container').on('click', '.button-delete', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
             var itemId = $(this).data('itemId'),
                 itemTitle = $(this).data('itemTitle'),
                 countChildren = $(this).data('countChildren'),
@@ -132,6 +134,8 @@
 
         /* Change published status for pages */
         $('#table-container').on('click', '.button-change-published-status', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
             var $button = $(this);
                 itemId = $button.data('itemId'),
                 itemPublishedStatus = $button.data('isPublished');

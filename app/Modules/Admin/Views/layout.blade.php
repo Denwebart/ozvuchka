@@ -336,19 +336,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.pages.index') }}">
+                        <a href="{{ route('admin.pages.index') }}" class="waves-effect @if(Request::is('admin/pages*')) active @endif">
                             <i class="fi-paper"></i>
                             <span>Страницы</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.calls.index') }}">
+                        <a href="{{ route('admin.calls.index') }}" class="waves-effect @if(Request::is('admin/calls*')) active @endif">
                             <i class="fa fa-phone"></i>
                             <span>Звонки</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.letters.index') }}">
+                        <a href="{{ route('admin.letters.index') }}" class="waves-effect @if(Request::is('admin/letters*')) active @endif">
                             <i class="fi-mail"></i>
                             <span>Письма</span>
                         </a>
@@ -356,13 +356,13 @@
 
                     <li class="menu-title">More</li>
                     <li>
-                        <a href="{{ route('admin.users.index') }}">
+                        <a href="{{ route('admin.users.index') }}" class="waves-effect @if(Request::is('admin/users*')) active @endif">
                             <i class="fi-head"></i>
                             <span>Пользователи</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.settings.index') }}">
+                        <a href="{{ route('admin.settings.index') }}" class="waves-effect @if(Request::is('admin/settings*')) active @endif">
                             <i class="fi-cog"></i>
                             <span>Настройки</span>
                         </a>

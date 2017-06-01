@@ -67,6 +67,8 @@
 
         /* Deleting users :mark user as deleted */
         $('#table-container').on('click', '.button-delete', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
             var itemId = $(this).data('itemId'),
                 itemTitle = $(this).data('itemTitle'),
                 hasActivities = $(this).data('hasActivities');
@@ -110,6 +112,8 @@
 
         /* Deleting users :mark user as undeleted */
         $('#table-container').on('click', '.button-undelete', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
             var itemId = $(this).data('itemId');
             var itemTitle = $(this).data('itemTitle');
 

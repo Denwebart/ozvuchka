@@ -11,7 +11,7 @@ class LettersController extends Controller
 	public function __construct()
 	{
 		
-		$this->middleware('admin', ['only' => ['destroy']]);
+//		$this->middleware('admin', ['only' => ['destroy']]);
 	}
 	
 	/**
@@ -21,9 +21,35 @@ class LettersController extends Controller
 	 */
 	public function index()
 	{
-		$letters = $this->getLetters();
+		$letters = $this->getLetters(\Route::current()->getName());
+		
 		return view('admin::letters.index', compact('letters'));
 	}
+	
+	/**
+	 * Display a listing of the important letters.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function important()
+	{
+		$letters = $this->getLetters(\Route::current()->getName());
+		
+		return view('admin::letters.index', compact('letters'));
+	}
+	
+	/**
+	 * Display a listing of the deleted letters.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function trash()
+	{
+		$letters = $this->getLetters(\Route::current()->getName());
+		
+		return view('admin::letters.index', compact('letters'));
+	}
+	
 	/**
 	 * Display the specified resource.
 	 *
@@ -43,68 +69,75 @@ class LettersController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
+	 * @param Request $request
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
-		if(\Request::ajax()) {
-			if(Letter::destroy($id)){
-				$letters = $this->getLetters();
+		$letter = Letter::find($id);
+		$route = $request->get('route', 'admin.letters.index');
+		if($letter) {
+			if($letter->delete()){
+				$letters = $this->getLetters($route);
 				
-				return \Response::json([
-					'success' => true,
-					'message' => 'Письмо успешно удалёно.',
-					'itemsCount' => view('parts.count')->with('models', $letters)->render(),
-					'itemsPagination' => view('parts.pagination')->with('models', $letters)->render(),
-					'itemsTable' => view('admin::letters.table')->with('letters', $letters)->render(),
-				]);
+				if(\Request::ajax()) {
+					return \Response::json([
+						'success' => true,
+						'message' => 'Письмо успешно удалено.',
+						'resultHtml' => view('admin::letters._table', compact('letters'))->with('route', $route)->render(),
+					]);
+				} else {
+					return back()->with('successMessage', 'Письмо успешно удалено.');
+				}
 			} else {
+				$letters = $this->getLetters($route);
+				
+				if(\Request::ajax()) {
+					return \Response::json([
+						'success' => true,
+						'message' => 'Письмо успешно перемещено в корзину.',
+						'resultHtml' => view('admin::letters._table', compact('letters'))->with('route', $route)->render(),
+					]);
+				} else {
+					return back()->with('successMessage', 'Письмо успешно перемещено в корзину.');
+				}
+			}
+		} else {
+			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Произошла ошибка, письмо не удалёно.'
+					'message' => 'Произошла ошибка, письмо не удалёно.',
 				]);
+			} else {
+				return back()->with('dangerMessage', 'Произошла ошибка, письмо не удалёно.');
 			}
 		}
 	}
 	
 	/**
-	 * Display a listing of the important letters.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function important()
-	{
-		$letters = Letter::whereIsImportant(1)->orderBy('created_at', 'DESC')->paginate(20);
-		return view('admin::letters.index', compact('letters'));
-	}
-	
-	/**
-	 * Display a listing of the deleted letters.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function trash()
-	{
-		$letters = Letter::whereNotNull('deleted_at')
-			->orderBy('created_at', 'DESC')
-			->paginate(20);
-		return view('admin::letters.index', compact('letters'));
-	}
-	
-	/**
 	 * Get list of letters
 	 *
+	 * @param string $route
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	protected function getLetters()
+	protected function getLetters($route = 'admin.letters.index')
 	{
-		return Letter::whereNull('deleted_at')
-			->orderBy('created_at', 'DESC')
-			->paginate(20);
+		$query = new Letter();
+		
+		if($route == 'admin.letters.trash') {
+			$query = $query->whereNotNull('deleted_at');
+		} elseif ($route == 'admin.letters.important') {
+			$query = $query->whereIsImportant(1);
+		} else {
+			$query = $query->whereNull('deleted_at');
+		}
+		
+		$letters = $query->orderBy('created_at', 'DESC')->paginate(20);
+		return $letters;
 	}
 }

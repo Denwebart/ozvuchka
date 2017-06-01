@@ -116,6 +116,8 @@
 
         /* Deleting requested calls */
         $('#table-container').on('click', '.button-delete', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
             var itemId = $(this).data('itemId');
 
             swal({
@@ -152,6 +154,8 @@
 
         /* Editing requested calls: open popup form */
         $('#table-container').on('click', '.button-edit', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
             var itemId = $(this).data('itemId');
 
             $.ajax({
@@ -177,6 +181,7 @@
 
         /* Editing requested calls: update */
         $('#editing-call-modal').on('click', '.button-update', function(e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
             var $form = $('#editing-call-form'),
                 formData = $form.serializeArray(),
