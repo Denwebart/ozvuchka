@@ -122,8 +122,8 @@
                             notification(response.message, 'success');
 
                             $('#table-container').html(response.resultHtml);
-
                             $('#datatable').dataTable(dataTableOptions);
+                            $('[data-toggle="tooltip"]').tooltip();
                         } else {
                             notification(response.message, 'warning');
                         }

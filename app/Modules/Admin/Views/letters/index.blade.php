@@ -86,7 +86,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        /* Deleting pages */
+        /* Deleting letters */
         $('#table-container').on('click', '.button-delete', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
@@ -124,6 +124,7 @@
                             notification(response.message, 'success');
 
                             $('#table-container').html(response.resultHtml);
+                            $('[data-toggle="tooltip"]').tooltip();
                         } else {
                             notification(response.message, 'error');
                         }
@@ -132,47 +133,34 @@
             }, function(dismiss) {});
         });
 
-        /* Change published status for pages */
-        /*
-        $('#table-container').on('click', '.button-change-published-status', function (e) {
+        /* Mark letters as important */
+        $('#table-container').on('click', '.button-make-important', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
             var $button = $(this);
-            itemId = $button.data('itemId'),
-                itemPublishedStatus = $button.data('isPublished');
+                itemId = $button.data('itemId'),
+                isImportant = $button.data('isImportant');
 
             $.ajax({
-                url: "/admin/pages/change_published_status/" + itemId,
+                url: "/admin/letters/change_important_status/" + itemId,
                 dataType: "text json",
                 type: "POST",
-                data: {'is_published': itemPublishedStatus},
+                data: {'is_important': isImportant, 'route': "{{ \Route::current()->getName() }}"},
                 beforeSend: function (request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
                 success: function (response) {
                     if (response.success) {
                         notification(response.message, 'success');
-                        $button.data('isPublished', response.isPublished);
-                        if(response.isPublished) {
-                            $button.find('span').text('Снять с публикации');
-                        } else {
-                            $button.find('span').text('Опубликовать');
-                        }
-                        $button.find('i').toggleClass('mdi-eye-off').toggleClass('mdi-eye');
-                        $('.item[data-page-id='+ itemId +']').find('.published-status .label')
-                            .toggleClass('label-muted').toggleClass('label-success')
-                            .text(response.isPublishedText);
-                        var $metaDataLabel = $('.item[data-page-id='+ itemId +']').find('.meta-data .label');
-                        if(!$metaDataLabel.hasClass('label-success')) {
-                            $metaDataLabel.toggleClass('label-muted').toggleClass('label-danger').toggleClass('label-warning');
-                        }
+
+                        $('#table-container').html(response.resultHtml);
+                        $('[data-toggle="tooltip"]').tooltip();
                     } else {
                         notification(response.message, 'error');
                     }
                 }
             });
         });
-        */
     });
 </script>
 @endpush

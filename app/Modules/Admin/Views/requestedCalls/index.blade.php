@@ -206,8 +206,8 @@
                         notification(response.message, 'success');
 
                         $('#table-container').html(response.resultHtml);
-
                         $('#datatable').dataTable(dataTableOptions);
+                        $('[data-toggle="tooltip"]').tooltip();
                     } else {
                         $('#editing-call-modal .loader').hide();
                         $('#editing-call-modal .ajax-modal-content').show();

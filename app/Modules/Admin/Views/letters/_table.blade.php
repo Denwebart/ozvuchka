@@ -20,9 +20,9 @@ $route = isset($route) ? $route : \Route::current()->getName();
                             </div>
                             <p class="title">{{ $letter->name }}</p>
                             @if(!$letter->is_important)
-                                <span class="button-make-important star-toggle @if($letter->is_important) fa fa-star text-warning @else fa fa-star-o @endif" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></span>
+                                <span class="button-make-important star-toggle fa fa-star-o" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></span>
                             @else
-                                <span class="button-make-important star-toggle @if($letter->is_important) fa fa-star text-warning @else fa fa-star-o @endif" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Снять метку важное"></span>
+                                <span class="button-make-important star-toggle fa fa-star text-warning" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Снять метку &#34;Важное&#34;"></span>
                             @endif
                         </div>
                         <div class="col col-2">

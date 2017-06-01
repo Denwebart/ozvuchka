@@ -81,9 +81,9 @@ class LettersController extends Controller
 		$route = $request->get('route', 'admin.letters.index');
 		if($letter) {
 			if($letter->delete()){
-				$letters = $this->getLetters($route);
-				
 				if(\Request::ajax()) {
+					$letters = $this->getLetters($route);
+					
 					return \Response::json([
 						'success' => true,
 						'message' => 'Письмо успешно удалено.',
@@ -93,9 +93,9 @@ class LettersController extends Controller
 					return back()->with('successMessage', 'Письмо успешно удалено.');
 				}
 			} else {
-				$letters = $this->getLetters($route);
-				
 				if(\Request::ajax()) {
+					$letters = $this->getLetters($route);
+					
 					return \Response::json([
 						'success' => true,
 						'message' => 'Письмо успешно перемещено в корзину.',
@@ -113,6 +113,46 @@ class LettersController extends Controller
 				]);
 			} else {
 				return back()->with('dangerMessage', 'Произошла ошибка, письмо не удалёно.');
+			}
+		}
+	}
+	
+	/**
+	 * Mark letters as important.
+	 *
+	 * @param Request $request
+	 * @param $id
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function changeImportantStatus(Request $request, $id)
+	{
+		$letter = Letter::find($id);
+		$route = $request->get('route', 'admin.letters.index');
+		if($letter && $request->has('is_important')) {
+			$letter->is_important = !$request->get('is_important');
+			$letter->save();
+			
+			if(\Request::ajax()) {
+				$letters = $this->getLetters($route);
+				
+				return \Response::json([
+					'success' => true,
+					'message' => $letter->is_important ? 'Письмо помечено как важное.' : 'Метка "Важное" снята.',
+					'resultHtml' => view('admin::letters._table', compact('letters'))->with('route', $route)->render(),
+				]);
+			} else {
+				return back()->with('successMessage', $letter->is_important ? 'Письмо помечено как важное.' : 'Метка "Важное" снята.');
+			}
+		} else {
+			if(\Request::ajax()) {
+				return \Response::json([
+					'success' => false,
+					'message' => 'Произошла ошибка. Действие не выполнено.',
+				]);
+			} else {
+				return back()->with('warningMessage', 'Произошла ошибка. Действие не выполнено.');
 			}
 		}
 	}
