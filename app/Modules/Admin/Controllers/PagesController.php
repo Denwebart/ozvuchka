@@ -2,8 +2,8 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Helpers\Translit;
 use App\Models\Page;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -196,10 +196,11 @@ class PagesController extends Controller
 	 */
 	public function changePublishedStatus(Request $request, $id)
 	{
-		$page = Page::find($id);
+		$page = Page::findOrFail($id);
 		if(!$page->isMain()) {
 			if($request->has('is_published')) {
 				$page->is_published = !$request->get('is_published');
+				$page->published_at = Carbon::now();
 				$page->save();
 				
 				if(\Request::ajax()) {

@@ -123,7 +123,8 @@
 
     /* Delete item */
     $('#menus').on('click', '.delete-item', function(e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
         var menuType = $(this).data('menu-type'),
             menuTitle = $(this).data('menu-title'),
             itemId = $(this).data('item-id'),
@@ -163,7 +164,8 @@
 
     /* Add new menu item: open form for added new item */
     $('#menus').on('click', '.open-menu-item-form', function (e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
         var menuType = $(this).data('menuType'),
             $form = $('.new-menu-item-form[data-menu-type='+ menuType +']');
         if($form.is(':visible')) {
@@ -188,7 +190,7 @@
 
     /* Add new menu item: add new item */
     $('#menus').on('click', '.add-menu-item', function (e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var menuType = $(this).data('menuType'),
             input = $('[name^="new-item-in-menu-'+ menuType +'"]'),

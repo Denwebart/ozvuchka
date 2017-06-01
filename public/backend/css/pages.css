@@ -108,21 +108,31 @@ File: Menu
   bottom: 0;
 }
 .message-list li .col-2 .subject,
-.message-list li .col-2 .date {
+.message-list li .col-2 .date,
+.message-list li .col-2 .buttons {
   position: absolute;
   top: 0;
 }
 .message-list li .col-2 .subject {
   left: 0;
-  right: 200px;
+  right: 240px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .message-list li .col-2 .date {
-  right: 0;
-  width: 240px;
-  padding-left: 80px;
+  right: 60px;
+  width: 200px;
+  padding-left: 40px;
+}
+.message-list li .col-2 .buttons {
+    text-align: right;
+    padding: 0 20px;
+    right: 0;
+    width: 60px;
+}
+.message-list li .col-2 .buttons span {
+    font-size: 16px;
 }
 .message-list li.active,
 .message-list li.selected {
@@ -132,6 +142,10 @@ File: Menu
 .message-list li.active,
 .message-list li.active:hover {
   box-shadow: inset 3px 0 0 #64c5b1;
+}
+.message-list li.deleted {
+    background: rgba(173, 50, 31, 0.15);
+    transition-duration: .05s;
 }
 .message-list li.unread {
   font-weight: 600;

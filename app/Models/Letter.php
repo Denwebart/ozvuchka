@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -59,4 +60,21 @@ class Letter extends Model
 		'subject' => 'max:250',
 		'message' => 'required|min:3',
 	];
+	
+	public static function boot()
+	{
+		parent::boot();
+		
+		static::creating(function($letter) {
+			//
+		});
+		
+		static::deleting(function($letter) {
+			if(!$letter->deleted_at) {
+				$letter->deleted_at = Carbon::now();
+				$letter->save();
+				return false;
+			}
+		});
+	}
 }

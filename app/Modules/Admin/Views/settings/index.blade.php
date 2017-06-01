@@ -323,7 +323,9 @@
     $('.editable-text').editable(getSettingsEditableOptions());
 
     // Change active status or boolean value
-    $('[data-plugin=switchery], .ajax-checkbox').on('change', function () {
+    $('[data-plugin=switchery], .ajax-checkbox').on('change', function (e) {
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
         var value = 0;
         if($(this).is(':checked')) {
             value = 1;

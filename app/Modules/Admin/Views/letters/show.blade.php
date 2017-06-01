@@ -40,13 +40,13 @@
 
             <div class="inbox-rightbar">
 
-                <div class="m-t-10 m-b-20" role="toolbar">
+                <div class="m-t-10 m-b-20 text-right" role="toolbar">
+                    <span class="text-muted font-12 m-r-20">Действия с письмом: </span>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default waves-effect"><i class="mdi mdi-inbox font-18 vertical-middle"></i></button>
-                        <button type="button" class="btn btn-default waves-effect"><i class="mdi mdi-star font-18 vertical-middle"></i></button>
-                        <button type="button" class="btn btn-default waves-effect"><i class="mdi mdi-delete font-18 vertical-middle"></i></button>
+                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как важное"><i class="mdi mdi-star font-18 vertical-middle"></i></button>
+                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Удалить в корзину"><i class="mdi mdi-delete font-18 vertical-middle"></i></button>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" data-toggle="tooltip" title="Добавить тег">
                         <button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">
                             <i class="mdi mdi-label font-18 vertical-middle"></i>
                             <b class="caret m-l-5"></b>

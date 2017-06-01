@@ -39,11 +39,11 @@
 
                 <div class="m-t-10 m-b-20" role="toolbar">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default waves-effect"><i class="mdi mdi-inbox font-18 vertical-middle"></i></button>
-                        <button type="button" class="btn btn-default waves-effect"><i class="mdi mdi-star font-18 vertical-middle"></i></button>
-                        <button type="button" class="btn btn-default waves-effect"><i class="mdi mdi-delete font-18 vertical-middle"></i></button>
+                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как непрочитанные"><i class="mdi mdi-inbox font-18 vertical-middle"></i></button>
+                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как важные"><i class="mdi mdi-star font-18 vertical-middle"></i></button>
+                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Удалить в корзину"><i class="mdi mdi-delete font-18 vertical-middle"></i></button>
                     </div>
-                    <div class="btn-group">
+                    <div class="btn-group" data-toggle="tooltip" title="Добавить тег">
                         <button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">
                             <i class="mdi mdi-label font-18 vertical-middle"></i>
                             <b class="caret m-l-5"></b>
@@ -59,56 +59,9 @@
                     </div>
                 </div>
 
-                <div class="card-box p-0">
-                    @if(count($letters))
-                        <ul class="message-list m-b-0">
-                            @foreach($letters as $letter)
-                                <li @if(!$letter->read_at) class="unread" @endif>
-                                    <a href="{{ route('admin.letters.show', ['id' => $letter->id]) }}">
-                                        <div class="col col-1">
-                                            <div class="checkbox-wrapper-mail">
-                                                <input type="checkbox" id="chk1">
-                                                <label for="chk1" class="toggle"></label>
-                                            </div>
-                                            <p class="title">{{ $letter->name }}</p>
-                                            <span class="star-toggle @if($letter->is_important) fa fa-star text-warning @else fa fa-star-o @endif"></span>
-                                        </div>
-                                        <div class="col col-2">
-                                            <div class="subject">
-                                                @if(!$letter->deleted_at)
-                                                    {{ $letter->subject }}
-                                                @else
-                                                    <del>{{ $letter->subject }}</del>
-                                                @endif
-                                            </div>
-                                            <div class="date">
-                                                {{ \App\Helpers\Date::format($letter->created_at, true, true) }}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <div class="background-icon text-center">
-                            <p>Писем нет</p>
-                            <i class="fa fa-envelope"></i>
-                        </div>
-                    @endif
-                </div> <!-- panel body -->
-
-                @if(count($letters))
-                    <div class="row">
-                        <div class="col-xs-7">
-                            Показано с 1 по {{ $letters->count() }}. Всего писем: {{ $letters->total() }}.
-                        </div>
-                        <div class="col-xs-5">
-                            <div class="pull-right">
-                                {{ $letters->links() }}
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                <div id="table-container">
+                    @include('admin::letters._table')
+                </div>
             </div>
 
             <div class="clearfix"></div>
@@ -118,3 +71,96 @@
 
 </div><!-- End row -->
 @endsection
+
+@push('styles')
+<!-- Sweet Alert -->
+<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+@endpush
+
+@push('scripts')
+<!-- Sweet-Alert  -->
+<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+@endpush
+
+@push('scriptsBottom')
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        /* Deleting letters */
+        $('#table-container').on('click', '.button-delete', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+            var itemId = $(this).data('itemId'),
+                isDeleted = $(this).data('isDeleted');
+
+            var text = '', title = '';
+            if(isDeleted) {
+                title = 'Удалить письмо?';
+                text = 'Вы точно хотите безвозвратно удалить письмо из корзины?';
+            } else {
+                title = 'Переместить письмо в корзину?';
+                text = 'Письмо будет помещено в корзину.';
+            }
+
+            swal({
+                title: title,
+                text: text,
+                type: "error",
+                showCancelButton: true,
+                cancelButtonText: 'Отмена',
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'Удалить'
+            }).then(function() {
+                $.ajax({
+                    url: "/admin/letters/" + itemId,
+                    dataType: "text json",
+                    type: "DELETE",
+                    data: {'route': "{{ \Route::current()->getName() }}"},
+                    beforeSend: function (request) {
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            notification(response.message, 'success');
+
+                            $('#table-container').html(response.resultHtml);
+                            $('[data-toggle="tooltip"]').tooltip();
+                        } else {
+                            notification(response.message, 'error');
+                        }
+                    }
+                });
+            }, function(dismiss) {});
+        });
+
+        /* Mark letters as important */
+        $('#table-container').on('click', '.button-make-important', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+            var $button = $(this);
+                itemId = $button.data('itemId'),
+                isImportant = $button.data('isImportant');
+
+            $.ajax({
+                url: "/admin/letters/change_important_status/" + itemId,
+                dataType: "text json",
+                type: "POST",
+                data: {'is_important': isImportant, 'route': "{{ \Route::current()->getName() }}"},
+                beforeSend: function (request) {
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function (response) {
+                    if (response.success) {
+                        notification(response.message, 'success');
+
+                        $('#table-container').html(response.resultHtml);
+                        $('[data-toggle="tooltip"]').tooltip();
+                    } else {
+                        notification(response.message, 'error');
+                    }
+                }
+            });
+        });
+    });
+</script>
+@endpush
