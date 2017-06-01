@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Controllers;
 
+use App\Helpers\Date;
 use App\Models\Letter;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -99,6 +100,8 @@ class LettersController extends Controller
 					return \Response::json([
 						'success' => true,
 						'message' => 'Письмо успешно перемещено в корзину.',
+						'isDeleted' => $letter->deleted_at ? 1 : 0,
+						'deletedAt' => Date::format($letter->deleted_at, true),
 						'resultHtml' => view('admin::letters._table', compact('letters'))->with('route', $route)->render(),
 					]);
 				} else {
@@ -113,6 +116,46 @@ class LettersController extends Controller
 				]);
 			} else {
 				return back()->with('dangerMessage', 'Произошла ошибка, письмо не удалёно.');
+			}
+		}
+	}
+	
+	/**
+	 * Mark user as undeleted
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function undelete(Request $request, $id)
+	{
+		$letter = Letter::find($id);
+		$route = $request->get('route', 'admin.letters.index');
+		if(is_object($letter)) {
+			$letter->deleted_at = null;
+			$letter->save();
+			
+			if(\Request::ajax()) {
+				$letters = $this->getLetters($route);
+				
+				return \Response::json([
+					'success' => true,
+					'message' => 'Письмо успешно восстановлено и перемещено во входящие.',
+					'resultHtml' => view('admin::letters._table', compact('letters'))->render(),
+				]);
+			} else {
+				return back()->with('successMessage', 'Письмо успешно восстановлено и перемещено во входящие.');
+			}
+		} else {
+			if(\Request::ajax()) {
+				return \Response::json([
+					'success' => false,
+					'message' => 'Ошибка. Письмо не восстановлено.',
+				]);
+			} else {
+				return back()->with('warningMessage', 'Ошибка. Письмо не восстановлено.');
 			}
 		}
 	}
@@ -140,6 +183,7 @@ class LettersController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => $letter->is_important ? 'Письмо помечено как важное.' : 'Метка "Важное" снята.',
+					'isImportant' => (integer) $letter->is_important,
 					'resultHtml' => view('admin::letters._table', compact('letters'))->with('route', $route)->render(),
 				]);
 			} else {

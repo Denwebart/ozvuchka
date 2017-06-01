@@ -7,7 +7,7 @@
 $route = isset($route) ? $route : \Route::current()->getName();
 ?>
 
-<div class="card-box p-0">
+<div class="card-box p-0 m-b-20">
     @if(count($letters))
         <ul class="message-list m-b-0">
             @foreach($letters as $letter)
@@ -20,9 +20,9 @@ $route = isset($route) ? $route : \Route::current()->getName();
                             </div>
                             <p class="title">{{ $letter->name }}</p>
                             @if(!$letter->is_important)
-                                <span class="button-make-important star-toggle fa fa-star-o" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></span>
+                                <button type="button" class="button-make-important star-toggle fa fa-star-o" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></button>
                             @else
-                                <span class="button-make-important star-toggle fa fa-star text-warning" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Снять метку &#34;Важное&#34;"></span>
+                                <button type="button" class="button-make-important star-toggle fa fa-star text-warning" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Снять метку &#34;Важное&#34;"></button>
                             @endif
                         </div>
                         <div class="col col-2">
@@ -37,11 +37,10 @@ $route = isset($route) ? $route : \Route::current()->getName();
                                 {{ \App\Helpers\Date::format($letter->created_at, true, true) }}
                             </div>
                             <div class="buttons">
-                                @if(!$letter->deleted_at)
-                                    <span class="button-delete fa fa-trash-o" data-item-id="{{ $letter->id }}" data-is-deleted="{{ $letter->deleted_at ? 1 : 0 }}" data-toggle="tooltip" title="Удалить в корзину"></span>
-                                @else
-                                    <span class="button-delete fa fa-trash" data-item-id="{{ $letter->id }}" data-is-deleted="{{ $letter->deleted_at ? 1 : 0 }}" data-toggle="tooltip" title="Удалить из корзины"></span>
+                                @if($letter->deleted_at && (Request::is('admin/letters/trash*') || $route == 'admin.letters.trash'))
+                                    <button type="button" class="button-undelete fa fa-reply" data-item-id="{{ $letter->id }}" data-toggle="tooltip" title="Переместить во входящие"></button>
                                 @endif
+                                <button type="button" class="button-delete fa @if(!$letter->deleted_at) fa-trash-o @else fa-trash @endif" data-item-id="{{ $letter->id }}" data-is-deleted="{{ $letter->deleted_at ? 1 : 0 }}" data-toggle="tooltip" title="@if(!$letter->deleted_at) Удалить в корзину @else Удалить из корзины @endif"></button>
                             </div>
                         </div>
                     </a>

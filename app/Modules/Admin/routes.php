@@ -14,6 +14,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::resource('calls', 'RequestedCallsController', ['except' => ['create', 'store', 'show']]);
 	
 	Route::post('letters/change_important_status/{id}', ['as' => 'letters.changeImportantStatus', 'uses' => 'LettersController@changeImportantStatus']);
+	Route::post('letters/undelete/{id}', ['as' => 'letters.undelete', 'uses' => 'LettersController@undelete']);
 	Route::get('letters/important', ['as' => 'letters.important', 'uses' => 'LettersController@important']);
 	Route::get('letters/trash', ['as' => 'letters.trash', 'uses' => 'LettersController@trash']);
 	Route::resource('letters', 'LettersController');

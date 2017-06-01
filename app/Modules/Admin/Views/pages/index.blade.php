@@ -136,7 +136,7 @@
         $('#table-container').on('click', '.button-change-published-status', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-            var $button = $(this);
+            var $button = $(this),
                 itemId = $button.data('itemId'),
                 itemPublishedStatus = $button.data('isPublished');
 

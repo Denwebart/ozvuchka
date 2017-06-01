@@ -121,16 +121,17 @@ File: Menu
   white-space: nowrap;
 }
 .message-list li .col-2 .date {
-  right: 60px;
-  width: 200px;
+  right: 80px;
+  width: 180px;
   padding-left: 40px;
 }
 .message-list li .col-2 .buttons {
     text-align: right;
-    padding: 0 20px;
+    padding: 0 10px 0 0;
     right: 0;
-    width: 60px;
+    width: 80px;
 }
+.message-list li .col-2 .buttons button,
 .message-list li .col-2 .buttons span {
     font-size: 16px;
 }
@@ -148,6 +149,8 @@ File: Menu
     transition-duration: .05s;
 }
 .message-list li.unread {
+  background: rgba(80, 197, 156, 0.15);
+  transition-duration: .05s;
   font-weight: 600;
   color: #555;
 }

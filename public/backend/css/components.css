@@ -99,6 +99,10 @@ File: Components
 /* =============
    Buttons
 ============= */
+button {
+    background: none;
+    border: none;
+}
 .btn {
   border-radius: 2px;
   font-size: 14px;

@@ -133,11 +133,38 @@
             }, function(dismiss) {});
         });
 
+        /* Undeleting letters */
+        $('#table-container').on('click', '.button-undelete', function (e) {
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+            var itemId = $(this).data('itemId');
+
+            $.ajax({
+                url: "/admin/letters/undelete/" + itemId,
+                dataType: "text json",
+                type: "POST",
+                data: {'route': "{{ \Route::current()->getName() }}"},
+                beforeSend: function (request) {
+                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                },
+                success: function (response) {
+                    if (response.success) {
+                        notification(response.message, 'success');
+
+                        $('#table-container').html(response.resultHtml);
+                        $('[data-toggle="tooltip"]').tooltip();
+                    } else {
+                        notification(response.message, 'error');
+                    }
+                }
+            });
+        });
+
         /* Mark letters as important */
         $('#table-container').on('click', '.button-make-important', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-            var $button = $(this);
+            var $button = $(this),
                 itemId = $button.data('itemId'),
                 isImportant = $button.data('isImportant');
 
