@@ -132,7 +132,8 @@ class LettersController extends Controller
 	public function undelete(Request $request, $id)
 	{
 		$letter = Letter::find($id);
-		$route = $request->get('route', 'admin.letters.index');
+		$route = $request->get('route', 'admin.letters.trash');
+		
 		if(is_object($letter)) {
 			$letter->deleted_at = null;
 			$letter->save();
@@ -143,7 +144,7 @@ class LettersController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => 'Письмо успешно восстановлено и перемещено во входящие.',
-					'resultHtml' => view('admin::letters._table', compact('letters'))->render(),
+					'resultHtml' => view('admin::letters._table', compact('letters'))->with('route', $route)->render(),
 				]);
 			} else {
 				return back()->with('successMessage', 'Письмо успешно восстановлено и перемещено во входящие.');
