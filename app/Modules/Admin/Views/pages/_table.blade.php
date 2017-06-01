@@ -38,7 +38,7 @@
             </td>
 
             <td>
-                {{ $page->getUrl(true) }}
+                <a href="{{ $page->getUrl() }}" target="_blank">{{ $page->getUrl(true) }}</a>
             </td>
 
             <td class="published-status">

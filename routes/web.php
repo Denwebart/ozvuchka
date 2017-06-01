@@ -19,4 +19,14 @@ Route::get('activate/{id}/{token}', '\App\Http\Controllers\Auth\RegisterControll
 Route::post('upload_into_temp', ['as' => 'uploadIntoTemp', 'before' => 'csrf-ajax', 'uses' => 'ImageUploadController@uploadIntoTemp']);
 Route::post('delete_from_temp', ['as' => 'deleteFromTemp', 'before' => 'csrf-ajax', 'uses' => 'ImageUploadController@deleteFromTemp']);
 
+/*
+ * Pages
+ */
 Route::get('/', 'PagesController@index');
+
+Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
+
+Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}', ['uses' => 'PagesController@pageFourLevel']);
+Route::get('{parentOne}/{parentTwo}/{page}', ['uses' => 'PagesController@pageThreeLevel']);
+Route::get('{parentOne}/{page}', ['uses' => 'PagesController@pageTwoLevel']);
+Route::get('{page}', ['uses' => 'PagesController@pageOneLevel']);
