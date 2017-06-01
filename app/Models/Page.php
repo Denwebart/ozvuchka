@@ -136,7 +136,7 @@ class Page extends Model
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static $rules = [
-		'alias' => 'unique:pages,alias,:id|max:500|regex:/^[A-Za-z0-9\-]+$/u',
+		'alias' => 'unique:pages,alias,:id|max:500|regex:/^[A-Za-z0-9\-_]+$/u',
 		'parent_id' => 'integer',
 		'user_id' => 'integer',
 		'type' => 'integer',
@@ -225,6 +225,17 @@ class Page extends Model
 	public function menus()
 	{
 		return $this->hasMany(Menu::class);
+	}
+	
+	/**
+	 * Scope a query to only include active pages.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopePublished($query)
+	{
+		return $query->whereIsPublished(1)->where('published_at', '<=', Carbon::now());
 	}
 	
 	/**
@@ -556,6 +567,9 @@ class Page extends Model
 		}
 
 		$data['user_id'] = $this->user_id ? $this->user_id : Auth::user()->id;
+		
+		$pageTitle = $data['menu_title'] ? $data['menu_title'] : $data['title'];
+		$data['alias'] = Translit::generateAlias($pageTitle, $data['alias']);
 		
 		return $data;
 	}

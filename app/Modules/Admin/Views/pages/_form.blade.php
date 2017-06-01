@@ -31,7 +31,11 @@
                     </select>
                 @else
                     {!! Form::hidden('parent_id', $page->parent_id) !!}
-                    {!! Form::select('parent_id', \App\Models\Page::getCategory(), $page->parent_id, ['id' => 'parent_id', 'class' => 'form-control', 'disabled' => true]) !!}
+                    <select name="parent_id" id="parent_id" class="selectpicker" disabled data-style="btn-custom">
+                        @foreach(\App\Models\Page::getCategory() as $key => $item)
+                            <option value="{{ $key }}" @if($page->parent_id == $key) selected @endif>{{ $item }}</option>
+                        @endforeach
+                    </select>
                 @endif
                 @if($errors->has('parent_id'))
                     <span class="error help-block text-danger font-12">
@@ -202,7 +206,7 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-4 switchery-demo">
-                @if($page->canBeDeleted())
+                @if(!$page->isMain())
                     {!! Form::hidden('is_published', 0) !!}
                     {!! Form::checkbox('is_published', 1, $page->is_published, ['id' => 'is_published', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
                 @else
@@ -230,33 +234,33 @@
                 @endif
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-2">
-                {!! Form::label('published_at', 'Отложить публикацию:', ['class' => 'control-label m-b-10']) !!}
-                <!-- Info text: published_at -->
-                <span class="m-l-10 text-muted" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Страница будет опубликована на сайте не сразу, а в заданное время." data-original-title="Отложенная публикация">
-                    <i class="fa fa-question-circle-o"></i>
-                </span>
-            </div>
-            <div class="col-sm-5 col-sm-offset-2">
-                <div class="input-group">
-                    <input name="published_date" type="text" class="form-control datepicker" placeholder="Дата" value="">
-                    <span class="input-group-addon"><i class="mdi mdi-calendar"></i></span>
-                </div><!-- input-group -->
-            </div>
-            <div class="col-sm-5">
-                <div class="input-group">
-                    <input name="published_time" type="text" class="form-control timepicker" placeholder="Время"  value="">
-                    <span class="input-group-addon"><i class="mdi mdi-clock"></i></span>
-                </div><!-- input-group -->
-            </div>
-            <div class="col-sm-5 col-sm-offset-2 m-t-20">
-                <div class="input-group">
-                    <input name="published_at" type="text" class="form-control datetimepicker" placeholder="Дата публикации"  value="">
-                    <span class="input-group-addon"><i class="mdi mdi-clock"></i></span>
-                </div><!-- input-group -->
-            </div>
-        </div>
+        {{--<div class="form-group">--}}
+            {{--<div class="col-sm-10 col-sm-offset-2">--}}
+                {{--{!! Form::label('published_at', 'Отложить публикацию:', ['class' => 'control-label m-b-10']) !!}--}}
+                {{--<!-- Info text: published_at -->--}}
+                {{--<span class="m-l-10 text-muted" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Страница будет опубликована на сайте не сразу, а в заданное время." data-original-title="Отложенная публикация">--}}
+                    {{--<i class="fa fa-question-circle-o"></i>--}}
+                {{--</span>--}}
+            {{--</div>--}}
+            {{--<div class="col-sm-5 col-sm-offset-2">--}}
+                {{--<div class="input-group">--}}
+                    {{--<input name="published_date" type="text" class="form-control datepicker" placeholder="Дата" value="">--}}
+                    {{--<span class="input-group-addon"><i class="mdi mdi-calendar"></i></span>--}}
+                {{--</div><!-- input-group -->--}}
+            {{--</div>--}}
+            {{--<div class="col-sm-5">--}}
+                {{--<div class="input-group">--}}
+                    {{--<input name="published_time" type="text" class="form-control timepicker" placeholder="Время"  value="">--}}
+                    {{--<span class="input-group-addon"><i class="mdi mdi-clock"></i></span>--}}
+                {{--</div><!-- input-group -->--}}
+            {{--</div>--}}
+            {{--<div class="col-sm-5 col-sm-offset-2 m-t-20">--}}
+                {{--<div class="input-group">--}}
+                    {{--<input name="published_at" type="text" class="form-control datetimepicker" placeholder="Дата публикации"  value="">--}}
+                    {{--<span class="input-group-addon"><i class="mdi mdi-clock"></i></span>--}}
+                {{--</div><!-- input-group -->--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div><!-- end col -->
 
     <div class="col-md-7 col-sm-12 col-xs-12">

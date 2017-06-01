@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -15,18 +16,22 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
-
-    /**
-     * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-
-        parent::boot();
-    }
+	
+	/**
+	 * Define your route model bindings, pattern filters, etc.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		parent::boot();
+		
+		Route::bind('page', function($alias) {
+			$page = Page::whereAlias($alias)->published()->first();
+			
+			return $page ? $page : $alias;
+		});
+	}
 
     /**
      * Define the routes for the application.
