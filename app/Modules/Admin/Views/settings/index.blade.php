@@ -129,7 +129,7 @@
                         @foreach($settings[\App\Models\Setting::CATEGORY_SITE]['socialLinks'] as $key => $setting)
                             <tr>
                                 <td width="25%">
-                                    <div title="{{ $setting->description }}" data-toggle="tooltip">
+                                    <div>
                                         <i class="fa fa-{{ $key }}"></i>
                                         {{ $setting->title }}
                                     </div>
@@ -200,7 +200,7 @@
                             @foreach($settings[\App\Models\Setting::CATEGORY_CONTACT_PAGE]['map'] as $key => $setting)
                                 <tr>
                                     <td width="25%">
-                                        <div title="{{ $setting->description }}" data-toggle="tooltip">
+                                        <div>
                                             {{ $setting->title }}
                                             @if($setting->description)
                                                 <p class="text-muted font-12 m-b-0">{{ $setting->description }}</p>

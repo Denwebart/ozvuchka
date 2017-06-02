@@ -22,7 +22,7 @@
     @foreach($pages as $page)
         <tr class="item" data-page-id="{{ $page->id }}">
             <td>
-                <b>#{{ $page->id }}</b>
+                <b>{{ $page->id }}</b>
             </td>
 
             <td>

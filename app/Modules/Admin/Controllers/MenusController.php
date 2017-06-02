@@ -141,7 +141,7 @@ class MenusController extends Controller
 			->get(['id', 'title', 'menu_title']);
 		$result = ['query' => "Unit", 'suggestions' => []];
 		foreach($pages as $item) {
-			$title = ($item->menu_title && $item->title)
+			$title = ($item->menu_title != $item->title)
 				? $item->menu_title . ' (' . $item->title . ')'
 				: $item->getTitle();
 			$result['suggestions'][] = [

@@ -48,7 +48,7 @@
         <div class="form-group @if($errors->has('alias')) has-error @endif">
             <div class="col-sm-2 col-md-2">
                 <!-- Info text: image_alt -->
-                <span class="m-l-10 text-muted pull-right m-t-5" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Алиас - это название создаваемой страницы сайта, которое будет отображаться рядом с доменным именем сайта в строке браузера. Если поле не заполнено - заполняется автоматически. Желательно не менять, если страница уже проиндексирована поисковиками." data-original-title="Алиас">
+                <span class="m-l-10 text-muted pull-right m-t-5 help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Алиас - это название создаваемой страницы сайта, которое будет отображаться рядом с доменным именем сайта в строке браузера. Если поле не заполнено - заполняется автоматически. Желательно не менять, если страница уже проиндексирована поисковиками." data-original-title="Алиас">
                     <i class="fa fa-question-circle-o"></i>
                 </span>
                 {!! Form::label('alias', 'Алиас', ['class' => 'control-label pull-right']) !!}
@@ -138,7 +138,7 @@
             <div class="col-sm-6 col-md-6 @if($errors->has('image_alt')) has-error @endif">
                 {!! Form::label('image_alt', 'Альт для изображения', ['class' => 'control-label m-b-5']) !!}
                 <!-- Info text: image_alt -->
-                <span class="m-l-10 text-muted" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
+                <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-trigger="focus" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
                     <i class="fa fa-question-circle-o"></i>
                 </span>
                 {!! Form::textarea('image_alt', $page->image_alt, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 8]) !!}
@@ -238,7 +238,7 @@
             {{--<div class="col-sm-10 col-sm-offset-2">--}}
                 {{--{!! Form::label('published_at', 'Отложить публикацию:', ['class' => 'control-label m-b-10']) !!}--}}
                 {{--<!-- Info text: published_at -->--}}
-                {{--<span class="m-l-10 text-muted" data-container="body" title="" data-toggle="popover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Страница будет опубликована на сайте не сразу, а в заданное время." data-original-title="Отложенная публикация">--}}
+                {{--<span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-trigger="focus" data-content="Страница будет опубликована на сайте не сразу, а в заданное время." data-original-title="Отложенная публикация">--}}
                     {{--<i class="fa fa-question-circle-o"></i>--}}
                 {{--</span>--}}
             {{--</div>--}}

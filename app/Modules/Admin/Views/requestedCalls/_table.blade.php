@@ -23,7 +23,7 @@
     @foreach($calls as $call)
         <tr class="item" data-page-id="{{ $call->id }}">
             <td>
-                {{ $call->id }}
+                <b>{{ $call->id }}</b>
             </td>
 
             <td>
@@ -39,7 +39,7 @@
             </td>
 
             <td>
-                {{ \App\Helpers\Date::getRelative($call->created_at) }}
+                {{ \App\Helpers\Date::format($call->created_at, true) }}
             </td>
 
             <td class="published-status">
