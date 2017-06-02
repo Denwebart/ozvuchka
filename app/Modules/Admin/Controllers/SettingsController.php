@@ -44,42 +44,6 @@ class SettingsController extends Controller
 	}
 	
 	/**
-	 * Display a listing of the resource.
-	 *
-	 * @param Settings $settings
-	 * @return mixed
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function checkout(Settings $settings)
-	{
-		$settings = $settings->getAll();
-		
-		return view('admin::settings.checkout', compact('settings'));
-	}
-	
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return mixed
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function properties()
-	{
-		$properties = Property::with(['values', 'values.products'])->get();
-		foreach ($properties as $property) {
-			foreach($property->values as $propertyValue) {
-				$property->productsCount += count($propertyValue->products);
-			}
-		}
-		
-		return view('admin::settings.properties', compact('properties'));
-	}
-	
-	/**
 	 * Set value
 	 *
 	 * @param Request $request
@@ -96,11 +60,12 @@ class SettingsController extends Controller
 			
 			if($setting) {
 				$data = $request->all();
+				
 				$data['value'] = ($setting->type == Setting::TYPE_BOOLEAN)
 					? $request->get('value')
 					: (trim($request->get('value'))
 						? trim($request->get('value'))
-						: null);
+						: '');
 				
 				$validator = \Validator::make($data, $setting->getRules(), $setting->getMessages());
 				

@@ -9,6 +9,10 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
+                <label for="created_at" class="control-label m-r-5">№:</label>
+                <span class="number" id="id"><b>{{ $call->id }}</b></span>
+            </div>
+            <div class="col-md-12">
                 <label for="created_at" class="control-label m-r-5">Заказан:</label>
                 <span class="date" id="created_at">
                     {{ \App\Helpers\Date::format($call->created_at, true) }}

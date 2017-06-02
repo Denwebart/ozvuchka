@@ -803,6 +803,9 @@ a:focus {
   margin-left: 8px;
 }
 /* Popover */
+.help-popover {
+    cursor: help;
+}
 .demo-popover .popover {
   position: relative;
   display: block;

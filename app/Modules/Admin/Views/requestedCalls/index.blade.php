@@ -164,16 +164,16 @@
                 type: "GET",
                 data: {},
                 beforeSend: function (request) {
-                    $('#editing-call-modal .ajax-modal-content').html('');
+                    $('#editing-call-modal .ajax-modal-content').hide();
                     $('#editing-call-modal .loader').show();
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
                 success: function (response) {
                     if (response.success) {
-                        $('#editing-call-modal .ajax-modal-content').html(response.resultHtml);
+                        $('#editing-call-modal .ajax-modal-content').show().html(response.resultHtml);
                         $('#editing-call-modal .loader').hide();
                     } else {
-                        $('#editing-call-modal .ajax-modal-content').html('<div class="modal-body">' + response.message+ '</div>');
+                        $('#editing-call-modal .ajax-modal-content').show().html('<div class="modal-body">' + response.message+ '</div>');
                     }
                 }
             });
@@ -201,7 +201,7 @@
                 success: function (response) {
                     if (response.success) {
                         $('#editing-call-modal').find('.close').trigger('click');
-                        $('#editing-call-modal .ajax-modal-content').html('');
+                        $('#editing-call-modal .ajax-modal-content').hide();
 
                         notification(response.message, 'success');
 
