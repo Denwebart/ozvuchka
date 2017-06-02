@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Новое письмо</h4>
+            <h4 class="page-title">Письмо от {{ $letter->email }}</h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="{{ route('admin.index') }}">Главная</a>
@@ -50,20 +50,20 @@
                             <i class="mdi mdi-delete font-18 vertical-middle"></i>
                         </button>
                     </div>
-                    <div class="btn-group" data-toggle="tooltip" title="Добавить тег">
-                        <button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-label font-18 vertical-middle"></i>
-                            <b class="caret m-l-5"></b>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Добавить к тегу:</li>
-                            <li><a href="javascript: void(0);">Тег 1</a></li>
-                            <li><a href="javascript: void(0);">Тег 2</a></li>
-                            <li><a href="javascript: void(0);">Тег 3</a></li>
-                            <li><a href="javascript: void(0);">Тег 4</a></li>
-                            <li><a href="javascript: void(0);">Тег 5</a></li>
-                        </ul>
-                    </div>
+                    {{--<div class="btn-group" data-toggle="tooltip" title="Добавить тег">--}}
+                        {{--<button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">--}}
+                            {{--<i class="mdi mdi-label font-18 vertical-middle"></i>--}}
+                            {{--<b class="caret m-l-5"></b>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu" role="menu">--}}
+                            {{--<li class="dropdown-header">Добавить к тегу:</li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 1</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 2</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 3</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 4</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 5</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
                 </div>
 
                 <div class="card-box m-t-20 m-b-20">

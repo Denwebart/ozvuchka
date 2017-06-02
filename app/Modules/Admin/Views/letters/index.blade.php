@@ -12,14 +12,29 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Письма</h4>
+            <h4 class="page-title">
+                Письма:
+                @if(Request::is('admin/letters'))
+                    входящие
+                @elseif(Request::is('admin/letters/trash'))
+                    корзина
+                @elseif(Request::is('admin/letters/important'))
+                    важные
+                @endif
+            </h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="{{ route('admin.index') }}">Главная</a>
                 </li>
-                <li class="active">
-                    Письма
-                </li>
+                @if(Request::is('admin/letters'))
+                    <li class="active">Письма</li>
+                @elseif(Request::is('admin/letters/trash'))
+                    <li><a href="{{ route('admin.letters.index') }}">Письма</a></li>
+                    <li class="active">Корзина</li>
+                @elseif(Request::is('admin/letters/important'))
+                    <li><a href="{{ route('admin.letters.index') }}">Письма</a></li>
+                    <li class="active">Важные</li>
+                @endif
             </ol>
             <div class="clearfix"></div>
         </div>
@@ -37,27 +52,27 @@
 
             <div class="inbox-rightbar">
 
-                <div class="m-t-10 m-b-20" role="toolbar">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как непрочитанные"><i class="mdi mdi-inbox font-18 vertical-middle"></i></button>
-                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как важные"><i class="mdi mdi-star font-18 vertical-middle"></i></button>
-                        <button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Удалить в корзину"><i class="mdi mdi-delete font-18 vertical-middle"></i></button>
-                    </div>
-                    <div class="btn-group" data-toggle="tooltip" title="Добавить тег">
-                        <button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-label font-18 vertical-middle"></i>
-                            <b class="caret m-l-5"></b>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Добавить к тегу:</li>
-                            <li><a href="javascript: void(0);">Тег 1</a></li>
-                            <li><a href="javascript: void(0);">Тег 2</a></li>
-                            <li><a href="javascript: void(0);">Тег 3</a></li>
-                            <li><a href="javascript: void(0);">Тег 4</a></li>
-                            <li><a href="javascript: void(0);">Тег 5</a></li>
-                        </ul>
-                    </div>
-                </div>
+                {{--<div class="m-t-10 m-b-20" role="toolbar">--}}
+                    {{--<div class="btn-group">--}}
+                        {{--<button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как непрочитанные"><i class="mdi mdi-inbox font-18 vertical-middle"></i></button>--}}
+                        {{--<button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Отметить как важные"><i class="mdi mdi-star font-18 vertical-middle"></i></button>--}}
+                        {{--<button type="button" class="btn btn-default waves-effect" data-toggle="tooltip" title="Удалить в корзину"><i class="mdi mdi-delete font-18 vertical-middle"></i></button>--}}
+                    {{--</div>--}}
+                    {{--<div class="btn-group" data-toggle="tooltip" title="Добавить тег">--}}
+                        {{--<button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">--}}
+                            {{--<i class="mdi mdi-label font-18 vertical-middle"></i>--}}
+                            {{--<b class="caret m-l-5"></b>--}}
+                        {{--</button>--}}
+                        {{--<ul class="dropdown-menu" role="menu">--}}
+                            {{--<li class="dropdown-header">Добавить к тегу:</li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 1</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 2</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 3</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 4</a></li>--}}
+                            {{--<li><a href="javascript: void(0);">Тег 5</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div id="table-container">
                     @include('admin::letters._table')
