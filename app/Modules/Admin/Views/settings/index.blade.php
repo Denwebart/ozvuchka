@@ -258,6 +258,8 @@
     </div>
     <div class="col-lg-6">
         @include('admin::menus.menu')
+
+        @include('admin::slider.slider')
     </div><!-- end col -->
 </div>
 

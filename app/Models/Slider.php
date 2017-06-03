@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use App\Helpers\Translit;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -107,9 +108,32 @@ class Slider extends Model
 		'text_align' => 'integer|min:0|max:2',
 	];
 	
+	/**
+	 * Get validation rules for current field
+	 *
+	 * @param null $attribute
+	 * @return array|mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getRules($attribute = null)
+	{
+		if($attribute) {
+			return isset(self::$rules[$attribute])
+				? [$attribute => self::$rules[$attribute]]
+				: [$attribute => ''];
+		}
+		return self::$rules;
+	}
+	
 	public static function boot()
 	{
 		parent::boot();
+		
+		static::addGlobalScope('order', function (Builder $builder) {
+			$builder->orderBy('position', 'ASC');
+		});
 		
 		static::saving(function($slide) {
 			\Cache::forget('widgets.slider');

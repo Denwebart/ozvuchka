@@ -17,7 +17,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('letters/undelete/{id}', ['as' => 'letters.undelete', 'uses' => 'LettersController@undelete']);
 	Route::get('letters/important', ['as' => 'letters.important', 'uses' => 'LettersController@important']);
 	Route::get('letters/trash', ['as' => 'letters.trash', 'uses' => 'LettersController@trash']);
-	Route::resource('letters', 'LettersController');
+	Route::resource('letters', 'LettersController', ['except' => ['edit', 'update', 'store', 'create']]);
 	
 	Route::post('users/undelete/{id}', ['as' => 'users.undelete', 'uses' => 'UsersController@undelete']);
 	Route::resource('users', 'UsersController');
@@ -36,4 +36,11 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('menus/position', ['as' => 'menus.position', 'uses' => 'MenusController@changePosition']);
 	Route::post('menus/add', ['as' => 'menus.add', 'uses' => 'MenusController@add']);
 	Route::get('menus/autocomplete', ['as' => 'menus.autocomplete', 'uses' => 'MenusController@pagesAutocomplete']);
+	
+	Route::post('slider/upload_image/', ['as' => 'slider.uploadImage', 'uses' => 'SliderController@uploadImage']);
+	Route::post('slider/delete_image/', ['as' => 'slider.deleteImage', 'uses' => 'SliderController@deleteImage']);
+	Route::post('slider/set_is_active/', ['as' => 'slider.setIsActive', 'uses' => 'SliderController@setIsActive']);
+	Route::post('slider/set_value/', ['as' => 'slider.setValue', 'uses' => 'SliderController@setValue']);
+	Route::post('slider/position', ['as' => 'slider.position', 'uses' => 'SliderController@changePosition']);
+	Route::resource('slider', 'SliderController', ['except' => ['index', 'edit', 'update', 'store', 'show']]);
 });

@@ -420,7 +420,7 @@ class Page extends Model
 	 *
 	 * @return string
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function getImageEditorPath() {
 		return $this->imagePath . $this->id . '/editor/';
@@ -444,7 +444,7 @@ class Page extends Model
 	 * @param string $field
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function saveEditorImages($tempPath, $field = 'content')
 	{
@@ -461,7 +461,7 @@ class Page extends Model
 	 *
 	 * @return bool
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function deleteEditorImages()
 	{

@@ -916,3 +916,6 @@ a:focus {
     color: #797979;
     opacity: 0.7;
 }
+#slider .slide-item {
+    display: inline-block;
+}
