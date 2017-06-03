@@ -7,22 +7,22 @@
 $route = isset($route) ? $route : \Route::current()->getName();
 ?>
 
-<div class="card-box p-0 m-b-20">
+<div class="card-box p-0 m-b-20 m-t-10">
     @if(count($letters))
         <ul class="message-list m-b-0">
             @foreach($letters as $letter)
                 <li class="@if(!$letter->read_at) unread @endif @if($letter->deleted_at && !Request::is('admin/letters/trash*') && $route !== 'admin.letters.trash') deleted @endif">
                     <a href="{{ route('admin.letters.show', ['id' => $letter->id]) }}">
                         <div class="col col-1">
-                            <div class="checkbox-wrapper-mail">
-                                <input type="checkbox" id="chk-{{ $letter->id }}">
-                                <label for="chk-{{ $letter->id }}" class="toggle"></label>
-                            </div>
+                            {{--<div class="checkbox-wrapper-mail">--}}
+                                {{--<input type="checkbox" id="chk-{{ $letter->id }}">--}}
+                                {{--<label for="chk-{{ $letter->id }}" class="toggle"></label>--}}
+                            {{--</div>--}}
                             <p class="title">{{ $letter->name }}</p>
                             @if(!$letter->is_important)
-                                <button type="button" class="button-make-important star-toggle fa fa-star-o" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></button>
+                                <button type="button" class="button-make-important star-toggle fa fa-star-o m-l-20" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></button>
                             @else
-                                <button type="button" class="button-make-important star-toggle fa fa-star text-warning" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Снять метку &#34;Важное&#34;"></button>
+                                <button type="button" class="button-make-important star-toggle fa fa-star text-warning m-l-20" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Снять метку &#34;Важное&#34;"></button>
                             @endif
                         </div>
                         <div class="col col-2">
