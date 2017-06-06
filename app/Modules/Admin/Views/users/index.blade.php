@@ -38,14 +38,7 @@
 
 <div class="row">
     <div id="table-container">
-        @if(count($users))
-            @include('admin::users._table')
-        @else
-            <div class="background-icon text-center">
-                <p>Пользователей нет</p>
-                <i class="fa fa-user-circle-o"></i>
-            </div>
-        @endif
+        @include('admin::users._table')
     </div>
 </div>
 <!-- end row -->

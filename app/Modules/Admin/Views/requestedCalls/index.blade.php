@@ -31,14 +31,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <div id="table-container">
-                @if(count($calls))
-                    @include('admin::requestedCalls._table')
-                @else
-                    <div class="background-icon text-center">
-                        <p>Заказанных звонков нет</p>
-                        <i class="fa fa-phone"></i>
-                    </div>
-                @endif
+                @include('admin::requestedCalls._table')
             </div>
         </div>
     </div><!-- end col -->
@@ -194,6 +187,8 @@
                 headers: {"X-HTTP-Method-Override": "PUT"},
                 data: formData,
                 beforeSend: function (request) {
+                    $form.find('.error').hide().find('strong').text('');
+                    $form.find('.has-error').removeClass('has-error');
                     $('#editing-call-modal .ajax-modal-content').hide();
                     $('#editing-call-modal .loader').show();
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));

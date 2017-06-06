@@ -268,7 +268,7 @@
             <div class="col-md-12">
                 {!! Form::label('content', 'Текст страницы', ['class' => 'control-label m-b-5']) !!}
 
-                {!! Form::textarea('content', $page->content, ['id' => 'content', 'class' => 'form-control editor maxlength', 'maxlength' => 20000, 'rows' => 10]) !!}
+                {!! Form::textarea('content', $page->content, ['id' => 'content', 'class' => 'form-control editor', 'rows' => 10]) !!}
 
                 @if($errors->has('content'))
                     <span class="error help-block text-danger font-12">
@@ -285,7 +285,7 @@
             <div class="col-md-12">
                 {!! Form::label('introtext', 'Краткое описание страницы', ['class' => 'control-label m-b-5']) !!}
 
-                {!! Form::textarea('introtext', $page->introtext, ['id' => 'introtext', 'class' => 'form-control editor maxlength', 'maxlength' => 10000, 'rows' => 10]) !!}
+                {!! Form::textarea('introtext', $page->introtext, ['id' => 'introtext', 'class' => 'form-control editor', 'rows' => 10]) !!}
 
                 @if($errors->has('introtext'))
                     <span class="error help-block text-danger font-12">
@@ -374,17 +374,7 @@
     $(".datetimepicker").datetimepicker();
 
     // Image Uploader
-    var drEvent = $('.dropify').dropify({
-        messages: {
-            'default': 'Кликните или перетащите файл.',
-            'replace': 'Кликните или перетащите файл для замены.',
-            'remove': 'Удалить',
-            'error': 'Ошибка.'
-        },
-        error: {
-            'fileSize': 'Размер файла слишком большой (максимум 3Мб).'
-        }
-    });
+    var drEvent = $('.dropify').dropify(dropifyOptions);
 
     // Image delete
     drEvent.on('dropify.afterClear', function(event, element){

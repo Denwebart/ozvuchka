@@ -78,7 +78,6 @@ class Slider extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'id',
 		'image',
 		'image_alt',
 		'title',
@@ -88,6 +87,7 @@ class Slider extends Model
 		'button_text',
 		'button_link',
 		'text_align',
+		'position',
 	];
 
 	/**
@@ -96,16 +96,16 @@ class Slider extends Model
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	protected static $rules = [
-		'id' => '',
+	public static $rules = [
 		'image' => 'required|image|max:10240',
 		'image_alt' => 'max:350',
-		'title' => 'max:250',
-		'text' => 'max:250',
+		'title' => 'max:255',
+		'text' => 'max:255',
 		'is_published' => 'boolean',
 		'button_text' => 'max:100',
-		'button_link' => 'url|max:250',
+		'button_link' => 'url|max:255',
 		'text_align' => 'integer|min:0|max:2',
+		'position' => 'integer',
 	];
 	
 	/**
@@ -135,11 +135,13 @@ class Slider extends Model
 			$builder->orderBy('position', 'ASC');
 		});
 		
-		static::saving(function($slide) {
+		static::saving(function($slider) {
 			\Cache::forget('widgets.slider');
 		});
 		
-		static::deleting(function($slide) {
+		static::deleting(function($slider) {
+			$slider->deleteImagesFolder();
+			
 			\Cache::forget('widgets.slider');
 		});
 	}
@@ -155,7 +157,19 @@ class Slider extends Model
 	{
 		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
 	}
-
+	
+	/**
+	 * Get image path
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImagesPath()
+	{
+		return public_path($this->imagePath . $this->id . '/');
+	}
+	
 	/**
 	 * Image uploading
 	 *
@@ -170,7 +184,7 @@ class Slider extends Model
 		$postImage = $request->file('image');
 		if (isset($postImage)) {
 			$fileName = Translit::generateFileName($postImage->getClientOriginalName());
-			$imagePath = public_path() . $this->imagePath . $this->id . '/';
+			$imagePath = $this->getImagesPath();
 			$image = Image::make($postImage->getRealPath());
 			File::exists($imagePath) or File::makeDirectory($imagePath, 0755, true);
 
@@ -179,13 +193,13 @@ class Slider extends Model
 
 			$image->save($imagePath . 'origin_' . $fileName);
 
-			if ($image->width() >= 1140) {
-				$image->resize(1140, null, function ($constraint) {
-					$constraint->aspectRatio();
-				})->save($imagePath . $fileName);
-			} else {
+//			if ($image->width() >= 1140) {
+//				$image->resize(1140, null, function ($constraint) {
+//					$constraint->aspectRatio();
+//				})->save($imagePath . $fileName);
+//			} else {
 				$image->save($imagePath . $fileName);
-			}
+//			}
 
 			$this->image = $fileName;
 			return true;
@@ -202,7 +216,7 @@ class Slider extends Model
 	 */
 	public function deleteImage()
 	{
-		$imagePath = public_path() . $this->imagePath . $this->id . '/';
+		$imagePath = $this->getImagesPath();
 		// delete old image
 		if(File::exists($imagePath . $this->image)) {
 			File::delete($imagePath . $this->image);
@@ -211,5 +225,16 @@ class Slider extends Model
 			File::delete($imagePath . 'origin_' . $this->image);
 		}
 		$this->image = null;
+	}
+	
+	/**
+	 * Delete image folder
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function deleteImagesFolder()
+	{
+		File::deleteDirectory($this->getImagesPath());
 	}
 }

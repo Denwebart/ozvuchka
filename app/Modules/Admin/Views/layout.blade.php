@@ -335,8 +335,9 @@
 <script src="{{ asset('backend/js/jquery.core.js') }}"></script>
 <script src="{{ asset('backend/js/jquery.app.js') }}"></script>
 
-<!-- Toastr js - Notifications -->
 <script type="text/javascript">
+
+    // Toastr js - Notifications
     function notification(text, status, params) {
         var options = {
             text: text,
@@ -367,21 +368,32 @@
         return $.toast(options);
     }
 
+    // Notifications
     @if(Session::has('successMessage'))
         Command: notification('{{ Session::get('successMessage') }}', 'success');
     @endif
-
     @if(Session::has('errorMessage'))
         Command: notification('{{ Session::get('errorMessage') }}', 'error');
     @endif
-
     @if(Session::has('warningMessage'))
         Command: notification('{{ Session::get('warningMessage') }}', 'warning');
     @endif
-
     @if(Session::has('infoMessage'))
         Command: notification('{{ Session::get('infoMessage') }}', 'info');
     @endif
+
+    // Dropify options
+    var dropifyOptions = {
+        messages: {
+            'default': 'Кликните или перетащите файл.',
+            'replace': 'Кликните или перетащите файл для замены.',
+            'remove': 'Удалить',
+            'error': 'Ошибка.'
+        },
+        error: {
+            'fileSize': 'Размер файла слишком большой (максимум 3Мб).'
+        }
+    };
 
 </script>
 

@@ -8,15 +8,14 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\Menu;
-use App\Models\Page;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SliderController extends Controller
 {
 	/**
-	 * Add new
+	 * Add new slider item
 	 *
 	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse
@@ -24,10 +23,13 @@ class SliderController extends Controller
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function create(Request $request)
+	public function store(Request $request)
 	{
 		if($request->ajax()) {
 			$data = $request->all();
+			$data['button_link'] = $data['button_link'] ? $data['button_link'] : '';
+			$position = DB::table('slider')->max('position');
+			$data['position'] = $position + 1;
 			
 			$validator = \Validator::make($data, Slider::$rules);
 			
@@ -36,17 +38,20 @@ class SliderController extends Controller
 				return \Response::json([
 					'success' => false,
 					'errors' => $validator->errors(),
-					'message' => 'Слайд не не добавлен. Исправьте ошибки.'
+					'message' => 'Слайд не добавлен. Исправьте ошибки.'
 				]);
 			} else {
-				$slider = Slider::create($data);
-				$slider->setImage($request);
-				$slider->save();
+				$slide = Slider::create($data);
+				$slide->setImage($request);
+				$slide->save();
+				
+				$slider = Slider::all();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Значение добавлено.',
-					'itemsHtml' => view('admin::Sliders.items')->render(),
+					'message' => 'Слайд успешно добавлен.',
+					'itemId' => $slide->id,
+					'resultHtml' => view('admin::slider.items', compact('slider'))->render(),
 				]);
 			}
 			
@@ -112,7 +117,7 @@ class SliderController extends Controller
 			$field = $request->get('name');
 			if($slider && $field) {
 				$data = $request->all();
-				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : null;
+				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : '';
 				
 				$validator = \Validator::make($data, $slider->getRules($field));
 				
@@ -156,12 +161,12 @@ class SliderController extends Controller
 			$slider = Slider::findOrFail($request->get('id'));
 			
 			if($slider) {
-				$slider->is_active = $request->get('value');
+				$slider->is_published = $request->get('value');
 				$slider->save();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Статус изменен на "' . Slider::$is_active[$slider->is_active] . '".'
+					'message' => 'Статус изменен на "' . Slider::$is_published[$slider->is_published] . '".'
 				]);
 			} else {
 				return \Response::json([

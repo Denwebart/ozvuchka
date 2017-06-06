@@ -28,8 +28,6 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('settings/set_is_active/', ['as' => 'settings.setIsActive', 'uses' => 'SettingsController@setIsActive']);
 	Route::post('settings/set_value/', ['as' => 'settings.setValue', 'uses' => 'SettingsController@setValue']);
 	Route::get('settings/widgets', ['as' => 'settings.widgets', 'uses' => 'SettingsController@widgets']);
-	Route::get('settings/checkout', ['as' => 'settings.checkout', 'uses' => 'SettingsController@checkout']);
-	Route::get('settings/properties', ['as' => 'settings.properties', 'uses' => 'SettingsController@properties']);
 	
 	Route::post('menus/rename', ['as' => 'menus.rename', 'uses' => 'MenusController@rename']);
 	Route::post('menus/delete', ['as' => 'menus.delete', 'uses' => 'MenusController@delete']);
@@ -42,5 +40,5 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('slider/set_is_active/', ['as' => 'slider.setIsActive', 'uses' => 'SliderController@setIsActive']);
 	Route::post('slider/set_value/', ['as' => 'slider.setValue', 'uses' => 'SliderController@setValue']);
 	Route::post('slider/position', ['as' => 'slider.position', 'uses' => 'SliderController@changePosition']);
-	Route::resource('slider', 'SliderController', ['except' => ['index', 'edit', 'update', 'store', 'show']]);
+	Route::resource('slider', 'SliderController', ['except' => ['index', 'edit', 'update', 'create', 'show']]);
 });

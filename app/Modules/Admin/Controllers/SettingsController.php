@@ -12,6 +12,8 @@ use App\Helpers\Settings;
 use App\Models\Setting;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class SettingsController extends Controller
 {
@@ -30,23 +32,20 @@ class SettingsController extends Controller
 		
 		$menuItems = Menu::getMenuItems();
 		
-		return view('admin::settings.index', compact('settings', 'menuItems'));
+		return view('admin::settings.general', compact('settings', 'menuItems'));
 	}
 	
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param Settings $settings
 	 * @return mixed
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function widgets(Settings $settings)
+	public function widgets()
 	{
-		$settings = $settings->getAll();
-		
-		return view('admin::settings.widgets', compact('settings'));
+		return view('admin::settings.widgets');
 	}
 	
 	/**
@@ -205,8 +204,8 @@ class SettingsController extends Controller
 			
 			if($setting && $setting->type == Setting::TYPE_IMAGE) {
 				
-				if (File::exists(public_path('images/') . $setting->value)) {
-					File::delete(public_path('images/') . $setting->value);
+				if (File::exists($setting->getImagesPath() . $setting->value)) {
+					File::delete($setting->getImagesPath() . $setting->value);
 				}
 				
 				$setting->value = null;

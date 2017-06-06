@@ -5,7 +5,7 @@
  */
 ?>
 
-<ul class="form-editable sortable list-group">
+<ul class="sortable list-group">
     @foreach($items as $item)
         @if($item->page)
             <li class="list-group-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}" data-page-id="{{ $item->page->id }}" data-menu-type="{{ $menuType }}">

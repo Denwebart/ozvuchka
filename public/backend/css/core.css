@@ -95,6 +95,9 @@ a:focus {
 .p-0 {
   padding: 0 !important;
 }
+.p-10 {
+    padding: 10px !important;
+}
 .p-20 {
   padding: 20px !important;
 }
@@ -118,6 +121,14 @@ a:focus {
 }
 .p-b-10 {
   padding-bottom: 10px !important;
+}
+.p-t-b-10 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.p-t-b-20 {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
 }
 .p-l-r-10 {
   padding-left: 10px;
@@ -911,17 +922,21 @@ a:focus {
     display: block;
     font-weight: 300;
 }
-.background-icon i {
+.background-icon i,
+.background-icon a i {
     font-size: 140px;
     color: #797979;
     opacity: 0.3;
 }
 .background-icon p,
-.background-icon span,
-.background-icon a i {
+.background-icon span {
     color: #797979;
     opacity: 0.7;
 }
 #slider .slide-item {
     display: inline-block;
+    width: 100%;
+}
+.table .switchery-demo {
+    text-align: right;
 }
