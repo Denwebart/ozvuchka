@@ -1,6 +1,7 @@
 <?php
 /**
  * Category Page View
+ *      (PagesController@getCategoryPage)
  *
  * Variables:
  *      $page - object App\Models\Page

@@ -1,6 +1,7 @@
 <?php
 /**
  * HTML Sitemap View
+ *      (PagesController@getSitemapPage)
  *
  * Variables:
  *      $page - object App\Models\Page

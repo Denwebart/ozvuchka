@@ -3,8 +3,11 @@
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
-?>
 
-<a href="{{ $url }}">
-    <span>{{ $item->getTitle() }}</span>
-</a>
+return [
+	'widgets' => [
+		'menu',
+		'slider',
+		'reviews',
+	],
+];

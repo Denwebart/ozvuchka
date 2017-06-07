@@ -1,6 +1,7 @@
 <?php
 /**
  * Contact Page View
+ *      (PagesController@getContactPage)
  *
  * Variables:
  *      $page - object App\Models\Page

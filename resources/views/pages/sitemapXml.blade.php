@@ -1,6 +1,7 @@
 <?php
 /**
  * XML Sitemap View
+ *      (PagesController@sitemapXml)
  *
  * Variables:
  *      $sitemapItems - array with public pages (object App\Models\Page)

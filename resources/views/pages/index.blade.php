@@ -1,6 +1,7 @@
 <?php
 /**
  * Main Page View
+ *      (PagesController@index)
  *
  * Variables:
  *      $page - object App\Models\Page
