@@ -122,13 +122,10 @@ class Menu extends Model
 				'page' => function($query) {
 					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
 				},
-				'children' => function($query) {
-					$query->has('page');
-				},
-				'children.page' => function($query) {
+				'page.children' => function($query) {
 					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
 				},
-				'children.page.parent' => function($query) {
+				'page.children.parent' => function($query) {
 					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
 				},
 			]);

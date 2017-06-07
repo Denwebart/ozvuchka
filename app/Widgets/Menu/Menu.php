@@ -39,28 +39,4 @@ class Menu
 			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_MAIN));
 	}
 
-	public function product()
-	{
-		return view('widget.menu::product')
-			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_PRODUCT));
-	}
-
-	public function bottomLeft()
-	{
-		return view('widget.menu::bottom')
-			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_BOTTOM_LEFT));
-	}
-
-	public function bottomRight()
-	{
-		return view('widget.menu::bottom')
-			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_BOTTOM_RIGHT));
-	}
-
-	public function info()
-	{
-		return view('widget.menu::info')
-			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_INFO));
-	}
-
 }
