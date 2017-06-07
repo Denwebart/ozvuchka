@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Settings;
 use App\Models\Setting;
 use App\Widgets\Menu\Menu;
+use App\Widgets\RequestedCalls\RequestedCalls;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -18,5 +19,6 @@ class Controller extends BaseController
 	{
 		\View::share('siteSettings', $settings->getCategory(Setting::CATEGORY_SITE));
 		\View::share('menuWidget', new Menu());
+		\View::share('requestedCallsWidget', new RequestedCalls());
 	}
 }

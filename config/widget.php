@@ -9,5 +9,6 @@ return [
 		'menu',
 		'slider',
 		'reviews',
+		'requestedCalls',
 	],
 ];

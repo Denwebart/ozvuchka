@@ -20,11 +20,18 @@ Route::post('upload_into_temp', ['as' => 'uploadIntoTemp', 'before' => 'csrf-aja
 Route::post('delete_from_temp', ['as' => 'deleteFromTemp', 'before' => 'csrf-ajax', 'uses' => 'ImageUploadController@deleteFromTemp']);
 
 /*
+ * Ajax requests
+ */
+Route::post('send_letter', ['as' => 'contact.sendLetter', 'before' => 'csrf-ajax', 'uses' => 'PagesController@sendLetter']);
+// Widgets
+Route::post('request_call', ['as' => 'call.request', 'uses' => '\App\Widgets\RequestedCalls\RequestedCalls@create']);
+
+/*
  * Pages
  */
 Route::get('/', 'PagesController@index');
 
-Route::post('send_letter', ['as' => 'contact.sendLetter', 'before' => 'csrf-ajax', 'uses' => 'PagesController@sendLetter']);
+
 
 Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
 
