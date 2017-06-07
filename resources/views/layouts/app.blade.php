@@ -2,13 +2,22 @@
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
+
+    <title>{{ $page->getMetaTitle() }}</title>
+    <meta name="description" content="{{ $page->getMetaDesc() }}">
+    <meta name="keywords" content="{{ $page->getMetaKey() }}">
+    @if(Config::get('settings.metaCopyright'))
+        <meta name="copyright" lang="ru" content="{{ Config::get('settings.metaCopyright') }}" />
+    @endif
+    @if(Config::get('settings.metaAuthor'))
+        <meta name="author" lang="ru" content="{{ Config::get('settings.metaAuthor') }}" />
+    @endif
+    <meta name="robots" content="{{ isset($metaRobots) ? $metaRobots : Config::get('settings.metaRobots') }}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
