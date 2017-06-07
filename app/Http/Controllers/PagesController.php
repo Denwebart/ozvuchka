@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FromContactformToAdmin;
+use App\Mail\FromContactformToUser;
 use App\Models\Letter;
 use App\Models\Page;
 use App\Models\RequestedCall;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PagesController extends Controller
 {
@@ -295,36 +299,54 @@ class PagesController extends Controller
 	 */
 	public function sendLetter(Request $request)
 	{
-		if($request->ajax()) {
-			$data = $request->all();
-			$data['updated_at'] = null;
-			$validator = \Validator::make($data, Letter::rules());
-			
-			if($validator->fails()) {
+		$data = $request->all();
+		$validator = \Validator::make($data, Letter::$rules);
+		
+		if($validator->fails()) {
+			if($request->ajax()) {
 				return \Response::json([
 					'success' => false,
 					'message' => 'Письмо не отправлено. Исправьте ошибки.',
 					'errors' => $validator->errors()
 				]);
+			} else {
+				return back()->withErrors($validator->errors())->withInput()
+					->with('errorMessage', 'Письмо не отправлено. Исправьте ошибки.');
+			}
+		}
+			
+		if($letter = Letter::create($data)) {
+			
+//			Notification::forAllUsers(Notification::TYPE_NEW_LETTER, [
+//				'[linkToLetter]' => route('admin.letters.show', ['id' => $letter->id]),
+//				'[letterFromEmail]' => $letter->email,
+//				'[letterFromName]' => $letter->name,
+//				'[letterSubject]' => $letter->subject,
+//				'[letterText]' => $letter->message,
+//				'[letterCreatedAt]' => $letter->created_at,
+//			]);
+			
+			// Email to user
+			if($request->get('send_copy')) {
+				Mail::to($request->get('email'))->send(new FromContactformToUser($letter));
 			}
 			
-			if($letter = Letter::create($data)) {
-				
-				Notification::forAllUsers(Notification::TYPE_NEW_LETTER, [
-					'[linkToLetter]' => route('admin.letters.show', ['id' => $letter->id]),
-					'[letterFromEmail]' => $letter->email,
-					'[letterFromName]' => $letter->name,
-					'[letterSubject]' => $letter->subject,
-					'[letterText]' => $letter->message,
-					'[letterCreatedAt]' => $letter->created_at,
-				]);
-				
+			// Email to admin
+			$admins = User::whereRole(User::ROLE_ADMIN)->active()->get();
+			foreach ($admins as $admin) {
+				Mail::to($admin->email)->send(new FromContactformToAdmin($letter));
+			}
+			
+			if($request->ajax()) {
 				return \Response::json([
 					'success' => true,
 					'message' => 'Ваше письмо успешно отправлено!',
 				]);
+			} else {
+				return back()->with('successMessage', 'Ваше письмо успешно отправлено!');
 			}
 		}
+		
 	}
 	
 	/**

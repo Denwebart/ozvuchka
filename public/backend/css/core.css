@@ -566,28 +566,36 @@ a:focus {
   color: #313a46 !important;
 }
 .badge-primary {
-  background-color: #4489e4;
+  background-color: #4489e4 !important;
+  color: #ffffff !important;
 }
 .badge-success {
-  background-color: #32c861;
+  background-color: #32c861 !important;
+  color: #ffffff !important;
 }
 .badge-info {
-  background-color: #34d3eb;
+  background-color: #34d3eb !important;
+  color: #ffffff !important;
 }
 .badge-warning {
-  background-color: #ffa91c;
+  background-color: #ffa91c !important;
+  color: #ffffff !important;
 }
 .badge-danger {
-  background-color: #f96a74;
+  background-color: #f96a74 !important;
+  color: #ffffff !important;
 }
 .badge-purple {
-  background-color: #5553ce;
+  background-color: #5553ce !important;
+  color: #ffffff !important;
 }
 .badge-pink {
-  background-color: #ec6794;
+  background-color: #ec6794 !important;
+  color: #ffffff !important;
 }
 .badge-inverse {
-  background-color: #36404c;
+  background-color: #36404c !important;
+  color: #ffffff !important;
 }
 /* Pagination/ Pager */
 .pagination > li:first-child > a,

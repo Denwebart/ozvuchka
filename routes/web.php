@@ -24,6 +24,8 @@ Route::post('delete_from_temp', ['as' => 'deleteFromTemp', 'before' => 'csrf-aja
  */
 Route::get('/', 'PagesController@index');
 
+Route::post('send_letter', ['as' => 'contact.sendLetter', 'before' => 'csrf-ajax', 'uses' => 'PagesController@sendLetter']);
+
 Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
 
 Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}', ['uses' => 'PagesController@pageFourLevel']);
