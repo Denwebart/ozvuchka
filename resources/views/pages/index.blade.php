@@ -18,4 +18,6 @@
 @section('content')
     <h1>{{ $page->title }}</h1>
 
+    <h2>Слайдер</h2>
+    {!! $slider->show() !!}
 @endsection()

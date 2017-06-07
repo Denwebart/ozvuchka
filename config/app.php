@@ -184,6 +184,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 	
 	    Modules\ServiceProvider::class,
+	    App\Widgets\ServiceProvider::class,
 
     ],
 
