@@ -110,7 +110,6 @@ class Page extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'id',
 		'parent_id',
 		'user_id',
 		'type',
