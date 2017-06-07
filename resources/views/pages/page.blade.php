@@ -1,6 +1,7 @@
 <?php
 /**
  * Page View
+ *      (PagesController@getPage)
  *
  * Variables:
  *      $page - object App\Models\Page
