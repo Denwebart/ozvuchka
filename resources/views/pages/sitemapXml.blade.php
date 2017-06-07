@@ -1,5 +1,12 @@
 <?php
 /**
+ * XML Sitemap View
+ *
+ * Variables:
+ *      $sitemapItems - array with public pages (object App\Models\Page)
+ *
+ * Output of site pages in XML format.
+ *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
