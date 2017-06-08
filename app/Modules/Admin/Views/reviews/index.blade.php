@@ -24,7 +24,7 @@
             </div>
             <div class="clearfix"></div>
 
-            <!-- Form for added new slide -->
+            <!-- Form for added new review -->
             <div class="new-review-form m-t-10 m-b-10" style="display: none">
                 {!! Form::open(['url' => route('admin.reviews.store'), 'id' => 'new-review-form', 'class' => 'form-horizontal']) !!}
                 <p class="text-muted font-13">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="col-sm-10">
-                        <button type="submit" class="button-add-slide btn btn-custom waves-effect waves-light pull-right">Создать</button>
+                        <button type="submit" class="btn btn-custom waves-effect waves-light pull-right">Создать</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -229,7 +229,7 @@
                     notification(response.message, 'success');
 
                     $('#reviews .reviews-items').html(response.resultHtml);
-                    $('.new-slide-form').hide();
+                    $('.new-review-form').hide();
                     $('html, body').animate({
                         scrollTop: $('.reviews-item[id="' + response.itemId + '"]').offset().top - 50
                     }, 1000);

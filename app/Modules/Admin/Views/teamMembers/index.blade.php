@@ -6,33 +6,29 @@
 ?>
 <div class="card-box m-b-20">
 
-    <h4 class="header-title m-t-0">Слайдер</h4>
-    <p class="text-muted font-13 m-b-15">
-        Слайдер на главной странице сайта
-    </p>
+    <h4 class="header-title m-t-0">Члены команды</h4>
     <p class="text-muted font-13 m-b-30">
-        Слайд будет отображен только в том случае,
-        если загружено изображение и статус публикации "Опубликован".
+        Администрирование членов команды
     </p>
 
-    <div id="slider">
-        <div class="slider-body slider-items">
-            @include('admin::slider.items', ['slider' => \App\Models\Slider::all()])
+    <div id="team-members">
+        <div class="team-members-body team-members-items">
+            @include('admin::teamMembers.items', ['teamMembers' => \App\Models\TeamMember::all()])
         </div>
-        <div class="slider-bottom m-b-10">
-            <div class="slider-control-buttons pull-right m-t-10">
-                <a href="#" class="open-slider-form pull-right m-r-15" data-toggle="tooltip" title="Добавить слайд">
-                    <span class="m-r-5 pull-left">Добавить слайд</span>
+        <div class="team-members-bottom m-b-10">
+            <div class="team-members-control-buttons pull-right m-t-10">
+                <a href="#" class="open-team-member-form pull-right m-r-15" data-toggle="tooltip" title="Добавить члена команды">
+                    <span class="m-r-5 pull-left">Добавить члена команды</span>
                     <i class="mdi mdi-playlist-plus font-18 pull-left"></i>
                 </a>
             </div>
             <div class="clearfix"></div>
 
-            <!-- Form for added new slide -->
-            <div class="new-slide-form m-t-10 m-b-10" style="display: none">
-                {!! Form::open(['url' => route('admin.slider.store'), 'id' => 'new-slide-form', 'class' => 'form-horizontal']) !!}
+            <!-- Form for added new team member -->
+            <div class="new-team-member-form m-t-10 m-b-10" style="display: none">
+                {!! Form::open(['url' => route('admin.teamMembers.store'), 'id' => 'new-team-member-form', 'class' => 'form-horizontal']) !!}
                 <p class="text-muted font-13">
-                    Создание нового слайда.
+                    Добавление нового члена команды.
                 </p>
                 <div class="row">
                     <div class="col-sm-4 m-t-5">
@@ -44,47 +40,25 @@
                     </div>
                     <div class="col-sm-6">
                         <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Заголовок:</b>
-                            {!! Form::text('title', null, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
-                            <span class="help-block error title_error text-danger font-12" style="display: none">
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Имя:</b>
+                            {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                            <span class="help-block error name_error text-danger font-12" style="display: none">
                                 <i class="fa fa-times-circle"></i>
                                 <strong></strong>
                             </span>
                         </p>
                         <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Текст:</b>
-                            {!! Form::textarea('text', null, ['id' => 'text', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 2]) !!}
-                            <span class="help-block error text_error text-danger font-12" style="display: none">
-                                <i class="fa fa-times-circle"></i>
-                                <strong></strong>
-                            </span>
-                        </p>
-                        <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Кнопка:</b>
-                            {!! Form::text('button_text', null, ['id' => 'button_text', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
-                            <span class="help-block error button_text_error text-danger font-12" style="display: none">
-                                <i class="fa fa-times-circle"></i>
-                                <strong></strong>
-                            </span>
-                        </p>
-                        <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Ссылка:</b>
-                            {!! Form::text('button_link', null, ['id' => 'button_link', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
-                            <span class="help-block error button_link_error text-danger font-12" style="display: none">
-                                <i class="fa fa-times-circle"></i>
-                                <strong></strong>
-                            </span>
-                        </p>
-                        <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">
-                                Альт:
-                                <!-- Info text: image_alt -->
-                                <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-trigger="focus" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
-                                    <i class="fa fa-question-circle-o"></i>
-                                </span>
-                            </b>
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Альт к изображению:</b>
                             {!! Form::textarea('image_alt', null, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 2]) !!}
                             <span class="help-block error image_alt_error text-danger font-12" style="display: none">
+                                <i class="fa fa-times-circle"></i>
+                                <strong></strong>
+                            </span>
+                        </p>
+                        <p>
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Описание:</b>
+                            {!! Form::textarea('description', null, ['id' => 'description', 'class' => 'form-control maxlength', 'maxlength' => 1000, 'rows' => 2]) !!}
+                            <span class="help-block error description_error text-danger font-12" style="display: none">
                                 <i class="fa fa-times-circle"></i>
                                 <strong></strong>
                             </span>
@@ -129,7 +103,7 @@
     });
 
     // Change position
-    var sliderSortableOptions = {
+    var teamMembersSortableOptions = {
         cursor: 'move',
         axis: 'y',
         update: function (event, ui) {
@@ -137,7 +111,7 @@
             $.ajax({
                 data: {positions: positions},
                 type: 'POST',
-                url: '{{ route('admin.slider.position') }}',
+                url: '{{ route('admin.teamMembers.position') }}',
                 beforeSend: function(request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -151,14 +125,14 @@
             });
         }
     };
-    $(".sortable-slider").sortable(sliderSortableOptions);
+    $(".sortable-team-members").sortable(teamMembersSortableOptions);
 
     // Init plugins after ajax
     function initPluginsAfterAjax() {
-        $(".sortable-slider").sortable(sliderSortableOptions);
+        $(".sortable-team-members").sortable(teamMembersSortableOptions);
         initDropifyAjax();
         $('.editable-text').editable(getSettingsEditableOptions());
-        $('#slider .slider-items').find('[data-plugin="switchery"]').each(function (i, o) {
+        $('#team-members .team-members-items').find('[data-plugin="switchery"]').each(function (i, o) {
             new Switchery($(this)[0], $(this).data())
         })
         $('[data-toggle="tooltip"]').tooltip();
@@ -168,14 +142,14 @@
     };
 
     // Delete item
-    $('#slider').on('click', '.delete-item', function(e) {
+    $('#team-members').on('click', '.delete-item', function(e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var itemId = $(this).data('itemId');
 
         swal({
-            title: "Удалить слайд?",
-            text: 'Вы точно хотите удалить безвозвратно этот слайд?',
+            title: "Удалить члена команды?",
+            text: 'Вы точно хотите удалить безвозвратно этого члена команды?',
             type: "error",
             showCancelButton: true,
             cancelButtonText: 'Отмена',
@@ -185,7 +159,7 @@
             $.ajax({
                 data: {},
                 type: 'DELETE',
-                url: "/admin/slider/" + itemId,
+                url: "/admin/team_members/" + itemId,
                 beforeSend: function(request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -193,7 +167,7 @@
                     if(response.success) {
                         notification(response.message, 'success');
 
-                        $('#slider .slider-items').html(response.resultHtml);
+                        $('#team-members .team-members-items').html(response.resultHtml);
 
                         initPluginsAfterAjax();
                     } else {
@@ -204,25 +178,25 @@
         }, function(dismiss) {});
     });
 
-    // Add new slider item: open form for added new item
-    $('#slider').on('click', '.open-slider-form', function (e) {
+    // Add new team member: open form for added new item
+    $('#team-members').on('click', '.open-team-member-form', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-        var $form = $('.new-slide-form');
+        var $form = $('.new-team-member-form');
         if($form.is(':visible')) {
             $form.hide();
         } else {
             $form.show();
             $('html, body').animate({
-                scrollTop: $('.new-slide-form').offset().top - 120
+                scrollTop: $('.new-team-member-form').offset().top - 120
             }, 1000);
         }
     });
 
     var dropify = $('.dropify').dropify(dropifyOptions);
 
-    // Add new slider item: add new item
-    $('#new-slide-form').on('submit', function (e) {
+    // Add new team member: add new item
+    $('#new-team-member-form').on('submit', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var $form = $(this),
@@ -254,10 +228,10 @@
                 if(response.success) {
                     notification(response.message, 'success');
 
-                    $('#slider .slider-items').html(response.resultHtml);
-                    $('.new-slide-form').hide();
+                    $('#team-members .team-members-items').html(response.resultHtml);
+                    $('.new-team-member-form').hide();
                     $('html, body').animate({
-                        scrollTop: $('.slide-item[id="' + response.itemId + '"]').offset().top - 50
+                        scrollTop: $('.team-members-item[id="' + response.itemId + '"]').offset().top - 50
                     }, 1000);
 
                     $form.trigger('reset');
