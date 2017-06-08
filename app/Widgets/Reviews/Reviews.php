@@ -16,12 +16,12 @@ class Reviews
 	public function show()
 	{
 		return \Cache::rememberForever('widgets.reviews', function() {
-			$title = 'Отзывы о магазине';
+			$title = 'Отзывы';
 			
 			$items = Review::select(['id', 'user_name', 'user_email', 'user_avatar', 'text'])
 				->limit(4)
 				->whereIsPublished(1)
-				->orderBy('published_at', 'DESC')
+				->orderBy('position', 'ASC')
 				->get();
 			
 			return \View::make('widget.reviews::index', compact('items', 'title'))->render();
