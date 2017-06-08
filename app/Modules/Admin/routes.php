@@ -41,4 +41,11 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('slider/set_value/', ['as' => 'slider.setValue', 'uses' => 'SliderController@setValue']);
 	Route::post('slider/position', ['as' => 'slider.position', 'uses' => 'SliderController@changePosition']);
 	Route::resource('slider', 'SliderController', ['except' => ['index', 'edit', 'update', 'create', 'show']]);
+	
+	Route::post('reviews/upload_image/', ['as' => 'reviews.uploadImage', 'uses' => 'ReviewsController@uploadImage']);
+	Route::post('reviews/delete_image/', ['as' => 'reviews.deleteImage', 'uses' => 'ReviewsController@deleteImage']);
+	Route::post('reviews/set_is_active/', ['as' => 'reviews.setIsActive', 'uses' => 'ReviewsController@setIsActive']);
+	Route::post('reviews/set_value/', ['as' => 'reviews.setValue', 'uses' => 'ReviewsController@setValue']);
+	Route::post('reviews/position', ['as' => 'reviews.position', 'uses' => 'ReviewsController@changePosition']);
+	Route::resource('reviews', 'ReviewsController', ['except' => ['index', 'edit', 'update', 'create', 'show']]);
 });

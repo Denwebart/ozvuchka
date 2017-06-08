@@ -8,7 +8,7 @@
 <ul class="sortable list-group">
     @foreach($items as $item)
         @if($item->page)
-            <li class="list-group-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}" data-page-id="{{ $item->page->id }}" data-menu-type="{{ $menuType }}">
+            <li class="item list-group-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}" data-page-id="{{ $item->page->id }}" data-menu-type="{{ $menuType }}">
                 <span class="icon m-r-10 pull-left">
                     @if($item->page->is_container)
                         <i class="fa fa-folder" title="Категория" data-toggle="tooltip"></i>

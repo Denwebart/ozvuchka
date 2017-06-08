@@ -2844,7 +2844,7 @@ table.dataTable thead th.sorting_desc:after {
   box-shadow: none !important;
   background-image: none;
 }
-.sortable .list-group-item {
+.sortable .item {
     cursor: grab;
 }
 /* Footable */

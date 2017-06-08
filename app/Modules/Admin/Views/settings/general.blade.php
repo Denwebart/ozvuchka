@@ -266,7 +266,7 @@
         @endif
     </div>
     <div class="col-lg-6">
-        @include('admin::menus.menu')
+        @include('admin::menus.index')
     </div><!-- end col -->
 </div>
 

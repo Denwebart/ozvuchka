@@ -941,7 +941,7 @@ a:focus {
     color: #797979;
     opacity: 0.7;
 }
-#slider .slide-item {
+.card-box .thumbnail {
     display: inline-block;
     width: 100%;
 }

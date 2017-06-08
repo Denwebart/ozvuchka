@@ -9,6 +9,7 @@ namespace App\Models;
 use App\Helpers\Translit;
 use App\Traits\Rules;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -60,17 +61,40 @@ class Review extends Model
 		'user_avatar' => 'image|max:3072',
 		'text' => 'required|max:1000',
 	];
-
+	
+	/**
+	 * Get validation rules for current field
+	 *
+	 * @param null $attribute
+	 * @return array|mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getRules($attribute = null)
+	{
+		if($attribute) {
+			return isset(self::$rules[$attribute])
+				? [$attribute => self::$rules[$attribute]]
+				: [$attribute => ''];
+		}
+		return self::$rules;
+	}
+	
 	public static function boot()
 	{
 		parent::boot();
-
-		static::saving(function($page) {
+		
+		static::addGlobalScope('order', function (Builder $builder) {
+			$builder->orderBy('position', 'ASC');
+		});
+		
+		static::saving(function($review) {
 		
 		});
 		
-		static::deleting(function($page) {
-			$page->deleteImagesFolder();
+		static::deleting(function($review) {
+			$review->deleteImagesFolder();
 		});
 	}
 	
@@ -94,27 +118,7 @@ class Review extends Model
 	 */
 	public function getImageUrl()
 	{
-		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->user_avatar) : '';
-	}
-	
-	/**
-	 * Заполнение данных при создании и редактировании
-	 * 
-	 * @param $data
-	 * @return mixed
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function setData($data)
-	{
-		if ($data['is_published'] && is_null($this->published_at)) {
-			$data['published_at'] = Carbon::now();
-		} elseif (!$data['is_published']) {
-			$data['published_at'] = null;
-		}
-		
-		return $data;
+		return $this->user_avatar ? asset($this->imagePath . $this->id . '/' . $this->user_avatar) : '';
 	}
 
 	/**

@@ -41,7 +41,11 @@
 
 <div class="row">
     <div class="col-lg-6">
-        @include('admin::slider.slider')
+        @include('admin::slider.index')
+    </div><!-- end col -->
+
+    <div class="col-lg-6">
+        @include('admin::reviews.index')
     </div><!-- end col -->
 </div>
 

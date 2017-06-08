@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -65,7 +66,24 @@ class Menu extends Model
 		'page_id' => 'required|integer',
 		'position' => 'integer',
 	];
-
+	
+	public static function boot()
+	{
+		parent::boot();
+		
+		static::addGlobalScope('order', function (Builder $builder) {
+			$builder->orderBy('position', 'ASC');
+		});
+		
+		static::saving(function($menu) {
+		
+		});
+		
+		static::deleting(function($menu) {
+			$menu->children()->delete();
+		});
+	}
+	
 	/**
 	 * Страница
 	 *
