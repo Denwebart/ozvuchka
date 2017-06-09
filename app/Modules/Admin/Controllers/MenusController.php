@@ -11,6 +11,7 @@ namespace Modules\Admin\Controllers;
 use App\Models\Menu;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MenusController extends Controller
 {
@@ -138,12 +139,13 @@ class MenusController extends Controller
 		$query = $request->get('query');
 		$pages = Page::where('title', 'like', "%$query%")
 			->orWhere('menu_title', 'like', "%$query%")
-			->get(['id', 'title', 'menu_title']);
+			->orWhere('alias', 'like', "%$query%")
+			->get(['id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title']);
 		$result = ['query' => "Unit", 'suggestions' => []];
 		foreach($pages as $item) {
 			$title = ($item->menu_title != $item->title)
-				? $item->menu_title . ' (' . $item->title . ')'
-				: $item->getTitle();
+				? $item->menu_title . ' (' . $item->title . ' | URL: ' . $item->getUrl(true) . ')'
+				: $item->getTitle() . ' (' . $item->getUrl(true) . ')';
 			$result['suggestions'][] = [
 				'value' => $title, 'data' => $item->id
 			];
@@ -195,6 +197,9 @@ class MenusController extends Controller
 			$menuItem = new Menu();
 			$menuItem->type = $request->get('menuType');
 			$menuItem->page_id = $page->id;
+			
+			$position = DB::table('menus')->max('position');
+			$menuItem->position = $position + 1;
 
 			if($menuItem->save()) {
 				$items = Menu::getMenuItems($request->get('menuType'));

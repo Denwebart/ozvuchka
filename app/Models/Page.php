@@ -86,6 +86,14 @@ class Page extends Model
 	const ID_GALLERY_PAGE = 4;
 	const ID_CONTACT_PAGE = 5;
 	const ID_SITEMAP_PAGE = 6;
+	
+	public static $pagesIcons = [
+		self::ID_MAIN_PAGE    => 'fa fa-home',
+		self::ID_NEWS_PAGE    => 'fa fa-newspaper-o',
+		self::ID_GALLERY_PAGE => 'fa fa-image',
+		self::ID_CONTACT_PAGE => 'fa fa-envelope-o',
+		self::ID_SITEMAP_PAGE => 'fa fa-sitemap',
+	];
 
 	/**
 	 * Тип страницы (значение поля type)

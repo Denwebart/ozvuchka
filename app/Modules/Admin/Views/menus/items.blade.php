@@ -10,7 +10,11 @@
         @if($item->page)
             <li class="item list-group-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}" data-page-id="{{ $item->page->id }}" data-menu-type="{{ $menuType }}">
                 <span class="icon m-r-10 pull-left">
-                    @if($item->page->is_container)
+                    @if(array_key_exists($item->page->id, \App\Models\Page::$pagesIcons))
+                        <i class="{{ \App\Models\Page::$pagesIcons[$item->page->id] }}" title="Системная страница" data-toggle="tooltip"></i>
+                    @elseif($item->page->type == \App\Models\Page::TYPE_SYSTEM_PAGE)
+                        <i class="fa fa-cog" title="Системная страница" data-toggle="tooltip"></i>
+                    @elseif($item->page->is_container)
                         <i class="fa fa-folder" title="Категория" data-toggle="tooltip"></i>
                     @else
                         <i class="fa fa-file-o" title="Страница" data-toggle="tooltip"></i>

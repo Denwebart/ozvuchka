@@ -27,10 +27,14 @@
                 </td>
 
                 <td>
-                    @if($page->is_container)
-                        <i class="fi-folder"></i>
+                    @if(array_key_exists($page->id, \App\Models\Page::$pagesIcons))
+                        <i class="{{ \App\Models\Page::$pagesIcons[$page->id] }}" title="Системная страница" data-toggle="tooltip"></i>
+                    @elseif($page->type == \App\Models\Page::TYPE_SYSTEM_PAGE)
+                        <i class="fa fa-cog" title="Системная страница" data-toggle="tooltip"></i>
+                    @elseif($page->is_container)
+                        <i class="fa fa-folder" title="Категория" data-toggle="tooltip"></i>
                     @else
-                        <i class="fi-paper"></i>
+                        <i class="fa fa-file-o" title="Страница" data-toggle="tooltip"></i>
                     @endif
                 </td>
 
