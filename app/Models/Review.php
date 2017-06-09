@@ -117,11 +117,13 @@ class Review extends Model
 		});
 		
 		static::saving(function($review) {
-		
+			\Cache::forget('widgets.reviews');
 		});
 		
 		static::deleting(function($review) {
 			$review->deleteImagesFolder();
+			
+			\Cache::forget('widgets.reviews');
 		});
 	}
 	

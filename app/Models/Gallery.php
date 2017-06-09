@@ -101,11 +101,13 @@ class Gallery extends Model
 		});
 
 		static::saving(function($page) {
-			//
+			\Cache::forget('widgets.gallery');
 		});
 		
 		static::deleting(function($page) {
 			$page->deleteImagesFolder();
+			
+			\Cache::forget('widgets.gallery');
 		});
 	}
 	
