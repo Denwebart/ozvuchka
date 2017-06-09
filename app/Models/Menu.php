@@ -140,12 +140,13 @@ class Menu extends Model
 				'page' => function($query) {
 					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
 				},
-				'page.children' => function($query) {
-					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
-				},
-				'page.children.parent' => function($query) {
-					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
-				},
+//				Uncomment if need submenu
+//				'page.children' => function($query) {
+//					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
+//				},
+//				'page.children.parent' => function($query) {
+//					$query->select('id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title');
+//				},
 			]);
 			if($type) {
 				$query = $query->whereType($type);

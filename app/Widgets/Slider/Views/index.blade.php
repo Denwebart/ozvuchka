@@ -6,16 +6,45 @@
 ?>
 
 @if(count($items))
-    @foreach($items as $item)
-        <div>
-            <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}" width="200px"/>
-            @if($item->title) <p class="title">{{ $item->title }}</p> @endif
-            @if($item->text) <p class="text">{{ $item->text }}</p> @endif
-            @if($item->button_link)
-                <a href="{{ $item->button_link }}">
-                    {{ $item->button_text or 'Подробнее' }}
-                </a>
-            @endif
+
+    <section class="intro full-width jIntro" id="anchor00">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="slider-intro">
+                        <div id="slides">
+                            <div class="overlay"></div>
+                            <div class="slides-container">
+                                @foreach($items as $item)
+                                    <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}">
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vcenter text-center text-overlay">
+                {{--<div class="logo-intro"><img src="{{ asset('frontend/images/logo_white.svg') }}" alt=""></div>--}}
+                <div id="owl-main-text" class="owl-carousel">
+                    @foreach($items as $item)
+                        <div class="item">
+                            @if($item->title)
+                                <h1 class="primary-title">{{ $item->title }}</h1>
+                            @endif
+                            @if($item->text)
+                                <h2 class="subtitle-text">{{ $item->text }}</h2>
+                            @endif
+                            <div class="voffset50"></div>
+                            @if($item->button_link)
+                                <a href="{{ $item->button_link }}" class="btn btn-invert">
+                                    {{ $item->button_text or 'Узнать больше' }}
+                                </a>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
-    @endforeach
+    </section>
 @endif

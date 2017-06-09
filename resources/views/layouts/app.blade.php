@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ config('app.locale') }}"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="{{ config('app.locale') }}"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="{{ config('app.locale') }}"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="{{ config('app.locale') }}"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
 
@@ -7,20 +14,25 @@
     <meta name="description" content="{{ $page->getMetaDesc() }}">
     <meta name="keywords" content="{{ $page->getMetaKey() }}">
     @if(Config::get('settings.metaCopyright'))
-        <meta name="copyright" lang="ru" content="{{ Config::get('settings.metaCopyright') }}" />
+        <meta name="copyright" lang="ru" content="{{ Config::get('settings.metaCopyright') }}">
     @endif
     @if(Config::get('settings.metaAuthor'))
-        <meta name="author" lang="ru" content="{{ Config::get('settings.metaAuthor') }}" />
+        <meta name="author" lang="ru" content="{{ Config::get('settings.metaAuthor') }}">
     @endif
-    <meta name="robots" content="{{ isset($metaRobots) ? $metaRobots : Config::get('settings.metaRobots') }}"/>
+    <meta name="robots" content="{{ isset($metaRobots) ? $metaRobots : Config::get('settings.metaRobots') }}">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="{{ asset('frontend/styles/main.css') }}">
+
+    <script src="{{ asset('frontend/scripts/vendor/modernizr.js') }}"></script>
 
     @stack('styles')
 
@@ -31,82 +43,121 @@
         ]) !!};
     </script>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<body data-spy="scroll" data-target="#navbar-muziq" data-offset="80">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-
-                        {!! $menuWidget->main() !!}
-
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container">
-            @yield('content')
+<!-- LOADER -->
+<div id="mask">
+    <div class="loader">
+        <!-- <img src="{{ asset('frontend/images/loading.gif') }}" alt='loading'> -->
+        <div class="cssload-container">
+            <div class="cssload-shaft1"></div>
+            <div class="cssload-shaft2"></div>
+            <div class="cssload-shaft3"></div>
+            <div class="cssload-shaft4"></div>
+            <div class="cssload-shaft5"></div>
+            <div class="cssload-shaft6"></div>
+            <div class="cssload-shaft7"></div>
+            <div class="cssload-shaft8"></div>
+            <div class="cssload-shaft9"></div>
+            <div class="cssload-shaft10"></div>
         </div>
     </div>
+</div>
 
-    <footer>
-        <div class="container">
-            {!! $requestedCallsWidget->show() !!}
+<!-- HEADER -->
+<header id="jHeader">
+    <nav class="navbar navbar-default" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Меню</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('frontend/images/logo.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
         </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+        <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbar-muziq">
+            <ul class="nav navbar-nav navbar-right">
+                {!! $menuWidget->main() !!}
+            </ul>
+        </div>
+    </nav>
+</header>
 
-    @stack('scripts')
+@yield('content')
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p class="copy">
+            <span class="without-enter">
+                ©
+                <a href="{{ url('/') }}"><span>{{ Config::get('settings.domain', url('/')) }}</span></a>
+                @if(Config::get('settings.startupYear', date('Y')) != date('Y'))
+                {{ Config::get('settings.startupYear', date('Y')) }} -
+                @endif
+                {{ date('Y') }}.
+            </span>
+            @if(isset($siteSettings['copyright']) && is_object($siteSettings['copyright']))
+                <span>{!! $siteSettings['copyright']->value !!}</span>
+            @endif
+        </p>
+
+        <p class="created-by">
+            Разработано студией
+            <a href="http://it-hill.com">
+                <span>IT Hill</span>
+                <img src="{{ asset('frontend/images/it-hill_logo.svg') }}" alt="Студия создания сайтов IT Hill" title="Студия создания сайтов IT Hill">
+            </a>
+        </p>
+    </div>
+</footer>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">
+    Вы пользуетесь <strong>устаревшей</strong> версией браузера Internet Explorer.
+    Данная версия браузера не поддерживает многие современные технологии,
+    из-за чего многие страницы отображаются некорректно,
+    а главное — на сайтах могут работать не все функции.
+    <br>
+    Советуем <a href="http://browsehappy.com/">обновить</a> браузер
+    до более поздней версии или воспользоваться другим браузером.
+</p>
+<![endif]-->
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+            function () {
+                (b[l].q = b[l].q || []).push(arguments)
+            });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = '//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>
+
+<script src="{{ asset('frontend/scripts/plugins.js') }}"></script>
+
+<script src="{{ asset('frontend/scripts/main.js') }}"></script>
+
+<script src="{{ asset('frontend/scripts/colorpicker.js') }}"></script>
+
+<script src="{{ asset('frontend/scripts/vendor/bootstrap.js') }}"></script>
+
+@stack('scripts')
+
 </body>
 </html>
+
+<!---------------------------------------------------------------------->
+
+{{--{!! $requestedCallsWidget->show() !!}--}}
