@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="col-sm-10">
-                        <button type="submit" class="button-add-slide btn btn-custom waves-effect waves-light pull-right">Создать</button>
+                        <button type="submit" class="btn btn-custom waves-effect waves-light pull-right">Создать</button>
                     </div>
                 </div>
                 {!! Form::close() !!}

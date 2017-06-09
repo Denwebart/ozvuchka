@@ -1,6 +1,6 @@
 <?php
 /**
- * Class ReviewsController
+ * Class TeamMembersController
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
@@ -8,15 +8,15 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\Review;
+use App\Models\TeamMember;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ReviewsController extends Controller
+class TeamMembersController extends Controller
 {
 	/**
-	 * Add new review
+	 * Add new Team Member
 	 *
 	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse
@@ -28,37 +28,42 @@ class ReviewsController extends Controller
 	{
 		if($request->ajax()) {
 			$data = $request->all();
-			$position = DB::table('reviews')->max('position');
+			$position = DB::table('team_members')->max('position');
 			$data['position'] = $position + 1;
 			
-			$validator = \Validator::make($data, Review::$rules);
+			$validator = \Validator::make($data, TeamMember::$rules);
 			
 			if ($validator->fails())
 			{
 				return \Response::json([
 					'success' => false,
 					'errors' => $validator->errors(),
-					'message' => 'Отзыв не добавлен. Исправьте ошибки.'
+					'message' => 'Член команды не добавлен. Исправьте ошибки.'
 				]);
 			} else {
-				$review = Review::create($data);
-				$review->setImage($request);
-				$review->save();
+				$teamMember = TeamMember::create($data);
+				$teamMember->setImage($request);
+				$teamMember->save();
 				
-				$reviews = Review::all();
+				$teamMembers = TeamMember::all();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Отзыв успешно добавлен.',
-					'itemId' => $review->id,
-					'resultHtml' => view('admin::reviews.items', compact('reviews'))->render(),
+					'message' => 'Член команды успешно добавлен.',
+					'itemId' => $teamMember->id,
+					'resultHtml' => view('admin::teamMembers.items', compact('teamMembers'))->render(),
 				]);
 			}
+			
+			return \Response::json([
+				'success' => false,
+				'message' => 'Произошла ошибка.'
+			]);
 		}
 	}
 	
 	/**
-	 * Delete review
+	 * Delete Team Member
 	 *
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
@@ -68,28 +73,28 @@ class ReviewsController extends Controller
 	 */
 	public function destroy(Request $request, $id)
 	{
-		$review = Review::find($id);
+		$teamMember = TeamMember::find($id);
 		
-		if($review && $review->delete()) {
+		if($teamMember && $teamMember->delete()) {
 			if(\Request::ajax()) {
-				$reviews = Review::all();
+				$teamMembers = TeamMember::all();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Отзыв успешно удалён.',
-					'resultHtml' => view('admin::reviews.items', compact('reviews'))->render(),
+					'message' => 'Член команды успешно удалён.',
+					'resultHtml' => view('admin::teamMembers.items', compact('teamMembers'))->render(),
 				]);
 			} else {
-				return back()->with('successMessage', 'Отзыв успешно удалён.');
+				return back()->with('successMessage', 'Член команды успешно удалён.');
 			}
 		} else {
 			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Произошла ошибка. Отзыв не удалён.'
+					'message' => 'Произошла ошибка. Член команды не удалён.'
 				]);
 			} else {
-				return back()->with('warningMessage', 'Произошла ошибка. Отзыв не удалён.');
+				return back()->with('warningMessage', 'Произошла ошибка. Член команды не удалён.');
 			}
 		}
 	}
@@ -107,14 +112,14 @@ class ReviewsController extends Controller
 	{
 		if($request->ajax()) {
 			$id = $request->has('pk') ? $request->get('pk') : $request->get('id');
-			$review = Review::findOrFail($id);
+			$teamMember = TeamMember::findOrFail($id);
 			
 			$field = $request->get('name');
-			if($review && $field) {
+			if($teamMember && $field) {
 				$data = $request->all();
 				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : '';
 				
-				$validator = \Validator::make($data, $review->getRules($field));
+				$validator = \Validator::make($data, $teamMember->getRules($field));
 				
 				if ($validator->fails())
 				{
@@ -124,8 +129,8 @@ class ReviewsController extends Controller
 						'message' => 'Значение не изменено. Исправьте ошибки.'
 					]);
 				} else {
-					$review->$field = $data['value'];
-					$review->save();
+					$teamMember->$field = $data['value'];
+					$teamMember->save();
 					
 					return \Response::json([
 						'success' => true,
@@ -153,16 +158,15 @@ class ReviewsController extends Controller
 	public function setIsActive(Request $request)
 	{
 		if($request->ajax()) {
-			$review = Review::findOrFail($request->get('id'));
+			$teamMember = TeamMember::findOrFail($request->get('id'));
 			
-			if($review) {
-				$review->is_published = $request->get('value');
-				$review->published_at = $request->get('value') ? Carbon::now() : null;
-				$review->save();
+			if($teamMember) {
+				$teamMember->is_published = $request->get('value');
+				$teamMember->save();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Статус изменен на "' . Review::$is_published[$review->is_published] . '".'
+					'message' => 'Статус изменен на "' . TeamMember::$is_published[$teamMember->is_published] . '".'
 				]);
 			} else {
 				return \Response::json([
@@ -185,11 +189,11 @@ class ReviewsController extends Controller
 	public function uploadImage(Request $request)
 	{
 		if($request->ajax()) {
-			$review = Review::findOrFail($request->get('id'));
+			$teamMember = TeamMember::findOrFail($request->get('id'));
 			
-			if($review) {
-				$review->setImage($request);
-				$review->save();
+			if($teamMember) {
+				$teamMember->setImage($request);
+				$teamMember->save();
 				
 				return \Response::json([
 					'success' => true,
@@ -216,13 +220,13 @@ class ReviewsController extends Controller
 	public function deleteImage(Request $request)
 	{
 		if($request->ajax()) {
-			$review = Review::findOrFail($request->get('id'));
+			$teamMember = TeamMember::findOrFail($request->get('id'));
 			
-			if($review) {
-				$review->deleteImage();
+			if($teamMember) {
+				$teamMember->deleteImage();
 				
-				$review->user_avatar = null;
-				$review->save();
+				$teamMember->image = null;
+				$teamMember->save();
 				
 				return \Response::json([
 					'success' => true,
@@ -238,7 +242,7 @@ class ReviewsController extends Controller
 	}
 	
 	/**
-	 * Change position of reviews
+	 * Change position of Team Members
 	 *
 	 * @param Request $request
 	 * @return mixed
@@ -251,15 +255,15 @@ class ReviewsController extends Controller
 		$positions = $request->get('positions');
 		$i = 0;
 		foreach($positions as $itemId) {
-			$item = Review::find($itemId);
-			$item->position = $i;
-			$item->save();
+			$menu = TeamMember::find($itemId);
+			$menu->position = $i;
+			$menu->save();
 			$i++;
 		}
 		
 		return \Response::json(array(
 			'success' => true,
-			'message' => 'Позиция отзыва изменена.',
+			'message' => 'Позиция члена команды изменена.',
 		));
 	}
 }

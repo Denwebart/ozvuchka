@@ -8,7 +8,9 @@ use App\Models\Letter;
 use App\Models\Page;
 use App\Models\RequestedCall;
 use App\Models\User;
+use App\Widgets\Reviews\Reviews;
 use App\Widgets\Slider\Slider;
+use App\Widgets\TeamMembers\TeamMembers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,7 +28,11 @@ class PagesController extends Controller
 		
 		$slider = new Slider();
 		
-		return view('pages.index', compact('page', 'slider'));
+		$reviews = new Reviews();
+		
+		$teamMembers = new TeamMembers();
+		
+		return view('pages.index', compact('page', 'slider', 'reviews', 'teamMembers'));
 	}
 	
 	/**

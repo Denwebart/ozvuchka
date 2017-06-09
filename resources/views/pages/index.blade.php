@@ -20,4 +20,8 @@
 
     <h2>Слайдер</h2>
     {!! $slider->show() !!}
+
+    {!! $reviews->show() !!}
+
+    {!! $teamMembers->show() !!}
 @endsection()

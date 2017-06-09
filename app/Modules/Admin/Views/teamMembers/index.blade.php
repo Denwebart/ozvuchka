@@ -6,34 +6,34 @@
 ?>
 <div class="card-box m-b-20">
 
-    <h4 class="header-title m-t-0">Отзывы</h4>
+    <h4 class="header-title m-t-0">Члены команды</h4>
     <p class="text-muted font-13 m-b-30">
-        Отзывы клиентов
+        Администрирование членов команды
     </p>
 
-    <div id="reviews">
-        <div class="reviews-body reviews-items">
-            @include('admin::reviews.items', ['reviews' => \App\Models\Review::all()])
+    <div id="team-members">
+        <div class="team-members-body team-members-items">
+            @include('admin::teamMembers.items', ['teamMembers' => \App\Models\TeamMember::all()])
         </div>
-        <div class="reviews-bottom m-b-10">
-            <div class="reviews-control-buttons pull-right m-t-10">
-                <a href="#" class="open-review-form pull-right m-r-15" data-toggle="tooltip" title="Добавить отзыв">
-                    <span class="m-r-5 pull-left">Добавить отзыв</span>
+        <div class="team-members-bottom m-b-10">
+            <div class="team-members-control-buttons pull-right m-t-10">
+                <a href="#" class="open-team-member-form pull-right m-r-15" data-toggle="tooltip" title="Добавить члена команды">
+                    <span class="m-r-5 pull-left">Добавить члена команды</span>
                     <i class="mdi mdi-playlist-plus font-18 pull-left"></i>
                 </a>
             </div>
             <div class="clearfix"></div>
 
-            <!-- Form for added new review -->
-            <div class="new-review-form m-t-10 m-b-10" style="display: none">
-                {!! Form::open(['url' => route('admin.reviews.store'), 'id' => 'new-review-form', 'class' => 'form-horizontal']) !!}
+            <!-- Form for added new team member -->
+            <div class="new-team-member-form m-t-10 m-b-10" style="display: none">
+                {!! Form::open(['url' => route('admin.teamMembers.store'), 'id' => 'new-team-member-form', 'class' => 'form-horizontal']) !!}
                 <p class="text-muted font-13">
-                    Добавление нового отзыва.
+                    Добавление нового члена команды.
                 </p>
                 <div class="row">
                     <div class="col-sm-4 m-t-5">
-                        {!! Form::file('user_avatar', ['id' => 'user_avatar', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M']) !!}
-                        <span class="help-block error user_avatar_error text-danger font-12" style="display: none">
+                        {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M']) !!}
+                        <span class="help-block error image_error text-danger font-12" style="display: none">
                             <i class="fa fa-times-circle"></i>
                             <strong></strong>
                         </span>
@@ -41,24 +41,24 @@
                     <div class="col-sm-6">
                         <p>
                             <b class="font-13 text-muted" style="width: 75px; display: inline-block">Имя:</b>
-                            {!! Form::text('user_name', null, ['id' => 'user_name', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
-                            <span class="help-block error user_name_error text-danger font-12" style="display: none">
+                            {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                            <span class="help-block error name_error text-danger font-12" style="display: none">
                                 <i class="fa fa-times-circle"></i>
                                 <strong></strong>
                             </span>
                         </p>
-                        {{--<p>--}}
-                            {{--<b class="font-13 text-muted" style="width: 75px; display: inline-block">Email:</b>--}}
-                            {{--{!! Form::text('user_email', null, ['id' => 'user_email', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}--}}
-                            {{--<span class="help-block error user_email_error text-danger font-12" style="display: none">--}}
-                                {{--<i class="fa fa-times-circle"></i>--}}
-                                {{--<strong></strong>--}}
-                            {{--</span>--}}
-                        {{--</p>--}}
                         <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Отзыв:</b>
-                            {!! Form::textarea('text', null, ['id' => 'text', 'class' => 'form-control maxlength', 'maxlength' => 1000, 'rows' => 2]) !!}
-                            <span class="help-block error text_error text-danger font-12" style="display: none">
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Альт к изображению:</b>
+                            {!! Form::textarea('image_alt', null, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 2]) !!}
+                            <span class="help-block error image_alt_error text-danger font-12" style="display: none">
+                                <i class="fa fa-times-circle"></i>
+                                <strong></strong>
+                            </span>
+                        </p>
+                        <p>
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Описание:</b>
+                            {!! Form::textarea('description', null, ['id' => 'description', 'class' => 'form-control maxlength', 'maxlength' => 1000, 'rows' => 2]) !!}
+                            <span class="help-block error description_error text-danger font-12" style="display: none">
                                 <i class="fa fa-times-circle"></i>
                                 <strong></strong>
                             </span>
@@ -103,7 +103,7 @@
     });
 
     // Change position
-    var reviewsSortableOptions = {
+    var teamMembersSortableOptions = {
         cursor: 'move',
         axis: 'y',
         update: function (event, ui) {
@@ -111,7 +111,7 @@
             $.ajax({
                 data: {positions: positions},
                 type: 'POST',
-                url: '{{ route('admin.reviews.position') }}',
+                url: '{{ route('admin.teamMembers.position') }}',
                 beforeSend: function(request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -125,14 +125,14 @@
             });
         }
     };
-    $(".sortable-reviews").sortable(reviewsSortableOptions);
+    $(".sortable-team-members").sortable(teamMembersSortableOptions);
 
     // Init plugins after ajax
     function initPluginsAfterAjax() {
-        $(".sortable-reviews").sortable(reviewsSortableOptions);
+        $(".sortable-team-members").sortable(teamMembersSortableOptions);
         initDropifyAjax();
         $('.editable-text').editable(getSettingsEditableOptions());
-        $('#reviews .reviews-items').find('[data-plugin="switchery"]').each(function (i, o) {
+        $('#team-members .team-members-items').find('[data-plugin="switchery"]').each(function (i, o) {
             new Switchery($(this)[0], $(this).data())
         })
         $('[data-toggle="tooltip"]').tooltip();
@@ -142,14 +142,14 @@
     };
 
     // Delete item
-    $('#reviews').on('click', '.delete-item', function(e) {
+    $('#team-members').on('click', '.delete-item', function(e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var itemId = $(this).data('itemId');
 
         swal({
-            title: "Удалить отзыв?",
-            text: 'Вы точно хотите удалить безвозвратно этот отзыв?',
+            title: "Удалить члена команды?",
+            text: 'Вы точно хотите удалить безвозвратно этого члена команды?',
             type: "error",
             showCancelButton: true,
             cancelButtonText: 'Отмена',
@@ -159,7 +159,7 @@
             $.ajax({
                 data: {},
                 type: 'DELETE',
-                url: "/admin/reviews/" + itemId,
+                url: "/admin/team_members/" + itemId,
                 beforeSend: function(request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -167,7 +167,7 @@
                     if(response.success) {
                         notification(response.message, 'success');
 
-                        $('#reviews .reviews-items').html(response.resultHtml);
+                        $('#team-members .team-members-items').html(response.resultHtml);
 
                         initPluginsAfterAjax();
                     } else {
@@ -178,38 +178,38 @@
         }, function(dismiss) {});
     });
 
-    // Add new review: open form for added new item
-    $('#reviews').on('click', '.open-review-form', function (e) {
+    // Add new team member: open form for added new item
+    $('#team-members').on('click', '.open-team-member-form', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-        var $form = $('.new-review-form');
+        var $form = $('.new-team-member-form');
         if($form.is(':visible')) {
             $form.hide();
         } else {
             $form.show();
             $('html, body').animate({
-                scrollTop: $('.new-review-form').offset().top - 120
+                scrollTop: $('.new-team-member-form').offset().top - 120
             }, 1000);
         }
     });
 
     var dropify = $('.dropify').dropify(dropifyOptions);
 
-    // Add new review: add new item
-    $('#new-review-form').on('submit', function (e) {
+    // Add new team member: add new item
+    $('#new-team-member-form').on('submit', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var $form = $(this),
             formData = new FormData(),
             params   = $form.serializeArray(),
-            image    = $form.find('[name="user_avatar"]')[0].files[0],
+            image    = $form.find('[name="image"]')[0].files[0],
             url = $form.attr('action');
 
         $.each(params, function(i, val) {
             formData.append(val.name, val.value);
         });
         if(image) {
-            formData.append('user_avatar', image);
+            formData.append('image', image);
         }
 
         $.ajax({
@@ -228,10 +228,10 @@
                 if(response.success) {
                     notification(response.message, 'success');
 
-                    $('#reviews .reviews-items').html(response.resultHtml);
-                    $('.new-review-form').hide();
+                    $('#team-members .team-members-items').html(response.resultHtml);
+                    $('.new-team-member-form').hide();
                     $('html, body').animate({
-                        scrollTop: $('.reviews-item[id="' + response.itemId + '"]').offset().top - 50
+                        scrollTop: $('.team-members-item[id="' + response.itemId + '"]').offset().top - 50
                     }, 1000);
 
                     $form.trigger('reset');

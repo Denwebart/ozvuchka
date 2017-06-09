@@ -46,6 +46,7 @@
 
     <div class="col-lg-6">
         @include('admin::reviews.index')
+        @include('admin::teamMembers.index')
     </div><!-- end col -->
 </div>
 
