@@ -87,6 +87,7 @@ class TeamMember extends Model
 		'link_google',
 		'link_youtube',
 		'image',
+		'image_alt',
 		'position',
 		'is_published',
 	];

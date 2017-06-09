@@ -128,7 +128,7 @@
     $(".sortable-reviews").sortable(reviewsSortableOptions);
 
     // Init plugins after ajax
-    function initPluginsAfterAjax() {
+    function initPluginsAfterAjaxReviews() {
         $(".sortable-reviews").sortable(reviewsSortableOptions);
         initDropifyAjax();
         $('.editable-text').editable(getSettingsEditableOptions());
@@ -169,7 +169,7 @@
 
                         $('#reviews .reviews-items').html(response.resultHtml);
 
-                        initPluginsAfterAjax();
+                        initPluginsAfterAjaxReviews();
                     } else {
                         notification(response.message, 'error');
                     }
@@ -241,7 +241,7 @@
                     drEvent.clearElement();
                     var dropify = $('.dropify').dropify(dropifyOptions);
 
-                    initPluginsAfterAjax();
+                    initPluginsAfterAjaxReviews();
                 } else {
                     notification(response.message, 'error');
 

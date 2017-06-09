@@ -48,7 +48,13 @@
                             </span>
                         </p>
                         <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Альт к изображению:</b>
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">
+                                Альт:
+                                <!-- Info text: image_alt -->
+                                <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
+                                    <i class="fa fa-question-circle-o"></i>
+                                </span>
+                            </b>
                             {!! Form::textarea('image_alt', null, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 2]) !!}
                             <span class="help-block error image_alt_error text-danger font-12" style="display: none">
                                 <i class="fa fa-times-circle"></i>
@@ -128,7 +134,7 @@
     $(".sortable-team-members").sortable(teamMembersSortableOptions);
 
     // Init plugins after ajax
-    function initPluginsAfterAjax() {
+    function initPluginsAfterAjaxTeamMembers() {
         $(".sortable-team-members").sortable(teamMembersSortableOptions);
         initDropifyAjax();
         $('.editable-text').editable(getSettingsEditableOptions());
@@ -136,6 +142,7 @@
             new Switchery($(this)[0], $(this).data())
         })
         $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
 
         // init tooltips, switchery
 //        $.Components.init();
@@ -169,7 +176,7 @@
 
                         $('#team-members .team-members-items').html(response.resultHtml);
 
-                        initPluginsAfterAjax();
+                        initPluginsAfterAjaxTeamMembers();
                     } else {
                         notification(response.message, 'error');
                     }
@@ -241,7 +248,7 @@
                     drEvent.clearElement();
                     var dropify = $('.dropify').dropify(dropifyOptions);
 
-                    initPluginsAfterAjax();
+                    initPluginsAfterAjaxTeamMembers();
                 } else {
                     notification(response.message, 'error');
 

@@ -154,7 +154,7 @@
     $(".sortable-slider").sortable(sliderSortableOptions);
 
     // Init plugins after ajax
-    function initPluginsAfterAjax() {
+    function initPluginsAfterAjaxSlider() {
         $(".sortable-slider").sortable(sliderSortableOptions);
         initDropifyAjax();
         $('.editable-text').editable(getSettingsEditableOptions());
@@ -162,6 +162,7 @@
             new Switchery($(this)[0], $(this).data())
         })
         $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
 
         // init tooltips, switchery
 //        $.Components.init();
@@ -195,7 +196,7 @@
 
                         $('#slider .slider-items').html(response.resultHtml);
 
-                        initPluginsAfterAjax();
+                        initPluginsAfterAjaxSlider();
                     } else {
                         notification(response.message, 'error');
                     }
@@ -267,7 +268,7 @@
                     drEvent.clearElement();
                     var dropify = $('.dropify').dropify(dropifyOptions);
 
-                    initPluginsAfterAjax();
+                    initPluginsAfterAjaxSlider();
                 } else {
                     notification(response.message, 'error');
 
