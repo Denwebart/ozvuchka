@@ -59,7 +59,7 @@ class FillPagesTable extends Migration
 	public function down()
 	{
 		DB::table('pages')
-			->whereIn('alias', ['/', 'kontakty', 'karta-sajta'])
+			->whereIn('id', [1, 2, 3])
 			->delete();
 	}
 }

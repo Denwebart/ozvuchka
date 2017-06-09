@@ -74,10 +74,17 @@ class PagesController extends Controller
 			abort(404);
 		}
 		
-		if($page->id == Page::ID_CONTACT_PAGE) {
-			return $this->getContactPage($request, $page);
-		} elseif($page->id == Page::ID_SITEMAP_PAGE) {
-			return $this->getSitemapPage($request, $page);
+		switch ($page->id) {
+			case Page::ID_ABOUT_PAGE:
+				return $this->getAboutPage($request, $page);
+			case Page::ID_NEWS_PAGE:
+				return $this->getNewsPage($request, $page);
+			case Page::ID_GALLERY_PAGE:
+				return $this->getGalleryPage($request, $page);
+			case Page::ID_CONTACT_PAGE:
+				return $this->getContactPage($request, $page);
+			case Page::ID_SITEMAP_PAGE:
+				return $this->getSitemapPage($request, $page);
 		}
 		
 		if($page->is_container) {
@@ -100,6 +107,51 @@ class PagesController extends Controller
 	protected function getPage($request, $page)
 	{
 		return view('pages.page', compact('page'));
+	}
+	
+	/**
+	 * About page
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getAboutPage($request, $page)
+	{
+		return view('pages.about', compact('page'));
+	}
+	
+	/**
+	 * News page
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getNewsPage($request, $page)
+	{
+		return view('pages.news', compact('page'));
+	}
+	
+	/**
+	 * Gallery page
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getGalleryPage($request, $page)
+	{
+		return view('pages.gallery', compact('page'));
 	}
 	
 	/**
@@ -141,58 +193,6 @@ class PagesController extends Controller
 //				->get(['id', 'parent_id', 'menu_title', 'title', 'alias']);
 //		});
 		
-		// сброс фильтров
-//		if($request->get('reset-filters')) {
-//			$url = url($request->decodedPath());
-//		}
-		
-		// покатегория
-//		if($request->has('subcat') && $request->get('subcat') && !$request->get('reset-filters')) {
-//			$subcategoryIds = $page->publishedChildren()
-//				->whereIn('alias', explode(',', $request->get('subcat')))
-//				->pluck('id');
-//		} else {
-//			$subcategoryIds = $subcategories->pluck('id');
-//			$subcategoryIds[] = $page->id;
-//		}
-		
-		// максимальная/минимальная цена
-//		$subcat = $subcategories->pluck('id');
-//		$subcat[] = $page->id;
-//		$rangePrice = Product::select(['id', 'price'])
-//			->whereIn('category_id', $subcat)
-//			->where('products.is_published', '=', 1)
-//			->where('products.published_at', '<=', Carbon::now())
-//			->orderBy('price', 'DESC')
-//			->get();
-		
-		// фильтрация по характеристикам (properties)
-//		$postProperties = array_filter($request->except(['price', 'page', 'subcat']));
-//		if($postProperties && !$request->get('reset-filters')) {
-//			$properties = Property::whereIn('title', array_flip($postProperties))->get();
-//		}
-//		if(isset($properties)) {
-//			foreach ($properties as $property) {
-//				$query->whereHas('productProperties', function ($qu) use($properties, $request, $property) {
-//					if($request->has($property->title)) {
-//						$propertyValues = explode(',', $request->get($property->title));
-//						$qu->where(function ($q) use($property, $propertyValues) {
-//							$q->where('property_values.property_id', '=', $property->id);
-//							$i = 0;
-//							foreach ($propertyValues as $value) {
-//								if(!$i) {
-//									$q->where('property_values.value', '=', $value);
-//								} else {
-//									$q->orWhere('property_values.value', '=', $value);
-//								}
-//								$i++;
-//							}
-//						});
-//					}
-//				});
-//			}
-//		}
-		
 		// сортировка
 		if($request->has('sortby') && !$request->get('reset-filters') && in_array($request->get('sortby'), Product::$sortingAttributes)) {
 			$sortby = $request->get('sortby');
@@ -200,49 +200,6 @@ class PagesController extends Controller
 			$sortby = $request->cookie('sortby', 'popular');
 		}
 		$direction = $request->has('direction') ? $request->get('direction') : $request->cookie('direction', 'DESC');
-		
-		// sort by sales (popular)
-//		if($sortby == 'popular') {
-//			$query->leftJoin('orders_products', 'orders_products.product_id', '=', 'products.id')
-//				->addSelect(\DB::raw('COUNT(distinct orders_products.id) as `popular`'));
-//
-//			$query->leftJoin('products_reviews', 'products_reviews.product_id', '=', 'products.id')
-//				->where(function($q) {
-//					$q->where(function ($qu) {
-//						$qu->where('products_reviews.parent_id', '=', 0);
-//					})->orWhereNull('products_reviews.id');
-//				})
-//				->addSelect(\DB::raw('COUNT(distinct products_reviews.id) as reviews_count'));
-//
-//			$query->orderBy('popular', $direction);
-//			$query->orderBy('reviews_count', $direction);
-//		}
-		// sort by rating
-//		elseif($sortby == 'rating') {
-//			$query->leftJoin('products_reviews', 'products_reviews.product_id', '=', 'products.id')
-//				->where(function($q) {
-//					$q->where(function ($qu) {
-//						$qu->where('products_reviews.parent_id', '=', 0);
-//					})->orWhereNull('products_reviews.id');
-//				})
-//				->addSelect(\DB::raw('CASE WHEN (products_reviews.is_published = 1 && products_reviews.rating != 0) THEN (SUM(products_reviews.rating) / COUNT(CASE WHEN (products_reviews.is_published = 1 && products_reviews.rating != 0) THEN 1 END)) ELSE 0 END as rating'));
-//			$query->orderBy($sortby, $direction);
-//		} else {
-//			$query->orderBy($sortby, $direction);
-//		}
-//		$query->orderBy('products.published_at', $direction);
-//		$query->groupBy('products.id');
-		
-		// кол-во на странице
-		$limit = ($request->has('onpage') && !$request->get('reset-filters'))
-			? $request->get('onpage')
-			: $request->cookie('catalog-onpage', 12);
-
-//		$products = $query->paginate($limit);
-
-//		$properties = \Cache::rememberForever('properties', function() {
-//			return Property::with(['values'])->get();
-//		});
 		
 		$articles = Page::whereParentId($page->id)->whereIsContainer(0)->published()->get();
 		

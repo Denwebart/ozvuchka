@@ -80,8 +80,12 @@ class Page extends Model
 	/**
 	 * Id страниц с контактной формы и карты сайта
 	 */
-	const ID_CONTACT_PAGE = 2;
-	const ID_SITEMAP_PAGE = 3;
+	const ID_MAIN_PAGE    = 1;
+	const ID_ABOUT_PAGE   = 2;
+	const ID_NEWS_PAGE    = 3;
+	const ID_GALLERY_PAGE = 4;
+	const ID_CONTACT_PAGE = 5;
+	const ID_SITEMAP_PAGE = 6;
 
 	/**
 	 * Тип страницы (значение поля type)
@@ -247,7 +251,7 @@ class Page extends Model
 	 */
 	public function isMain()
 	{
-		return $this->id == 1 ? true : false;
+		return $this->id == self::ID_MAIN_PAGE ? true : false;
 	}
 
 	/**
