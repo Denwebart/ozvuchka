@@ -8,6 +8,7 @@ use App\Models\Letter;
 use App\Models\Page;
 use App\Models\RequestedCall;
 use App\Models\User;
+use App\Widgets\Gallery\Gallery;
 use App\Widgets\Reviews\Reviews;
 use App\Widgets\Slider\Slider;
 use App\Widgets\TeamMembers\TeamMembers;
@@ -32,7 +33,9 @@ class PagesController extends Controller
 		
 		$teamMembers = new TeamMembers();
 		
-		return view('pages.index', compact('page', 'slider', 'reviews', 'teamMembers'));
+		$gallery = new Gallery();
+		
+		return view('pages.index', compact('page', 'slider', 'reviews', 'teamMembers', 'gallery'));
 	}
 	
 	/**

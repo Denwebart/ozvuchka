@@ -18,4 +18,14 @@
 
 @section('content')
     <h1>{{ $page->title }}</h1>
+
+    @foreach($articles as $article)
+        <div>
+            <img src="{{ $article->getImageUrl() }}" alt="{{ $article->image_alt }}">
+            <h2>{{ $article->title }}</h2>
+            <p>{{ $article->getIntrotext() }}</p>
+            <p>{{ \App\Helpers\Date::format($article->published_at) }}</p>
+            <a href="{{ $article->getUrl() }}">Читать далее</a>
+        </div>
+    @endforeach()
 @endsection()

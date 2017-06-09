@@ -24,4 +24,6 @@
     {!! $reviews->show() !!}
 
     {!! $teamMembers->show() !!}
+
+    {!! $gallery->show() !!}
 @endsection()
