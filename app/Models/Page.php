@@ -174,16 +174,22 @@ class Page extends Model
 				$page->alias = '/';
 			}
 			$page->deleteEditorImages();
+			
+			\Cache::forget('sitemapItems');
+			\Cache::forget('sitemapItems.children-' . $page->parent_id);
 		});
 		
 		static::deleting(function($page) {
+			$page->children()->delete();
+			$page->deleteImagesFolder();
+			
 			if(count($page->menus)) {
 				\Cache::forget('menuItems');
 				$page->menus()->delete();
 			}
 			
-			$page->children()->delete();
-			$page->deleteImagesFolder();
+			\Cache::forget('sitemapItems');
+			\Cache::forget('sitemapItems.children-' . $page->parent_id);
 		});
 	}
 
@@ -510,8 +516,7 @@ class Page extends Model
 		$query = new Page();
 		$query = $query->select('id', 'parent_id', 'alias', 'title', 'menu_title', 'is_container', 'type');
 		$query = $query->whereIsContainer(1)
-			->whereParentId(0)
-			->where('type', '!=', self::TYPE_SYSTEM_PAGE);
+			->whereParentId(0);
 
 		if($pageType) {
 			$query = $query->where('type', '=', $pageType);

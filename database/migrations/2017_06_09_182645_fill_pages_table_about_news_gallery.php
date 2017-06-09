@@ -35,6 +35,7 @@ class FillPagesTableAboutNewsGallery extends Migration
 				    'type' => \App\Models\Page::TYPE_SYSTEM_PAGE,
 				    'title' => 'Новости',
 				    'menu_title' => 'Новости',
+				    'is_container' => 1,
 				    'is_published' => \App\Models\Page::PUBLISHED,
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
