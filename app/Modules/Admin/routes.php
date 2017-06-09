@@ -48,4 +48,8 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('reviews/set_value/', ['as' => 'reviews.setValue', 'uses' => 'ReviewsController@setValue']);
 	Route::post('reviews/position', ['as' => 'reviews.position', 'uses' => 'ReviewsController@changePosition']);
 	Route::resource('reviews', 'ReviewsController', ['except' => ['index', 'edit', 'update', 'create', 'show']]);
+	
+	Route::post('gallery/position', ['as' => 'gallery.position', 'uses' => 'GalleryController@changePosition']);
+	Route::post('gallery/set_is_active/', ['as' => 'gallery.setIsActive', 'uses' => 'GalleryController@setIsActive']);
+	Route::resource('gallery', 'GalleryController', ['except' => ['show']]);
 });

@@ -110,9 +110,9 @@ class MenusController extends Controller
 		$positions = $request->get('positions');
 		$i = 0;
 		foreach($positions as $itemId) {
-			$menu = Menu::find($itemId);
-			$menu->position = $i;
-			$menu->save();
+			$item = Menu::find($itemId);
+			$item->position = $i;
+			$item->save();
 			$i++;
 		}
 		

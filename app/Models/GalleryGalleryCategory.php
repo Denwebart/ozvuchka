@@ -16,6 +16,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
+/**
+ * App\Models\GalleryGalleryCategory
+ *
+ * @property int $gallery_id
+ * @property int $category_id
+ * @property-read \App\Models\GalleryCategory $category
+ * @property-read \App\Models\Gallery $gallery
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\GalleryGalleryCategory whereCategoryId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\GalleryGalleryCategory whereGalleryId($value)
+ * @mixin \Eloquent
+ */
 class GalleryGalleryCategory extends Model
 {
 	protected $table = 'gallery_gallery_categories';

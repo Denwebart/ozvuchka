@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereSubject($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property bool $is_important
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereIsImportant($value)
  */
 class Letter extends Model
 {

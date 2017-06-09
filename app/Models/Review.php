@@ -15,6 +15,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
+/**
+ * App\Models\Review
+ *
+ * @property int $id
+ * @property bool $is_published
+ * @property string $user_name
+ * @property string $user_email
+ * @property string $user_avatar
+ * @property string $text
+ * @property string $published_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property int $position
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review published()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereIsPublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review wherePosition($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review wherePublishedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereText($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereUserAvatar($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereUserEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Review whereUserName($value)
+ * @mixin \Eloquent
+ */
 class Review extends Model
 {
 	use Rules;
@@ -46,6 +72,7 @@ class Review extends Model
 		'user_avatar',
 		'text',
 		'published_at',
+		'position',
 	];
 
 	/**

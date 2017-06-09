@@ -76,7 +76,7 @@
 <link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 <!-- Modal container - Custom box css -->
 <link href="{{ asset('backend/plugins/custombox/css/custombox.min.css') }}" rel="stylesheet">
-<!-- Spinkit css -->
+<!-- Loader - Spinkit css -->
 <link href="{{ asset('backend/plugins/spinkit/spinkit.css') }}" rel="stylesheet" />
 @endpush
 

@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
+/**
+ * App\Models\GalleryCategory
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\GalleryGalleryCategory[] $galleryCategories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Gallery[] $images
+ * @mixin \Eloquent
+ */
 class GalleryCategory extends Model
 {
 	protected $table = 'gallery_categeories';

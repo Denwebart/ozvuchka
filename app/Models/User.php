@@ -43,6 +43,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRole($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property bool $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Page[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
  */
 class User extends Authenticatable
 {

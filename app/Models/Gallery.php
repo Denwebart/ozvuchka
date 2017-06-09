@@ -9,11 +9,40 @@ namespace App\Models;
 use App\Helpers\Translit;
 use App\Traits\Rules;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
+/**
+ * App\Models\Gallery
+ *
+ * @property int $id
+ * @property string $image
+ * @property string $image_alt
+ * @property string $title
+ * @property string $description
+ * @property bool $is_published
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $published_at
+ * @property int $position
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\GalleryCategory[] $categories
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\GalleryGalleryCategory[] $galleryCategories
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery published()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereImageAlt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereIsPublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery wherePublishedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery wherePosition($value)
+ * @mixin \Eloquent
+ */
 class Gallery extends Model
 {
 	use Rules;
@@ -39,13 +68,13 @@ class Gallery extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'category_id',
 		'image',
 		'image_alt',
 		'title',
 		'description',
 		'is_published',
 		'published_at',
+		'position',
 	];
 
 	/**
@@ -55,20 +84,24 @@ class Gallery extends Model
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static $rules = [
-		'category_id' => 'integer',
-		'is_published' => 'boolean',
-		'description' => 'max:1000',
-		'title' => 'max:255',
 		'image' => 'required|image|max:3072',
 		'image_alt' => 'max:255',
+		'title' => 'max:255',
+		'description' => 'max:1000',
+		'is_published' => 'boolean',
+		'position' => 'integer',
 	];
 
 	public static function boot()
 	{
 		parent::boot();
+		
+		static::addGlobalScope('order', function (Builder $builder) {
+			$builder->orderBy('position', 'DESC');
+		});
 
 		static::saving(function($page) {
-		
+			//
 		});
 		
 		static::deleting(function($page) {
@@ -119,26 +152,6 @@ class Gallery extends Model
 	public function getImageUrl()
 	{
 		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
-	}
-	
-	/**
-	 * Заполнение данных при создании и редактировании
-	 * 
-	 * @param $data
-	 * @return mixed
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function setData($data)
-	{
-		if ($data['is_published'] && is_null($this->published_at)) {
-			$data['published_at'] = Carbon::now();
-		} elseif (!$data['is_published']) {
-			$data['published_at'] = null;
-		}
-		
-		return $data;
 	}
 
 	/**

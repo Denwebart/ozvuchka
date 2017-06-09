@@ -825,6 +825,12 @@ a:focus {
 .help-popover {
     cursor: help;
 }
+.info-popover {
+    cursor: pointer;
+}
+.popover {
+    min-width: 260px;
+}
 .demo-popover .popover {
   position: relative;
   display: block;

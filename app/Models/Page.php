@@ -62,6 +62,7 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereUserId($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page published()
  */
 class Page extends Model
 {

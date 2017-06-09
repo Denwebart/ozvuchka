@@ -33,6 +33,8 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereText($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereTitle($value)
  * @mixin \Eloquent
+ * @property int $position
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider wherePosition($value)
  */
 class Slider extends Model
 {

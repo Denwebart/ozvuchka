@@ -54,11 +54,6 @@ class ReviewsController extends Controller
 					'resultHtml' => view('admin::reviews.items', compact('reviews'))->render(),
 				]);
 			}
-			
-			return \Response::json([
-				'success' => false,
-				'message' => 'Произошла ошибка.'
-			]);
 		}
 	}
 	
@@ -256,9 +251,9 @@ class ReviewsController extends Controller
 		$positions = $request->get('positions');
 		$i = 0;
 		foreach($positions as $itemId) {
-			$menu = Review::find($itemId);
-			$menu->position = $i;
-			$menu->save();
+			$item = Review::find($itemId);
+			$item->position = $i;
+			$item->save();
 			$i++;
 		}
 		

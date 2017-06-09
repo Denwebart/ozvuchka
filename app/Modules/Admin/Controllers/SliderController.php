@@ -54,11 +54,6 @@ class SliderController extends Controller
 					'resultHtml' => view('admin::slider.items', compact('slider'))->render(),
 				]);
 			}
-			
-			return \Response::json([
-				'success' => false,
-				'message' => 'Произошла ошибка.'
-			]);
 		}
 	}
 	
@@ -256,9 +251,9 @@ class SliderController extends Controller
 		$positions = $request->get('positions');
 		$i = 0;
 		foreach($positions as $itemId) {
-			$menu = Slider::find($itemId);
-			$menu->position = $i;
-			$menu->save();
+			$item = Slider::find($itemId);
+			$item->position = $i;
+			$item->save();
 			$i++;
 		}
 		

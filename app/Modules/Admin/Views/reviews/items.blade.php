@@ -33,7 +33,7 @@
                             {!! Form::checkbox('is_published', 1, $item->is_published, ['id' => 'is_published-' . $item->id, 'data-plugin' => 'switchery', 'class' => 'ajax-checkbox', 'data-url' => route('admin.reviews.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $item->id]) !!}
                         </div>
                         <div class="buttons pull-right m-t-20 m-r-5">
-                            <a href="#" class="delete-item" data-item-id="{{ $item->id }}" data-item-title="{{ $item->title }}" title="Удалить отзыв" data-toggle="tooltip">
+                            <a href="#" class="delete-item" data-item-id="{{ $item->id }}" title="Удалить отзыв" data-toggle="tooltip">
                                 <i class="mdi mdi-close"></i>
                             </a>
                         </div>
