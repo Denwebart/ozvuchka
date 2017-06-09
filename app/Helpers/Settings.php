@@ -42,6 +42,7 @@ class Settings
 				->whereCategory($category)
 				->whereIsActive(1)
 				->whereNotNull('value')
+				->where('value', '!=', '')
 				->get();
 			
 			foreach ($settings as $setting) {

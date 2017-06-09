@@ -16,64 +16,134 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $page->title }}</h1>
+    <!-- INTRO -->
+    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/contacts.jpg') }})" id="anchor00">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h1 class="primary-title">{{ $page->getTitle() }}</h1>
+                        {{--<h2 class="subtitle-text"></h2>--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <h3>Связаться с администрацией сайта</h3>
-    <div class="small-description">
-        Если у Вас возникли вопросы или есть
-        предложения - напишите нам, и мы постараемся
-        ответить как можно быстрее.
-    </div>
+    <!-- CONTACTS -->
+    <section class="section inverse-color contact" id="anchor08">
+        <div class="container">
+            <div class="voffset50"></div>
+            <div class="row">
+                <div class="col-sm-6 col-md-7">
 
-    {!! Form::open(['route' => ['contact.sendLetter'], 'class' => 'ajax-form', 'id' => 'contact-form']) !!}
+                    <p class="pretitle">Если возникли вопросы или есть пожелания</p>
+                    <div class="voffset20"></div>
+                    <h2 class="title">Свяжитесь с нами</h2>
+                    <div class="voffset20"></div>
 
-        <div class="response-message success alert alert-success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
-            @if(Session::has('successMessage'))
-                {{ Session::get('successMessage') }}
-            @endif
-        </div>
+                    {!! Form::open(['route' => ['contact.sendLetter'], 'class' => 'ajax-form contact-form', 'id' => 'contact-form']) !!}
 
-        <div class="response-message error alert alert-danger" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
-            @if(Session::has('errorMessage'))
-                {{ Session::get('errorMessage') }}
-            @endif
-        </div>
+                    <div class="response-message success alert alert-success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
+                        @if(Session::has('successMessage'))
+                            {{ Session::get('successMessage') }}
+                        @endif
+                    </div>
 
-        <div class="form-group @if($errors->has('name')) has-error @endif" title="Имя *">
-            {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'placeholder' => 'Имя *']) !!}
-            {{--Errors--}}
-            <span class="help-block error name_error" @if(!$errors->has('name')) style="display: none;" @endif>
-                <span class="text">{{ $errors->first('name') }}</span>
-            </span>
+                    <div class="response-message error alert alert-danger" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
+                        @if(Session::has('errorMessage'))
+                            {{ Session::get('errorMessage') }}
+                        @endif
+                    </div>
+
+                    <div class="form-group @if($errors->has('name')) has-error @endif">
+                        <label class="title small" for="name">Имя:</label>
+                        {!! Form::text('name', null, ['id' => 'name', 'class' => 'text name', 'placeholder' => 'Ваше имя *']) !!}
+                        {{--Errors--}}
+                        <span class="help-block error name_error" @if(!$errors->has('name')) style="display: none;" @endif>
+                            <span class="text">{{ $errors->first('name') }}</span>
+                        </span>
+                    </div>
+
+                    <div class="form-group @if($errors->has('email')) has-error @endif">
+                        <label class="title small" for="name">Email:</label>
+                        {!! Form::text('email', null, ['id' => 'email', 'class' => 'text email', 'placeholder' => 'Ваш Email *']) !!}
+                        {{--Errors--}}
+                        <span class="help-block error email_error" @if(!$errors->has('email')) style="display: none;" @endif>
+                            <span class="text">{{ $errors->first('email') }}</span>
+                        </span>
+                    </div>
+                    <div class="form-group @if($errors->has('subject')) has-error @endif">
+                        <label class="title small" for="message">Тема:</label>
+                        {!! Form::text('subject', null, ['id' => 'subject', 'class' => 'text', 'placeholder' => 'Тема письма']) !!}
+                        {{--Errors--}}
+                        <span class="help-block error subject_error" @if(!$errors->has('subject')) style="display: none;" @endif>
+                            <span class="text">{{ $errors->first('subject') }}</span>
+                        </span>
+                    </div>
+                    <div class="form-group @if($errors->has('message')) has-error @endif">
+                        <label class="title small" for="message">Сообщение:</label>
+                        {!! Form::textarea('message', null, ['id' => 'message', 'class' => 'text area', 'placeholder' => 'Ваш вопрос или пожелание *', 'rows' => 3]) !!}
+                        {{--Errors--}}
+                        <span class="help-block error message_error" @if(!$errors->has('message')) style="display: none;" @endif>
+                            <span class="text">{{ $errors->first('message') }}</span>
+                        </span>
+                    </div>
+                    {!! Form::hidden('send_copy', 0) !!}
+                    {{--<div class="form-group">--}}
+                        {{--{!! Form::hidden('send_copy', 0) !!}--}}
+                        {{--{!! Form::checkbox('send_copy', 1, 1, ['id' => 'send_copy', 'class' => 'float-left']) !!}--}}
+                        {{--{!! Form::label('send_copy', 'Отправить копию этого сообщения на Ваш адрес e-mail', ['class' => 'control-label float-left']) !!}--}}
+                    {{--</div>--}}
+
+                    <!--<div class="formSent"><p><strong>Ваше сообщение было отправлено!</strong> Спасибо, что связались с нами.</p></div>-->
+                    <input type="submit" value="Отправить" class="btn rounded">
+                    <div class="voffset80"></div>
+
+                    {!! Form::close() !!}
+                </div>
+                <div class="col-sm-6 col-md-5">
+                    <div class="col-contact">
+                        <h4 class="title small">Роман Ракитянский ( Romankin )</h4>
+                        <p>Должность</p>
+                        <ul class="contact">
+                            <li><i class="fa fa-phone"></i> +38 (067) 737-99-17</li>
+                            <li><i class="fa fa-phone"></i> +38 (063) 230-37-97</li>
+                            <li><i class="fa fa-phone"></i> +38 (057) 750-98-48</li>
+                            <li><i class="fa fa-envelope"></i> romankin@mail.ru</li>
+                            <li><i class="fa fa-skype"></i> djromankin</li>
+                            <li><i class="fa fa-icq"></i> 58-2959-148</li>
+                            <li><i class="fa fa-vk"></i><a href="http://vk.com/djromankin">http://vk.com/djromankin</a></li>
+                        </ul>
+
+                        <h4 class="title small">Сергей Долгих</h4>
+                        <div class="voffset20"></div>
+                        <ul class="contact">
+                            <li><i class="fa fa-phone"></i> +38 (067) 732-46-14</li>
+                            <li><i class="fa fa-phone"></i> +38 (095) 007-26-89</li>
+                            <li><i class="fa fa-phone"></i> +38 (093) 074-24-25</li>
+                        </ul>
+
+                        @if(isset($siteSettings['socialLinks']) && is_array($siteSettings['socialLinks']))
+                            <h4 class="title small">Мы в социальных сетях</h4>
+                            <ul class="social-links">
+                                @foreach($siteSettings['socialLinks'] as $socialLinkKey => $socialLink)
+                                    @if(is_object($socialLink))
+                                        <li>
+                                            <a href="{{ $socialLink->value }}" target="_blank" title="{{ $socialLink->title }}">
+                                                <i class="fa fa-{{ $socialLinkKey }}"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                            <div class="voffset50"></div>
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group @if($errors->has('email')) has-error @endif" title="Email *">
-            {!! Form::text('email', null, ['id' => 'email', 'class' => 'form-control', 'placeholder' => 'Email *']) !!}
-            {{--Errors--}}
-            <span class="help-block error email_error" @if(!$errors->has('email')) style="display: none;" @endif>
-                <span class="text">{{ $errors->first('email') }}</span>
-            </span>
-        </div>
-        <div class="form-group @if($errors->has('subject')) has-error @endif" title="Тема письма">
-            {!! Form::text('subject', null, ['id' => 'subject', 'class' => 'form-control', 'placeholder' => 'Тема письма']) !!}
-            {{--Errors--}}
-            <span class="help-block error subject_error" @if(!$errors->has('subject')) style="display: none;" @endif>
-                <span class="text">{{ $errors->first('subject') }}</span>
-            </span>
-        </div>
-        <div class="form-group @if($errors->has('message')) has-error @endif" title="Текст письма *">
-            {!! Form::textarea('message', null, ['id' => 'message', 'class' => 'form-control', 'placeholder' => 'Текст письма *', 'rows' => 5]) !!}
-            {{--Errors--}}
-            <span class="help-block error message_error" @if(!$errors->has('message')) style="display: none;" @endif>
-                <span class="text">{{ $errors->first('message') }}</span>
-            </span>
-        </div>
-        <div class="form-group">
-            {!! Form::hidden('send_copy', 0) !!}
-            {!! Form::checkbox('send_copy', 1, 1, ['id' => 'send_copy', 'class' => 'float-left']) !!}
-            {!! Form::label('send_copy', 'Отправить копию этого сообщения на Ваш адрес e-mail', ['class' => 'control-label float-left']) !!}
-        </div>
-        <button class="btn btn-default" type="submit">Отправить</button>
-    {!! Form::close() !!}
+    </section>
 @endsection()
 
 @push('scripts')

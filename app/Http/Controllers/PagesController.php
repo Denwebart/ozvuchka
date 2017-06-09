@@ -31,11 +31,9 @@ class PagesController extends Controller
 		
 		$reviews = new Reviews();
 		
-		$teamMembers = new TeamMembers();
-		
 		$gallery = new Gallery();
 		
-		return view('pages.index', compact('page', 'slider', 'reviews', 'teamMembers', 'gallery'));
+		return view('pages.index', compact('page', 'slider', 'reviews', 'gallery'));
 	}
 	
 	/**
@@ -121,7 +119,9 @@ class PagesController extends Controller
 	 */
 	protected function getAboutPage($request, $page)
 	{
-		return view('pages.about', compact('page'));
+		$teamMembers = new TeamMembers();
+		
+		return view('pages.about', compact('page', 'teamMembers'));
 	}
 	
 	/**
