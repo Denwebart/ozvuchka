@@ -24,7 +24,7 @@
                     <a href="#" class="editable-menu-item" data-type="text" data-value="{{ $item->page->getTitle() }}" data-pk="{{ $item->id }}" data-page-id="{{ $item->page->id }}">{{ $item->page->getTitle() }}</a>
                 </span>
                 <div class="buttons pull-right">
-                    <a href="{{ route('admin.pages.edit', ['id' => $item->page->id]) }}" target="_blank" class="m-r-5" title="Редактировать страницу &laquo;{{ $item->page->getTitle() }}&raquo;" data-toggle="tooltip">
+                    <a href="{{ route('admin.pages.edit', ['id' => $item->page->id]) }}" target="_blank" rel="nofollow noopener" class="m-r-5" title="Редактировать страницу &laquo;{{ $item->page->getTitle() }}&raquo;" data-toggle="tooltip">
                         <i class="mdi mdi-pencil"></i>
                     </a>
                     <a href="#" class="delete-item m-r-5" data-item-id="{{ $item->id }}" data-page-id="{{ $item->page->id }}" data-menu-type="{{ $menuType }}" data-item-title="{{ $item->page->getTitle() }}" data-menu-title="{{ \App\Models\Menu::$types[$menuType] }}" title="Удалить пункт меню &laquo;{{ $item->page->getTitle() }}&raquo;" data-toggle="tooltip">

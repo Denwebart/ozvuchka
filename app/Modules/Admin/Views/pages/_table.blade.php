@@ -43,7 +43,7 @@
                 </td>
 
                 <td>
-                    <a href="{{ $page->getUrl() }}" target="_blank">{{ $page->getUrl(true) }}</a>
+                    <a href="{{ $page->getUrl() }}" target="_blank" rel="nofollow noopener">{{ $page->getUrl(true) }}</a>
                 </td>
 
                 <td class="published-status">

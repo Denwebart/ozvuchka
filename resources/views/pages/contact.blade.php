@@ -130,7 +130,7 @@
                                 @foreach($siteSettings['socialLinks'] as $socialLinkKey => $socialLink)
                                     @if(is_object($socialLink))
                                         <li>
-                                            <a href="{{ $socialLink->value }}" target="_blank" title="{{ $socialLink->title }}">
+                                            <a href="{{ $socialLink->value }}" target="_blank" rel="nofollow noopener" title="{{ $socialLink->title }}">
                                                 <i class="fa fa-{{ $socialLinkKey }}"></i>
                                             </a>
                                         </li>

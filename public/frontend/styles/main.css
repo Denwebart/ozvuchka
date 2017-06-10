@@ -12557,7 +12557,7 @@ ul.contact li {
 @media (min-width: 992px) {
     .photo-post {
         width: calc(100% - 40px);
-        height: 377px
+        height: auto
     }
 }
 
@@ -14518,7 +14518,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 }
 
 .post-details {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
     margin-bottom: 80px
 }
 
@@ -14629,9 +14629,9 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     padding: 16px 12px
 }
 
-.sidebar {
-    margin-top: 52px
-}
+/*.sidebar {*/
+    /*margin-top: 52px*/
+/*}*/
 
 .sidebar .title.small {
     color: #000;
@@ -14779,10 +14779,10 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 .sidebar .menu-sidebar {
     position: relative;
     overflow: hidden;
-    margin-top: 27px
+    /*margin-top: 27px*/
 }
 
-.sidebar .menu-sidebar li {
+.sidebar .menu-sidebar li a {
     float: left;
     width: 50%;
     background-color: #E1E1E1;
@@ -14798,10 +14798,14 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     -o-transition: all .2s ease-out;
     transition: all .2s ease-out
 }
-
-.sidebar .menu-sidebar li.active {
+.sidebar .menu-sidebar.full li a {
+    width: 100%;
+}
+.sidebar .menu-sidebar li a:hover,
+.sidebar .menu-sidebar li a.active {
     background-color: #ed2b45;
-    color: #fff
+    color: #fff;
+    text-decoration: none;
 }
 
 .sidebar .last-comments, .sidebar .last-posts-sidebar, .sidebar .last-tweets {

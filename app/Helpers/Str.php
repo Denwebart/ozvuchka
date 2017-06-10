@@ -76,7 +76,7 @@ class Str
 
 	/**
 	 * Checking links for adding attribute
-	 * rel="nofollow" and target="_blank" if link is referal
+	 * rel="nofollow noopener" and target="_blank" if link is referal
 	 *
 	 * @param $link
 	 * @return string
@@ -93,7 +93,7 @@ class Str
 			if (!preg_match("~^(?:f|ht)tps?://~i", $link[2])) {
 				$link[2] = "http://" . $link[2];
 			}
-			return '<a' . $link[1] . 'href="' . $link[2] . '" rel="nofollow" target="_blank">';
+			return '<a' . $link[1] . 'href="' . $link[2] . '" rel="nofollow noopener" target="_blank">';
 		}
 	}
 

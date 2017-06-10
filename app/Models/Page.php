@@ -71,6 +71,7 @@ class Page extends Model
 	protected $table = 'pages';
 
 	protected $imagePath = '/uploads/pages/';
+	protected $defaultImagePath = '/images/default-image.png';
 
 	/**
 	 * Максимальная вложнность страниц
@@ -177,6 +178,9 @@ class Page extends Model
 			
 			\Cache::forget('sitemapItems');
 			\Cache::forget('sitemapItems.children-' . $page->parent_id);
+			
+			\Cache::forget('page.subcategories.' . $page->id);
+			\Cache::forget('page.subcategories.' . $page->parent_id);
 		});
 		
 		static::deleting(function($page) {
@@ -190,6 +194,9 @@ class Page extends Model
 			
 			\Cache::forget('sitemapItems');
 			\Cache::forget('sitemapItems.children-' . $page->parent_id);
+			
+			\Cache::forget('page.subcategories.' . $page->id);
+			\Cache::forget('page.subcategories.' . $page->parent_id);
 		});
 	}
 
@@ -330,16 +337,18 @@ class Page extends Model
 		$limit = $limit ? $limit : 500;
 		return $this->introtext
 			? $this->introtext
-			: Str::closeTags(Str::limit($this->content, $limit));
+			: '<p>' . Str::closeTags(Str::limit($this->content, $limit)) . '</p>';
 	}
 	
-	public function getPageImage()
+	public function getPageImage($withDefault = false)
 	{
 		return $this->getImageUrl()
 			? $this->getImageUrl()
-			: ($image = Str::getImageFromHtml($this->content))
+			: (($image = Str::getImageFromHtml($this->content))
 				? $image
-				: '';
+				: ($withDefault
+					? $this->defaultImagePath
+					: ''));
 	}
 
 	/**

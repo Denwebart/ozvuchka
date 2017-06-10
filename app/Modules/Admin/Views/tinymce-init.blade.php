@@ -38,6 +38,10 @@ if(!isset($watermark)) {
                 convert_urls : false,
                 paste_text_sticky: true,
                 paste_text_sticky_default: true,
+                valid_styles: {
+                    '*': 'float,text-align,border,margin,margin-left,margin-right,margin-top,margin-bottom,padding,padding-right,padding-top,padding-bottom,width,height,background-color,color'
+                },
+//                valid_elements : 'h2,h3,h4,h5,h6,em,a[href|target=_blank],strong/b,br,p,ul,ol,li,img[src|width],blockquote,iframe[width|height|src|frameborder|allowfullscreen]',
                 file_browser_callback : function (field_name, url, type, win) {
                     if (type == 'file' || type == 'media') {
                         return false;

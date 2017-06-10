@@ -85,6 +85,10 @@ class PagesController extends Controller
 				return $this->getSitemapPage($request, $page);
 		}
 		
+		if($page->parent_id == Page::ID_NEWS_PAGE) {
+			return $this->getNewsPostPage($request, $page);
+		}
+		
 		if($page->is_container) {
 			return $this->getCategoryPage($request, $page);
 		} else {
@@ -136,7 +140,34 @@ class PagesController extends Controller
 	 */
 	protected function getNewsPage($request, $page)
 	{
-		return view('pages.news', compact('page'));
+		// доделать рекурсивно, вынести в отдельный метод, повторяется в getCategoryPage
+		$subcategories = \Cache::rememberForever('page.subcategories.' . $page->id, function() use($page) {
+			return $page->children()->whereIsContainer(1)
+				->get(['id', 'parent_id', 'menu_title', 'title', 'alias', 'type', 'is_published']);
+		});
+		$subcategoryIds = $subcategories->pluck('id');
+		$subcategoryIds[] = $page->id;
+		
+		$query = Page::whereIn('parent_id', $subcategoryIds)->published()->whereIsContainer(0);
+		$query = $query->orderBy('published_at', 'DESC');
+		$news = $query->get();
+		
+		return view('pages.news', compact('page', 'news'));
+	}
+	
+	/**
+	 * News post page
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getNewsPostPage($request, $page)
+	{
+		return view('pages.newsPost', compact('page'));
 	}
 	
 	/**
@@ -151,7 +182,9 @@ class PagesController extends Controller
 	 */
 	protected function getGalleryPage($request, $page)
 	{
-		return view('pages.gallery', compact('page'));
+		$galleryImages = \App\Models\Gallery::published()->get();
+		
+		return view('pages.gallery', compact('page', 'galleryImages'));
 	}
 	
 	/**
@@ -181,30 +214,28 @@ class PagesController extends Controller
 	 */
 	protected function getCategoryPage($request, $page)
 	{
-		// доделать вложенность (рекурсивно?)
-//		$subcategories = \Cache::rememberForever('catalog.' . $page->id . '.subcategories', function() use($page) {
-//			return $page->publishedChildren()
-//				->has('products')
-//				->with([
-//					'products' => function($q) {
-//						$q->select('id', 'category_id');
-//					}
-//				])
-//				->get(['id', 'parent_id', 'menu_title', 'title', 'alias']);
-//		});
+		// доделать рекурсивно
+		$subcategories = \Cache::rememberForever('page.subcategories.' . $page->id, function() use($page) {
+			return $page->children()->has('children')->whereIsContainer(1)
+				->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+		});
+		$subcategoryIds = $subcategories->pluck('id');
+		$subcategoryIds[] = $page->id;
 		
-		// сортировка
-		if($request->has('sortby') && !$request->get('reset-filters') && in_array($request->get('sortby'), Product::$sortingAttributes)) {
-			$sortby = $request->get('sortby');
-		} else {
-			$sortby = $request->cookie('sortby', 'popular');
-		}
-		$direction = $request->has('direction') ? $request->get('direction') : $request->cookie('direction', 'DESC');
+		// доделать сортировку
+//		if($request->has('sortby') && !$request->get('reset-filters') && in_array($request->get('sortby'), Page::$sortingAttributes)) {
+//			$sortby = $request->get('sortby');
+//		} else {
+//			$sortby = $request->cookie('sortby', 'popular');
+//		}
+//		$direction = $request->has('direction') ? $request->get('direction') : $request->cookie('direction', 'DESC');
 		
-		$articles = Page::whereParentId($page->id)->whereIsContainer(0)->published()->get();
+		$query = Page::whereIn('parent_id', $subcategoryIds)->published()->whereIsContainer(0);
+		$query = $query->orderBy('published_at', 'DESC');
+		$articles = $query->get();
 		
 		if(!$request->ajax()) {
-			return view('pages.category', compact('page', 'articles'));
+			return view('pages.category', compact('page', 'articles', 'subcategories'));
 		} else {
 //			return \Response::json([
 //				'success' => true,

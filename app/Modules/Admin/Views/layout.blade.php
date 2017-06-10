@@ -82,7 +82,7 @@
                         </button>
                     </li>
                     <li class="dropdown hidden-xs mega-menu">
-                        <a href="{{ url('/') }}" target="_blank"  class="waves-effect waves-light">Перейти на сайт</a>
+                        <a href="{{ url('/') }}" target="_blank" rel="nofollow noopener" class="waves-effect waves-light">Перейти на сайт</a>
                     </li>
                 </ul>
 

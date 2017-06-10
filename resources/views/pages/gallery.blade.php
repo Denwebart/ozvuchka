@@ -53,102 +53,16 @@
                 <div class="col-md-12">
                     <div class="voffset50"></div>
                     <div class="thumbnails">
-                        <div class="thumbnail small music">
-                            <a href="images/uploads/gallery-2.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-2.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small dj">
-                            <a href="images/uploads/gallery-3.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-3.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small concert">
-                            <a href="images/uploads/gallery-4.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-4.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small events">
-                            <a href="images/uploads/gallery-5.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-5.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small music">
-                            <a href="images/uploads/gallery-2.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-2.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small party">
-                            <a href="images/uploads/gallery-6.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-6.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small events">
-                            <a href="images/uploads/gallery-7.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-7.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small music">
-                            <a href="images/uploads/gallery-8.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-8.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small dj">
-                            <a href="images/uploads/gallery-1.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-1.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small music concert">
-                            <a href="images/uploads/gallery-9.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-9.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small music concert">
-                            <a href="images/uploads/gallery-10.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-10.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="thumbnail small music concert">
-                            <a href="images/uploads/gallery-11.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-11.jpg" alt="">
-                                <div class="rollover">
-                                    <i class="plus"></i>
-                                </div>
-                            </a>
-                        </div>
+                        @foreach($galleryImages as $galleryImage)
+                            <div class="thumbnail small gallery-images-categories">
+                                <a href="{{ $galleryImage->getImageUrl() }}" class="swipebox">
+                                    <img src="{{ $galleryImage->getImageUrl() }}" alt="{{ $galleryImage->image_alt }}" title="{{ $galleryImage->image_alt }}">
+                                    <div class="rollover">
+                                        <i class="plus"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="voffset50"></div>
                     <p class="loadmore">
@@ -156,96 +70,96 @@
                     </p>
                     <div id="more-items">
                         <div class="thumbnail small music">
-                            <a href="images/uploads/gallery-2.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-2.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-2.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-2.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small dj">
-                            <a href="images/uploads/gallery-3.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-3.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-3.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-3.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small concert">
-                            <a href="images/uploads/gallery-4.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-4.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-4.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-4.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small events">
-                            <a href="images/uploads/gallery-5.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-5.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-5.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-5.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small music">
-                            <a href="images/uploads/gallery-2.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-2.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-2.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-2.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small party">
-                            <a href="images/uploads/gallery-6.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-6.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-6.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-6.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small events">
-                            <a href="images/uploads/gallery-7.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-7.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-7.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-7.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small music">
-                            <a href="images/uploads/gallery-8.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-8.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-8.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-8.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small dj">
-                            <a href="images/uploads/gallery-1.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-1.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-1.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-1.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small music concert">
-                            <a href="images/uploads/gallery-9.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-9.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-9.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-9.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small music concert">
-                            <a href="images/uploads/gallery-10.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-10.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-10.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-10.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="thumbnail small music concert">
-                            <a href="images/uploads/gallery-11.jpg" class="swipebox">
-                                <img src="images/uploads/gallery-11.jpg" alt="">
+                            <a href="{{ asset('frontend/images/uploads/gallery-11.jpg') }}" class="swipebox">
+                                <img src="{{ asset('frontend/images/uploads/gallery-11.jpg') }}" alt="">
                                 <div class="rollover">
                                     <i class="plus"></i>
                                 </div>
