@@ -15,13 +15,14 @@ class Gallery
 	{
 		return \Cache::rememberForever('widgets.gallery', function() {
 			$title = 'Фотогалерея';
+			$description = 'Фотографии с нами';
 			
 			$items = \App\Models\Gallery::select(['id', 'image', 'image_alt', 'title', 'description'])
+				->published()
 				->limit(8)
-				->whereIsPublished(1)
 				->get();
 			
-			return \View::make('widget.gallery::index', compact('items', 'title'))->render();
+			return \View::make('widget.gallery::index', compact('items', 'title', 'description'))->render();
 		});
 	}
 }

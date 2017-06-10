@@ -6,17 +6,51 @@
 ?>
 
 @if(count($items))
-    <!-- Reviews Section -->
-    <div>
-        @if(isset($title))
-            <h3>{{ $title }}</h3>
-        @endif
-        @foreach($items as $item)
-            <div class="item">
-                <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}" width="200px"/>
-                <p>{{ $item->title }}</p>
-                <p>{{ $item->description }}</p>
+    <section class="section last-media inverse-color">
+        <div class="container">
+            @if($title || $description)
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="voffset50"></div>
+                        <div class="separator-icon">
+                            <i class="fa fa-music"></i>
+                        </div>
+                        @if($description)
+                            <div class="voffset30"></div>
+                            <p class="pretitle">{{ $description }}</p>
+                        @endif
+                        @if($title)
+                            <div class="voffset20"></div>
+                            <h2 class="title">{{ $title }}</h2>
+                        @endif
+                    </div>
+                </div>
+            @endif
+            <!-- gallery -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="voffset50"></div>
+                    <div class="thumbnails">
+                        @foreach($items as $item)
+                            <div class="thumbnail small music">
+                                <a href="{{ $item->getImageUrl() }}" class="swipebox">
+                                    <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">
+                                    <div class="rollover">
+                                        <i class="plus"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="voffset50"></div>
+                    <p class="loadmore">
+                        <a href="{{ \App\Models\Page::getPageUrl(\App\Models\Page::ID_GALLERY_PAGE) }}" class="btn rounded border">
+                            Смотреть еще
+                        </a>
+                    </p>
+                    <div class="voffset80"></div>
+                </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    </section>
 @endif

@@ -9,25 +9,27 @@
 @if(count($items))
     <section class="section featured-artists" id="anchor02">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="voffset50"></div>
-                    <div class="separator-icon">
-                        <i class="fa fa-microphone"></i>
+            @if($title || $description)
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="voffset50"></div>
+                        <div class="separator-icon">
+                            <i class="fa fa-microphone"></i>
+                        </div>
+                        @if($description)
+                            <div class="voffset30"></div>
+                            <p class="pretitle">{{ $description }}</p>
+                        @endif
+                        @if($title)
+                            <div class="voffset20"></div>
+                            <h2 class="title">{{ $title }}</h2>
+                        @endif
                     </div>
-                    @if($description)
-                        <div class="voffset30"></div>
-                        <p class="pretitle">{{ $description }}</p>
-                    @endif
-                    @if($title)
-                        <div class="voffset20"></div>
-                        <h2 class="title">{{ $title }}</h2>
-                    @endif
-                    <div class="voffset50"></div>
                 </div>
-            </div>
+            @endif
             <div class="row">
                 <div class="col-md-12">
+                    <div class="voffset50"></div>
                     <div class="carousel-team-members js-flickity" data-flickity-options='{ "cellAlign": "left", "wrapAround": true, "contain": true, "prevNextButtons": false }'>
                         @foreach($items as $item)
                             <div class="gallery-cell col-xs-12 col-sm-6 col-md-4 col-lg-3">

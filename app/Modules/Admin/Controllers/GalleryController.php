@@ -56,6 +56,9 @@ class GalleryController extends Controller
 	{
 		if($request->ajax()) {
 			$data = $request->all();
+			if($data['is_published']) {
+				$data['published_at'] = Carbon::now();
+			}
 			$position = DB::table('gallery')->max('position');
 			$data['position'] = $position + 1;
 			

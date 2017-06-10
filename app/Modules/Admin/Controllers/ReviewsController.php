@@ -30,6 +30,9 @@ class ReviewsController extends Controller
 			$data = $request->all();
 			$position = DB::table('reviews')->max('position');
 			$data['position'] = $position + 1;
+			if($data['is_published']) {
+				$data['published_at'] = Carbon::now();
+			}
 			
 			$validator = \Validator::make($data, Review::$rules);
 			
