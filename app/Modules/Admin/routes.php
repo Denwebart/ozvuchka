@@ -8,6 +8,8 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	
 	Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
 	
+	Route::get('search', ['as' => 'search', 'uses' => 'AdminController@search']);
+	
 	Route::post('pages/change_published_status/{id}', ['as' => 'pages.changePublishedStatus', 'uses' => 'PagesController@changePublishedStatus']);
 	Route::resource('pages', 'PagesController', ['except' => ['show']]);
 	

@@ -60,12 +60,12 @@
         <div class="topbar-left">
             <!--<a href="index.html" class="logo"><span>Code<span>Fox</span></span><i class="mdi mdi-layers"></i></a>-->
             <!-- Image logo -->
-            <a href="{{ url('/') }}" class="logo">
+            <a href="{{ route('admin.index') }}" class="logo">
                 <span>
-                    <img src="{{ asset('backend/images/logo.png') }}" alt="" height="25">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Административная панель" title="Административная панель" data-toggle="tooltip">
                 </span>
                 <i>
-                    <img src="{{ asset('backend/images/logo_sm.png') }}" alt="" height="28">
+                    <img src="{{ asset('images/logo_sm.svg') }}" alt="Административная панель" title="Административная панель" data-toggle="tooltip">
                 </i>
             </a>
         </div>
@@ -89,114 +89,116 @@
                 <!-- Right(Notification) -->
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden-xs">
-                        <form role="search" class="app-search">
-                            <input type="text" placeholder="Поиск..." class="form-control">
-                            <a href=""><i class="fa fa-search"></i></a>
+                        <form action="{{ route('admin.search') }}" method="GET" role="search" class="app-search">
+                            <input type="text" id="query" name="query" placeholder="Поиск..." class="form-control">
+                            <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </li>
-                    <li>
-                        <a href="#" class="right-menu-item dropdown-toggle" data-toggle="dropdown">
-                            <i class="dripicons-bell"></i>
-                            <span class="badge badge-pink">4</span>
-                        </a>
 
-                        <ul class="dropdown-menu dropdown-menu-right dropdown-lg user-list notify-list">
-                            <li class="list-group notification-list m-b-0">
-                                <div class="slimscroll">
-                                    <!-- list item-->
-                                    <a href="javascript:void(0);" class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left p-r-10">
-                                                <em class="fa fa-diamond bg-primary"></em>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="media-heading text-primary">A new order has been placed A new order has been placed</h5>
-                                                <p class="m-0">
-                                                    There are new settings available
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
+                    {{--Notifications--}}
+                    {{--<li>--}}
+                        {{--<a href="#" class="right-menu-item dropdown-toggle" data-toggle="dropdown">--}}
+                            {{--<i class="dripicons-bell"></i>--}}
+                            {{--<span class="badge badge-pink">4</span>--}}
+                        {{--</a>--}}
 
-                                    <!-- list item-->
-                                    <a href="javascript:void(0);" class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left p-r-10">
-                                                <em class="fa fa-cog bg-warning"></em>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="media-heading text-warning">New settings</h5>
-                                                <p class="m-0">
-                                                    There are new settings available
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
+                        {{--<ul class="dropdown-menu dropdown-menu-right dropdown-lg user-list notify-list">--}}
+                            {{--<li class="list-group notification-list m-b-0">--}}
+                                {{--<div class="slimscroll">--}}
+                                    {{--<!-- list item-->--}}
+                                    {{--<a href="javascript:void(0);" class="list-group-item">--}}
+                                        {{--<div class="media">--}}
+                                            {{--<div class="media-left p-r-10">--}}
+                                                {{--<em class="fa fa-diamond bg-primary"></em>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h5 class="media-heading text-primary">A new order has been placed A new order has been placed</h5>--}}
+                                                {{--<p class="m-0">--}}
+                                                    {{--There are new settings available--}}
+                                                {{--</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
 
-                                    <!-- list item-->
-                                    <a href="javascript:void(0);" class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left p-r-10">
-                                                <em class="fa fa-bell-o bg-custom"></em>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="media-heading text-custom">Updates</h5>
-                                                <p class="m-0">
-                                                    There are <span class="text-primary font-600">2</span> new updates available
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    {{--<!-- list item-->--}}
+                                    {{--<a href="javascript:void(0);" class="list-group-item">--}}
+                                        {{--<div class="media">--}}
+                                            {{--<div class="media-left p-r-10">--}}
+                                                {{--<em class="fa fa-cog bg-warning"></em>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h5 class="media-heading text-warning">New settings</h5>--}}
+                                                {{--<p class="m-0">--}}
+                                                    {{--There are new settings available--}}
+                                                {{--</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
 
-                                    <!-- list item-->
-                                    <a href="javascript:void(0);" class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left p-r-10">
-                                                <em class="fa fa-user-plus bg-danger"></em>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="media-heading text-danger">New user registered</h5>
-                                                <p class="m-0">
-                                                    You have 10 unread messages
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    {{--<!-- list item-->--}}
+                                    {{--<a href="javascript:void(0);" class="list-group-item">--}}
+                                        {{--<div class="media">--}}
+                                            {{--<div class="media-left p-r-10">--}}
+                                                {{--<em class="fa fa-bell-o bg-custom"></em>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h5 class="media-heading text-custom">Updates</h5>--}}
+                                                {{--<p class="m-0">--}}
+                                                    {{--There are <span class="text-primary font-600">2</span> new updates available--}}
+                                                {{--</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
 
-                                    <!-- list item-->
-                                    <a href="javascript:void(0);" class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left p-r-10">
-                                                <em class="fa fa-diamond bg-primary"></em>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="media-heading text-primary">A new order has been placed A new order has been placed</h5>
-                                                <p class="m-0">
-                                                    There are new settings available
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    {{--<!-- list item-->--}}
+                                    {{--<a href="javascript:void(0);" class="list-group-item">--}}
+                                        {{--<div class="media">--}}
+                                            {{--<div class="media-left p-r-10">--}}
+                                                {{--<em class="fa fa-user-plus bg-danger"></em>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h5 class="media-heading text-danger">New user registered</h5>--}}
+                                                {{--<p class="m-0">--}}
+                                                    {{--You have 10 unread messages--}}
+                                                {{--</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
 
-                                    <!-- list item-->
-                                    <a href="javascript:void(0);" class="list-group-item">
-                                        <div class="media">
-                                            <div class="media-left p-r-10">
-                                                <em class="fa fa-cog bg-warning"></em>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="media-heading text-warning">New settings</h5>
-                                                <p class="m-0">
-                                                    There are new settings available
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <!-- end notification list -->
-                        </ul>
-                    </li>
+                                    {{--<!-- list item-->--}}
+                                    {{--<a href="javascript:void(0);" class="list-group-item">--}}
+                                        {{--<div class="media">--}}
+                                            {{--<div class="media-left p-r-10">--}}
+                                                {{--<em class="fa fa-diamond bg-primary"></em>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h5 class="media-heading text-primary">A new order has been placed A new order has been placed</h5>--}}
+                                                {{--<p class="m-0">--}}
+                                                    {{--There are new settings available--}}
+                                                {{--</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
+
+                                    {{--<!-- list item-->--}}
+                                    {{--<a href="javascript:void(0);" class="list-group-item">--}}
+                                        {{--<div class="media">--}}
+                                            {{--<div class="media-left p-r-10">--}}
+                                                {{--<em class="fa fa-cog bg-warning"></em>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h5 class="media-heading text-warning">New settings</h5>--}}
+                                                {{--<p class="m-0">--}}
+                                                    {{--There are new settings available--}}
+                                                {{--</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</a>--}}
+                                {{--</div>--}}
+                            {{--</li>--}}
+                            {{--<!-- end notification list -->--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
 
                     <li class="dropdown user-box">
                         <a href="" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true">
@@ -204,9 +206,9 @@
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
-                            <li><a href="javascript:void(0)">Профиль</a></li>
-                            <li><a href="javascript:void(0)">Настройки</a></li>
-                            <li><a href="javascript:void(0)">Экран блокировки</a></li>
+                            <li class="m-t-5"><a href="javascript:void(0)">Профиль</a></li>
+                            {{--<li><a href="javascript:void(0)">Настройки</a></li>--}}
+                            {{--<li><a href="javascript:void(0)">Экран блокировки</a></li>--}}
                             <li class="divider"></li>
                             <!-- Logout form -->
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выход</a></li>
@@ -262,7 +264,7 @@
                         </a>
                     </li>
 
-                    <li class="menu-title">More</li>
+                    <li class="menu-delimiter"></li>
                     <li>
                         <a href="{{ route('admin.users.index') }}" class="waves-effect @if(Request::is('admin/users*')) active @endif">
                             <i class="fi-head"></i>
@@ -298,8 +300,14 @@
             </div> <!-- container -->
         </div> <!-- content -->
 
-        <footer class="footer text-right">
-            2017 © Adminox. - Coderthemes.com
+        <footer class="footer">
+            <div class="pull-right">
+                Разработано студией
+                <a href="http://it-hill.com">
+                    <span>IT Hill</span>
+                    <img src="{{ asset('images/it-hill_logo__colored.svg') }}" width="25px" alt="Студия создания сайтов IT Hill" title="Студия создания сайтов IT Hill">
+                </a>
+            </div>
         </footer>
 
     </div>

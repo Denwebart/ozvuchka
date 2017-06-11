@@ -402,11 +402,13 @@ File: Menu
 /* =============
    Members list
 ============= */
-.member-card .member-thumb {
+.member-card .member-thumb,
+.search-item .user-avatar {
   position: relative;
 }
 .member-card .member-star,
-.profile-user-box .user-avatar .user-status {
+.profile-user-box .user-avatar .user-status,
+.search-item .user-avatar .user-status {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -1204,9 +1206,20 @@ ul.sitemap-icon ul li a {
   border-bottom: 1px solid #e2e2e2;
   margin-bottom: 20px;
 }
+.search-result-box .search-item .media-heading {
+    line-height: 20px;
+}
+.search-result-box .search-item .user-avatar {
+    display: inline-block;
+}
+.search-result-box .search-item .user-avatar .user-status {
+    top: -2px;
+    right: -3px;
+}
+
 /* =============
    Task board
-============= */
+=============   */
 .taskList {
   min-height: 40px;
   margin-bottom: 0;

@@ -102,17 +102,19 @@ class Str
 	 *
 	 * @param string $text
 	 * @param string $word
+	 * @param boolean|string $class Class for <mark>
 	 * @return string
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public static function getFragment($text, $word)
+	public static function getFragment($text, $word, $class = false)
 	{
+		$class = $class ? ' class="'. $class .'"' : '';
 		if ($word) {
 			$pos = max(mb_stripos(strip_tags($text), $word, null, 'UTF-8') - 100, 0);
 			$fragment = mb_substr(strip_tags($text), $pos, 200, 'UTF-8');
-			$highlighted = preg_replace("[(".quotemeta($word).")]iu", '<mark>$1</mark>', $fragment);
+			$highlighted = preg_replace("[(".quotemeta($word).")]iu", '<mark'. $class .'>$1</mark>', $fragment);
 		} else {
 			$highlighted = mb_substr(strip_tags($text), 0, 200, 'UTF-8');
 		}

@@ -430,6 +430,15 @@ a:focus {
 .dropdown-lg {
   width: 260px;
 }
+/* Mark text */
+.mark, mark {
+    padding: .2em .1em;
+    background-color: #fff74b;
+}
+.mark.success, mark.success {
+    background-color: #32c861;
+    color: #ffffff;
+}
 /* Background colors */
 .bg-custom {
   background-color: #64c5b1 !important;
