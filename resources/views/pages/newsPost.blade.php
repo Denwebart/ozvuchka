@@ -72,9 +72,8 @@
                         <!--</div>-->
                         <!--</div>-->
 
-                        <div class="voffset60"></div>
-
                         <div class="post-comments" id="comments">
+
                             <h4 class="title small">
                                 <span class="comments-count">3 комментария</span>
                             </h4>
@@ -131,7 +130,7 @@
                             </div>
                         </div>
 
-                        <div class="voffset80"></div>
+                        <div class="voffset50"></div>
 
                         <div class="post-reply">
                             <h4 class="title small">Оставьте комментарий</h4>
@@ -148,119 +147,22 @@
                 <div class="col-md-3">
                     <div class="sidebar">
 
-                        <!--<div class="advertisment">-->
-                        <!--<div class="vcenter">-->
-                        <!--<p>advertisiment</p>-->
-                        <!--<p>300 x 250</p>-->
-                        <!--</div>-->
-                        <!--</div>-->
+                        <!-- Latest News -->
+                        {!! $latestNews->vertical() !!}
 
-                        <!--<div class="voffset50"></div>-->
+                        {{--<div class="title small">Теги</div>--}}
+                        {{--<div class="list-tags">--}}
+                            {{--<ul>--}}
+                                {{--<li><a href="#">тег 1</a></li>--}}
+                                {{--<li><a href="#">тег 2</a></li>--}}
+                                {{--<li><a href="#">тег 3</a></li>--}}
+                                {{--<li><a href="#">какой-то тег</a></li>--}}
+                                {{--<li><a href="#">что-то еще</a></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
 
-                        <div class="title small">Недавние события</div>
-                        <div class="last-posts-sidebar">
-                            <ul>
-                                <li>
-                                    <a href="#" class="pull-left">
-                                        <img src="{{ asset('frontend/images/uploads/blog-1_mini.jpg') }}" alt="">
-                                    </a>
-                                    <div class="title-post">
-                                        <div class="date">8 апреля, 2017</div>
-                                        <p>
-                                            Максим Киуила и Баграт Геворгян добавили
-                                            красок слобожанской весне.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="pull-left">
-                                        <img src="{{ asset('frontend/images/uploads/blog-2_mini.jpg') }}" alt="">
-                                    </a>
-                                    <div class="title-post">
-                                        <div class="date">30 марта, 2017</div>
-                                        <p>Ужин с Доменико Ди Луччио в ресторане Чехов.</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="pull-left">
-                                        <img src="{{ asset('frontend/images/uploads/blog-4_mini.jpg') }}" alt="">
-                                    </a>
-                                    <div class="title-post">
-                                        <div class="date">18 октября, 2016</div>
-                                        <p>"ГИЧ Оркестр" г.Львов. Техническое
-                                            обеспечение концерта Tokarev Sound Group и OZVUCHKA.com</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="title small">Теги</div>
-                        <div class="list-tags">
-                            <ul>
-                                <li><a href="#">тег 1</a></li>
-                                <li><a href="#">тег 2</a></li>
-                                <li><a href="#">тег 3</a></li>
-                                <li><a href="#">какой-то тег</a></li>
-                                <li><a href="#">что-то еще</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="title small">Отзывы о нас</div>
-                        <div class="last-comments">
-                            <ul>
-                                <li>
-                                    <div class="header-comment">
-                                        <a href="#" class="pull-left">
-                                            <img src="{{ asset('frontend/images/demo/blog/comments1.jpg') }}" alt="">
-                                        </a>
-                                        <div class="title-post">
-                                            <div class="date">1 час назад</div>
-                                            <p>Валерий Какойто:</p>
-                                        </div>
-                                    </div>
-                                    <div class="comment">
-                                        <p>
-                                            “ Спасибо за замечательную работу! ”
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="header-comment">
-                                        <a href="#" class="pull-left">
-                                            <img src="{{ asset('frontend/images/demo/blog/comments2.jpg') }}" alt="">
-                                        </a>
-                                        <div class="title-post">
-                                            <div class="date">10 апреля</div>
-                                            <p>Дмитрий Нестеров</p>
-                                        </div>
-                                    </div>
-                                    <div class="comment">
-                                        <p>
-                                            “ Большое спасибо за отличный праздник.
-                                            Многим компаниям, большим и малым, есть чему
-                                            поучиться у вас. Отличная работа! ”
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="header-comment">
-                                        <a href="#" class="pull-left">
-                                            <img src="{{ asset('frontend/images/demo/blog/comments3.jpg') }}" alt="">
-                                        </a>
-                                        <div class="title-post">
-                                            <div class="date">8 апреля</div>
-                                            <p>Николай Николаевич:</p>
-                                        </div>
-                                    </div>
-                                    <div class="comment">
-                                        <p>
-                                            “ Максим Киуила и Баграт Геворгян добавили красок слобожанской весне.
-                                            Получил массу эмоций и излечение от хвори с температурой. ”
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <!-- Reviews -->
+                        {!! $reviews->vertical() !!}
 
                         <div class="title small">Мы в инстаграмме</div>
                         <div class="instagram-feed">

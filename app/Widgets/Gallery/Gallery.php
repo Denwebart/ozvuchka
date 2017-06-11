@@ -11,18 +11,20 @@ namespace App\Widgets\Gallery;
 
 class Gallery
 {
+	public $title = 'Фотогалерея';
+	public $description = 'Фотографии с нами';
+	
 	public function show()
 	{
 		return \Cache::rememberForever('widgets.gallery', function() {
-			$title = 'Фотогалерея';
-			$description = 'Фотографии с нами';
 			
 			$items = \App\Models\Gallery::select(['id', 'image', 'image_alt', 'title', 'description'])
 				->published()
 				->limit(8)
 				->get();
 			
-			return \View::make('widget.gallery::index', compact('items', 'title', 'description'))->render();
+			return view('widget.gallery::index', compact('items'))
+				->with('title', $this->title)->with('description', $this->description)->render();
 		});
 	}
 }

@@ -29,6 +29,11 @@ class View
 		if($model->is_container) {
 			$children = \Cache::rememberForever('sitemapItems.children-' . $model->id, function() use($model) {
 				return $model->children()->published()
+					->with([
+						'parent' => function($q) {
+							$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+						}
+					])
 					->get(['id', 'parent_id', 'user_id', 'type', 'is_container', 'alias', 'title', 'menu_title', 'updated_at', 'published_at']);
 			});
 			
@@ -39,7 +44,7 @@ class View
 					foreach ($children as $item) {
 						echo '<li>';
 						echo \View::make('parts.sitemapListItem', compact('item', 'level'))->with('url', $url . '/' . $item->alias)->render();
-						if ($item->is_container && count($model->children()->published()->get())) {
+						if ($item->is_container) {
 							self::getChildrenPages($item, $url . '/' . $item->alias, $level);
 						}
 						echo '</li>';
@@ -51,7 +56,7 @@ class View
 					++$level;
 					foreach ($children as $item) {
 						echo \View::make('parts.sitemapXmlItem', compact('item', 'level'))->with('url', $url . '/' . $item->alias)->render();
-						if ($item->is_container && count($model->children()->published()->get())) {
+						if ($item->is_container) {
 							self::getChildrenPages($item, $url . '/' . $item->alias, $level, 'xml');
 						}
 					}

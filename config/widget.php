@@ -9,6 +9,7 @@ return [
 		'menu',
 		'slider',
 		'reviews',
+		'news',
 		'gallery',
 		'teamMembers',
 		'requestedCalls',

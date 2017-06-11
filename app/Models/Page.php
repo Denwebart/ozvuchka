@@ -179,6 +179,11 @@ class Page extends Model
 			\Cache::forget('sitemapItems');
 			\Cache::forget('sitemapItems.children-' . $page->parent_id);
 			
+			if($page->id == self::ID_NEWS_PAGE || $page->parent_id == self::ID_NEWS_PAGE) {
+				\Cache::forget('widgets.news.vertical');
+				\Cache::forget('widgets.news.horisontal');
+			}
+			
 			\Cache::forget('page.subcategories.' . $page->id);
 			\Cache::forget('page.subcategories.' . $page->parent_id);
 		});
@@ -194,6 +199,11 @@ class Page extends Model
 			
 			\Cache::forget('sitemapItems');
 			\Cache::forget('sitemapItems.children-' . $page->parent_id);
+			
+			if($page->id == self::ID_NEWS_PAGE || $page->parent_id == self::ID_NEWS_PAGE) {
+				\Cache::forget('widgets.news.vertical');
+				\Cache::forget('widgets.news.horisontal');
+			}
 			
 			\Cache::forget('page.subcategories.' . $page->id);
 			\Cache::forget('page.subcategories.' . $page->parent_id);

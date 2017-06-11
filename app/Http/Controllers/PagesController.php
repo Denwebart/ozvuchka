@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\RequestedCall;
 use App\Models\User;
 use App\Widgets\Gallery\Gallery;
+use App\Widgets\News\News;
 use App\Widgets\Reviews\Reviews;
 use App\Widgets\Slider\Slider;
 use App\Widgets\TeamMembers\TeamMembers;
@@ -29,11 +30,11 @@ class PagesController extends Controller
 		
 		$slider = new Slider();
 		
-		$reviews = new Reviews();
-		
 		$gallery = new Gallery();
 		
-		return view('pages.index', compact('page', 'slider', 'reviews', 'gallery'));
+		$latestNews = new News();
+		
+		return view('pages.index', compact('page', 'slider', 'gallery', 'latestNews'));
 	}
 	
 	/**
@@ -142,13 +143,24 @@ class PagesController extends Controller
 	{
 		// доделать рекурсивно, вынести в отдельный метод, повторяется в getCategoryPage
 		$subcategories = \Cache::rememberForever('page.subcategories.' . $page->id, function() use($page) {
-			return $page->children()->whereIsContainer(1)
-				->get(['id', 'parent_id', 'menu_title', 'title', 'alias', 'type', 'is_published']);
+			return $page->children()
+				->with([
+					'parent' => function($q) {
+						$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+					}
+				])->whereIsContainer(1)
+				->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
 		});
 		$subcategoryIds = $subcategories->pluck('id');
 		$subcategoryIds[] = $page->id;
 		
-		$query = Page::whereIn('parent_id', $subcategoryIds)->published()->whereIsContainer(0);
+		$query = Page::whereIn('parent_id', $subcategoryIds)
+			->published()->whereIsContainer(0)
+			->with([
+				'parent' => function($q) {
+					$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+				}
+			]);
 		$query = $query->orderBy('published_at', 'DESC');
 		$news = $query->get();
 		
@@ -167,7 +179,10 @@ class PagesController extends Controller
 	 */
 	protected function getNewsPostPage($request, $page)
 	{
-		return view('pages.newsPost', compact('page'));
+		$latestNews = new News();
+		$reviews = new Reviews();
+		
+		return view('pages.newsPost', compact('page', 'latestNews', 'reviews'));
 	}
 	
 	/**
@@ -216,7 +231,13 @@ class PagesController extends Controller
 	{
 		// доделать рекурсивно
 		$subcategories = \Cache::rememberForever('page.subcategories.' . $page->id, function() use($page) {
-			return $page->children()->has('children')->whereIsContainer(1)
+			return $page->children()
+				->with([
+					'parent' => function($q) {
+						$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+					}
+				])
+				->has('children')->whereIsContainer(1)
 				->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
 		});
 		$subcategoryIds = $subcategories->pluck('id');
@@ -231,11 +252,19 @@ class PagesController extends Controller
 //		$direction = $request->has('direction') ? $request->get('direction') : $request->cookie('direction', 'DESC');
 		
 		$query = Page::whereIn('parent_id', $subcategoryIds)->published()->whereIsContainer(0);
+		$query = $query->with([
+			'parent' => function($q) {
+				$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+			}
+		]);
 		$query = $query->orderBy('published_at', 'DESC');
 		$articles = $query->get();
 		
+		$latestNews = new News();
+		$reviews = new Reviews();
+		
 		if(!$request->ajax()) {
-			return view('pages.category', compact('page', 'articles', 'subcategories'));
+			return view('pages.category', compact('page', 'articles', 'subcategories', 'latestNews', 'reviews'));
 		} else {
 //			return \Response::json([
 //				'success' => true,

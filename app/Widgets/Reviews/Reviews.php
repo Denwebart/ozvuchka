@@ -13,18 +13,21 @@ use App\Models\Review;
 
 class Reviews
 {
-	public function show()
+	public $title = 'Отзывы о нас';
+	public $description = false;
+	
+	public function vertical($limit = 3)
 	{
-		return \Cache::rememberForever('widgets.reviews', function() {
-			$title = 'Отзывы';
+		return \Cache::rememberForever('widgets.reviews.vertical', function() use($limit) {
 			
-			$items = Review::select(['id', 'user_name', 'user_email', 'user_avatar', 'text'])
-				->limit(4)
-				->whereIsPublished(1)
+			$items = Review::select(['id', 'user_name', 'user_email', 'user_avatar', 'text', 'published_at'])
+				->published()
 				->orderBy('position', 'ASC')
+				->limit($limit)
 				->get();
 			
-			return \View::make('widget.reviews::index', compact('items', 'title'))->render();
+			return view('widget.reviews::vertical', compact('items'))
+				->with('title', $this->title)->with('description', $this->description)->render();
 		});
 	}
 }

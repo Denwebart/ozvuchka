@@ -1107,6 +1107,9 @@ a:focus {
     outline: -webkit-focus-ring-color auto 5px;
     outline-offset: -2px
 }
+.link-to {
+    cursor: pointer;
+}
 
 .img-responsive {
     display: block;
@@ -12442,7 +12445,8 @@ input.btn.rounded {
     -webkit-backface-visibility: hidden
 }
 
-.featured-artist .rollover p {
+.featured-artist .rollover p,
+.featured-artist .rollover a {
     color: #fff;
     font-size: 16px;
     line-height: 25px
@@ -14540,6 +14544,11 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     float: right
 }
 
+.post-details #comments {
+    padding-top: 120px;
+    margin-top: -80px;
+}
+
 .post-details .post-author .title.small, .post-details .post-comments .title.small, .post-details .post-reply .title.small {
     color: #000;
     letter-spacing: 3.5px
@@ -14815,6 +14824,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 
 .sidebar .last-comments li, .sidebar .last-posts-sidebar li {
     display: inline-block;
+    width: 100%;
     padding-bottom: 14px;
 }
 .sidebar .last-comments li:not(:first-child), .sidebar .last-posts-sidebar li:not(:first-child) {
@@ -14899,7 +14909,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 }
 
 .sidebar .last-comments .header-comment .date, .sidebar .last-tweets .header-comment .date {
-    margin-top: 8px
+    margin-top: 0; /*8px*/
 }
 
 .sidebar .last-comments .comment, .sidebar .last-tweets .comment {

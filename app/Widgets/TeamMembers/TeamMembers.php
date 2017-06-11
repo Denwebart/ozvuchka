@@ -13,11 +13,12 @@ use App\Models\TeamMember;
 
 class TeamMembers
 {
+	public $title = 'Наша команда';
+	public $description = 'Здесь может быть какой-то текст';
+	
 	public function show()
 	{
 		return \Cache::rememberForever('widgets.teamMembers', function() {
-			$title = 'Наша команда';
-			$description = 'Здесь может быть какой-то текст';
 			
 			$items = TeamMember::select(['id', 'name', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_vk', 'link_fb', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
 				->limit(4)
@@ -25,7 +26,8 @@ class TeamMembers
 				->orderBy('position', 'ASC')
 				->get();
 			
-			return \View::make('widget.teamMembers::index', compact('items', 'title', 'description'))->render();
+			return view('widget.teamMembers::index', compact('items'))
+				->with('title', $this->title)->with('description', $this->description)->render();
 		});
 	}
 }
