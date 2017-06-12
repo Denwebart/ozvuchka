@@ -53,7 +53,7 @@
                         @endif
 
                         <!-- Social links -->
-                        @if($siteSettings[])
+                        {{--@if($siteSettings[])--}}
                         <div class="title small">Мы в социальных сетях</div>
                         <ul class="social">
                             <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -67,7 +67,7 @@
                             <li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
                             <li class="youtube"><a href="#"><i class="fa fa-youtube"></i></a></li>
                         </ul>
-                        @endif
+                        {{--@endif--}}
 
                         <!-- Latest News -->
                         {!! $latestNews->vertical() !!}
