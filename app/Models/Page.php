@@ -176,6 +176,13 @@ class Page extends Model
 			}
 			$page->deleteEditorImages();
 			
+			if(count($page->menus)) {
+				\Cache::forget('menuItems');
+				if(!$page->is_published) {
+					$page->menus()->delete();
+				}
+			}
+			
 			\Cache::forget('sitemapItems');
 			\Cache::forget('sitemapItems.children-' . $page->parent_id);
 			

@@ -22,7 +22,7 @@ class TeamMembers
 			
 			$items = TeamMember::select(['id', 'name', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_vk', 'link_fb', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
 				->limit(4)
-				->whereIsPublished(1)
+				->published()
 				->orderBy('position', 'ASC')
 				->get();
 			

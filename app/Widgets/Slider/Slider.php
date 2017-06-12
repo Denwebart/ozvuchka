@@ -13,7 +13,7 @@ class Slider
 	public function show()
 	{
 		$items = \Cache::rememberForever('widgets.slider', function() {
-			return \App\Models\Slider::whereIsPublished(1)->whereNotNull('image')->get();
+			return \App\Models\Slider::published()->whereNotNull('image')->get();
 		});
 		
 		return view('widget.slider::index', compact('items'))->render();

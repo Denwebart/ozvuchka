@@ -7,7 +7,7 @@
 
 <div class="search-item">
     <h3 class="h5 font-600 m-b-5">
-        <a href="{{ $result->getUrl() }}">
+        <a href="{{ route('admin.pages.edit', ['id' => $result->id]) }}">
             {!! \App\Helpers\Str::getFragment($result->getTitle(), $searchQuery) !!}
         </a>
         <span class="label @if($result->is_published) label-success @else label-muted @endif">{{ \App\Models\Page::$is_published[$result->is_published] }}</span>
