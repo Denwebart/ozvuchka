@@ -801,11 +801,11 @@ h3.timeline-title {
    Account Pages
 ============= */
 .bg-accpunt-pages {
-  background: #4489e4;
+  background: #5691c8;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #4489e4, #5691c8);
+  background: -webkit-linear-gradient(to left, #ea3249, #5691c8);
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #4489e4, #5691c8);
+  background: linear-gradient(to left, #ea3249, #5691c8);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding-bottom: 0;
   min-height: 100px !important;

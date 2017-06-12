@@ -4,8 +4,8 @@
 <div class="account-box">
     <div class="account-logo-box">
         <h2 class="text-uppercase text-center">
-            <a href="{{ url('/') }}" class="text-success">
-                <span><img src="{{ asset('backend/images/logo_dark.png') }}" alt="" height="30"></span>
+            <a href="{{ url('/') }}" class="logo text-success">
+                <img src="{{ asset('images/logo_dark.svg') }}" alt="{{ Config::get('settings.domain') }}">
             </a>
         </h2>
         <h5 class="text-uppercase font-bold m-b-5 m-t-50">Регистрация</h5>
@@ -135,7 +135,7 @@
 
                 <div class="form-group text-center m-t-10">
                     <div class="col-xs-12">
-                        <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">Зарегистрироваться</button>
+                        <button class="btn btn-md btn-block btn-inverse waves-effect waves-light" type="submit">Зарегистрироваться</button>
                     </div>
                 </div>
 

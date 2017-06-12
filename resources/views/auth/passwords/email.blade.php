@@ -4,8 +4,8 @@
 <div class="account-box">
     <div class="text-center account-logo-box">
         <h2 class="text-uppercase">
-            <a href="{{ url('/') }}" class="text-success">
-                <span><img src="{{ asset('backend/images/logo_dark.png') }}" alt="" height="30"></span>
+            <a href="{{ url('/') }}" class="logo text-success">
+                <img src="{{ asset('images/logo_dark.svg') }}" alt="{{ Config::get('settings.domain') }}">
             </a>
         </h2>
         <!--<h4 class="text-uppercase font-bold m-b-0">Sign In</h4>-->
@@ -19,8 +19,8 @@
                      style="enable-background:new 0 0 98 98;height: 140px;" xml:space="preserve">
                     <style type="text/css">
                         .st0{fill:#FFFFFF;}
-                        .st1{fill:#4489e4;}
-                        .st2{fill:#FFFFFF;stroke:#4489e4;stroke-width:2;stroke-miterlimit:10;}
+                        .st1{fill:#2b333d;}
+                        .st2{fill:#FFFFFF;stroke:#2b333d ;stroke-width:2;stroke-miterlimit:10;}
                         .st3{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
                     </style>
                     <g i:extraneous="self">
@@ -48,11 +48,11 @@
                     </g>
                 </svg>
 
-                <p class="text-muted font-13 m-t-10">
+                <p class="font-13 m-t-10">
                     {{ session('status') }}
                 </p>
 
-                <a href="{{ url('/') }}" class="btn btn-md btn-block btn-primary waves-effect waves-light m-t-30">Вернуться на главную</a>
+                <a href="{{ url('/') }}" class="btn btn-md btn-block btn-inverse waves-effect waves-light m-t-30">Вернуться на главную</a>
             </div>
         @else
             <div class="text-center m-b-20">
@@ -78,7 +78,7 @@
 
                 <div class="form-group text-center m-t-10">
                     <div class="col-xs-12">
-                        <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">
+                        <button class="btn btn-md btn-block btn-inverse waves-effect waves-light" type="submit">
                             Выслать мне инструкцию по сбросу пароля
                         </button>
                     </div>
