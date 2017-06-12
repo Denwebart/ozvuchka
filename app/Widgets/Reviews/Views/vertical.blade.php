@@ -8,7 +8,7 @@
 @if(count($items))
     <!-- Reviews Section -->
     @if($title)
-        <div class="title small">{{ $title }}с</div>
+        <div class="title small">{{ $title }}</div>
     @endif
     <div class="last-comments">
         <ul>
