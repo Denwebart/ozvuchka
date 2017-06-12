@@ -11,7 +11,7 @@
             <div class="row item reviews-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}">
                 <div class="thumbnail p-0 m-b-0">
                     <div class="col-sm-4 p-t-b-10">
-                        {!! Form::file('user_avatar', ['id' => 'user_avatar-' . $item->id, 'class' => 'dropify-ajax', 'data-default-file' => $item->getImageUrl(), 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-item-id' => $item->id, 'data-delete-url' => route('admin.reviews.deleteImage'), 'data-upload-url' => route('admin.reviews.uploadImage')]) !!}
+                        {!! Form::file('user_avatar', ['id' => 'user_avatar-' . $item->id, 'class' => 'dropify-ajax', 'data-default-file' => $item->getImageUrl(), 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-min-width' => '50', 'data-min-height' => '50', 'data-item-id' => $item->id, 'data-delete-url' => route('admin.reviews.deleteImage'), 'data-upload-url' => route('admin.reviews.uploadImage')]) !!}
                     </div>
                     <div class="col-sm-6 p-t-b-10">
                         <p>

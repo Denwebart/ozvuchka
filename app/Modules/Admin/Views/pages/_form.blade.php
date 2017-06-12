@@ -119,13 +119,13 @@
         <div class="form-group">
             <div class="col-sm-6 col-md-6 @if($errors->has('image')) has-error @endif">
                 {!! Form::label('image', 'Изображение для страницы', ['class' => 'control-label m-b-5']) !!}
-                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $page->getImageUrl(), 'data-max-file-size' => '3M']) !!}
+                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $page->getImageUrl(), 'data-max-file-size' => '3M', 'data-min-width' => '640', 'data-min-height' => '420']) !!}
                 <span class="help-block @if($errors->has('image')) hidden @endif">
                     <small>
                         Изображение отображается перед текстом страницы
                         и при выводе страниц блогом.
                         <br>
-                        Рекомендуемая ширина – 800px.
+                        Рекомендуемая ширина – 910px.
                     </small>
                 </span>
                 @if($errors->has('image'))

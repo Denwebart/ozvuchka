@@ -12,10 +12,10 @@
     </p>
     <p class="text-muted font-13 m-b-15">
         Слайд будет отображен только в том случае,
-        если загружено изображение и cслайд опубликован.
+        если загружено изображение и cлайд опубликован.
     </p>
     <p class="text-muted font-13 m-b-30">
-        Рекомендуемая ширина – 2550px. Минимальная ширина – 1920px.
+        Рекомендуемая ширина изображения – 2550px. <br>Минимальная ширина изображения – 1600px.
     </p>
 
     <div id="slider">
@@ -39,7 +39,7 @@
                 </p>
                 <div class="row">
                     <div class="col-sm-4 m-t-5">
-                        {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M']) !!}
+                        {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-min-width' => '1599']) !!}
                         <span class="help-block error image_error text-danger font-12" style="display: none">
                             <i class="fa fa-times-circle"></i>
                             <strong></strong>

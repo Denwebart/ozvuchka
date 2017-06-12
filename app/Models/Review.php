@@ -137,17 +137,19 @@ class Review extends Model
 	{
 		return $query->whereIsPublished(1)->where('published_at', '<=', Carbon::now());
 	}
-
+	
 	/**
 	 * Get image url
 	 *
+	 * @param null $prefix (null, 'origin', 'mini')
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getImageUrl()
+	public function getImageUrl($prefix = null)
 	{
-		return $this->user_avatar ? asset($this->imagePath . $this->id . '/' . $this->user_avatar) : '';
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return $this->user_avatar ? asset($this->imagePath . $this->id . '/' . $prefix . $this->user_avatar) : '';
 	}
 
 	/**
@@ -173,7 +175,9 @@ class Review extends Model
 	 */
 	public function setImage(Request $request)
 	{
-		$postImage = $request->file('user_avatar');
+		$postImage = $request->file('user_avatar')
+			? $request->file('user_avatar')
+			: $request->file('image');
 		$imagePath = $this->getImagesPath();
 		if (isset($postImage)) {
 			$fileName = Translit::generateFileName($postImage->getClientOriginalName());
@@ -185,24 +189,18 @@ class Review extends Model
 			
 			$image->save($imagePath . 'origin_' . $fileName);
 			
-			if ($image->width() > 800) {
-				$image->resize(800, null, function ($constraint) {
+			$cropSize = ($image->width() < $image->height()) ? $image->width() : $image->height();
+			$image->crop($cropSize, $cropSize)
+				->resize(120, 120, function ($constraint) {
 					$constraint->aspectRatio();
 				})->save($imagePath . $fileName);
-			} else {
-				$image->save($imagePath . $fileName);
-			}
+			$image->resize(50, 50, function ($constraint) {
+					$constraint->aspectRatio();
+				})->save($imagePath . 'mini_' . $fileName);
 			
 			$this->user_avatar = $fileName;
 			return true;
 		} else {
-			if($request->get('deleteImage')) {
-				$this->deleteImage();
-				if(!File::exists($imagePath . 'images')) {
-					$this->deleteImagesFolder();
-				}
-				return true;
-			}
 			return false;
 		}
 	}
@@ -216,7 +214,7 @@ class Review extends Model
 	 */
 	public function deleteImage()
 	{
-		$prefixes = ['', 'origin_'];
+		$prefixes = ['', 'origin_', 'mini_'];
 		// delete old image
 		foreach ($prefixes as $prefix) {
 			if(File::exists($this->getImagesPath() . $prefix . $this->user_avatar)) {

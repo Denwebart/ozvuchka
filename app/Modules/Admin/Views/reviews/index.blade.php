@@ -32,7 +32,7 @@
                 </p>
                 <div class="row">
                     <div class="col-sm-4 m-t-5">
-                        {!! Form::file('user_avatar', ['id' => 'user_avatar', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M']) !!}
+                        {!! Form::file('user_avatar', ['id' => 'user_avatar', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-min-width' => '50', 'data-min-height' => '50']) !!}
                         <span class="help-block error user_avatar_error text-danger font-12" style="display: none">
                             <i class="fa fa-times-circle"></i>
                             <strong></strong>

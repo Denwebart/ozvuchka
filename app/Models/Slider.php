@@ -161,13 +161,15 @@ class Slider extends Model
 	/**
 	 * Get image url
 	 *
+	 * @param null $prefix (null, 'origin')
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getImageUrl()
+	public function getImageUrl($prefix = null)
 	{
-		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return $this->image ? asset($this->imagePath . $this->id . '/' . $prefix . $this->image) : '';
 	}
 	
 	/**
@@ -205,13 +207,13 @@ class Slider extends Model
 
 			$image->save($imagePath . 'origin_' . $fileName);
 
-			if ($image->width() >= 1140) {
-				$image->resize(1140, null, function ($constraint) {
+			if ($image->width() > 2550) {
+				$image->resize(2550, null, function ($constraint) {
 					$constraint->aspectRatio();
-				})->save($imagePath . $fileName);
-			} else {
-				$image->save($imagePath . $fileName);
+				});
 			}
+			
+			$image->save($imagePath . $fileName);
 
 			$this->image = $fileName;
 			return true;
@@ -228,15 +230,16 @@ class Slider extends Model
 	 */
 	public function deleteImage()
 	{
-		$imagePath = $this->getImagesPath();
+		$prefixes = ['', 'origin_'];
 		// delete old image
-		if(File::exists($imagePath . $this->image)) {
-			File::delete($imagePath . $this->image);
-		}
-		if(File::exists($imagePath . 'origin_' . $this->image)) {
-			File::delete($imagePath . 'origin_' . $this->image);
+		foreach ($prefixes as $prefix) {
+			if(File::exists($this->getImagesPath() . $prefix . $this->image)) {
+				File::delete($this->getImagesPath() . $prefix . $this->image);
+			}
 		}
 		$this->image = null;
+		
+		return true;
 	}
 	
 	/**

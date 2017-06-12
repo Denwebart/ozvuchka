@@ -71,7 +71,8 @@ class Page extends Model
 	protected $table = 'pages';
 
 	protected $imagePath = '/uploads/pages/';
-	protected $defaultImagePath = '/images/default-image.png';
+	protected $defaultImagePath = '/images/';
+	protected $defaultImageName = 'default-image.png';
 
 	/**
 	 * Максимальная вложнность страниц
@@ -357,14 +358,23 @@ class Page extends Model
 			: '<p>' . Str::closeTags(Str::limit($this->content, $limit)) . '</p>';
 	}
 	
-	public function getPageImage($withDefault = false)
+	/**
+	 * Get image from image field or from editor
+	 *
+	 * @param bool $withDefault
+	 * @param bool $prefix
+	 * @return mixed|string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getPageImage($withDefault = false, $prefix = null)
 	{
-		return $this->getImageUrl()
-			? $this->getImageUrl()
+		return $this->getImageUrl($prefix)
+			? $this->getImageUrl($prefix)
 			: (($image = Str::getImageFromHtml($this->content))
 				? $image
 				: ($withDefault
-					? $this->defaultImagePath
+					? $this->getDefaultImageUrl($prefix)
 					: ''));
 	}
 
@@ -450,13 +460,29 @@ class Page extends Model
 	/**
 	 * Get image url
 	 *
+	 * @param null $prefix (null, 'origin', 'full', 'mini')
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getImageUrl()
+	public function getImageUrl($prefix = null)
 	{
-		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return $this->image ? asset($this->imagePath . $this->id . '/' . $prefix . $this->image) : '';
+	}
+	
+	/**
+	 * Get default image url
+	 *
+	 * @param null $prefix (null, 'origin', 'full', 'mini')
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getDefaultImageUrl($prefix = null)
+	{
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return asset($this->defaultImagePath . $prefix . $this->defaultImageName);
 	}
 	
 	/**
@@ -649,25 +675,34 @@ class Page extends Model
 
 			// delete old image
 			$this->deleteImage();
-
+			
+			$image->save($imagePath . 'origin_' . $fileName);
+			
 			$watermark = Image::make(public_path('images/watermark.png'));
-			$watermark->resize(($image->width() * 2) / 3, null, function ($constraint) {
+			$watermark->resize(($image->width() * 2) / 4, null, function ($constraint) {
 				$constraint->aspectRatio();
 			})->save($imagePath . 'watermark.png');
-
+			
+			if ($image->width() > 910) {
+				$image->resize(910, null, function ($constraint) {
+					$constraint->aspectRatio();
+				});
+			}
+			
 			$image->insert($imagePath . 'watermark.png', 'center')
-				->save($imagePath . 'origin_' . $fileName);
+				->save($imagePath . 'full_' . $fileName);
+			
+			$cropSize = ($image->width() < $image->height()) ? $image->width() : $image->height();
+			$image->crop($cropSize, $cropSize)
+				->resize(420, 420, function ($constraint) {
+					$constraint->aspectRatio();
+				})->save($imagePath . $fileName);
+			$image->resize(86, 86, function ($constraint) {
+				$constraint->aspectRatio();
+			})->save($imagePath . 'mini_' . $fileName);
 			
 			if (File::exists($imagePath . 'watermark.png')) {
 				File::delete($imagePath . 'watermark.png');
-			}
-			
-			if ($image->width() > 800) {
-				$image->resize(800, null, function ($constraint) {
-					$constraint->aspectRatio();
-				})->save($imagePath . $fileName);
-			} else {
-				$image->save($imagePath . $fileName);
 			}
 			
 			$this->image = $fileName;

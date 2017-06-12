@@ -38,7 +38,7 @@
                 <div class="col-md-9">
                     <article class="post-details">
                         @if($page->getImageUrl())
-                            <img class="featured-image" src="{{ $page->getImageUrl() }}" alt="{{ $page->image_url }}" title="{{ $page->image_url }}">
+                            <img class="featured-image" src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_url }}" title="{{ $page->image_url }}">
                         @endif
                         <h4 class="title small">
                             {{--<span class="gray">теги: </span> тег 1, тег 3--}}
@@ -146,6 +146,9 @@
 
                 <div class="col-md-3">
                     <div class="sidebar">
+
+                        <!-- Social links -->
+                        @include('parts.socialLinks')
 
                         <!-- Latest News -->
                         {!! $latestNews->vertical() !!}

@@ -53,21 +53,7 @@
                         @endif
 
                         <!-- Social links -->
-                        {{--@if($siteSettings[])--}}
-                        <div class="title small">Мы в социальных сетях</div>
-                        <ul class="social">
-                            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li class="google"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li class="instagram"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            <li class="flickr"><a href="#"><i class="fa fa-flickr"></i></a></li>
-                            <li class="tumblr"><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                            <li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                            <li class="youtube"><a href="#"><i class="fa fa-youtube"></i></a></li>
-                        </ul>
-                        {{--@endif--}}
+                        @include('parts.socialLinks')
 
                         <!-- Latest News -->
                         {!! $latestNews->vertical() !!}
@@ -95,7 +81,7 @@
 {{--                                @if($item->getPageImage())--}}
                                     <div class="col-sm-6">
                                         <a href="{{ $item->getUrl() }}">
-                                            <img src="{{ $item->getPageImage(true) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}" class="photo-post">
+                                            <img src="{{ $item->getPageImage(true, 'full') }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}" class="photo-post">
                                         </a>
                                         <p class="date-sticker">
                                             <span class="day">{{ \App\Helpers\Date::make($item->published_at, 'j') }}</span>

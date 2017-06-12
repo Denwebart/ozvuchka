@@ -36,7 +36,7 @@
             <div class="voffset80"></div>
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="{{ $page->getImageUrl() }}" alt="{{ $page->image_alt }}">
+                    <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}">
                 </div>
                 <div class="col-lg-6">
                     <div class="voffset50"></div>

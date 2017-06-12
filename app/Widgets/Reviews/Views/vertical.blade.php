@@ -16,7 +16,7 @@
                 <li>
                     <div class="header-comment">
                         <div class="pull-left">
-                            <img src="{{ $item->getImageUrl() }}" alt="{{ $item->user_name }}" title="{{ $item->user_name }}" width="50px">
+                            <img src="{{ $item->getImageUrl('mini') }}" alt="{{ $item->user_name }}" title="{{ $item->user_name }}" width="50px">
                         </div>
                         <div class="title-post">
                             <div class="date">{{ \App\Helpers\Date::getRelative($item->published_at) }}</div>

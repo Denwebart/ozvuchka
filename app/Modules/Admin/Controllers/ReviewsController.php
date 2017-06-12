@@ -223,8 +223,7 @@ class ReviewsController extends Controller
 			
 			if($review) {
 				$review->deleteImage();
-				
-				$review->user_avatar = null;
+				$review->deleteImagesFolder();
 				$review->save();
 				
 				return \Response::json([

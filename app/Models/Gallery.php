@@ -143,17 +143,19 @@ class Gallery extends Model
 	{
 		return $query->whereIsPublished(1)->where('published_at', '<=', Carbon::now());
 	}
-
+	
 	/**
 	 * Get image url
 	 *
+	 * @param null $prefix (null, 'origin', 'full')
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getImageUrl()
+	public function getImageUrl($prefix = null)
 	{
-		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return $this->image ? asset($this->imagePath . $this->id . '/' . $prefix . $this->image) : '';
 	}
 
 	/**
@@ -188,25 +190,60 @@ class Gallery extends Model
 
 			// delete old image
 			$this->deleteImage();
-
+			
+			$image->save($imagePath . 'origin_' . $fileName);
+			
 			$watermark = Image::make(public_path('images/watermark.png'));
 			$watermark->resize(($image->width() * 2) / 3, null, function ($constraint) {
 				$constraint->aspectRatio();
 			})->save($imagePath . 'watermark.png');
-
+			
+			if($image->width() > $image->height()) {
+				// horizontal image
+				if($image->width() > ($image->height() * 1.65)) {
+					$image->resize(null, $image->height(), function ($constraint) {
+						$constraint->aspectRatio();
+					});
+					$height = $image->height();
+					$width = $image->height() * 1.65;
+				} else {
+					$image->resize($image->width(), null, function ($constraint) {
+						$constraint->aspectRatio();
+					});
+					$width = $image->width();
+					$height = $image->width() / 1.64;
+				}
+			} else {
+				// vertical image
+				if($image->height() > ($image->width() / 0.82)) {
+					$image->resize(null, 900, function ($constraint) {
+						$constraint->aspectRatio();
+					});
+					$width = $image->width();
+					$height = $image->width() / 0.82;
+				} else {
+					$image->resize(740, null, function ($constraint) {
+						$constraint->aspectRatio();
+					});
+					$height = $image->height();
+					$width = $image->height() * 0.83;
+				}
+			}
+			
 			$image->insert($imagePath . 'watermark.png', 'center')
-				->save($imagePath . 'origin_' . $fileName);
+				->crop((integer) $width, (integer) $height)
+				->save($imagePath . 'full_' . $fileName);
+			
+			$width = 370;
+			$height = 225;
+			if($image->width() < $image->height()) {
+				$height = $height * 2;
+			}
+			
+			$image->resize($width, $height)->save($imagePath . $fileName);
 			
 			if (File::exists($imagePath . 'watermark.png')) {
 				File::delete($imagePath . 'watermark.png');
-			}
-			
-			if ($image->width() > 800) {
-				$image->resize(800, null, function ($constraint) {
-					$constraint->aspectRatio();
-				})->save($imagePath . $fileName);
-			} else {
-				$image->save($imagePath . $fileName);
 			}
 			
 			$this->image = $fileName;
@@ -214,9 +251,6 @@ class Gallery extends Model
 		} else {
 			if($request->get('deleteImage')) {
 				$this->deleteImage();
-				if(!File::exists($imagePath . 'images')) {
-					$this->deleteImagesFolder();
-				}
 				return true;
 			}
 			return false;
@@ -232,7 +266,7 @@ class Gallery extends Model
 	 */
 	public function deleteImage()
 	{
-		$prefixes = ['', 'origin_'];
+		$prefixes = ['', 'origin_', 'full_'];
 		// delete old image
 		foreach ($prefixes as $prefix) {
 			if(File::exists($this->getImagesPath() . $prefix . $this->image)) {

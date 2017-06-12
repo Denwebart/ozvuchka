@@ -140,12 +140,12 @@ class TeamMember extends Model
 			$builder->orderBy('position', 'ASC');
 		});
 		
-		static::saving(function($slider) {
+		static::saving(function($teamMember) {
 			\Cache::forget('widgets.teamMembers');
 		});
 		
-		static::deleting(function($slider) {
-			$slider->deleteImagesFolder();
+		static::deleting(function($teamMember) {
+			$teamMember->deleteImagesFolder();
 			
 			\Cache::forget('widgets.teamMembers');
 		});
@@ -165,13 +165,15 @@ class TeamMember extends Model
 	/**
 	 * Get image url
 	 *
+	 * @param null $prefix (null, 'origin')
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getImageUrl()
+	public function getImageUrl($prefix = null)
 	{
-		return $this->image ? asset($this->imagePath . $this->id . '/' . $this->image) : '';
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return $this->image ? asset($this->imagePath . $this->id . '/' . $prefix . $this->image) : '';
 	}
 	
 	/**
@@ -208,22 +210,26 @@ class TeamMember extends Model
 			$this->deleteImage();
 
 			$image->save($imagePath . 'origin_' . $fileName);
-
-//			if ($image->width() >= 1140) {
-//				$image->resize(1140, null, function ($constraint) {
-//					$constraint->aspectRatio();
-//				})->save($imagePath . $fileName);
-//			} else {
-				$image->save($imagePath . $fileName);
-//			}
-
+			
+			if($image->width() > ($image->height() * 0.74)) {
+				$image->resize(null, 460, function ($constraint) {
+					$constraint->aspectRatio();
+				});
+			} else {
+				$image->resize(340, null, function ($constraint) {
+					$constraint->aspectRatio();
+				});
+			}
+			
+			$image->crop(340, 460)->save($imagePath . $fileName);
+			
 			$this->image = $fileName;
 			return true;
 		} else {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Delete old image
 	 *
@@ -232,15 +238,16 @@ class TeamMember extends Model
 	 */
 	public function deleteImage()
 	{
-		$imagePath = $this->getImagesPath();
+		$prefixes = ['', 'origin_'];
 		// delete old image
-		if(File::exists($imagePath . $this->image)) {
-			File::delete($imagePath . $this->image);
-		}
-		if(File::exists($imagePath . 'origin_' . $this->image)) {
-			File::delete($imagePath . 'origin_' . $this->image);
+		foreach ($prefixes as $prefix) {
+			if(File::exists($this->getImagesPath() . $prefix . $this->image)) {
+				File::delete($this->getImagesPath() . $prefix . $this->image);
+			}
 		}
 		$this->image = null;
+		
+		return true;
 	}
 	
 	/**

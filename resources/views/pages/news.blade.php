@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <a href="{{ $item->getUrl() }}">
-                                        <img src="{{ $item->getPageImage(true) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}" class="photo-post">
+                                        <img src="{{ $item->getPageImage(true, 'full') }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}" class="photo-post">
                                     </a>
                                     <p class="date-sticker">
                                         <span class="day">{{ \App\Helpers\Date::make($item->published_at, 'j') }}</span>

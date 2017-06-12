@@ -7,8 +7,11 @@
 <div class="card-box m-b-20">
 
     <h4 class="header-title m-t-0">Члены команды</h4>
-    <p class="text-muted font-13 m-b-30">
+    <p class="text-muted font-13 m-b-15">
         Администрирование членов команды
+    </p>
+    <p class="text-muted font-13 m-b-30">
+        Рекомендуемые размеры изображения – 340x460px.
     </p>
 
     <div id="team-members">
@@ -32,7 +35,7 @@
                 </p>
                 <div class="row">
                     <div class="col-sm-4 m-t-5">
-                        {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M']) !!}
+                        {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => false, 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-min-width' => '339', 'data-min-height' => '459']) !!}
                         <span class="help-block error image_error text-danger font-12" style="display: none">
                             <i class="fa fa-times-circle"></i>
                             <strong></strong>

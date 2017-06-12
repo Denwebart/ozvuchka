@@ -138,6 +138,7 @@ class MenusController extends Controller
 	public function pagesAutocomplete(Request $request) {
 		$query = $request->get('query');
 		$pages = Page::where('title', 'like', "%$query%")
+			->published()
 			->orWhere('menu_title', 'like', "%$query%")
 			->orWhere('alias', 'like', "%$query%")
 			->get(['id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title']);

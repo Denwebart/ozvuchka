@@ -14,7 +14,7 @@
             @foreach($items as $item)
                 <li>
                     <a href="{{ $item->getUrl() }}" class="pull-left">
-                        <img src="{{ $item->getPageImage(true) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">
+                        <img src="{{ $item->getPageImage(true, 'mini') }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">
                     </a>
                     <div class="title-post">
                         <div class="date">{{ \App\Helpers\Date::format($item->published_at) }}</div>

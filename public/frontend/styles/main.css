@@ -14527,7 +14527,8 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 }
 
 .post-details .featured-image {
-    margin-bottom: 38px
+    margin-bottom: 38px;
+    width: 100%;
 }
 
 .page-content p,
