@@ -220,6 +220,7 @@ class SliderController extends Controller
 			if($slider) {
 				
 				$slider->deleteImage();
+				$slider->deleteImagesFolder();
 				
 				$slider->image = null;
 				$slider->save();

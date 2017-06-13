@@ -728,7 +728,7 @@ class Page extends Model
 	 */
 	public function deleteImage()
 	{
-		$prefixes = ['', 'origin_'];
+		$prefixes = ['', 'origin_', 'full_', 'mini_'];
 		// delete old image
 		foreach ($prefixes as $prefix) {
 			if(File::exists($this->getImagesPath() . $prefix . $this->image)) {

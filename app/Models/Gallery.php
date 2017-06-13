@@ -249,10 +249,6 @@ class Gallery extends Model
 			$this->image = $fileName;
 			return true;
 		} else {
-			if($request->get('deleteImage')) {
-				$this->deleteImage();
-				return true;
-			}
 			return false;
 		}
 	}

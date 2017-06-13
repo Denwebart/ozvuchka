@@ -224,6 +224,7 @@ class TeamMembersController extends Controller
 			
 			if($teamMember) {
 				$teamMember->deleteImage();
+				$teamMember->deleteImagesFolder();
 				$teamMember->save();
 				
 				return \Response::json([
