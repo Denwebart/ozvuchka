@@ -164,7 +164,10 @@ class PagesController extends Controller
 		$query = $query->orderBy('published_at', 'DESC');
 		$news = $query->get();
 		
-		return view('pages.news', compact('page', 'news'));
+		$latestNews = new News();
+		$reviews = new Reviews();
+		
+		return view('pages.news', compact('page', 'news', 'subcategories', 'latestNews', 'reviews'));
 	}
 	
 	/**

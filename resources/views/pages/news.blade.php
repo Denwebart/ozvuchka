@@ -36,7 +36,7 @@
         <div class="container">
             <div class="voffset50"></div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     @foreach($news as $item)
                         <article class="post-item">
                             <div class="row">
@@ -76,6 +76,44 @@
                             </div>
                         </article>
                     @endforeach()
+                </div>
+                <div class="col-md-3">
+                    <div class="sidebar">
+
+                        @if(count($subcategories))
+                            <ul class="menu-sidebar full">
+                                @foreach($subcategories as $subcategory)
+                                    <li>
+                                        <a href="{{ $subcategory->getUrl() }}">
+                                            {{ $subcategory->getTitle() }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div class="voffset50"></div>
+                        @endif
+
+                    <!-- Social links -->
+                        @include('parts.socialLinks')
+
+                    <!-- Latest News -->
+                        {!! $latestNews->vertical() !!}
+
+                    <!-- Reviews -->
+                        {!! $reviews->vertical() !!}
+
+                        <div class="title small">Мы в инстаграмме</div>
+                        <div class="instagram-feed">
+                            <ul>
+                                <li><img src="{{ asset('frontend/images/uploads/instagram1.jpg') }}" alt=""></li>
+                                <li><img src="{{ asset('frontend/images/uploads/instagram2.jpg') }}" alt=""></li>
+                                <li><img src="{{ asset('frontend/images/uploads/instagram3.jpg') }}" alt=""></li>
+                                <li><img src="{{ asset('frontend/images/uploads/instagram4.jpg') }}" alt=""></li>
+                                <li><img src="{{ asset('frontend/images/uploads/instagram5.jpg') }}" alt=""></li>
+                                <li><img src="{{ asset('frontend/images/uploads/instagram6.jpg') }}" alt=""></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
