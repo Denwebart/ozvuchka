@@ -122,7 +122,7 @@
                                         <td width="15%">
                                             <div class="switchery-demo">
                                                 {!! Form::hidden('is_active', 0) !!}
-                                                {!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}
+                                                {!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'class' => 'ajax-checkbox', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}
                                             </div>
                                         </td>
                                     </tr>

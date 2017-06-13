@@ -4712,6 +4712,16 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     font-size: 18px;
     line-height: 20px
 }
+.navbar-brand.logo-sm {
+    display: none;
+}
+.fixed .navbar-brand.logo {
+    display: none;
+}
+.fixed .navbar-brand.logo-sm {
+    display: inline-block;
+    height: 40px;
+}
 
 .navbar-brand:focus, .navbar-brand:hover {
     text-decoration: none
@@ -10559,7 +10569,7 @@ header.overflow.fixed {
 
 @media (min-width: 768px) {
     header .navbar-brand {
-        padding: 9 15px;
+        padding: 9px 15px;
         height: auto
     }
 }
@@ -10573,7 +10583,7 @@ header.overflow.fixed {
 @media (min-width: 1200px) {
     header .navbar-brand {
         max-width: 300px;
-        padding: 15px 22px 22px 55px
+        padding: 10px 22px 22px 55px
     }
 }
 
