@@ -34,7 +34,7 @@ $route = isset($route) ? $route : \Route::current()->getName();
                                 @endif
                             </div>
                             <div class="date">
-                                {{ \App\Helpers\Date::format($letter->created_at, true, true) }}
+                                {{ \App\Helpers\Date::format($letter->created_at, true, true, true) }}
                             </div>
                             <div class="buttons">
                                 @if($letter->deleted_at && (Request::is('admin/letters/trash*') || $route == 'admin.letters.trash'))
