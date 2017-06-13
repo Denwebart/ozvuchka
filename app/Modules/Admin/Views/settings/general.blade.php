@@ -96,31 +96,41 @@
                     </tbody>
                 </table>
 
-                {{--{!! Form::open(['files' => true]) !!}--}}
-                {{--@foreach($settings[\App\Models\Setting::CATEGORY_SITE]['logo'] as $key => $setting)--}}
-                {{--<div class="form-group settings image-container @if($key != 'main') dark @endif" data-image-setting-id="{{ $setting->id }}">--}}
-                {{--<label class="col-md-3 col-sm-3 control-label">--}}
-                {{--{{ $setting->title }}--}}
-                {{--@if($setting->description)--}}
-                {{--<small>{{ $setting->description }}</small>--}}
-                {{--@endif--}}
-                {{--</label>--}}
-                {{--<div class="col-md-7 col-sm-7">--}}
-                {{--{!! Form::file('logo.' . $key, ['id' => 'logo.' . $key, 'class' => 'dropify-ajax', 'data-height' => '100', 'data-default-file' => ($setting->value) ? $setting->getImageUrl() : '', 'data-max-file-size' => '3M', 'data-setting-id' => $setting->id, 'data-delete-url' => route('admin.settings.deleteImage'), 'data-upload-url' => route('admin.settings.uploadImage')]) !!}--}}
-                {{--<span class="error help-block text-danger font-12">
-            <i class="fa fa-times-circle"></i>--}}
-                {{--<strong class="text"></strong>--}}
-                {{--</span>--}}
-                {{--</div>--}}
-                {{--<div class="col-md-2 col-sm-2">--}}
-                {{--<div class="switchery-demo">--}}
-                {{--{!! Form::hidden('is_active', 0) !!}--}}
-                {{--{!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'class' => 'ajax-checkbox', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--@endforeach--}}
-                {{--{!! Form::close() !!}--}}
+                @if(isset($settings[\App\Models\Setting::CATEGORY_SITE]['socialLinks']))
+                    <!-- Мета-данные -->
+                    <h4 class="header-title m-t-0 m-b-20">Мета-теги</h4>
+                    <p class="text-muted font-13 m-b-15">
+                        Предназначены исключительно для поисковых систем.
+                        Не отображаются на страницах сайта.
+                    </p>
+
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            @foreach($settings[\App\Models\Setting::CATEGORY_SITE]['meta'] as $key => $setting)
+                                @if(in_array($key, ['robots','author','copyright']))
+                                    <tr>
+                                        <td width="25%">
+                                            {{ $setting->title }}
+                                            <!-- Info text: metadata -->
+                                            <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-html="true" data-content="{{ $setting->description }}" data-original-title="{{ $setting->title }}">
+                                                <i class="fa fa-question-circle-o"></i>
+                                            </span>
+                                        </td>
+                                        <td width="60%">
+                                            <a href="#" class="editable-text" data-value="{{ $setting->value }}" @if($key == 'robots') data-type="text" @else data-type="textarea" @endif data-pk="{{ $setting->id }}">{{ $setting->value }}</a>
+                                        </td>
+                                        <td width="15%">
+                                            <div class="switchery-demo">
+                                                {!! Form::hidden('is_active', 0) !!}
+                                                {!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         @endif
 

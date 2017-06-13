@@ -13,13 +13,31 @@
     <title>{{ $page->getMetaTitle() }}</title>
     <meta name="description" content="{{ $page->getMetaDesc() }}">
     <meta name="keywords" content="{{ $page->getMetaKey() }}">
-    @if(Config::get('settings.metaCopyright'))
-        <meta name="copyright" lang="ru" content="{{ Config::get('settings.metaCopyright') }}">
+
+    @if(isset($siteSettings['meta']))
+        @if(isset($siteSettings['meta']['author']) && is_object($siteSettings['meta']['author']))
+            <meta name="author" lang="ru" content="{{ $siteSettings['meta']['author']->value }}">
+        @endif
+        @if(isset($siteSettings['meta']['copyright']) && is_object($siteSettings['meta']['copyright']))
+            <meta name="copyright" lang="ru" content="{{ $siteSettings['meta']['copyright']->value }}" />
+        @endif
+    @else
+        @if(Config::get('settings.metaCopyright'))
+            <meta name="copyright" lang="ru" content="{{ Config::get('settings.metaCopyright') }}">
+        @endif
+        @if(Config::get('settings.metaAuthor'))
+            <meta name="author" lang="ru" content="{{ Config::get('settings.metaAuthor') }}">
+        @endif
     @endif
-    @if(Config::get('settings.metaAuthor'))
-        <meta name="author" lang="ru" content="{{ Config::get('settings.metaAuthor') }}">
+    @if(isset($metaRobots))
+        <meta name="robots" content="{{ $metaRobots }}">
+    @else
+        @if(isset($siteSettings['meta']['robots']) && is_object($siteSettings['meta']['robots']))
+            <meta name="robots" content="{{ $siteSettings['meta']['robots']->value }}" />
+        @else
+            <meta name="robots" content="{{ Config::get('settings.metaRobots', 'noindex,nofollow') }}">
+        @endif
     @endif
-    <meta name="robots" content="{{ isset($metaRobots) ? $metaRobots : Config::get('settings.metaRobots') }}">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
