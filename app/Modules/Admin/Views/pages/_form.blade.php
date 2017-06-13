@@ -45,7 +45,7 @@
                 @endif
             </div>
         </div>
-        <div class="form-group @if($errors->has('alias')) has-error @endif">
+        <div class="form-group has-feedback @if($errors->has('alias')) has-error @endif">
             <div class="col-sm-2 col-md-2">
                 <!-- Info text: alias -->
                 <span class="m-l-10 text-muted pull-right m-t-5 help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="Алиас - это название создаваемой страницы сайта, которое будет отображаться рядом с доменным именем сайта в строке браузера. Если поле не заполнено - заполняется автоматически. Желательно не менять, если страница уже проиндексирована поисковиками." data-original-title="Алиас">
@@ -55,7 +55,8 @@
             </div>
             <div class="col-sm-10 col-md-10">
                 @if(!$page->isMain())
-                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
+                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control inputmask maxlength', 'maxlength' => 255]) !!}
+                    <a href="#" class="button-clear glyphicon glyphicon-remove form-control-feedback text-muted font-12"></a>
                 @else
                     {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control maxlength', 'maxlength' => 255, 'disabled' => true]) !!}
                 @endif
@@ -119,7 +120,7 @@
         <div class="form-group">
             <div class="col-sm-6 col-md-6 @if($errors->has('image')) has-error @endif">
                 {!! Form::label('image', 'Изображение для страницы', ['class' => 'control-label m-b-5']) !!}
-                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $page->getImageUrl(), 'data-max-file-size' => '3M', 'data-min-width' => '640', 'data-min-height' => '420']) !!}
+                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $page->getImageUrl(), 'data-max-file-size' => '3M', 'data-min-width' => '470', 'data-min-height' => '250']) !!}
                 <span class="help-block @if($errors->has('image')) hidden @endif">
                     <small>
                         Изображение отображается перед текстом страницы
@@ -383,8 +384,6 @@
         $('#deleteImage').val(1);
     });
 
-
-
     //        // Time Picker
     //        jQuery('#timepicker').timepicker({
     //            showMeridian : false
@@ -413,4 +412,11 @@
 
 @push('scriptsBottom')
     @include('admin::tinymce-init', ['imagePath' => $page->getImageEditorPath()])
+
+    <script type="text/javascript">
+        // Clear input field
+        $('.button-clear').on('click', function() {
+            $(this).parent().find('input.inputmask').val('');
+        });
+    </script>
 @endpush

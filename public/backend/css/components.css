@@ -1966,6 +1966,9 @@ textarea.form-control {
 .form-control-feedback {
   line-height: 38px !important;
 }
+.form-control-feedback.button-clear {
+    pointer-events: auto;
+}
 .input-group-btn .btn {
   padding: 7px 12px;
 }
