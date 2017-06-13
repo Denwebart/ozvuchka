@@ -96,12 +96,12 @@
                     <p>{{ $letter->message }}</p>
 
                 </div> <!-- card-box -->
-                <div class="text-right">
-                    <button type="button" class="btn btn-custom waves-effect waves-light w-md m-b-30">
-                        <i class="fa fa-mail-reply"></i>
-                        Ответить
-                    </button>
-                </div>
+                {{--<div class="text-right">--}}
+                    {{--<button type="button" class="btn btn-custom waves-effect waves-light w-md m-b-30">--}}
+                        {{--<i class="fa fa-mail-reply"></i>--}}
+                        {{--Ответить--}}
+                    {{--</button>--}}
+                {{--</div>--}}
             </div>
 
             <div class="clearfix"></div>
