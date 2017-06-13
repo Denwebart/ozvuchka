@@ -82,19 +82,22 @@ class Page extends Model
 	/**
 	 * Id страниц с контактной формы и карты сайта
 	 */
-	const ID_MAIN_PAGE    = 1;
-	const ID_ABOUT_PAGE   = 2;
-	const ID_NEWS_PAGE    = 3;
-	const ID_GALLERY_PAGE = 4;
-	const ID_CONTACT_PAGE = 5;
-	const ID_SITEMAP_PAGE = 6;
+	const ID_MAIN_PAGE     = 1;
+	const ID_ABOUT_PAGE    = 2;
+	const ID_SERVICES_PAGE = 3;
+	const ID_NEWS_PAGE     = 4;
+	const ID_PARTNERS_PAGE = 5;
+	const ID_GALLERY_PAGE  = 6;
+	const ID_CONTACT_PAGE  = 7;
+	const ID_SITEMAP_PAGE  = 8;
 	
 	public static $pagesIcons = [
-		self::ID_MAIN_PAGE    => 'fa fa-home',
-		self::ID_NEWS_PAGE    => 'fa fa-newspaper-o',
-		self::ID_GALLERY_PAGE => 'fa fa-image',
-		self::ID_CONTACT_PAGE => 'fa fa-envelope-o',
-		self::ID_SITEMAP_PAGE => 'fa fa-sitemap',
+		self::ID_MAIN_PAGE     => 'fa fa-home',
+		self::ID_NEWS_PAGE     => 'fa fa-newspaper-o',
+		self::ID_PARTNERS_PAGE => 'fa fa-handshake-o',
+		self::ID_GALLERY_PAGE  => 'fa fa-image',
+		self::ID_CONTACT_PAGE  => 'fa fa-envelope-o',
+		self::ID_SITEMAP_PAGE  => 'fa fa-sitemap',
 	];
 
 	/**

@@ -76,8 +76,12 @@ class PagesController extends Controller
 		switch ($page->id) {
 			case Page::ID_ABOUT_PAGE:
 				return $this->getAboutPage($request, $page);
+			case Page::ID_SERVICES_PAGE:
+				return $this->getServicesPage($request, $page);
 			case Page::ID_NEWS_PAGE:
 				return $this->getNewsPage($request, $page);
+			case Page::ID_PARTNERS_PAGE:
+				return $this->getPartnersPage($request, $page);
 			case Page::ID_GALLERY_PAGE:
 				return $this->getGalleryPage($request, $page);
 			case Page::ID_CONTACT_PAGE:
@@ -127,6 +131,40 @@ class PagesController extends Controller
 		$teamMembers = new TeamMembers();
 		
 		return view('pages.about', compact('page', 'teamMembers'));
+	}
+	
+	/**
+	 * Services page
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getServicesPage($request, $page)
+	{
+//		$teamMembers = new TeamMembers();
+		
+		return view('pages.services', compact('page'));
+	}
+	
+	/**
+	 * Partners page
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return mixed
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getPartnersPage($request, $page)
+	{
+//		$teamMembers = new TeamMembers();
+		
+		return view('pages.partners', compact('page'));
 	}
 	
 	/**
