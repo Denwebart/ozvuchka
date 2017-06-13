@@ -6,7 +6,6 @@
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 
-
 namespace App\Widgets\Gallery;
 
 class Gallery

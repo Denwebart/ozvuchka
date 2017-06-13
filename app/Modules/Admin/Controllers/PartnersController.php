@@ -1,6 +1,6 @@
 <?php
 /**
- * Class TeamMembersController
+ * Class PartnersController
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
@@ -8,14 +8,14 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\TeamMember;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TeamMembersController extends Controller
+class PartnersController extends Controller
 {
 	/**
-	 * Add new Team Member
+	 * Add new Partner
 	 *
 	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse
@@ -27,37 +27,37 @@ class TeamMembersController extends Controller
 	{
 		if($request->ajax()) {
 			$data = $request->all();
-			$position = DB::table('team_members')->max('position');
+			$position = DB::table('partners')->max('position');
 			$data['position'] = $position + 1;
 			
-			$validator = \Validator::make($data, TeamMember::$rules);
+			$validator = \Validator::make($data, Partner::$rules);
 			
 			if ($validator->fails())
 			{
 				return \Response::json([
 					'success' => false,
 					'errors' => $validator->errors(),
-					'message' => 'Член команды не добавлен. Исправьте ошибки.'
+					'message' => 'Партнер не добавлен. Исправьте ошибки.'
 				]);
 			} else {
-				$teamMember = TeamMember::create($data);
-				$teamMember->setImage($request);
-				$teamMember->save();
+				$partner = Partner::create($data);
+				$partner->setImage($request);
+				$partner->save();
 				
-				$teamMembers = TeamMember::all();
+				$partners = Partner::all();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Член команды успешно добавлен.',
-					'itemId' => $teamMember->id,
-					'resultHtml' => view('admin::teamMembers.items', compact('teamMembers'))->render(),
+					'message' => 'Партнер успешно добавлен.',
+					'itemId' => $partner->id,
+					'resultHtml' => view('admin::partners.items', compact('partners'))->render(),
 				]);
 			}
 		}
 	}
 	
 	/**
-	 * Delete Team Member
+	 * Delete Partner
 	 *
 	 * @param $id
 	 * @return \Illuminate\Http\JsonResponse
@@ -67,28 +67,28 @@ class TeamMembersController extends Controller
 	 */
 	public function destroy(Request $request, $id)
 	{
-		$teamMember = TeamMember::find($id);
+		$partner = Partner::find($id);
 		
-		if($teamMember && $teamMember->delete()) {
+		if($partner && $partner->delete()) {
 			if(\Request::ajax()) {
-				$teamMembers = TeamMember::all();
+				$partners = Partner::all();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Член команды успешно удалён.',
-					'resultHtml' => view('admin::teamMembers.items', compact('teamMembers'))->render(),
+					'message' => 'Партнер успешно удалён.',
+					'resultHtml' => view('admin::partners.items', compact('partners'))->render(),
 				]);
 			} else {
-				return back()->with('successMessage', 'Член команды успешно удалён.');
+				return back()->with('successMessage', 'Партнер успешно удалён.');
 			}
 		} else {
 			if(\Request::ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Произошла ошибка. Член команды не удалён.'
+					'message' => 'Произошла ошибка. Партнер не удалён.'
 				]);
 			} else {
-				return back()->with('warningMessage', 'Произошла ошибка. Член команды не удалён.');
+				return back()->with('warningMessage', 'Произошла ошибка. Партнер не удалён.');
 			}
 		}
 	}
@@ -106,13 +106,13 @@ class TeamMembersController extends Controller
 	{
 		if($request->ajax()) {
 			$id = $request->has('pk') ? $request->get('pk') : $request->get('id');
-			$teamMember = TeamMember::findOrFail($id);
+			$partner = Partner::findOrFail($id);
 			
 			$field = $request->get('name');
-			if($teamMember && $field) {
+			if($partner && $field) {
 				$data = $request->all();
 				
-				$validator = \Validator::make($data, $teamMember->getRules($field));
+				$validator = \Validator::make($data, $partner->getRules($field));
 				
 				if ($validator->fails())
 				{
@@ -122,16 +122,16 @@ class TeamMembersController extends Controller
 						'message' => 'Значение не изменено. Исправьте ошибки.'
 					]);
 				} else {
-					$teamMember->$field = $data['value'];
-					$teamMember->save();
+					$partner->$field = $data['value'];
+					$partner->save();
 					
 					$response = [
 						'success' => true,
 						'message' => 'Значение успешно изменено.'
 					];
 					if(strpos($request->get('name'),'link_') !== false) {
-						$response['table'] = 'team_members';
-						$response['itemId'] = $teamMember->id;
+						$response['table'] = 'partners';
+						$response['itemId'] = $partner->id;
 						$response['fieldName'] = $request->get('name');
 						$response['fieldValue'] = $request->get('value');
 					}
@@ -159,15 +159,15 @@ class TeamMembersController extends Controller
 	public function setIsActive(Request $request)
 	{
 		if($request->ajax()) {
-			$teamMember = TeamMember::findOrFail($request->get('id'));
+			$partner = Partner::findOrFail($request->get('id'));
 			
-			if($teamMember) {
-				$teamMember->is_published = $request->get('value');
-				$teamMember->save();
+			if($partner) {
+				$partner->is_published = $request->get('value');
+				$partner->save();
 				
 				return \Response::json([
 					'success' => true,
-					'message' => 'Статус изменен на "' . TeamMember::$is_published[$teamMember->is_published] . '".'
+					'message' => 'Статус изменен на "' . Partner::$is_published[$partner->is_published] . '".'
 				]);
 			} else {
 				return \Response::json([
@@ -190,11 +190,11 @@ class TeamMembersController extends Controller
 	public function uploadImage(Request $request)
 	{
 		if($request->ajax()) {
-			$teamMember = TeamMember::findOrFail($request->get('id'));
+			$partner = Partner::findOrFail($request->get('id'));
 			
-			if($teamMember) {
-				$teamMember->setImage($request);
-				$teamMember->save();
+			if($partner) {
+				$partner->setImage($request);
+				$partner->save();
 				
 				return \Response::json([
 					'success' => true,
@@ -221,12 +221,12 @@ class TeamMembersController extends Controller
 	public function deleteImage(Request $request)
 	{
 		if($request->ajax()) {
-			$teamMember = TeamMember::findOrFail($request->get('id'));
+			$partner = Partner::findOrFail($request->get('id'));
 			
-			if($teamMember) {
-				$teamMember->deleteImage();
-				$teamMember->deleteImagesFolder();
-				$teamMember->save();
+			if($partner) {
+				$partner->deleteImage();
+				$partner->deleteImagesFolder();
+				$partner->save();
 				
 				return \Response::json([
 					'success' => true,
@@ -242,7 +242,7 @@ class TeamMembersController extends Controller
 	}
 	
 	/**
-	 * Change position of Team Members
+	 * Change position of Partners
 	 *
 	 * @param Request $request
 	 * @return mixed
@@ -255,7 +255,7 @@ class TeamMembersController extends Controller
 		$positions = $request->get('positions');
 		$i = 0;
 		foreach($positions as $itemId) {
-			$menu = TeamMember::find($itemId);
+			$menu = Partner::find($itemId);
 			$menu->position = $i;
 			$menu->save();
 			$i++;

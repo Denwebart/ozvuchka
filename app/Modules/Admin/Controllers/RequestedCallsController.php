@@ -12,7 +12,6 @@ use App\Models\RequestedCall;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 class RequestedCallsController extends Controller
 {

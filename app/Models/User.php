@@ -23,7 +23,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property bool $deleted_at
  * @property string $activation_code
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Page[] $comments
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Page[] $pages
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\RequestedCall[] $requestedCalls
@@ -31,6 +33,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereActivationCode($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereAvatar($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDescription($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereFirstname($value)
@@ -43,9 +46,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRole($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property bool $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Page[] $comments
- * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
  */
 class User extends Authenticatable
 {

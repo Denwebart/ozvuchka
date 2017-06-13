@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property string $subject
  * @property string $message
+ * @property bool $is_important
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $read_at
@@ -25,14 +26,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereIsImportant($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereMessage($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereReadAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereSubject($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property bool $is_important
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Letter whereIsImportant($value)
  */
 class Letter extends Model
 {

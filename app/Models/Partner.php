@@ -14,34 +14,46 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 /**
- * App\Models\Slider
+ * App\Models\Partner
  *
  * @property int $id
+ * @property string $name
+ * @property string $description
  * @property string $image
  * @property string $image_alt
- * @property bool $is_published
- * @property string $title
- * @property string $text
- * @property string $button_text
- * @property string $button_link
  * @property int $position
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider published()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereButtonLink($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereButtonText($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereImage($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereImageAlt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereIsPublished($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider wherePosition($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereText($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereTitle($value)
+ * @property bool $is_published
+ * @property string $link_vk
+ * @property string $link_facebook
+ * @property string $link_instagram
+ * @property string $link_twitter
+ * @property string $link_google
+ * @property string $link_youtube
+ * @property string $created_at
+ * @property string $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner published()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereImageAlt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereIsPublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkFacebook($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkGoogle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkInstagram($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkTwitter($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkVk($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkYoutube($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner wherePosition($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Slider extends Model
+class Partner extends Model
 {
-	protected $table = 'slider';
+	protected $table = 'partners';
 
-	protected $imagePath = '/uploads/slider/';
+	protected $imagePath = '/uploads/partners/';
 
 	public $timestamps = false;
 
@@ -57,39 +69,23 @@ class Slider extends Model
 	];
 
 	/**
-	 * Выравнивание текста (значение поля text_align)
-	 */
-	const ALIGN_CENTER = 0;
-	const ALIGN_LEFT   = 1;
-	const ALIGN_RIGHT  = 2;
-
-	public static $textAlign = [
-		self::ALIGN_LEFT   => 'По левому краю',
-		self::ALIGN_CENTER => 'По центру',
-		self::ALIGN_RIGHT  => 'По правому краю',
-	];
-
-	public static $textAlignClasses = [
-		self::ALIGN_CENTER => 'align-center',
-		self::ALIGN_LEFT   => 'align-left',
-		self::ALIGN_RIGHT  => 'align-right',
-	];
-
-	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = [
+		'title',
+		'description',
 		'image',
 		'image_alt',
-		'title',
-		'text',
-		'is_published',
-		'button_text',
-		'button_link',
-		'text_align',
 		'position',
+		'is_published',
+		'link_vk',
+		'link_facebook',
+		'link_instagram',
+		'link_twitter',
+		'link_google',
+		'link_youtube',
 	];
 
 	/**
@@ -99,14 +95,17 @@ class Slider extends Model
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static $rules = [
-		'image' => 'required|image|max:10240',
-		'image_alt' => 'max:350',
-		'title' => 'max:255',
-		'text' => 'max:255',
+		'title' => 'required|max:255',
+		'description' => 'max:255',
+		'image' => 'image|max:10240',
+		'image_alt' => 'max:255',
 		'is_published' => 'boolean',
-		'button_text' => 'max:100',
-		'button_link' => 'nullable|url|max:255',
-		'text_align' => 'integer|min:0|max:2',
+		'link_vk' => 'nullable|url|max:255',
+		'link_facebook' => 'nullable|url|max:255',
+		'link_instagram' => 'nullable|url|max:255',
+		'link_twitter' => 'nullable|url|max:255',
+		'link_google' => 'nullable|url|max:255',
+		'link_youtube' => 'nullable|url|max:255',
 		'position' => 'integer',
 	];
 	
@@ -137,14 +136,14 @@ class Slider extends Model
 			$builder->orderBy('position', 'ASC');
 		});
 		
-		static::saving(function($slider) {
-			\Cache::forget('widgets.slider');
+		static::saving(function($partner) {
+			\Cache::forget('widgets.partners');
 		});
 		
-		static::deleting(function($slider) {
-			$slider->deleteImagesFolder();
+		static::deleting(function($partner) {
+			$partner->deleteImagesFolder();
 			
-			\Cache::forget('widgets.slider');
+			\Cache::forget('widgets.partners');
 		});
 	}
 	
@@ -207,22 +206,20 @@ class Slider extends Model
 			$this->deleteImage();
 
 			$image->save($imagePath . 'origin_' . $fileName);
-
-			if ($image->width() > 2550) {
-				$image->resize(2550, null, function ($constraint) {
-					$constraint->aspectRatio();
-				});
-			}
 			
-			$image->save($imagePath . $fileName);
-
+			$cropSize = ($image->width() < $image->height()) ? $image->width() : $image->height();
+			$image->crop($cropSize, $cropSize)
+				->resize(340, 340, function ($constraint) {
+					$constraint->aspectRatio();
+				})->save($imagePath . $fileName);
+			
 			$this->image = $fileName;
 			return true;
 		} else {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Delete old image
 	 *

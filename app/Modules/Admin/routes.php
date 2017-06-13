@@ -58,6 +58,13 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('team_members/position', ['as' => 'teamMembers.position', 'uses' => 'TeamMembersController@changePosition']);
 	Route::resource('team_members', 'TeamMembersController', ['names' => ['store' => 'teamMembers.store', 'destroy' => 'teamMembers.destroy'], 'except' => ['index', 'edit', 'update', 'create', 'show']]);
 	
+	Route::post('partners/upload_image/', ['as' => 'partners.uploadImage', 'uses' => 'PartnersController@uploadImage']);
+	Route::post('partners/delete_image/', ['as' => 'partners.deleteImage', 'uses' => 'PartnersController@deleteImage']);
+	Route::post('partners/set_is_active/', ['as' => 'partners.setIsActive', 'uses' => 'PartnersController@setIsActive']);
+	Route::post('partners/set_value/', ['as' => 'partners.setValue', 'uses' => 'PartnersController@setValue']);
+	Route::post('partners/position', ['as' => 'partners.position', 'uses' => 'PartnersController@changePosition']);
+	Route::resource('partners', 'PartnersController', ['names' => ['store' => 'partners.store', 'destroy' => 'partners.destroy'], 'except' => ['index', 'edit', 'update', 'create', 'show']]);
+	
 	Route::post('gallery/position', ['as' => 'gallery.position', 'uses' => 'GalleryController@changePosition']);
 	Route::post('gallery/set_is_active/', ['as' => 'gallery.setIsActive', 'uses' => 'GalleryController@setIsActive']);
 	Route::resource('gallery', 'GalleryController', ['except' => ['show']]);

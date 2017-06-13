@@ -14,24 +14,39 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 /**
- * App\Models\Slider
+ * App\Models\TeamMember
  *
  * @property int $id
+ * @property string $name
+ * @property string $description
  * @property string $image
  * @property string $image_alt
+ * @property int $position
  * @property bool $is_published
- * @property string $title
- * @property string $text
- * @property string $button_text
- * @property string $button_link
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereButtonLink($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereButtonText($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereImage($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereImageAlt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereIsPublished($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereText($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Slider whereTitle($value)
+ * @property string $link_vk
+ * @property string $link_facebook
+ * @property string $link_instagram
+ * @property string $link_twitter
+ * @property string $link_google
+ * @property string $link_youtube
+ * @property string $created_at
+ * @property string $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember published()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereImageAlt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereIsPublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkFacebook($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkGoogle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkInstagram($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkTwitter($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkVk($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkYoutube($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember wherePosition($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class TeamMember extends Model
@@ -52,26 +67,7 @@ class TeamMember extends Model
 		self::UNPUBLISHED => 'Не опубликован',
 		self::PUBLISHED   => 'Опубликован',
 	];
-
-	/**
-	 * Выравнивание текста (значение поля text_align)
-	 */
-	const ALIGN_CENTER = 0;
-	const ALIGN_LEFT   = 1;
-	const ALIGN_RIGHT  = 2;
-
-	public static $textAlign = [
-		self::ALIGN_LEFT   => 'По левому краю',
-		self::ALIGN_CENTER => 'По центру',
-		self::ALIGN_RIGHT  => 'По правому краю',
-	];
-
-	public static $textAlignClasses = [
-		self::ALIGN_CENTER => 'align-center',
-		self::ALIGN_LEFT   => 'align-left',
-		self::ALIGN_RIGHT  => 'align-right',
-	];
-
+	
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -80,16 +76,16 @@ class TeamMember extends Model
 	protected $fillable = [
 		'name',
 		'description',
+		'image',
+		'image_alt',
+		'position',
+		'is_published',
 		'link_vk',
 		'link_facebook',
 		'link_instagram',
 		'link_twitter',
 		'link_google',
 		'link_youtube',
-		'image',
-		'image_alt',
-		'position',
-		'is_published',
 	];
 
 	/**
@@ -104,13 +100,13 @@ class TeamMember extends Model
 		'image' => 'image|max:10240',
 		'image_alt' => 'max:255',
 		'is_published' => 'boolean',
+		'position' => 'integer',
 		'link_vk' => 'nullable|url|max:255',
 		'link_facebook' => 'nullable|url|max:255',
 		'link_instagram' => 'nullable|url|max:255',
 		'link_twitter' => 'nullable|url|max:255',
 		'link_google' => 'nullable|url|max:255',
 		'link_youtube' => 'nullable|url|max:255',
-		'position' => 'integer',
 	];
 	
 	/**

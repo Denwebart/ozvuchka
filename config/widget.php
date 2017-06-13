@@ -12,6 +12,7 @@ return [
 		'news',
 		'gallery',
 		'teamMembers',
+		'partners',
 		'requestedCalls',
 	],
 ];

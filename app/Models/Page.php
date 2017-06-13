@@ -42,6 +42,7 @@ use Intervention\Image\Facades\Image;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Menu[] $menus
  * @property-read \App\Models\Page $parent
  * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page published()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereAlias($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereContent($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereCreatedAt($value)
@@ -62,7 +63,6 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereUserId($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Page published()
  */
 class Page extends Model
 {

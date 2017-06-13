@@ -10,6 +10,7 @@ use App\Models\RequestedCall;
 use App\Models\User;
 use App\Widgets\Gallery\Gallery;
 use App\Widgets\News\News;
+use App\Widgets\Partners\Partners;
 use App\Widgets\Reviews\Reviews;
 use App\Widgets\Slider\Slider;
 use App\Widgets\TeamMembers\TeamMembers;
@@ -162,9 +163,9 @@ class PagesController extends Controller
 	 */
 	protected function getPartnersPage($request, $page)
 	{
-//		$teamMembers = new TeamMembers();
+		$partners = new Partners();
 		
-		return view('pages.partners', compact('page'));
+		return view('pages.partners', compact('page', 'partners'));
 	}
 	
 	/**

@@ -42,11 +42,12 @@
 <div class="row">
     <div class="col-lg-6">
         @include('admin::slider.index')
+        @include('admin::reviews.index')
     </div><!-- end col -->
 
     <div class="col-lg-6">
-        @include('admin::reviews.index')
         @include('admin::teamMembers.index')
+        @include('admin::partners.index')
     </div><!-- end col -->
 </div>
 

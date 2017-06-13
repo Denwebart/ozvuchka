@@ -63,8 +63,8 @@
             success: function(response, newValue) {
                 if(response.success) {
                     notification(response.message, 'success');
-                    if(response.table == 'team_members') {
-                        var socialLinkButton = $('.social-links-' + response.itemId)
+                    if(response.table == 'team_members' || response.table == 'partners') {
+                        var socialLinkButton = $('.social-links-' + response.table + '-' + response.itemId)
                             .find('.button-' + response.fieldName);
                         socialLinkButton.attr('href', response.fieldValue);
                         if(response.fieldValue) { socialLinkButton.show() } else { socialLinkButton.hide()};

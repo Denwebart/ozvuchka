@@ -1,11 +1,10 @@
 <?php
 /**
- * Class Reviews
+ * Class TeamMembers
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
-
 
 namespace App\Widgets\TeamMembers;
 
@@ -21,7 +20,6 @@ class TeamMembers
 		return \Cache::rememberForever('widgets.teamMembers', function() {
 			
 			$items = TeamMember::select(['id', 'name', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_vk', 'link_facebook', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
-				->limit(4)
 				->published()
 				->orderBy('position', 'ASC')
 				->get();

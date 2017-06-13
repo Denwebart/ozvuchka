@@ -8,7 +8,8 @@
 
     <h4 class="header-title m-t-0">Слайдер</h4>
     <p class="text-muted font-13 m-b-15">
-        Слайдер на главной странице сайта
+        Слайдер на
+        <a href="{{ url('/') }}" target="_blank" rel="nofollow, noopener">главной странице</a> сайта.
     </p>
     <p class="text-muted font-13 m-b-15">
         Слайд будет отображен только в том случае,
@@ -261,7 +262,7 @@
                     $('#slider .slider-items').html(response.resultHtml);
                     $('.new-slide-form').hide();
                     $('html, body').animate({
-                        scrollTop: $('.slide-item[id="' + response.itemId + '"]').offset().top - 50
+                        scrollTop: $('.slide-item[id="' + response.itemId + '"]').offset().top - 100
                     }, 1000);
 
                     $form.trigger('reset');

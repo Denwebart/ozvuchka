@@ -8,7 +8,12 @@
 
     <h4 class="header-title m-t-0">Отзывы</h4>
     <p class="text-muted font-13 m-b-30">
-        Отзывы клиентов
+        @php $page = \App\Models\Page::find(\App\Models\Page::ID_NEWS_PAGE) @endphp
+        Виджет отображается на страницах, категории, странице
+        "<a href="{{ $page->getUrl() }}" target="_blank" rel="nofollow, noopener">{{ $page->getTitle() }}</a>"
+        и на страницах отдельной новости.
+        <br>
+        Количество выводимых отзывов: 3 шт.
     </p>
 
     <div id="reviews">
@@ -231,7 +236,7 @@
                     $('#reviews .reviews-items').html(response.resultHtml);
                     $('.new-review-form').hide();
                     $('html, body').animate({
-                        scrollTop: $('.reviews-item[id="' + response.itemId + '"]').offset().top - 50
+                        scrollTop: $('.reviews-item[id="' + response.itemId + '"]').offset().top - 100
                     }, 1000);
 
                     $form.trigger('reset');

@@ -6,31 +6,31 @@
 ?>
 <div class="card-box m-b-20">
 
-    <h4 class="header-title m-t-0">Члены команды</h4>
+    <h4 class="header-title m-t-0">Партнеры</h4>
     <p class="text-muted font-13 m-b-30">
         Виджет отображается на странице
-        @php $page = \App\Models\Page::find(\App\Models\Page::ID_ABOUT_PAGE) @endphp
+        @php $page = \App\Models\Page::find(\App\Models\Page::ID_PARTNERS_PAGE) @endphp
         "<a href="{{ $page->getUrl() }}" target="_blank" rel="nofollow, noopener">{{ $page->getTitle() }}</a>".
     </p>
 
-    <div id="team-members">
-        <div class="team-members-body team-members-items">
-            @include('admin::teamMembers.items', ['teamMembers' => \App\Models\TeamMember::all()])
+    <div id="partners">
+        <div class="partners-body partners-items">
+            @include('admin::partners.items', ['partners' => \App\Models\Partner::all()])
         </div>
-        <div class="team-members-bottom m-b-10">
-            <div class="team-members-control-buttons pull-right m-t-10">
-                <a href="#" class="open-team-member-form pull-right m-r-15" data-toggle="tooltip" title="Добавить члена команды">
-                    <span class="m-r-5 pull-left">Добавить члена команды</span>
+        <div class="partners-bottom m-b-10">
+            <div class="partners-control-buttons pull-right m-t-10">
+                <a href="#" class="open-partner-form pull-right m-r-15" data-toggle="tooltip" title="Добавить партнера">
+                    <span class="m-r-5 pull-left">Добавить партнера</span>
                     <i class="mdi mdi-playlist-plus font-18 pull-left"></i>
                 </a>
             </div>
             <div class="clearfix"></div>
 
-            <!-- Form for added new team member -->
-            <div class="new-team-member-form m-t-10 m-b-10" style="display: none">
-                {!! Form::open(['url' => route('admin.teamMembers.store'), 'id' => 'new-team-member-form', 'class' => 'form-horizontal']) !!}
+            <!-- Form for added new partner -->
+            <div class="new-partner-form m-t-10 m-b-10" style="display: none">
+                {!! Form::open(['url' => route('admin.partners.store'), 'id' => 'new-partner-form', 'class' => 'form-horizontal']) !!}
                 <p class="text-muted font-13">
-                    Добавление нового члена команды.
+                    Добавление нового партнера.
                 </p>
                 <div class="row">
                     <div class="col-sm-4 m-t-5">
@@ -42,9 +42,9 @@
                     </div>
                     <div class="col-sm-6">
                         <p>
-                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Имя:</b>
-                            {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
-                            <span class="help-block error name_error text-danger font-12" style="display: none">
+                            <b class="font-13 text-muted" style="width: 75px; display: inline-block">Заголовок:</b>
+                            {!! Form::text('title', null, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                            <span class="help-block error title_error text-danger font-12" style="display: none">
                                 <i class="fa fa-times-circle"></i>
                                 <strong></strong>
                             </span>
@@ -168,13 +168,13 @@
         alwaysShow: true
     });
 
-    // Open team member social links form
-    $('#team-members').on('click', '.open-social-links-form', function (e) {
+    // Open partner social links form
+    $('#partners').on('click', '.open-social-links-form', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
         var itemId = $(this).data('id'),
-            $form = $('#team-members .social-links-form');
+            $form = $('#partners .social-links-form');
         if(itemId) {
-            $form = $('#team-members .social-links-form-' + itemId);
+            $form = $('#partners .social-links-form-' + itemId);
         }
         if($form.is(':visible')) {
             $form.hide();
@@ -188,7 +188,7 @@
     });
 
     // Change position
-    var teamMembersSortableOptions = {
+    var partnersSortableOptions = {
         cursor: 'move',
         axis: 'y',
         update: function (event, ui) {
@@ -196,7 +196,7 @@
             $.ajax({
                 data: {positions: positions},
                 type: 'POST',
-                url: '{{ route('admin.teamMembers.position') }}',
+                url: '{{ route('admin.partners.position') }}',
                 beforeSend: function(request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -210,14 +210,14 @@
             });
         }
     };
-    $(".sortable-team-members").sortable(teamMembersSortableOptions);
+    $(".sortable-partners").sortable(partnersSortableOptions);
 
     // Init plugins after ajax
-    function initPluginsAfterAjaxTeamMembers() {
-        $(".sortable-team-members").sortable(teamMembersSortableOptions);
+    function initPluginsAfterAjaxPartners() {
+        $(".sortable-partners").sortable(partnersSortableOptions);
         initDropifyAjax();
         $('.editable-text').editable(getSettingsEditableOptions());
-        $('#team-members .team-members-items').find('[data-plugin="switchery"]').each(function (i, o) {
+        $('#partners .partners-items').find('[data-plugin="switchery"]').each(function (i, o) {
             new Switchery($(this)[0], $(this).data())
         })
         $('[data-toggle="tooltip"]').tooltip();
@@ -228,14 +228,14 @@
     };
 
     // Delete item
-    $('#team-members').on('click', '.delete-item', function(e) {
+    $('#partners').on('click', '.delete-item', function(e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var itemId = $(this).data('itemId');
 
         swal({
-            title: "Удалить члена команды?",
-            text: 'Вы точно хотите удалить безвозвратно этого члена команды?',
+            title: "Удалить партнера?",
+            text: 'Вы точно хотите удалить безвозвратно этого партнера?',
             type: "error",
             showCancelButton: true,
             cancelButtonText: 'Отмена',
@@ -245,7 +245,7 @@
             $.ajax({
                 data: {},
                 type: 'DELETE',
-                url: "/admin/team_members/" + itemId,
+                url: "/admin/partners/" + itemId,
                 beforeSend: function(request) {
                     return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                 },
@@ -253,9 +253,9 @@
                     if(response.success) {
                         notification(response.message, 'success');
 
-                        $('#team-members .team-members-items').html(response.resultHtml);
+                        $('#partners .partners-items').html(response.resultHtml);
 
-                        initPluginsAfterAjaxTeamMembers();
+                        initPluginsAfterAjaxPartners();
                     } else {
                         notification(response.message, 'error');
                     }
@@ -264,25 +264,25 @@
         }, function(dismiss) {});
     });
 
-    // Add new team member: open form for added new item
-    $('#team-members').on('click', '.open-team-member-form', function (e) {
+    // Add new partner: open form for added new item
+    $('#partners').on('click', '.open-partner-form', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-        var $form = $('.new-team-member-form');
+        var $form = $('.new-partner-form');
         if($form.is(':visible')) {
             $form.hide();
         } else {
             $form.show();
             $('html, body').animate({
-                scrollTop: $('.new-team-member-form').offset().top - 120
+                scrollTop: $('.new-partner-form').offset().top - 120
             }, 1000);
         }
     });
 
     var dropify = $('.dropify').dropify(dropifyOptions);
 
-    // Add new team member: add new item
-    $('#new-team-member-form').on('submit', function (e) {
+    // Add new partner: add new item
+    $('#new-partner-form').on('submit', function (e) {
         e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         var $form = $(this),
@@ -314,10 +314,10 @@
                 if(response.success) {
                     notification(response.message, 'success');
 
-                    $('#team-members .team-members-items').html(response.resultHtml);
-                    $('.new-team-member-form').hide();
+                    $('#partners .partners-items').html(response.resultHtml);
+                    $('.new-partner-form').hide();
                     $('html, body').animate({
-                        scrollTop: $('.team-members-item[id="' + response.itemId + '"]').offset().top - 100
+                        scrollTop: $('.partners-item[id="' + response.itemId + '"]').offset().top - 100
                     }, 1000);
 
                     $form.trigger('reset');
@@ -327,7 +327,7 @@
                     drEvent.clearElement();
                     var dropify = $('.dropify').dropify(dropifyOptions);
 
-                    initPluginsAfterAjaxTeamMembers();
+                    initPluginsAfterAjaxPartners();
                 } else {
                     notification(response.message, 'error');
 

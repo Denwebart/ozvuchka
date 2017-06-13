@@ -37,10 +37,10 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereImage($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereImageAlt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereIsPublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery wherePosition($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery wherePublishedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereTitle($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery wherePosition($value)
  * @mixin \Eloquent
  */
 class Gallery extends Model
