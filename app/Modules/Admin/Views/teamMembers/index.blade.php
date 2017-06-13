@@ -72,6 +72,64 @@
                                 <strong></strong>
                             </span>
                         </p>
+                        <div class="social-links">
+                            <h4 class="header-title open-social-links-form">
+                                <a href="#" class="m-r-10 text-muted">Социальные сети</a>
+                                <a href="#" title="Добавить" data-toggle="tooltip">
+                                    <i class="fa fa-plus m-l-10"></i>
+                                </a>
+                            </h4>
+                            <div class="social-links-form" style="display: none">
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">VK:</b>
+                                    {!! Form::text('link_vk', null, ['id' => 'link_vk', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_vk_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">Facebook:</b>
+                                    {!! Form::text('link_facebook', null, ['id' => 'link_facebook', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_facebook_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">Instagram:</b>
+                                    {!! Form::text('link_instagram', null, ['id' => 'link_instagram', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_instagram_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">Twitter:</b>
+                                    {!! Form::text('link_twitter', null, ['id' => 'link_twitter', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_twitter_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">Google:</b>
+                                    {!! Form::text('link_google', null, ['id' => 'link_google', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_google_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">YouTube:</b>
+                                    {!! Form::text('link_youtube', null, ['id' => 'link_youtube', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_youtube_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="switchery-demo m-t-10 text-right">
@@ -109,6 +167,25 @@
     // Bootstrap MaxLength
     $(".maxlength").maxlength({
         alwaysShow: true
+    });
+
+    // Open team member social links form
+    $('#team-members').on('click', '.open-social-links-form', function (e) {
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+        var itemId = $(this).data('id'),
+            $form = $('#team-members .social-links-form');
+        if(itemId) {
+            $form = $('#team-members .social-links-form-' + itemId);
+        }
+        if($form.is(':visible')) {
+            $form.hide();
+        } else {
+            $("[class^='social-links-form']").hide();
+            $form.show();
+            $('html, body').animate({
+                scrollTop: $(this).offset().top - 190
+            }, 1000);
+        }
     });
 
     // Change position

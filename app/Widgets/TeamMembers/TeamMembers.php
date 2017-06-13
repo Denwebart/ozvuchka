@@ -20,7 +20,7 @@ class TeamMembers
 	{
 		return \Cache::rememberForever('widgets.teamMembers', function() {
 			
-			$items = TeamMember::select(['id', 'name', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_vk', 'link_fb', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
+			$items = TeamMember::select(['id', 'name', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_vk', 'link_facebook', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
 				->limit(4)
 				->published()
 				->orderBy('position', 'ASC')

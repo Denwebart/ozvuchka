@@ -63,6 +63,12 @@
             success: function(response, newValue) {
                 if(response.success) {
                     notification(response.message, 'success');
+                    if(response.table == 'team_members') {
+                        var socialLinkButton = $('.social-links-' + response.itemId)
+                            .find('.button-' + response.fieldName);
+                        socialLinkButton.attr('href', response.fieldValue);
+                        if(response.fieldValue) { socialLinkButton.show() } else { socialLinkButton.hide()};
+                    }
                     return true;
                 } else {
                     notification(response.message, 'error');

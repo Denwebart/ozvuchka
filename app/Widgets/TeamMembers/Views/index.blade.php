@@ -40,7 +40,7 @@
                                     <div class="rollover">
                                         <ul class="social">
                                             @if($item->link_vk)<li><a href="{{ $item->link_vk }}"><i class="fa fa-vk"></i></a></li>@endif
-                                            @if($item->link_fb)<li><a href="{{ $item->link_fb }}"><i class="fa fa-facebook"></i></a></li>@endif
+                                            @if($item->link_facebook)<li><a href="{{ $item->link_facebook }}"><i class="fa fa-facebook"></i></a></li>@endif
                                             @if($item->link_instagram)<li><a href="{{ $item->link_instagram }}"><i class="fa fa-instagram"></i></a></li>@endif
                                             @if($item->link_twitter)<li><a href="{{ $item->link_twitter }}"><i class="fa fa-twitter"></i></a></li>@endif
                                             @if($item->link_google)<li><a href="{{ $item->link_google }}"><i class="fa fa-google-plus"></i></a></li>@endif

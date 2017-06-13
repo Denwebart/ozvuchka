@@ -117,7 +117,6 @@ class TeamMembersController extends Controller
 			$field = $request->get('name');
 			if($teamMember && $field) {
 				$data = $request->all();
-				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : '';
 				
 				$validator = \Validator::make($data, $teamMember->getRules($field));
 				
@@ -132,10 +131,18 @@ class TeamMembersController extends Controller
 					$teamMember->$field = $data['value'];
 					$teamMember->save();
 					
-					return \Response::json([
+					$response = [
 						'success' => true,
 						'message' => 'Значение успешно изменено.'
-					]);
+					];
+					if(strpos($request->get('name'),'link_') !== false) {
+						$response['table'] = 'team_members';
+						$response['itemId'] = $teamMember->id;
+						$response['fieldName'] = $request->get('name');
+						$response['fieldValue'] = $request->get('value');
+					}
+					
+					return \Response::json($response);
 				}
 			}
 			

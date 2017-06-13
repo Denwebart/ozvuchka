@@ -402,6 +402,10 @@ button {
   border-radius: 2em;
 }
 /* Social Buttons */
+.btn-vk {
+    color: #ffffff !important;
+    background-color: #507299 !important;
+}
 .btn-facebook {
   color: #ffffff !important;
   background-color: #3b5998 !important;
@@ -424,7 +428,7 @@ button {
 }
 .btn-instagram {
   color: #ffffff !important;
-  background-color: #517fa4 !important;
+  background-color: #D32476 !important;
 }
 .btn-pinterest {
   color: #ffffff !important;

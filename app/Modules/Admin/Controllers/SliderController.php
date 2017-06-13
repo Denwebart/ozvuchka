@@ -27,7 +27,6 @@ class SliderController extends Controller
 	{
 		if($request->ajax()) {
 			$data = $request->all();
-			$data['button_link'] = $data['button_link'] ? $data['button_link'] : '';
 			$position = DB::table('slider')->max('position');
 			$data['position'] = $position + 1;
 			

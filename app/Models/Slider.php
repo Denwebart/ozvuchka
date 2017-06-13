@@ -104,7 +104,7 @@ class Slider extends Model
 		'text' => 'max:255',
 		'is_published' => 'boolean',
 		'button_text' => 'max:100',
-		'button_link' => 'url|max:255',
+		'button_link' => 'nullable|url|max:255',
 		'text_align' => 'integer|min:0|max:2',
 		'position' => 'integer',
 	];
