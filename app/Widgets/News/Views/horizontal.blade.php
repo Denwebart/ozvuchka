@@ -11,7 +11,6 @@
             @if($title || $description)
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div class="voffset50"></div>
                         <div class="separator-icon">
                             <i class="fa fa-volume-up"></i>
                         </div>
