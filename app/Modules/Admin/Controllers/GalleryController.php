@@ -261,7 +261,6 @@ class GalleryController extends Controller
 	 */
 	protected function getGalleryImages()
 	{
-		return Gallery::all();
-//		return Gallery::with(['categories', 'galleryCategories'])->get();
+		return Gallery::with(['categories'])->get();
 	}
 }

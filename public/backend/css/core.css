@@ -968,6 +968,11 @@ a:focus {
 }
 .gallery-images-item .thumbnail .tags {
     position: absolute;
-    bottom: 15px;
-    left: 15px
+    bottom: 10px;
+    left: 10px
+}
+.gallery-images-item .thumbnail .tags .tag {
+    display: inline-block;
+    margin: 5px;
+    line-height: 16px;
 }

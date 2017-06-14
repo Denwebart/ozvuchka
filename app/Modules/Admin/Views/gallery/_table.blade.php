@@ -32,7 +32,7 @@
                     <img src="{{ $item->getImageUrl() }}" alt="">
                     <div class="tags">
                         @foreach($item->categories  as $category)
-                            <div class="label label-default m-b-10">{{ $category->title }}</div>
+                            <span class="tag label label-default">{{ $category->title }}</span>
                         @endforeach
                     </div>
                 </div>

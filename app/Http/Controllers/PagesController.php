@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\FromContactformToAdmin;
 use App\Mail\FromContactformToUser;
+use App\Models\GalleryCategory;
 use App\Models\Letter;
 use App\Models\Page;
 use App\Models\RequestedCall;
@@ -240,8 +241,9 @@ class PagesController extends Controller
 	protected function getGalleryPage($request, $page)
 	{
 		$galleryImages = \App\Models\Gallery::published()->get();
+		$galleryCategories = GalleryCategory::has('galleryImages')->get();
 		
-		return view('pages.gallery', compact('page', 'galleryImages'));
+		return view('pages.gallery', compact('page', 'galleryImages', 'galleryCategories'));
 	}
 	
 	/**
