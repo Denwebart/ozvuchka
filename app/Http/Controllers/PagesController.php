@@ -147,9 +147,13 @@ class PagesController extends Controller
 	 */
 	protected function getServicesPage($request, $page)
 	{
-//		$teamMembers = new TeamMembers();
+		$services = $page->children()->with([
+			'parent' => function($q) {
+				$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+			}
+		])->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title', 'introtext', 'image', 'image_alt']);
 		
-		return view('pages.services', compact('page'));
+		return view('pages.services', compact('page', 'services'));
 	}
 	
 	/**

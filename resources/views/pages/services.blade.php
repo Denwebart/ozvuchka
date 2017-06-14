@@ -57,45 +57,49 @@
         </section>
     @endif
 
-    <!-- UPCOMMING EVENTS -->
-    <section class="section full-width upcomming-events-list inverse-color">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h4 class="upcomming-events-list-title">Мы предлагаем</h4>
+    <!-- SERVICES -->
+    @if(count($services))
+        <section class="section full-width upcomming-events-list inverse-color">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h4 class="upcomming-events-list-title">Мы предлагаем</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <ul>
-                        @foreach($services as $service)
-                            <li>
-                                <div>
-                                    <p class="date-event">
-                                        @if($service->getPageImage())
-                                            <img src="{{ $service->getPageImage(false, 'mini') }}" alt="">
-                                        @endif
-                                    </p>
-                                    <p class="name">
-                                        @if($service->menu_title)
-                                            <span>{{ $service->menu_title }}</span>
-                                        @endif
-                                        @if() {{ $service->introtext }} @endif
-                                    </p>
-                                    <p class="price">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul>
+                            @foreach($services as $service)
+                                <li>
+                                    <div>
+                                        <p class="date-event">
+                                            @if($service->getPageImage())
+                                                <a href="{{ $page->getUrl() }}">
+                                                    <img src="{{ $service->getPageImage(false, 'mini') }}" alt="{{ $service->image_alt }}" title="{{ $service->image_alt }}">
+                                                </a>
+                                            @endif
+                                        </p>
+                                        <p class="name">
+                                            <a href="{{ $page->getUrl() }}">
+                                                <span>{{ $service->menu_title }}</span>
+                                            </a>
+                                            @if($service->introtext) {{ $service->introtext }} @endif
+                                        </p>
+                                        <p class="price">
 
-                                    </p>
-                                    <p class="buy">
-                                        <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                    </p>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                                        </p>
+                                        <p class="buy">
+                                            <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
+                                        </p>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <!-- PAGE CONTENT -->
     @if($page->content)
