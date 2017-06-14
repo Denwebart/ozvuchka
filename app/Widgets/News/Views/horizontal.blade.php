@@ -8,6 +8,7 @@
 @if(count($items))
     <section class="section latest-news">
         <div class="container">
+            <div class="voffset50"></div>
             @if($title || $description)
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">

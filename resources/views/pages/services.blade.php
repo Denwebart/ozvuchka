@@ -81,9 +81,11 @@
                                         </p>
                                         <p class="name">
                                             <a href="{{ $page->getUrl() }}">
-                                                <span>{{ $service->menu_title }}</span>
+                                                <span>{{ $service->getTitle() }}</span>
                                             </a>
-                                            @if($service->introtext) {{ $service->introtext }} @endif
+                                            @if($service->introtext)
+                                                {!! $service->introtext !!}
+                                            @endif
                                         </p>
                                         <p class="price">
 
