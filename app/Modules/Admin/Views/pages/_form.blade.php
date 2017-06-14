@@ -142,7 +142,7 @@
                 <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
                     <i class="fa fa-question-circle-o"></i>
                 </span>
-                {!! Form::textarea('image_alt', $page->image_alt, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 8]) !!}
+                {!! Form::textarea('image_alt', $page->image_alt, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 5]) !!}
 
                 @if($errors->has('image_alt'))
                     <span class="error help-block text-danger font-12">
@@ -150,6 +150,22 @@
                         <strong>{{ $errors->first('image_alt') }}</strong>
                     </span>
                 @endif
+
+                {{--<div class="checkbox checkbox-custom">--}}
+                    {{--{!! Form::hidden('watermark', 0) !!}--}}
+                    {{--{!! Form::checkbox('watermark', 1, 1, ['id' => 'watermark']) !!}--}}
+                    {{--{!! Form::label('watermark', 'Водяной знак на изображении', ['class' => 'control-label m-l-5']) !!}--}}
+                {{--</div>--}}
+
+                <div class="switchery-demo m-t-10">
+                    {!! Form::hidden('watermark', 0) !!}
+                    {!! Form::checkbox('watermark', 1, $page->is_published, ['id' => 'watermark', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
+                    {!! Form::label('watermark', 'Водяной знак на изображении', ['class' => 'control-label m-l-5']) !!}
+                    <!-- Info text: watermark -->
+                    <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="Водяной знак на изображении позволяет защитить картинку от копирования. Рекомендуется использовать только на авторских изображениях." data-original-title="Водяной знак">
+                        <i class="fa fa-question-circle-o"></i>
+                    </span>
+                </div>
             </div>
         </div>
     </div><!-- end col -->

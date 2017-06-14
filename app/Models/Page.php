@@ -681,28 +681,40 @@ class Page extends Model
 			
 			$image->save($imagePath . 'origin_' . $fileName);
 			
-			$watermark = Image::make(public_path('images/watermark.png'));
-			$watermark->resize(($image->width() * 2) / 4, null, function ($constraint) {
-				$constraint->aspectRatio();
-			})->save($imagePath . 'watermark.png');
-			
-			if ($image->width() > 910) {
-				$image->resize(910, null, function ($constraint) {
-					$constraint->aspectRatio();
-				});
-			}
-			
-			$image->insert($imagePath . 'watermark.png', 'center')
-				->save($imagePath . 'full_' . $fileName);
-			
 			$cropSize = ($image->width() < $image->height()) ? $image->width() : $image->height();
 			$image->crop($cropSize, $cropSize)
 				->resize(420, 420, function ($constraint) {
 					$constraint->aspectRatio();
-				})->save($imagePath . $fileName);
+				});
+			if($request->get('watermark')) {
+				$watermark = Image::make(public_path('images/watermark.png'));
+				$watermark->resize(($image->width() * 2) / 3, null, function ($constraint) {
+					$constraint->aspectRatio();
+				})->save($imagePath . 'watermark.png');
+				
+				$image->insert($imagePath . 'watermark.png', 'center');
+			}
+			$image->save($imagePath . $fileName);
 			$image->resize(86, 86, function ($constraint) {
 				$constraint->aspectRatio();
 			})->save($imagePath . 'mini_' . $fileName);
+			
+			// image full_
+			$fullImage = Image::make($postImage->getRealPath());
+			if($request->get('watermark')) {
+				$watermark = Image::make(public_path('images/watermark.png'));
+				$watermark->resize(($fullImage->width() * 2) / 4, null, function ($constraint) {
+					$constraint->aspectRatio();
+				})->save($imagePath . 'watermark.png');
+				
+				$fullImage->insert($imagePath . 'watermark.png', 'center');
+			}
+			if ($fullImage->width() > 910) {
+				$fullImage->resize(910, null, function ($constraint) {
+					$constraint->aspectRatio();
+				});
+			}
+			$fullImage->save($imagePath . 'full_' . $fileName);
 			
 			if (File::exists($imagePath . 'watermark.png')) {
 				File::delete($imagePath . 'watermark.png');
