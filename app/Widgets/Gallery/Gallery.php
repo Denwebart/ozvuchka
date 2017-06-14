@@ -15,7 +15,7 @@ class Gallery
 	
 	public function show($limit = 8)
 	{
-		return \Cache::rememberForever('widgets.gallery', function() {
+		return \Cache::rememberForever('widgets.gallery', function() use($limit) {
 			
 			$items = \App\Models\Gallery::select(['id', 'image', 'image_alt', 'title', 'description'])
 				->published()
