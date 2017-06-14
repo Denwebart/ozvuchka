@@ -13,7 +13,7 @@
  */
 ?>
 
-@extends('layouts.app')
+@extends('layouts.app', ['headerClass' => 'dark-header'])
 
 @section('content')
 

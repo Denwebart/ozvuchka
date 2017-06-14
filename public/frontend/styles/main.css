@@ -1,4 +1,51 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic);
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/RobotoRegular/RobotoRegular.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoRegular/RobotoRegular.woff) format("woff"), url(../fonts/RobotoRegular/RobotoRegular.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/RobotoBold/RobotoBold.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoBold/RobotoBold.woff) format("woff"), url(../fonts/RobotoBold/RobotoBold.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 400;
+    src: url(../fonts/RobotoItalic/Robotoitalic.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoItalic/Robotoitalic.woff) format("woff"), url(../fonts/RobotoItalic/Robotoitalic.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 700;
+    src: url(../fonts/RobotoBoldItalic/Robotobolditalic.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoBoldItalic/Robotobolditalic.woff) format("woff"), url(../fonts/RobotoBoldItalic/Robotobolditalic.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 200; /*100*/
+    src: url(../fonts/RobotoThin/RobotoThin.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoThin/RobotoThin.woff) format("woff"), url(../fonts/RobotoThin/RobotoThin.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    src: url(../fonts/RobotoLight/RobotoLight.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoLight/RobotoLight.woff) format("woff"), url(../fonts/RobotoLight/RobotoLight.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    src: url(../fonts/RobotoMedium/RobotoMedium.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoMedium/RobotoMedium.woff) format("woff"), url(../fonts/RobotoMedium/RobotoMedium.ttf) format("truetype")
+}
 
 #slides {
     position: relative
@@ -4712,16 +4759,29 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     font-size: 18px;
     line-height: 20px
 }
-.navbar-brand.logo-sm {
+.navbar-brand.logo-sm,
+.navbar-brand.logo-dark-sm {
     display: none;
 }
+.logo {
+    display: none;
+}
+.dark-header .logo {
+    display: inline-block;
+}
+.dark-header .logo-dark {
+    display: none;
+}
+/*
 .fixed .navbar-brand.logo {
     display: none;
 }
-.fixed .navbar-brand.logo-sm {
+.fixed .navbar-brand.logo-sm
+.fixed .navbar-brand.logo-dark-sm {
     display: inline-block;
     height: 40px;
 }
+*/
 
 .navbar-brand:focus, .navbar-brand:hover {
     text-decoration: none
@@ -10515,7 +10575,8 @@ header {
 
 @media (min-width: 1600px) {
     header {
-        top: 16px
+        top: 0;
+        /*background: rgba(255,255,255, 0.1);*/
     }
 }
 
@@ -10583,7 +10644,7 @@ header.overflow.fixed {
 @media (min-width: 1200px) {
     header .navbar-brand {
         max-width: 300px;
-        padding: 10px 22px 22px 55px
+        padding: 10px 22px 10px 55px
     }
 }
 
@@ -10608,9 +10669,13 @@ header .navbar-brand img {
     font-size: 20px;
     /*text-transform: lowercase;*/
     padding: 10px 12px;
-    color: #fff;
+    color: #000000;
     -webkit-transition: color .3s;
     transition: color .3s
+}
+.dark-header .navbar-default .navbar-nav > li > a,
+.fixed .navbar-default .navbar-nav > li > a {
+    color: #ffffff
 }
 
 @media (min-width: 992px) {
@@ -11062,7 +11127,7 @@ footer ul.menu-footer li:not(:last-child):after {
 footer ul.menu-footer li, footer ul.menu-footer li a {
     color: #fff
 }
-
+/* Slider */
 .intro {
     background-color: #000;
     background-size: cover;
@@ -11076,7 +11141,7 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
 
 @media (min-width: 768px) {
     .intro {
-        height: calc(100% - 100px)
+        height: 540px /* Slider height */
     }
 
     .intro.full-height {

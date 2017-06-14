@@ -16,7 +16,9 @@
                             <div class="overlay"></div>
                             <div class="slides-container">
                                 @foreach($items as $item)
-                                    <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}">
+                                    @if($item->getImageUrl())
+                                        <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}">
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
@@ -24,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="vcenter text-center text-overlay">
+            <div class="vcenter text-center text-overlay"> <!-- vcenter -->
                 {{--<div class="logo-intro"><img src="{{ asset('frontend/images/logo_white.svg') }}" alt=""></div>--}}
                 <div id="owl-main-text" class="owl-carousel">
                     @foreach($items as $item)

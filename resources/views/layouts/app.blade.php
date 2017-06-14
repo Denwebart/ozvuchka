@@ -83,9 +83,8 @@
 </div>
 
 <!-- HEADER -->
-<header id="jHeader">
+<header id="jHeader" class="@if(isset($headerClass)) {{ $headerClass }} @endif">
     <nav class="navbar navbar-default" role="navigation">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Меню</span>
@@ -93,12 +92,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo" href="{{ url('/') }}"><img src="{{ asset('images/logo_dark.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
-            <a class="navbar-brand logo-sm" href="{{ url('/') }}"><img src="{{ asset('images/logo_dark_sm.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
+            <a class="navbar-brand logo" href="{{ url('/') }}"><img src="{{ asset('images/logo.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
+            <a class="navbar-brand logo-sm" href="{{ url('/') }}"><img src="{{ asset('images/logo_sm.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
+            <a class="navbar-brand logo-dark" href="{{ url('/') }}"><img src="{{ asset('images/logo_dark.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
+            <a class="navbar-brand logo-dark-sm" href="{{ url('/') }}"><img src="{{ asset('images/logo_dark_sm.svg') }}" alt="@if(isset($siteSettings['siteTitle'])) {{ $siteSettings['siteTitle'] }} @else {{ Config::get('settings.domain') }} @endif"></a>
         </div>
 
         <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbar-muziq">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="main-menu nav navbar-nav navbar-right">
                 {!! $menuWidget->main() !!}
             </ul>
         </div>
