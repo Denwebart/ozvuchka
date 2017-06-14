@@ -67,7 +67,8 @@
                         <strong></strong>
                     </span>
                 </div>
-
+            </div>
+            <div class="col-md-6">
                 <div class="no-margin m-b-20">
                     {!! Form::label('description', 'Описание изображения:', ['class' => 'control-label m-b-10']) !!}
                     {!! Form::textarea('description', null, ['id' => 'description', 'class' => 'form-control maxlength', 'maxlength' => 1000, 'rows' => 2]) !!}
@@ -76,7 +77,8 @@
                         <strong></strong>
                     </span>
                 </div>
-
+            </div>
+            <div class="col-md-6">
                 <div class="no-margin m-b-20">
                     {!! Form::label('image_alt', 'Альт изображения:', ['class' => 'control-label m-b-10']) !!}
                     <!-- Info text: image_alt -->
@@ -89,6 +91,14 @@
                         <strong></strong>
                     </span>
                 </div>
+            </div>
+            <div class="col-md-12">
+                {!! Form::label('image_alt', 'Теги изображения:', ['class' => 'control-label m-b-10']) !!}
+                <select name="categories[]" multiple data-role="tagsinput" class="tagsinput">
+                    @foreach($galleryImage->categories as $category)
+                        <option value="{{ $category->title }}">{{ $category->title }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         {!! Form::close() !!}

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -120,7 +121,7 @@ class Gallery extends Model
 	 */
 	public function categories()
 	{
-		return $this->belongsToMany(GalleryCategory::class, 'gallery_gallery_category');
+		return $this->belongsToMany(GalleryCategory::class, 'gallery_gallery_categories', 'gallery_id', 'category_id');
 	}
 	
 	/**
@@ -283,5 +284,43 @@ class Gallery extends Model
 	public function deleteImagesFolder()
 	{
 		File::deleteDirectory($this->getImagesPath());
+	}
+	
+	/**
+	 * Adding gallery categories to gallery image
+	 *
+	 * @param $categoriesArray
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function setCategories($categoriesArray)
+	{
+		if($categoriesArray) {
+			$categoriesIds = [];
+			foreach($categoriesArray as $key => $title) {
+				$category = GalleryCategory::whereTitle($title)->first();
+				if(!is_object($category)) {
+					$category = GalleryCategory::create(['title' => $title]);
+				}
+				$categoriesIds[$category->id] = $title;
+			}
+			
+			$dataAdded = [];
+			foreach($categoriesIds as $id => $title) {
+				$dataAdded[] = [
+					'gallery_id' => $this->id,
+					'category_id' => $id,
+				];
+			}
+			
+			if(count($dataAdded)) {
+				$this->galleryCategories()->delete();
+				DB::table('gallery_gallery_categories')->insert($dataAdded);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

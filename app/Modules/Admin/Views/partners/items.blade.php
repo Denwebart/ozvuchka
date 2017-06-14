@@ -11,7 +11,7 @@
             <div class="row item partners-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}">
                 <div class="thumbnail p-0 m-b-0">
                     <div class="col-sm-4 p-t-b-10">
-                        {!! Form::file('image', ['id' => 'image-' . $item->id, 'class' => 'dropify-ajax', 'data-default-file' => $item->getImageUrl(), 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-min-width' => '339', 'data-min-height' => '459', 'data-item-id' => $item->id, 'data-delete-url' => route('admin.partners.deleteImage'), 'data-upload-url' => route('admin.partners.uploadImage')]) !!}
+                        {!! Form::file('image', ['id' => 'image-' . $item->id, 'class' => 'dropify-ajax', 'data-default-file' => $item->getImageUrl(), 'data-height' => '120px', 'data-max-file-size' => '3M', 'data-min-width' => '339', 'data-min-height' => '339', 'data-item-id' => $item->id, 'data-delete-url' => route('admin.partners.deleteImage'), 'data-upload-url' => route('admin.partners.uploadImage')]) !!}
                     </div>
                     <div class="col-sm-6 p-t-b-10">
                         <p>

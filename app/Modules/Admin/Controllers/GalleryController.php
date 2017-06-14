@@ -141,6 +141,7 @@ class GalleryController extends Controller
 				}
 				$galleryImage->fill($data);
 				$galleryImage->setImage($request);
+				$galleryImage->setCategories($request->get('categories'));
 				$galleryImage->save();
 				
 				$galleryImages = $this->getGalleryImages();

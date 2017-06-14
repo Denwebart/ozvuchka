@@ -48,6 +48,8 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner wherePosition($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $title
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereTitle($value)
  */
 class Partner extends Model
 {

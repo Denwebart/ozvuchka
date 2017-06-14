@@ -6,24 +6,24 @@
 
 namespace App\Models;
 
-use App\Helpers\Translit;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 
 /**
  * App\Models\GalleryCategory
  *
+ * @property string $title
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\GalleryGalleryCategory[] $galleryCategories
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Gallery[] $images
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Gallery[] $galleryImages
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\GalleryGalleryCategory whereTitle($value)
  * @mixin \Eloquent
  */
 class GalleryCategory extends Model
 {
-	protected $table = 'gallery_categeories';
-
+	protected $table = 'gallery_categories';
+	
+	public $timestamps = false;
+	
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -63,9 +63,9 @@ class GalleryCategory extends Model
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function images()
+	public function galleryImages()
 	{
-		return $this->belongsToMany(Gallery::class, 'gallery_gallery_category');
+		return $this->belongsToMany(Gallery::class, 'gallery_gallery_categories', 'category_id', 'gallery_id');
 	}
 	
 	/**

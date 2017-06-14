@@ -85,6 +85,8 @@
 <link href="{{ asset('backend/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Switchery -->
 <link rel="stylesheet" href="{{ asset('backend/plugins/switchery/switchery.min.css') }}">
+<!-- Tags Input -->
+<link rel="stylesheet" href="{{ asset('backend/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" />
 @endpush
 
 @push('scripts')
@@ -101,6 +103,8 @@
 <script src="{{ asset('backend/plugins/switchery/switchery.min.js') }}"></script>
 <!-- For Sortable -->
 <script src="{{ asset('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<!-- Tags Input -->
+<script src="{{ asset('backend/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js') }}"></script>
 @endpush
 
 @push('scriptsBottom')
@@ -175,15 +179,12 @@
                         });
                         var dropifyOptionsWithoutDelete = jsonMergeRecursive(dropifyOptions, {tpl: {clearButton: ''}});
                         var dropify = $('.dropify').dropify(dropifyOptionsWithoutDelete);
-                        // Image delete
-                        dropify.on('dropify.afterClear', function(event, element){
-                            $('#gallery-modal #deleteImage').val(1);
-                        });
                         $('#gallery-modal').find('[data-plugin="switchery"]').each(function (i, o) {
                             new Switchery($(this)[0], $(this).data())
                         });
                         $('[data-toggle="tooltip"]').tooltip();
                         $('[data-toggle="popover"]').popover();
+                        $('.tagsinput').tagsinput('items')
                     } else {
                         $('#gallery-modal .ajax-modal-content').show().html('<div class="modal-body">' + response.message+ '</div>');
                     }
