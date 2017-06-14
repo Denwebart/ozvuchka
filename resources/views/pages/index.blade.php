@@ -43,7 +43,7 @@
                                             @endif
                                             <p class="buttons">
                                                 {{--<a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> Оставить заявку</a>--}}
-                                                <a href="{{ $service->getUrl() }}" class="btn rounded border">Подробнее</a>
+                                                <a href="{{ $service->getUrl() }}" class="btn rounded">Подробнее</a>
                                             </p>
                                             <div class="voffset70"></div>
                                         </div>
@@ -51,7 +51,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="voffset20"></div>
+                        {{--<div class="voffset20"></div>--}}
                         <p class="loadmore">
                             <a href="{{ \App\Models\Page::getPageUrl(\App\Models\Page::ID_SERVICES_PAGE) }}" class="btn rounded border btn-default">Подробнее</a>
                         </p>

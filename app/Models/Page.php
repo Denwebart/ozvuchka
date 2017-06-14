@@ -195,6 +195,10 @@ class Page extends Model
 				\Cache::forget('widgets.news.horizontal');
 			}
 			
+			if($page->id == self::ID_SERVICES_PAGE || $page->parent_id == self::ID_SERVICES_PAGE) {
+				\Cache::forget('widgets.services');
+			}
+			
 			\Cache::forget('page.subcategories.' . $page->id);
 			\Cache::forget('page.subcategories.' . $page->parent_id);
 		});
@@ -214,6 +218,10 @@ class Page extends Model
 			if($page->id == self::ID_NEWS_PAGE || $page->parent_id == self::ID_NEWS_PAGE) {
 				\Cache::forget('widgets.news.vertical');
 				\Cache::forget('widgets.news.horisontal');
+			}
+			
+			if($page->id == self::ID_SERVICES_PAGE || $page->parent_id == self::ID_SERVICES_PAGE) {
+				\Cache::forget('widgets.services');
 			}
 			
 			\Cache::forget('page.subcategories.' . $page->id);

@@ -36,12 +36,13 @@ class PagesController extends Controller
 		
 		$latestNews = new News();
 		
-		$services = Page::whereParentId(Page::ID_SERVICES_PAGE)->with([
-			'parent' => function($q) {
-				$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
-			}
-		])
-		->limit(6)->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title', 'introtext', 'image', 'image_alt']);
+		$services = \Cache::rememberForever('widgets.services', function() {
+			return Page::whereParentId(Page::ID_SERVICES_PAGE)->with([
+				'parent' => function($q) {
+					$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
+				}
+			])->limit(6)->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title', 'introtext', 'image', 'image_alt']);
+		});
 		
 		return view('pages.index', compact('page', 'slider', 'gallery', 'latestNews', 'services'));
 	}

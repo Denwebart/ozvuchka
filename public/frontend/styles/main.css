@@ -13241,7 +13241,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 
 .upcomming-events .upevent {
     text-align: center;
-    color: #fff;
+    color: #333; /* #fff */
     margin-bottom: 12px
 }
 
@@ -13285,7 +13285,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 }
 
 .upcomming-events .upevent .content {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.5); /* rgba(0, 0, 0, 0.7) */
     margin: 10px;
     border: 1px solid rgba(255, 255, 255, .5);
     padding: 20px 20px 15px;
@@ -13340,7 +13340,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 .upcomming-events .upevent .separator span:after, .upcomming-events .upevent .separator span:before {
     content: "";
     height: 2px;
-    background-color: #fff;
+    background-color: #333; /* #fff */
     width: 50px;
     display: block;
     margin: 0 auto;
@@ -13358,7 +13358,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 
 .upcomming-events .upevent .title {
     text-transform: uppercase;
-    color: #fff;
+    color: #000; /* #fff */
     font-weight: 300;
     margin-bottom: 15px;
     letter-spacing: 0;
