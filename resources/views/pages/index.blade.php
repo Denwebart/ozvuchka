@@ -154,7 +154,7 @@
     {!! $latestNews->horizontal(10) !!}
 
     <!-- LATEST MEDIA -->
-    {!! $gallery->show() !!}
+    {!! $gallery->show(4) !!}
 
     <!-- PAGE TEXT -->
     <section class="section featured-shop">

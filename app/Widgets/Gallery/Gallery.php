@@ -13,13 +13,13 @@ class Gallery
 	public $title = 'Фотогалерея';
 	public $description = 'Фотографии с нами';
 	
-	public function show()
+	public function show($limit = 8)
 	{
 		return \Cache::rememberForever('widgets.gallery', function() {
 			
 			$items = \App\Models\Gallery::select(['id', 'image', 'image_alt', 'title', 'description'])
 				->published()
-				->limit(8)
+				->limit($limit)
 				->get();
 			
 			return view('widget.gallery::index', compact('items'))
