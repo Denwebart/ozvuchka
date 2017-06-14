@@ -217,13 +217,13 @@ class Gallery extends Model
 			} else {
 				// vertical image
 				if($image->height() > ($image->width() / 0.82)) {
-					$image->resize(null, 900, function ($constraint) {
+					$image->resize(null, $image->height(), function ($constraint) {
 						$constraint->aspectRatio();
 					});
 					$width = $image->width();
 					$height = $image->width() / 0.82;
 				} else {
-					$image->resize(740, null, function ($constraint) {
+					$image->resize($image->width(), null, function ($constraint) {
 						$constraint->aspectRatio();
 					});
 					$height = $image->height();
