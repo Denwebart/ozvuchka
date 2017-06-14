@@ -43,7 +43,7 @@
                                             @endif
                                             <p class="buttons">
                                                 <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> Оставить заявку</a>
-                                                <a href="{{ $service->getPageUrl() }}" class="btn rounded border">Подробнее</a>
+                                                <a href="{{ $service->getUrl() }}" class="btn rounded border">Подробнее</a>
                                             </p>
                                             <div class="voffset70"></div>
                                         </div>

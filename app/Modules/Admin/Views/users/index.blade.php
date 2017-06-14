@@ -27,12 +27,12 @@
 </div>
 <!-- end row -->
 
-<div class="row">
-    <div class="col-sm-12 text-xs-center">
-        <a href="#custom-modal" class="btn btn-inverse waves-effect waves-light m-b-20 pull-right" data-animation="fadein" data-plugin="custommodal"
-           data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Добавить пользователя</a>
-    </div><!-- end col -->
-</div>
+{{--<div class="row">--}}
+    {{--<div class="col-sm-12 text-xs-center">--}}
+        {{--<a href="#custom-modal" class="btn btn-inverse waves-effect waves-light m-b-20 pull-right" data-animation="fadein" data-plugin="custommodal"--}}
+           {{--data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Добавить пользователя</a>--}}
+    {{--</div><!-- end col -->--}}
+{{--</div>--}}
 <!-- end row -->
 
 

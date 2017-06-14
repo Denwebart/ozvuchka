@@ -64,9 +64,9 @@
                     <div class="text-right">
                         <!-- Edit -->
                         @if(Auth::user()->hasAdminPermission() || Auth::user()->is($user))
-                            <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-success waves-effect waves-light">
-                                <i class="mdi mdi-account-settings-variant m-r-5"></i> Редактировать профиль
-                            </a>
+                            {{--<a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-success waves-effect waves-light">--}}
+                                {{--<i class="mdi mdi-account-settings-variant m-r-5"></i> Редактировать профиль--}}
+                            {{--</a>--}}
                         @endif
                         <div class="clearfix"></div>
                         <!-- Deleted/undeleted -->

@@ -42,11 +42,11 @@
 
                         <!-- Edit -->
                         @if(Auth::user()->hasAdminPermission() || Auth::user()->is($user))
-                            <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-default btn-sm m-t-15 waves-effect waves-light">
-                                Редактировать
-                            </a>
+                            {{--<a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-default btn-sm m-t-15 waves-effect waves-light">--}}
+                                {{--Редактировать--}}
+                            {{--</a>--}}
                         @endif
-                    <!-- Deleted/undeleted -->
+                        <!-- Deleted/undeleted -->
                         @if(Auth::user()->hasAdminPermission() && !Auth::user()->is($user))
                             @if($user->deleted_at)
                                 <button type="button" class="button-undelete btn btn-link text-success btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-item-title="{{ $user->login }}">Восстановить</button>
