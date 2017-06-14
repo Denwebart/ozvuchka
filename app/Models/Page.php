@@ -192,7 +192,7 @@ class Page extends Model
 			
 			if($page->id == self::ID_NEWS_PAGE || $page->parent_id == self::ID_NEWS_PAGE) {
 				\Cache::forget('widgets.news.vertical');
-				\Cache::forget('widgets.news.horisontal');
+				\Cache::forget('widgets.news.horizontal');
 			}
 			
 			\Cache::forget('page.subcategories.' . $page->id);
