@@ -6,17 +6,17 @@
 ?>
 
 @if(count($items))
-    <section class="section last-media inverse-color">
+    <section class="section last-media" style="background: url({{ asset('frontend/images/backgrounds/gallery-widget.jpg') }})">
         <div class="container">
             @if($title || $description)
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="voffset50"></div>
-                        <div class="separator-icon">
-                            <i class="fa fa-music"></i>
-                        </div>
+                        {{--<div class="separator-icon">--}}
+                            {{--<i class="fa fa-music"></i>--}}
+                        {{--</div>--}}
                         @if($description)
-                            <div class="voffset30"></div>
+                            {{--<div class="voffset30"></div>--}}
                             <p class="pretitle">{{ $description }}</p>
                         @endif
                         @if($title)
@@ -44,7 +44,7 @@
                     </div>
                     <div class="voffset50"></div>
                     <p class="loadmore">
-                        <a href="{{ \App\Models\Page::getPageUrl(\App\Models\Page::ID_GALLERY_PAGE) }}" class="btn rounded border">
+                        <a href="{{ \App\Models\Page::getPageUrl(\App\Models\Page::ID_GALLERY_PAGE) }}" class="btn rounded border btn-dark">
                             Смотреть еще
                         </a>
                     </p>

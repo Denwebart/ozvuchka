@@ -30,22 +30,24 @@
         </div>
     </section>
 
-    <!-- BIOGRAPHY -->
+    <!-- ABOUT -->
     <section class="section biography" id="anchor03">
         <div class="container">
             <div class="voffset80"></div>
             <div class="row">
-                <div class="col-lg-6">
-                    <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}">
-                </div>
-                <div class="col-lg-6">
-                    <div class="voffset50"></div>
-                    <div class="quote">
-                        <p>"Какая-нибудь красивая цитата, отражающая работу команды."</p>
-                        <p class="author">Роман Ракитянский</p>
+                <div class="page-content">
+                    <div class="col-lg-6">
+                        <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}">
                     </div>
-                    <div class="description">
-                        {!! $page->content !!}
+                    <div class="col-lg-6">
+                        <div class="voffset50"></div>
+                        <div class="quote">
+                            <p>"Какая-нибудь красивая цитата, отражающая работу команды."</p>
+                            <p class="author">Роман Ракитянский</p>
+                        </div>
+                        <div class="description">
+                            {!! $page->content !!}
+                        </div>
                     </div>
                 </div>
             </div>

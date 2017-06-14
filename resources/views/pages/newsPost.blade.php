@@ -51,7 +51,7 @@
                             <h3 class="title post-detail">{{ $page->title }}</h3>
                         @endif
 
-                        <div class="content">
+                        <div class="page-content">
                             {!! $page->content !!}
                         </div>
 

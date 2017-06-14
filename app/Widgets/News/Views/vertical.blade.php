@@ -17,7 +17,7 @@
                         <img src="{{ $item->getPageImage(true, 'mini') }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">
                     </a>
                     <div class="title-post">
-                        <div class="date">{{ \App\Helpers\Date::format($item->published_at) }}</div>
+                        <div class="date">{{ \App\Helpers\Date::format($item->published_at, false, true) }}</div>
                         <p>
                             {{ $item->getTitle() }}
                         </p>

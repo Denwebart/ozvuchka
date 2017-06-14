@@ -114,6 +114,9 @@ class PagesController extends Controller
 	{
 		$page = Page::findOrFail($id);
 		$data = $request->except('image');
+		if($page->isMain()) {
+			$data['alias'] = '/';
+		}
 		$data = array_merge($data, $page->setData($data));
 
 		$rules = Page::rules($page->id);

@@ -22,13 +22,16 @@ if(!isset($watermark)) {
                 toolbar2: "print preview media | forecolor backcolor emoticons",
 //                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
                 style_formats: [
-                    {title: 'Bold text', inline: 'b'},
-                    {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-                    {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-                    {title: 'Example 1', inline: 'span', classes: 'example1'},
-                    {title: 'Example 2', inline: 'span', classes: 'example2'},
-                    {title: 'Table styles'},
-                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                    {title: 'Заголовок H1', block: 'h1'},
+                    {title: 'Заголовок H2', block: 'h2'},
+                    {title: 'Заголовок H3', block: 'h3'},
+                    {title: 'Заголовок H4', block: 'h4'},
+                    {title: 'Заголовок H5', block: 'h5'},
+                    {title: 'Заголовок H6', block: 'h6'},
+                    {title: 'Цитата <blockquote>', block: 'blockquote', classes: 'quote'},
+//                    {title: 'Автор цитаты', block: 'p', classes: 'author'}
+//                    {title: 'Table styles'},
+//                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
                 ],
                 image_advtab: true,
                 image_title: true,
@@ -39,7 +42,7 @@ if(!isset($watermark)) {
                 paste_text_sticky: true,
                 paste_text_sticky_default: true,
                 valid_styles: {
-                    '*': 'float,text-align,border,margin,margin-left,margin-right,margin-top,margin-bottom,padding,padding-right,padding-top,padding-bottom,width,height,background-color,color'
+                    '*': 'float,text-align,border,margin,margin-left,margin-right,margin-top,margin-bottom,padding,padding-left,padding-right,padding-top,padding-bottom,width,height,background-color,color'
                 },
 //                valid_elements : 'h2,h3,h4,h5,h6,em,a[href|target=_blank],strong/b,br,p,ul,ol,li,img[src|width],blockquote,iframe[width|height|src|frameborder|allowfullscreen]',
                 file_browser_callback : function (field_name, url, type, win) {
