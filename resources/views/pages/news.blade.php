@@ -5,6 +5,7 @@
  *
  * Variables:
  *      $page - object App\Models\Page
+ *      $news - collection with pages object App\Models\Page
  *
  * Output page info.
  *
@@ -119,26 +120,26 @@
                             <div class="voffset50"></div>
                         @endif
 
-                    <!-- Social links -->
+                        <!-- Social links -->
                         @include('parts.socialLinks')
 
-                    <!-- Latest News -->
+                        <!-- Latest News -->
                         {!! $latestNews->vertical() !!}
 
-                    <!-- Reviews -->
+                        <!-- Reviews -->
                         {!! $reviews->vertical() !!}
 
-                        <div class="title small">Мы в инстаграмме</div>
-                        <div class="instagram-feed">
-                            <ul>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram1.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram2.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram3.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram4.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram5.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram6.jpg') }}" alt=""></li>
-                            </ul>
-                        </div>
+                        {{--<div class="title small">Мы в инстаграмме</div>--}}
+                        {{--<div class="instagram-feed">--}}
+                            {{--<ul>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram1.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram2.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram3.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram4.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram5.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram6.jpg') }}" alt=""></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>

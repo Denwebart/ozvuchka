@@ -60,7 +60,7 @@
                         <!--<h4 class="title small">about the author</h4>-->
                         <!--<div class="media">-->
                         <!--<a class="pull-left" href="#">-->
-                        <!--<img class="media-object" src="{{ asset('frontend/images/demo/blog/author-post.jpg') }}" alt="">-->
+                        <!--<img class="media-object" src="{ { asset('frontend/images/demo/blog/author-post.jpg') }}" alt="">-->
                         <!--</a>-->
                         <!--<div class="media-body">-->
                         <!--<h4 class="media-heading">John Doe</h4>-->
@@ -167,17 +167,17 @@
                         <!-- Reviews -->
                         {!! $reviews->vertical() !!}
 
-                        <div class="title small">Мы в инстаграмме</div>
-                        <div class="instagram-feed">
-                            <ul>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram1.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram2.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram3.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram4.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram5.jpg') }}" alt=""></li>
-                                <li><img src="{{ asset('frontend/images/uploads/instagram6.jpg') }}" alt=""></li>
-                            </ul>
-                        </div>
+                        {{--<div class="title small">Мы в инстаграмме</div>--}}
+                        {{--<div class="instagram-feed">--}}
+                            {{--<ul>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram1.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram2.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram3.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram4.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram5.jpg') }}" alt=""></li>--}}
+                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram6.jpg') }}" alt=""></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>

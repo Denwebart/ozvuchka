@@ -1,10 +1,11 @@
 <?php
 /**
- * Page View
- *      (PagesController@getPage)
+ * Services View
+ *      (PagesController@getServicesPage)
  *
  * Variables:
  *      $page - object App\Models\Page
+ *      $services - collection with pages object App\Models\Page
  *
  * Output page info.
  *
@@ -67,133 +68,29 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-1_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Проведение мероприятий</span>
-                                    торжеств, свадеб, презентаций любого уровня сложности.
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-2_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Аренда оборудования</span>
-                                    для торжества и живой музыки.
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-3_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Изготовление аудио роликов</span>
-                                    для радио, ТВ, супермаркетов, вокзалов, рынков и тп.
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
+                        @foreach($services as $service)
+                            <li>
+                                <div>
+                                    <p class="date-event">
+                                        @if($service->getPageImage())
+                                            <img src="{{ $service->getPageImage(false, 'mini') }}" alt="">
+                                        @endif
+                                    </p>
+                                    <p class="name">
+                                        @if($service->menu_title)
+                                            <span>{{ $service->menu_title }}</span>
+                                        @endif
+                                        @if() {{ $service->introtext }} @endif
+                                    </p>
+                                    <p class="price">
 
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-4_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Изготовление фонограмм</span>
-                                    для танцоров, брейкдэнс коллективов, шоубалетов, модельных показов и тп.
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-5_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Подготовка фонограмм для корпоративов</span>
-                                    (обработка минусов, подготовка специальной музыки, фильмы).
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-6_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Детская песенка для концерта</span>
-                                    ...
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p class="date-event">
-                                    <img src="{{ asset('frontend/images/uploads/service-7_mini.jpg') }}" alt="">
-                                </p>
-                                <p class="name">
-                                    <span>Другая творческая работа со звуком</span>
-                                    ...
-                                </p>
-                                <p class="price">
-                                    цена от
-                                    <span>$199</span>
-                                </p>
-                                <p class="buy">
-                                    <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
-                                </p>
-                            </div>
-                        </li>
+                                    </p>
+                                    <p class="buy">
+                                        <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
+                                    </p>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
