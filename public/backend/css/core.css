@@ -963,3 +963,11 @@ a:focus {
 .table .switchery-demo {
     text-align: right;
 }
+.gallery-images-item .thumbnail {
+    position: relative;
+}
+.gallery-images-item .thumbnail .tags {
+    position: absolute;
+    bottom: 15px;
+    left: 15px
+}

@@ -52,7 +52,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $galleryImage->id ? $galleryImage->getImageUrl() : false, 'data-max-file-size' => '3M', 'data-min-width' => '370', 'data-min-height' => '450']) !!}
+                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $galleryImage->id ? $galleryImage->getImageUrl() : false, 'data-max-file-size' => '3M', 'data-min-width' => '370', 'data-min-height' => '225']) !!}
                 <span class="help-block error image_error text-danger font-12" style="display: none">
                     <i class="fa fa-times-circle"></i>
                     <strong></strong>

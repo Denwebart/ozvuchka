@@ -13,7 +13,7 @@
                     <div class="title pull-left m-t-10">
                         <!-- Info text: image info (title, description, image_alt) -->
                         <button role="button" class="pull-left m-l-10 info-popover" data-container="body" title="" data-toggle="popover" data-placement="top" tabindex="0" data-trigger="focus" data-html="true" data-content="@if($item->created_at) <p><b>Создано:</b> {{ \App\Helpers\Date::format($item->created_at, true) }} @endif @if($item->published_at) <p><b>Опубликовано:</b> {{ \App\Helpers\Date::format($item->published_at, true) }} @endif <p><b>Описание:</b> @if($item->description) <br> {{ $item->description }} @else <span class='text-muted font-12 m-l-10'>не задано</span> @endif </p> <p><b>Альт:</b> @if($item->image_alt) <br> {{ $item->image_alt }} @else <span class='text-muted font-12 m-l-10'>не задан</span> @endif </p>" data-original-title="@if($item->title) <span class='text-dark'> {{ $item->title }} </span> @else <span class='text-muted font-12'> заголовок не задан </span> @endif">
-                            {{--<i class="fa fa-question-circle-o"></i>--}}
+                            {{--<i class="fa fa-info-circle-o"></i>--}}
                             Информация
                         </button>
                     </div>
@@ -30,6 +30,11 @@
                         </a>
                     </div>
                     <img src="{{ $item->getImageUrl() }}" alt="">
+                    <div class="tags">
+                        @foreach($item->categories  as $category)
+                            <div class="label label-default m-b-10">{{ $category->title }}</div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         @endforeach

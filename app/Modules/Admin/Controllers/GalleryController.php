@@ -74,6 +74,7 @@ class GalleryController extends Controller
 			} else {
 				$galleryImage = Gallery::create($data);
 				$galleryImage->setImage($request);
+				$galleryImage->setCategories($request->get('categories'));
 				$galleryImage->save();
 				
 				$galleryImages = $this->getGalleryImages();
