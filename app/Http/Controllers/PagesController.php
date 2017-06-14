@@ -40,7 +40,8 @@ class PagesController extends Controller
 			'parent' => function($q) {
 				$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
 			}
-		])->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title', 'introtext', 'image', 'image_alt']);
+		])
+		->limit(6)->get(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title', 'introtext', 'image', 'image_alt']);
 		
 		return view('pages.index', compact('page', 'slider', 'gallery', 'latestNews', 'services'));
 	}
