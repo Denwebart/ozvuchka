@@ -17,7 +17,7 @@
 
 @section('content')
     <!-- INTRO -->
-    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url(images/backgrounds/gallery.jpg)" id="anchor00">
+    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/gallery.jpg') }})" id="anchor00">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -30,8 +30,34 @@
         </div>
     </section>
 
+    <!-- PAGE TITLE AND INTROTEXT -->
+    @if($page->title || $page->introtext)
+        <section class="section featured-shop">
+            <div class="container">
+                @if($page->title)
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="voffset50"></div>
+                            <h2 class="title">{{ $page->title }}</h2>
+                            <div class="voffset50"></div>
+                        </div>
+                    </div>
+                @endif
+                @if($page->introtext)
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+                            <div class="page-content">
+                                {!! $page->introtext !!}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </section>
+    @endif
+
     <!-- LATEST MEDIA -->
-    <section class="section last-media inverse-color" id="anchor06">
+    <section class="section last-media" id="anchor06">
         <div class="container">
             <div class="voffset50"></div>
             <!-- Filters -->
@@ -77,4 +103,19 @@
             </div>
         </div>
     </section>
+
+    <!-- PAGE CONTENT -->
+    @if($page->content)
+        <section class="section featured-shop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <div class="page-content">
+                            {!! $page->content !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection()

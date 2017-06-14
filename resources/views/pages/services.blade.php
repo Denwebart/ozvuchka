@@ -30,6 +30,7 @@
         </div>
     </section>
 
+    <!-- PAGE TITLE AND INTROTEXT -->
     @if($page->title || $page->introtext)
         <section class="section featured-shop">
             <div class="container">
@@ -199,7 +200,7 @@
         </div>
     </section>
 
-    <!-- PAGE TEXT -->
+    <!-- PAGE CONTENT -->
     @if($page->content)
         <section class="section featured-shop">
             <div class="container">

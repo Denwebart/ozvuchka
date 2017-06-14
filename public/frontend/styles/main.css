@@ -13020,7 +13020,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 
 .last-media .filters li {
     display: inline-block;
-    color: #fff;
+
     text-transform: uppercase;
     border-bottom: 2px solid transparent;
     font-weight: 500;
@@ -13028,6 +13028,9 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     line-height: 10px;
     padding: 5px 0;
     margin: 0
+}
+.last-media.inverse-color .filters li {
+    color: #fff;
 }
 
 @media (min-width: 768px) {
