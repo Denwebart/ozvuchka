@@ -14,9 +14,13 @@ use Illuminate\Http\Request;
 
 class RequestedCalls extends BaseController
 {
+	public $title = 'Заказать звонок';
+	public $description = 'Закажите звонок, и мы свяжемся с вами в ближайше время.';
+	
 	public function show()
 	{
-		return view('widget.requestedCalls::index')->render();
+		return view('widget.requestedCalls::index')
+			->with('title', $this->title)->with('description', $this->description)->render();
 	}
 	
 	/**
@@ -37,12 +41,12 @@ class RequestedCalls extends BaseController
 			if($request->ajax()) {
 				return \Response::json([
 					'success' => false,
-					'message' => 'Звонок не заказан. Исправьте ошибки.',
+					'message' => 'Укажите имя и телефон, чтобы мы могли Вам дозвониться.',
 					'errors' => $validator->errors()
 				]);
 			} else {
 				return back()->withErrors($validator->errors())->withInput()
-					->with('errorMessage', 'Звонок не заказан. Исправьте ошибки.');
+					->with('errorMessage', 'Укажите имя и телефон, чтобы мы могли Вам дозвониться.');
 			}
 		}
 		
@@ -60,10 +64,10 @@ class RequestedCalls extends BaseController
 			if($request->ajax()) {
 				return \Response::json([
 					'success' => true,
-					'message' => 'Звонок заказан. Менеджер свяжется с вами в ближайшее время.',
+					'message' => 'Звонок заказан! Мы свяжемся с Вами в ближайшее время.',
 				]);
 			} else {
-				return back()->with('successMessage', 'Звонок заказан. Менеджер свяжется с вами в ближайшее время.');
+				return back()->with('successMessage', 'Звонок заказан! Мы свяжемся с Вами в ближайшее время.');
 			}
 		}
 	}

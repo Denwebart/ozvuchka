@@ -31,6 +31,8 @@
         </div>
     </section>
 
+    <div class="voffset50"></div>
+
     <!-- PAGE TITLE AND INTROTEXT -->
     @if($page->title || $page->introtext)
         <section class="section featured-shop">
@@ -38,7 +40,6 @@
                 @if($page->title)
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <div class="voffset50"></div>
                             <h2 class="title">{{ $page->title }}</h2>
                             <div class="voffset50"></div>
                         </div>
@@ -61,9 +62,9 @@
     <section class="section featured-shop">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-xs-12 col-lg-offset-3 col-md-offset-3">
                     <div id="sitemap">
-                        <ul>
+                        <ul class="tree">
                             @foreach($sitemapItems as $item)
                                 <li>
                                     <a href="{{ $item->getUrl() }}">

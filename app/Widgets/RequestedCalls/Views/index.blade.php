@@ -5,42 +5,71 @@
  */
 ?>
 
-{!! Form::open(['route' => ['call.request'], 'class' => 'ajax-form', 'id' => 'request-call-form']) !!}
+<section class="section last-media border-top border-bottom" style="background: url({{ asset('frontend/images/backgrounds/gallery-widget.jpg') }})">
+    <div class="container">
+        @if($title || $description)
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="voffset50"></div>
+                    @if($description)
+                        <p class="pretitle">{{ $description }}</p>
+                    @endif
+                    @if($title)
+                        <div class="voffset20"></div>
+                        <h2 class="title">{{ $title }}</h2>
+                    @endif
+                </div>
+            </div>
+        @endif
+        <!-- gallery -->
+        <div class="voffset50"></div>
+        <div class="row">
+            {!! Form::open(['route' => ['call.request'], 'class' => 'ajax-form', 'id' => 'request-call-form']) !!}
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="response-message success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
+                        @if(Session::has('successMessage'))
+                            {{ Session::get('successMessage') }}
+                        @endif
+                    </div>
 
-<div class="response-message success alert alert-success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
-    @if(Session::has('successMessage'))
-        {{ Session::get('successMessage') }}
-    @endif
-</div>
-
-<div class="response-message error alert alert-danger" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
-    @if(Session::has('errorMessage'))
-        {{ Session::get('errorMessage') }}
-    @endif
-</div>
-
-<h3>Заказать звонок</h3>
-<div class="small-description">
-    Закажите звонок, и менеджер перезвонит вам
-    в течение рабочего дня call-центра.
-</div>
-
-<div class="form-group @if($errors->has('name')) has-error @endif" title="Имя *">
-    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'placeholder' => 'Имя *']) !!}
-    {{--Errors--}}
-    <span class="help-block error name_error" @if(!$errors->has('name')) style="display: none;" @endif>
-        <span class="text">{{ $errors->first('name') }}</span>
-    </span>
-</div>
-<div class="form-group @if($errors->has('phone')) has-error @endif" title="phone *">
-    {!! Form::text('phone', null, ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Телефон *']) !!}
-    {{--Errors--}}
-    <span class="help-block error phone_error" @if(!$errors->has('phone')) style="display: none;" @endif>
-        <span class="text">{{ $errors->first('phone') }}</span>
-    </span>
-</div>
-<button class="btn btn-default" type="submit">Перезвоните мне</button>
-{!! Form::close() !!}
+                    <div class="response-message error" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
+                        @if(Session::has('errorMessage'))
+                            {{ Session::get('errorMessage') }}
+                        @endif
+                    </div>
+                </div>
+                <div class="form-fields">
+                    <div class="col-sm-4 col-md-offset-2">
+                        <div class="form-group @if($errors->has('name')) has-error @endif" title="Имя *">
+                            {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'placeholder' => 'Имя *']) !!}
+                            {{--Errors--}}
+                            <span class="help-block error name_error" @if(!$errors->has('name')) style="display: none;" @endif>
+                                <span class="text">{{ $errors->first('name') }}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group @if($errors->has('phone')) has-error @endif" title="phone *">
+                            {!! Form::text('phone', null, ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Телефон *']) !!}
+                            {{--Errors--}}
+                            <span class="help-block error phone_error" @if(!$errors->has('phone')) style="display: none;" @endif>
+                                <span class="text">{{ $errors->first('phone') }}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-md-offset-2 tex">
+                        <p class="loadmore">
+                            <button type="submit" class="btn rounded border btn-dark">
+                                Перезвоните мне
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            {!! Form::close() !!}
+        </div>
+        <div class="voffset80"></div>
+    </div>
+</section>
 
 @push('scripts')
 <script type="text/javascript">
@@ -84,6 +113,7 @@
                         $form.trigger('reset');
 
                         $form.find('.response-message.success').show().text(response.message);
+                        $form.find('.form-fields').hide();
 
                         $('html, body').animate({
                             scrollTop: $(this).offset().top - 50

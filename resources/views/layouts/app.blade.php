@@ -108,6 +108,8 @@
 
 @yield('content')
 
+{!! $requestedCallsWidget->show() !!}
+
 <!-- FOOTER -->
 <footer>
     <div class="container">
@@ -126,11 +128,11 @@
         </p>
 
         <p class="created-by">
-            Разработано студией
-            <a href="http://it-hill.com">
+            <span>Разработано студией</span>
+            {{--<a href="http://it-hill.com">--}}
                 <span>IT Hill</span>
                 <img src="{{ asset('frontend/images/it-hill_logo.svg') }}" alt="Студия создания сайтов IT Hill" title="Студия создания сайтов IT Hill">
-            </a>
+            {{--</a>--}}
         </p>
     </div>
 </footer>
@@ -168,7 +170,3 @@
 
 </body>
 </html>
-
-<!---------------------------------------------------------------------->
-
-{{--{!! $requestedCallsWidget->show() !!}--}}
