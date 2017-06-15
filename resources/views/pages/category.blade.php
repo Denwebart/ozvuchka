@@ -44,12 +44,12 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="voffset50"></div>
                             <h2 class="title">{{ $page->title }}</h2>
-                            <div class="voffset50"></div>
                         </div>
                     </div>
                 @endif
                 @if($page->introtext)
                     <div class="row">
+                        <div class="voffset50"></div>
                         <div class="col-lg-12 col-md-12 col-xs-12">
                             <div class="page-content">
                                 {!! $page->introtext !!}

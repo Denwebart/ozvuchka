@@ -5,10 +5,19 @@
  */
 ?>
 
-<script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>
 <!-- VK Widget -->
 <div id="vk_groups"></div>
+
 <script type="text/javascript">
-    VK.Widgets.Group("vk_groups", {mode: 3, wide: 1}, 18817218);
+    setTimeout(function() {
+            var script = document.createElement('script');
+            script.src = "//vk.com/js/api/openapi.js?146";
+            document.body.appendChild(script);
+            script.onload = function() {
+                VK.Widgets.Group("vk_groups", {mode: 3, wide: 1}, 18817218);
+            };
+        },
+        5000
+    );
 </script>
 <div class="voffset50"></div>
