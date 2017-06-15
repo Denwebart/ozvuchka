@@ -17,7 +17,7 @@
 
 @section('content')
     <!-- INTRO -->
-    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/contacts.jpg') }})" id="anchor00">
+    <section class="intro intro-mini full-width jIntro bg-blog border-bottom" style="background-image: url({{ asset('frontend/images/backgrounds/contacts-bg.jpg') }})" id="anchor00">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -39,7 +39,7 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="voffset50"></div>
                             <h2 class="title">{{ $page->title }}</h2>
-                            <div class="voffset50"></div>
+                            <div class="voffset20"></div>
                         </div>
                     </div>
                 @endif

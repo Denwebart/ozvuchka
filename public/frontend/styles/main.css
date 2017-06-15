@@ -47,6 +47,13 @@
     src: url(../fonts/RobotoMedium/RobotoMedium.eot?#iefix) format("embedded-opentype"), url(../fonts/RobotoMedium/RobotoMedium.woff) format("woff"), url(../fonts/RobotoMedium/RobotoMedium.ttf) format("truetype")
 }
 
+.m-r-50 {
+    margin-right: 50px;
+}
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
 #slides {
     position: relative
 }
@@ -4771,6 +4778,12 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     display: inline-block;
 }
 .dark-header .logo-dark {
+    display: none;
+}
+.fixed .logo {
+    display: inline-block;
+}
+.fixed .logo-dark {
     display: none;
 }
 header.overflow.fixed .navbar-default .navbar-nav {
@@ -10284,7 +10297,7 @@ textarea {
     text-transform: uppercase;
     text-align: left;
     color: #151518;
-    margin: 20px 0
+    margin: 0 0 20px
 }
 
 .title.post-detail {
@@ -11218,8 +11231,10 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
 }
 
 .intro.intro-mini .text-center {
-    margin-top: 215px;
-    margin-bottom: 50px
+    /*margin-top: 215px;*/
+    /*margin-bottom: 50px*/
+    margin-top: 115px;
+    margin-bottom: 100px;
 }
 
 .intro.intro-mini .text-center .subtitle-text {
@@ -11258,10 +11273,13 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
 
 .primary-title {
     font-weight: 300;
-    color: #eaeaea;
+    color: #2B2A29;
     font-size: 50px;
     line-height: 50px;
     letter-spacing: 10px
+}
+.dark-header .primary-title {
+    color: #eaeaea !important;
 }
 
 @media (min-width: 992px) {
@@ -11290,10 +11308,13 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
 
 .subtitle-text {
     font-weight: 300;
-    color: #eaeaea;
+    color: #000000;
     margin: 20px 0;
     font-size: 25px;
     line-height: 25px
+}
+.dark-header .subtitle-text {
+    color: #eaeaea;
 }
 
 @media (min-width: 768px) {
@@ -12694,7 +12715,7 @@ ul.contact li {
 
 .post-item {
     position: relative;
-    margin-bottom: 50px
+    margin-bottom: 80px
 }
 .post-item:last-child {
     margin-bottom: 0;
@@ -12715,7 +12736,7 @@ ul.contact li {
 
 @media (min-width: 1200px) {
     .list-posts .btn {
-        margin-top: 50px
+        margin-top: 30px
     }
 }
 
@@ -13960,7 +13981,10 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 }
 
 .upcomming-events-list li:not(:last-child) {
-    border-bottom: 1px solid rgba(43, 43, 43, .9)
+    border-bottom: 1px solid rgba(255, 255, 255, .3)
+}
+.upcomming-events-list li:not(:first-child) {
+    border-top: 1px solid rgba(204, 204, 204, 0.3)
 }
 
 .upcomming-events-list li > div {
@@ -14026,7 +14050,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 }
 
 .upcomming-events-list li .name {
-    color: #afafaf;
+    color: #555555;
     font-size: 15px;
     line-height: 22px;
     padding: 16px 35px;
@@ -14150,7 +14174,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     font-family: Roboto, sans-serif;
     text-transform: uppercase;
     text-align: center;
-    color: #fff;
+    color: #000000;
     padding: 58px 0 42px;
     font-size: 26px;
     line-height: normal
@@ -15434,7 +15458,7 @@ ul.tree li a::before {
 /*}*/
 
 .section.upcomming-events-list {
-    background-image: url(../images/demo/bg-upcomming-events-list.jpg)
+    background-image: url(../images/backgrounds/services-block-bg.jpg)
 }
 
 .section.contact {

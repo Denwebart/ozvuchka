@@ -17,13 +17,17 @@
 
 @section('content')
     <!-- INTRO -->
-    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/equipment.jpg') }})" id="anchor00">
+    <section class="intro intro-mini full-width jIntro bg-blog border-bottom" style="background-image: url({{ asset('frontend/images/backgrounds/pages-bg.jpg') }})" id="anchor00">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-center">
-                        <h1 class="primary-title">{{ $page->getTitle() }}</h1>
-                        {{--<h2 class="subtitle-text"></h2>--}}
+                        @if($page->parent)
+                            <h1 class="primary-title">{{ $page->parent->getTitle() }}</h1>
+                            <h2 class="subtitle-text">{{ $page->getTitle() }}</h2>
+                        @else
+                            <h1 class="primary-title">{{ $page->getTitle() }}</h1>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -46,6 +50,9 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12">
                         <div class="page-content">
+                            @if($page->getImageUrl())
+                                <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" width="50%" class="pull-left m-r-50 m-b-20">
+                            @endif
                             {!! $page->content !!}
                         </div>
                     </div>

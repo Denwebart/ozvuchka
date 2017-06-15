@@ -19,7 +19,7 @@
 @section('content')
 
     <!-- INTRO -->
-    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/news.jpg') }})" id="anchor00">
+    <section class="intro intro-mini full-width jIntro bg-blog border-bottom" style="background-image: url({{ asset('frontend/images/backgrounds/news-bg.jpg') }})" id="anchor00">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -41,7 +41,6 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="voffset50"></div>
                             <h2 class="title">{{ $page->title }}</h2>
-                            <div class="voffset50"></div>
                         </div>
                     </div>
                 @endif
@@ -80,7 +79,6 @@
                                     </p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="voffset30"></div>
                                     {{--<h4 class="title small"><span>теги: </span>тег 1, тег 2</h4>--}}
                                     @if($item->title)
                                         <h2 class="title post">

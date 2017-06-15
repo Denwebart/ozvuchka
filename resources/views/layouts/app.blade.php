@@ -61,7 +61,7 @@
         ]) !!};
     </script>
 </head>
-<body data-spy="scroll" data-target="#navbar-muziq" data-offset="80">
+<body class="@if(isset($headerClass)) {{ $headerClass }} @endif" data-spy="scroll" data-target="#navbar-muziq" data-offset="80">
 
 <!-- LOADER -->
 <div id="mask">

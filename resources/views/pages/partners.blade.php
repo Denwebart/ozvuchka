@@ -17,7 +17,7 @@
 
 @section('content')
     <!-- INTRO -->
-    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/partners.jpg') }})" id="anchor00">
+    <section class="intro intro-mini full-width jIntro bg-blog border-bottom" style="background-image: url({{ asset('frontend/images/backgrounds/partners-bg.jpg') }})" id="anchor00">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

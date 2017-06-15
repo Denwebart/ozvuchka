@@ -18,7 +18,7 @@
 
 @section('content')
     <!-- INTRO -->
-    <section class="intro intro-mini full-width jIntro bg-blog" style="background-image: url({{ asset('frontend/images/backgrounds/services.jpg') }})" id="anchor00">
+    <section class="intro intro-mini full-width jIntro bg-blog border-bottom" style="background-image: url({{ asset('frontend/images/backgrounds/services-bg.jpg') }})" id="anchor00">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -59,13 +59,9 @@
 
     <!-- SERVICES -->
     @if(count($services))
-        <section class="section full-width upcomming-events-list inverse-color">
+        <section class="section upcomming-events-list">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h4 class="upcomming-events-list-title">Мы предлагаем</h4>
-                    </div>
-                </div>
+                <div class="voffset20"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <ul>
@@ -74,24 +70,21 @@
                                     <div>
                                         <p class="date-event">
                                             @if($service->getPageImage())
-                                                <a href="{{ $page->getUrl() }}">
+                                                <a href="{{ $service->getUrl() }}">
                                                     <img src="{{ $service->getPageImage(false, 'mini') }}" alt="{{ $service->image_alt }}" title="{{ $service->image_alt }}">
                                                 </a>
                                             @endif
                                         </p>
                                         <p class="name">
-                                            <a href="{{ $page->getUrl() }}">
+                                            <a href="{{ $service->getUrl() }}">
                                                 <span>{{ $service->getTitle() }}</span>
                                             </a>
                                             @if($service->introtext)
-                                                {!! $service->introtext !!}
+                                                {!! strip_tags($service->introtext) !!}
                                             @endif
                                         </p>
-                                        <p class="price">
-
-                                        </p>
                                         <p class="buy">
-                                            <a href="#" class="btn rounded icon"><i class="fa fa-ticket"></i> оставить заявку</a>
+                                            <a href="{{ $service->getUrl() }}" class="btn rounded icon">Подробнее</a>
                                         </p>
                                     </div>
                                 </li>
@@ -107,6 +100,7 @@
     @if($page->content)
         <section class="section featured-shop">
             <div class="container">
+                <div class="voffset50"></div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12">
                         <div class="page-content">

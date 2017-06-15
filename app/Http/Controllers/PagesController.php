@@ -311,7 +311,7 @@ class PagesController extends Controller
 		$query = $query->with([
 			'parent' => function($q) {
 				$q->select(['id', 'parent_id', 'user_id', 'type', 'alias', 'is_container', 'is_published', 'menu_title', 'title']);
-			}
+			},
 		]);
 		$query = $query->orderBy('published_at', 'DESC');
 		$articles = $query->get();
