@@ -15590,3 +15590,17 @@ ul.tree li a::before {
 .response-message.success {
     background-color: rgba(81, 190, 168, 0.8);
 }
+.not-found {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.not-found .page-content {
+    margin: 50px 0;
+}
+.not-found  .not-found-ptimary {
+    font-size: 200px;
+    line-height: 200px;
+    margin-bottom: 20px;
+    color: #2B2A29;
+}

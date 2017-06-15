@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Errors;
 use App\Mail\FromContactformToAdmin;
 use App\Mail\FromContactformToUser;
 use App\Models\GalleryCategory;
@@ -80,7 +81,7 @@ class PagesController extends Controller
 	protected function renderPage($request, $page)
 	{
 		if(!is_a($page, 'App\Models\Page') || url($request->getPathInfo()) != $page->getUrl()) {
-			abort(404);
+			return Errors::error404($request);
 		}
 		
 		switch ($page->id) {

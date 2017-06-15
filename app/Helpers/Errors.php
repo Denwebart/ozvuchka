@@ -10,6 +10,8 @@ namespace App\Helpers;
 
 use App\Models\Page;
 use App\Models\Setting;
+use App\Widgets\Menu\Menu;
+use App\Widgets\RequestedCalls\RequestedCalls;
 use Illuminate\Http\Request;
 
 class Errors
@@ -33,7 +35,7 @@ class Errors
 			$page->content = "У Вас недостаточно прав для просмотра этой страницы.";
 			\View::share('page', $page);
 			
-			return \Response::view('admin::admin.error');
+			return response()->view('admin::admin.error', [], 403);
 		} else {
 			return \Response::json([
 				'success' => 'false',
@@ -67,10 +69,11 @@ class Errors
 			$settings = new Settings();
 			\View::share('siteSettings', $settings->getCategory(Setting::CATEGORY_SITE));
 			\View::share('menuWidget', new Menu());
+			\View::share('requestedCallsWidget', new RequestedCalls());
 			
-			return \Response::view('errors.404');
+			return response()->view('pages.error404page', [], 404);
 		} else {
-			return \Response::view('admin::admin.error');
+			return response()->view('admin::admin.error', [], 404);
 		}
 	}
 }
