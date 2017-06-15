@@ -10659,6 +10659,7 @@ header.overflow.fixed {
 
 @media (min-width: 992px) {
     header .navbar-brand {
+        max-width: 270px;
         padding: 20px 22px 22px
     }
 }
@@ -10686,7 +10687,9 @@ header .navbar-brand img {
         margin: 20px 0 15px
     }
 }
-
+.navbar-default .navbar-nav {
+    padding-right: 20px;
+}
 .navbar-default .navbar-nav > li > a {
     font-size: 20px;
     /*text-transform: lowercase;*/
@@ -10695,6 +10698,43 @@ header .navbar-brand img {
     -webkit-transition: color .3s;
     transition: color .3s
 }
+@media (max-width: 1199px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+
+    .navbar-header,
+    .navbar-default .navbar-collapse {
+        text-align: center;
+        width: 100%;
+    }
+    .navbar-default .navbar-brand {
+        float: none !important;
+    }
+    .navbar-default .navbar-nav {
+        float: none !important;
+        display: inline-block;
+    }
+
+    .fixed .navbar-header,
+    .fixed .navbar-default .navbar-collapse {
+        text-align: left;
+        width: auto !important;
+    }
+    .navbar-default .navbar-brand,
+    .navbar-default .navbar-nav {
+        float: inherit;
+    }
+}
+
+/*@media screen and (min-width: 1300px) {*/
+    /*.navbar-default .navbar-nav > li > a {*/
+        /*font-size: 20px;*/
+        /*padding: 10px 12px;*/
+    /*}*/
+/*}*/
+
 .dark-header .navbar-default .navbar-nav > li > a,
 .fixed .navbar-default .navbar-nav > li > a {
     color: #ffffff

@@ -32,10 +32,10 @@
                     @foreach($items as $item)
                         <div class="item">
                             @if($item->title)
-                                <h1 class="primary-title">{{ $item->title }}</h1>
+                                <div class="primary-title">{{ $item->title }}</div>
                             @endif
                             @if($item->text)
-                                <h2 class="subtitle-text">{{ $item->text }}</h2>
+                                <div class="subtitle-text">{{ $item->text }}</div>
                             @endif
                             <div class="voffset50"></div>
                             @if($item->button_link)

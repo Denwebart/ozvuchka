@@ -59,7 +59,7 @@
 
     <!-- SERVICES -->
     @if(count($services))
-        <section class="section upcomming-events-list">
+        <section class="section upcomming-events-list" style="background: url({{ asset('frontend/images/backgrounds/texture.png') }}) repeat">
             <div class="container">
                 <div class="voffset20"></div>
                 <div class="row">

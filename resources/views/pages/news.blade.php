@@ -120,7 +120,7 @@
 
                         <!-- Social links -->
                         @include('parts.socialLinks')
-                            
+
                         <!-- VK GROUPS -->
                         @include('parts.VKgroupWidget')
 
