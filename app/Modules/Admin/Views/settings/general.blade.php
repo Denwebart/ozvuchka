@@ -170,7 +170,7 @@
         @endif
 
         <!-- Контактная информация -->
-        @if(isset($settings[\App\Models\Setting::CATEGORY_CONTACT_PAGE]))
+        @if(1 == 0 && isset($settings[\App\Models\Setting::CATEGORY_CONTACT_PAGE]))
             <div class="card-box m-b-20">
 
                 <!-- Общая контактная информация -->
@@ -206,7 +206,7 @@
                     </tbody>
                 </table>
 
-                @if(isset($settings[\App\Models\Setting::CATEGORY_CONTACT_PAGE]['map']))
+                @if(1 == 0 && isset($settings[\App\Models\Setting::CATEGORY_CONTACT_PAGE]['map']))
                     <!-- Координаты на карте -->
                     <h5 class="header-title m-t-20 m-b-10"><b>Координаты на карте</b></h5>
                     <p class="text-muted font-13 m-b-15">
