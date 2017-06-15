@@ -39,12 +39,12 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="voffset50"></div>
                             <h2 class="title">{{ $page->title }}</h2>
-                            <div class="voffset20"></div>
                         </div>
                     </div>
                 @endif
                 @if($page->introtext)
                     <div class="row">
+                        <div class="voffset50"></div>
                         <div class="col-lg-12 col-md-12 col-xs-12">
                             <div class="page-content">
                                 {!! $page->introtext !!}
@@ -57,7 +57,7 @@
     @endif
 
     <!-- CONTACTS -->
-    <section class="section inverse-color contact" id="anchor08">
+    <section class="section contact" id="anchor08">
         <div class="container">
             <div class="voffset50"></div>
             <div class="row">
@@ -70,13 +70,13 @@
 
                     {!! Form::open(['route' => ['contact.sendLetter'], 'class' => 'ajax-form contact-form', 'id' => 'contact-form']) !!}
 
-                    <div class="response-message success alert alert-success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
+                    <div class="response-message success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
                         @if(Session::has('successMessage'))
                             {{ Session::get('successMessage') }}
                         @endif
                     </div>
 
-                    <div class="response-message error alert alert-danger" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
+                    <div class="response-message error" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
                         @if(Session::has('errorMessage'))
                             {{ Session::get('errorMessage') }}
                         @endif
@@ -131,7 +131,7 @@
                 <div class="col-sm-6 col-md-5">
                     <div class="col-contact">
                         <h4 class="title small">Роман Ракитянский ( Romankin )</h4>
-                        <p>Должность</p>
+                        <p class="subtitle small">Должность</p>
                         <ul class="contact">
                             <li><i class="fa fa-phone"></i> +38 (067) 737-99-17</li>
                             <li><i class="fa fa-phone"></i> +38 (063) 230-37-97</li>
@@ -143,7 +143,7 @@
                         </ul>
 
                         <h4 class="title small">Сергей Долгих</h4>
-                        <div class="voffset20"></div>
+                        <p class="subtitle small">Должность</p>
                         <ul class="contact">
                             <li><i class="fa fa-phone"></i> +38 (067) 732-46-14</li>
                             <li><i class="fa fa-phone"></i> +38 (095) 007-26-89</li>
