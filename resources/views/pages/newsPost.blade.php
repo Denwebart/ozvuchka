@@ -44,7 +44,9 @@
                             {{--<span class="gray">теги: </span> тег 1, тег 3--}}
                             <span class="right link-to" data-link-to="comments">
                             <i class="fa fa-commenting-o"></i>
-                            <span class="comments-count">3 комментария</span>
+                            <span class="comments-count">
+                                Комментариев: <span class="fb-comments-count" data-href="{{ $page->getUrl() }}"></span>
+                            </span>
                         </span>
                         </h4>
                         @if($page->title)
@@ -74,11 +76,16 @@
 
                         <div class="post-comments" id="comments">
 
-                            <div class="fb-comments" data-href="{{ $page->getUrl() }}" data-numposts="5"></div>
+                            <h4 class="title small">
+                                <span class="comments-count">
+                                    Комментариев:
+                                    <span class="fb-comments-count" data-href="{{ $page->getUrl() }}"></span>
+                                </span>
+                            </h4>
 
-                            {{--<h4 class="title small">--}}
-                                {{--<span class="comments-count">3 комментария</span>--}}
-                            {{--</h4>--}}
+                            <div class="voffset20"></div>
+
+                            <div class="fb-comments" data-href="{{ $page->getUrl() }}" data-width="100%" data-numposts="10"></div>
 
                             {{--<!-- Comment -->--}}
                             {{--<div class="media">--}}
