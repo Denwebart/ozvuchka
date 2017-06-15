@@ -28,14 +28,7 @@
                     <div class="voffset50"></div>
                     <div class="thumbnails">
                         @foreach($items as $item)
-                            <div class="thumbnail small music">
-                                <a href="{{ $item->getImageUrl('full') }}" class="swipebox">
-                                    <img src="{{ $item->getImageUrl() }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">
-                                    <div class="rollover">
-                                        <i class="plus"></i>
-                                    </div>
-                                </a>
-                            </div>
+                            @include('parts.galleryItem', ['galleryImage' => $item, 'galleryCategories' => []])
                         @endforeach
                     </div>
                     <div class="voffset50"></div>

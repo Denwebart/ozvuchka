@@ -17,7 +17,7 @@ class Gallery
 	{
 		return \Cache::rememberForever('widgets.gallery', function() use($limit) {
 			
-			$items = \App\Models\Gallery::select(['id', 'image', 'image_alt', 'title', 'description'])
+			$items = \App\Models\Gallery::select(['id', 'image', 'image_alt', 'video_url', 'title', 'description'])
 				->published()
 				->limit($limit)
 				->get();

@@ -42,6 +42,21 @@ class GalleryGalleryCategory extends Model
 		'category_id',
 	];
 	
+	public static function boot()
+	{
+		parent::boot();
+		
+		static::saving(function($page) {
+			\Cache::forget('pages.gallery.galleryImages');
+			\Cache::forget('pages.gallery.galleryCategories');
+		});
+		
+		static::deleting(function($page) {
+			\Cache::forget('pages.gallery.galleryImages');
+			\Cache::forget('pages.gallery.galleryCategories');
+		});
+	}
+	
 	public function gallery()
 	{
 		return $this->belongsTo(Gallery::class, 'gallery_id');

@@ -966,6 +966,15 @@ a:focus {
 .gallery-images-item .thumbnail {
     position: relative;
 }
+.gallery-images-item .type {
+    position: absolute;
+    top: 50px;
+    left: 10px
+}
+.gallery-images-item .type i {
+    font-size: 24px;
+    color: #ffffff;
+}
 .gallery-images-item .thumbnail .tags {
     position: absolute;
     bottom: 10px;

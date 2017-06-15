@@ -153,7 +153,7 @@
 
 <script src="{{ asset('frontend/scripts/main.js') }}"></script>
 
-<script src="{{ asset('frontend/scripts/colorpicker.js') }}"></script>
+{{--<script src="{{ asset('frontend/scripts/colorpicker.js') }}"></script>--}}
 
 <script src="{{ asset('frontend/scripts/vendor/bootstrap.js') }}"></script>
 

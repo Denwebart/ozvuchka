@@ -52,15 +52,23 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $galleryImage->id ? $galleryImage->getImageUrl() : false, 'data-max-file-size' => '3M', 'data-min-width' => '370', 'data-min-height' => '225']) !!}
-                <span class="help-block error image_error text-danger font-12" style="display: none">
-                    <i class="fa fa-times-circle"></i>
-                    <strong></strong>
-                </span>
+                <div class="no-margin m-b-20">
+                    {!! Form::label('video_url', 'URL видео:', ['class' => 'control-label m-b-10']) !!}
+                    @if($galleryImage->video_url)
+                        <a href="{{ $galleryImage->video_url }}" target="_blank" rel="nofollow, noopener" class="m-l-10 text-muted" data-toggle="tooltip" title="Перейти к видео">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+                    @endif
+                    {!! Form::text('video_url', null, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
+                    <span class="help-block error video_url_error text-danger font-12" style="display: none">
+                        <i class="fa fa-times-circle"></i>
+                        <strong></strong>
+                    </span>
+                </div>
             </div>
             <div class="col-sm-12">
                 <div class="no-margin m-b-20">
-                    {!! Form::label('title', 'Заголовок изображения:', ['class' => 'control-label m-b-10']) !!}
+                    {!! Form::label('title', 'Заголовок видео:', ['class' => 'control-label m-b-10']) !!}
                     {!! Form::text('title', null, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
                     <span class="help-block error title_error text-danger font-12" style="display: none">
                         <i class="fa fa-times-circle"></i>
@@ -68,9 +76,9 @@
                     </span>
                 </div>
             </div>
-            {{--<div class="col-md-6">--}}
+            {{--<div class="col-md-12">--}}
                 {{--<div class="no-margin m-b-20">--}}
-                    {{--{!! Form::label('description', 'Описание изображения:', ['class' => 'control-label m-b-10']) !!}--}}
+                    {{--{!! Form::label('description', 'Описание видео:', ['class' => 'control-label m-b-10']) !!}--}}
                     {{--{!! Form::textarea('description', null, ['id' => 'description', 'class' => 'form-control maxlength', 'maxlength' => 1000, 'rows' => 2]) !!}--}}
                     {{--<span class="help-block error description_error text-danger font-12" style="display: none">--}}
                         {{--<i class="fa fa-times-circle"></i>--}}
@@ -78,7 +86,15 @@
                     {{--</span>--}}
                 {{--</div>--}}
             {{--</div>--}}
-            <div class="col-md-12">
+            <div class="col-sm-6">
+                {!! Form::label('image', 'Изображение:', ['class' => 'control-label m-b-10']) !!}
+                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $galleryImage->id ? $galleryImage->getImageUrl() : false, 'data-max-file-size' => '3M', 'data-min-width' => '370', 'data-min-height' => '225']) !!}
+                <span class="help-block error image_error text-danger font-12" style="display: none">
+                    <i class="fa fa-times-circle"></i>
+                    <strong></strong>
+                </span>
+            </div>
+            <div class="col-md-6">
                 <div class="no-margin m-b-20">
                     {!! Form::label('image_alt', 'Альт изображения:', ['class' => 'control-label m-b-10']) !!}
                     <!-- Info text: image_alt -->

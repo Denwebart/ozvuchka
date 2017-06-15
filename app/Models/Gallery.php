@@ -22,6 +22,7 @@ use Intervention\Image\Facades\Image;
  * @property int $id
  * @property string $image
  * @property string $image_alt
+ * @property string $video_url
  * @property string $title
  * @property string $description
  * @property bool $is_published
@@ -42,6 +43,7 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery wherePublishedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereTitle($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Gallery whereVideoUrl($value)
  * @mixin \Eloquent
  */
 class Gallery extends Model
@@ -71,6 +73,7 @@ class Gallery extends Model
 	protected $fillable = [
 		'image',
 		'image_alt',
+		'video_url',
 		'title',
 		'description',
 		'is_published',
@@ -87,6 +90,7 @@ class Gallery extends Model
 	public static $rules = [
 		'image' => 'required|image|max:3072',
 		'image_alt' => 'max:255',
+		'video_url' => 'nullable|url|max:255',
 		'title' => 'max:255',
 		'description' => 'max:1000',
 		'is_published' => 'boolean',
@@ -103,12 +107,16 @@ class Gallery extends Model
 
 		static::saving(function($page) {
 			\Cache::forget('widgets.gallery');
+			\Cache::forget('pages.gallery.galleryImages');
+			\Cache::forget('pages.gallery.galleryCategories');
 		});
 		
 		static::deleting(function($page) {
 			$page->deleteImagesFolder();
 			
 			\Cache::forget('widgets.gallery');
+			\Cache::forget('pages.gallery.galleryImages');
+			\Cache::forget('pages.gallery.galleryCategories');
 		});
 	}
 	
@@ -319,6 +327,8 @@ class Gallery extends Model
 				DB::table('gallery_gallery_categories')->insert($dataAdded);
 				return true;
 			}
+		} else {
+			$this->galleryCategories()->delete();
 		}
 		
 		return false;

@@ -252,8 +252,14 @@ class PagesController extends Controller
 	 */
 	protected function getGalleryPage($request, $page)
 	{
-		$galleryImages = \App\Models\Gallery::published()->get();
-		$galleryCategories = GalleryCategory::has('galleryImages')->get();
+		$galleryImages = \Cache::rememberForever('pages.gallery.galleryImages', function() {
+			return \App\Models\Gallery::published()
+				->with('categories')->get();
+		});
+		
+		$galleryCategories = \Cache::rememberForever('pages.gallery.galleryCategories', function() {
+			return GalleryCategory::has('galleryImages')->get();
+		});
 		
 		return view('pages.gallery', compact('page', 'galleryImages', 'galleryCategories'));
 	}

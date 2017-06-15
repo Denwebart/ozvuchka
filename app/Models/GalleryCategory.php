@@ -12,11 +12,12 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\GalleryCategory
  *
  * @property string $title
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\GalleryGalleryCategory[] $galleryCategories
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Gallery[] $galleryImages
  * @method static \Illuminate\Database\Query\Builder|\App\Models\GalleryGalleryCategory whereTitle($value)
  * @mixin \Eloquent
+ * @property int $id
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\GalleryCategory whereId($value)
  */
 class GalleryCategory extends Model
 {
@@ -48,11 +49,13 @@ class GalleryCategory extends Model
 		parent::boot();
 
 		static::saving(function($page) {
-		
+			\Cache::forget('pages.gallery.galleryImages');
+			\Cache::forget('pages.gallery.galleryCategories');
 		});
 		
 		static::deleting(function($page) {
-		
+			\Cache::forget('pages.gallery.galleryImages');
+			\Cache::forget('pages.gallery.galleryCategories');
 		});
 	}
 	

@@ -28,18 +28,23 @@ class GalleryController extends Controller
 	}
 	
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new resource
 	 *
+	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function create()
+	public function create(Request $request)
 	{
 		$galleryImage = new Gallery();
 		
 		if(\Request::ajax()) {
 			return \Response::json([
 				'success' => true,
-				'resultHtml' => view('admin::gallery._form', compact('galleryImage'))->render(),
+				'resultHtml' => ($request->get('type') == 'video')
+					? view('admin::gallery._videoForm', compact('galleryImage'))->render()
+					: view('admin::gallery._form', compact('galleryImage'))->render(),
 			]);
 		}
 	}
@@ -62,7 +67,11 @@ class GalleryController extends Controller
 			$position = DB::table('gallery')->max('position');
 			$data['position'] = $position + 1;
 			
-			$validator = \Validator::make($data, Gallery::$rules);
+			$rules = Gallery::$rules;
+			if(array_key_exists('video_url', $data)) {
+				$rules['video_url'] = 'url|max:255';
+			}
+			$validator = \Validator::make($data, $rules);
 			
 			if ($validator->fails())
 			{
@@ -105,7 +114,9 @@ class GalleryController extends Controller
 		if(\Request::ajax()) {
 			return \Response::json([
 				'success' => true,
-				'resultHtml' => view('admin::gallery._form', compact('galleryImage'))->render(),
+				'resultHtml' => ($request->get('type') == 'video')
+					? view('admin::gallery._videoForm', compact('galleryImage'))->render()
+					: view('admin::gallery._form', compact('galleryImage'))->render()
 			]);
 		}
 	}
@@ -127,6 +138,9 @@ class GalleryController extends Controller
 			$data = $request->all();
 			$rules = Gallery::$rules;
 			$rules['image'] = 'image|max:3072';
+			if(array_key_exists('video_url', $data)) {
+				$rules['video_url'] = 'url|max:255';
+			}
 			$validator = \Validator::make($data, $rules);
 			
 			if ($validator->fails())

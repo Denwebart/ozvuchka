@@ -33,6 +33,10 @@
             <i class="md md-add"></i>
             Добавить изображение
         </a>
+        <a href="#" class="button-create-gallery-image btn btn-inverse waves-effect waves-light m-r-10 m-b-20 pull-right" data-gallery-type="video" data-url="{{ route('admin.gallery.create') }}" data-toggle="modal" data-target="#gallery-modal" data-modal-id="gallery-modal" data-animation="fadein" data-overlaySpeed="200" data-overlayColor="#36404a">
+            <i class="md md-add"></i>
+            Добавить видео
+        </a>
     </div><!-- end col -->
 </div>
 <!-- end row -->
@@ -150,20 +154,23 @@
         $(document).on('click', '.button-create-gallery-image, .button-edit', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
-            var itemId = $(this).data('itemId');
-            var url = $(this).data('url') ? $(this).data('url') : "/admin/gallery/" + itemId + "/edit";
+            var itemId = $(this).data('itemId'),
+                url = $(this).data('url') ? $(this).data('url') : "/admin/gallery/" + itemId + "/edit",
+                galleryType = $(this).data('galleryType');
 
             if($(this).hasClass('button-create-gallery-image')) {
-                $('#gallery-modal .modal-title').text('Загрузка нового изображения');
+                var typeTitle = (galleryType != 'video') ? 'изображения' : 'видео';
+                $('#gallery-modal .modal-title').text('Загрузка нового ' + typeTitle);
             } else {
-                $('#gallery-modal .modal-title').text('Редактирование информации об изображении');
+                var typeTitle = (galleryType != 'video') ? 'об изображении' : 'о видео';
+                $('#gallery-modal .modal-title').text('Редактирование информации ' + typeTitle);
             }
 
             $.ajax({
                 url: url,
                 dataType: "text json",
                 type: "GET",
-                data: {},
+                data: {'type': galleryType},
                 beforeSend: function (request) {
                     $('#gallery-modal .ajax-modal-content').hide();
                     $('#gallery-modal .loader').show();
@@ -282,11 +289,13 @@
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
             var itemId = $(this).data('itemId'),
-                itemImageUrl = $(this).data('itemImageUrl');
+                itemImageUrl = $(this).data('itemImageUrl'),
+                galleryType = $(this).data('galleryType');
 
+            var galleryTypeText = (galleryType == 'video') ? "видео" : "изображение";
             swal({
-                title: "Удалить изображение?",
-                html: '<p>Вы точно хотите безвозвратно удалить изображение?</p> <img src="' + itemImageUrl + '" class="img-thumbnail" width="200" >',
+                title: "Удалить " + galleryTypeText + "?",
+                html: '<p>Вы точно хотите безвозвратно удалить ' + galleryTypeText + '?</p> <img src="' + itemImageUrl + '" class="img-thumbnail" width="200" >',
                 type: "error",
                 showCancelButton: true,
                 cancelButtonText: 'Отмена',

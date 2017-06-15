@@ -57,7 +57,7 @@
     @endif
 
     <!-- LATEST MEDIA -->
-    <section class="section last-media" id="anchor06">
+    <section class="section last-media" id="anchor06" style="background: url({{ asset('frontend/images/backgrounds/texture.png') }}) repeat">
         <div class="container">
             <div class="voffset50"></div>
             <!-- Filters -->
@@ -81,14 +81,7 @@
                     <div class="voffset50"></div>
                     <div class="thumbnails">
                         @foreach($galleryImages as $galleryImage)
-                            <div class="thumbnail small @foreach($galleryImage->categories as $category) tag-{{ $category->id }} @endforeach">
-                                <a href="{{ $galleryImage->getImageUrl('full') }}" class="swipebox">
-                                    <img src="{{ $galleryImage->getImageUrl() }}" alt="{{ $galleryImage->image_alt }}" title="{{ $galleryImage->image_alt }}">
-                                    <div class="rollover">
-                                        <i class="plus"></i>
-                                    </div>
-                                </a>
-                            </div>
+                            @include('parts.galleryItem', ['galleryCategories' => $galleryImage->categories])
                         @endforeach
                     </div>
                     {{--<div class="voffset50"></div>--}}
@@ -98,7 +91,7 @@
                     {{--<div id="more-items">--}}
                         {{----}}
                     {{--</div>--}}
-                    <div class="voffset80"></div>
+                    <div class="voffset70"></div>
                 </div>
             </div>
         </div>
@@ -108,6 +101,7 @@
     @if($page->content)
         <section class="section featured-shop">
             <div class="container">
+                <div class="voffset50"></div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12">
                         <div class="page-content">
