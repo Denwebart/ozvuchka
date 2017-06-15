@@ -17,12 +17,13 @@ use Intervention\Image\Facades\Image;
  * App\Models\Partner
  *
  * @property int $id
- * @property string $name
+ * @property string $title
  * @property string $description
  * @property string $image
  * @property string $image_alt
  * @property int $position
  * @property bool $is_published
+ * @property string $link_website
  * @property string $link_vk
  * @property string $link_facebook
  * @property string $link_instagram
@@ -43,13 +44,12 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkInstagram($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkTwitter($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkVk($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkWebsite($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereLinkYoutube($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner wherePosition($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereTitle($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string $title
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Partner whereTitle($value)
  */
 class Partner extends Model
 {
@@ -82,6 +82,7 @@ class Partner extends Model
 		'image_alt',
 		'position',
 		'is_published',
+		'link_website',
 		'link_vk',
 		'link_facebook',
 		'link_instagram',
@@ -102,6 +103,7 @@ class Partner extends Model
 		'image' => 'image|max:10240',
 		'image_alt' => 'max:255',
 		'is_published' => 'boolean',
+		'link_website' => 'nullable|url|max:255',
 		'link_vk' => 'nullable|url|max:255',
 		'link_facebook' => 'nullable|url|max:255',
 		'link_instagram' => 'nullable|url|max:255',

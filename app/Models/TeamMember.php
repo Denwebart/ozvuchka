@@ -23,6 +23,7 @@ use Intervention\Image\Facades\Image;
  * @property string $image_alt
  * @property int $position
  * @property bool $is_published
+ * @property string $link_website
  * @property string $link_vk
  * @property string $link_facebook
  * @property string $link_instagram
@@ -43,6 +44,7 @@ use Intervention\Image\Facades\Image;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkInstagram($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkTwitter($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkVk($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkWebsite($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereLinkYoutube($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\TeamMember wherePosition($value)
@@ -80,6 +82,7 @@ class TeamMember extends Model
 		'image_alt',
 		'position',
 		'is_published',
+		'link_website',
 		'link_vk',
 		'link_facebook',
 		'link_instagram',
@@ -101,6 +104,7 @@ class TeamMember extends Model
 		'image_alt' => 'max:255',
 		'is_published' => 'boolean',
 		'position' => 'integer',
+		'link_website' => 'nullable|url|max:255',
 		'link_vk' => 'nullable|url|max:255',
 		'link_facebook' => 'nullable|url|max:255',
 		'link_instagram' => 'nullable|url|max:255',

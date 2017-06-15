@@ -7,14 +7,14 @@
 
 <!-- PARTNERS -->
 @if(count($items))
-    <section class="section discography inverse-color" id="anchor04">
+    <section class="section discography" id="anchor04" style="background: url({{ asset('frontend/images/backgrounds/texture.png') }}) repeat">
         <div id="discography"></div>
         <div class="container">
             @if($title || $description)
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         @if($title)
-                            <h4 class="upcomming-events-list-title">Мы сотрудничаем</h4>
+                            <h4 class="upcomming-events-list-title">{{ $title }}</h4>
                         @endif
                     </div>
                 </div>
@@ -32,12 +32,13 @@
                                         <img src="{{  $item->getImageUrl() }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">
                                         <div class="rollover">
                                             <ul class="social">
-                                                @if($item->link_vk)<li><a href="{{ $item->link_vk }}"><i class="fa fa-vk"></i></a></li>@endif
-                                                @if($item->link_facebook)<li><a href="{{ $item->link_facebook }}"><i class="fa fa-facebook"></i></a></li>@endif
-                                                @if($item->link_instagram)<li><a href="{{ $item->link_instagram }}"><i class="fa fa-instagram"></i></a></li>@endif
-                                                @if($item->link_twitter)<li><a href="{{ $item->link_twitter }}"><i class="fa fa-twitter"></i></a></li>@endif
-                                                @if($item->link_google)<li><a href="{{ $item->link_google }}"><i class="fa fa-google-plus"></i></a></li>@endif
-                                                @if($item->link_youtube)<li><a href="{{ $item->link_youtube }}"><i class="fa fa-youtube"></i></a></li>@endif
+                                                @if($item->link_website)<li><a href="{{ $item->link_website }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-globe"></i></a></li>@endif
+                                                @if($item->link_vk)<li><a href="{{ $item->link_vk }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-vk"></i></a></li>@endif
+                                                @if($item->link_facebook)<li><a href="{{ $item->link_facebook }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-facebook"></i></a></li>@endif
+                                                @if($item->link_instagram)<li><a href="{{ $item->link_instagram }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-instagram"></i></a></li>@endif
+                                                @if($item->link_twitter)<li><a href="{{ $item->link_twitter }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-twitter"></i></a></li>@endif
+                                                @if($item->link_google)<li><a href="{{ $item->link_google }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-google-plus"></i></a></li>@endif
+                                                @if($item->link_youtube)<li><a href="{{ $item->link_youtube }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-youtube"></i></a></li>@endif
                                             </ul>
                                             <div class="text">
                                                 @if($item->description)

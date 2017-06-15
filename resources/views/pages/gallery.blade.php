@@ -56,7 +56,7 @@
         </section>
     @endif
 
-    <!-- LATEST MEDIA -->
+    <!-- GALLERY -->
     <section class="section last-media" id="anchor06" style="background: url({{ asset('frontend/images/backgrounds/texture.png') }}) repeat">
         <div class="container">
             <div class="voffset50"></div>

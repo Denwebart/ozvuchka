@@ -20,7 +20,7 @@ class Partners
 	{
 		return \Cache::rememberForever('widgets.partners', function() {
 			
-			$items = Partner::select(['id', 'title', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_vk', 'link_facebook', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
+			$items = Partner::select(['id', 'title', 'description', 'image', 'image_alt', 'position', 'is_published', 'link_website', 'link_vk', 'link_facebook', 'link_instagram', 'link_twitter', 'link_google', 'link_youtube'])
 				->published()
 				->orderBy('position', 'ASC')
 				->get();

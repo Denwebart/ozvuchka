@@ -80,6 +80,14 @@
                             </h4>
                             <div class="social-links-form" style="display: none">
                                 <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">Сайт:</b>
+                                    {!! Form::text('link_website', null, ['id' => 'link_website', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
+                                    <span class="help-block error link_website_error text-danger font-12" style="display: none">
+                                        <i class="fa fa-times-circle"></i>
+                                        <strong></strong>
+                                    </span>
+                                </p>
+                                <p>
                                     <b class="font-13 text-muted" style="width: 75px; display: inline-block">VK:</b>
                                     {!! Form::text('link_vk', null, ['id' => 'link_vk', 'class' => 'form-control maxlength', 'maxlength' => 100]) !!}
                                     <span class="help-block error link_vk_error text-danger font-12" style="display: none">

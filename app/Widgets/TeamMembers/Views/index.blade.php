@@ -39,12 +39,13 @@
                                     </div>
                                     <div class="rollover">
                                         <ul class="social">
-                                            @if($item->link_vk)<li><a href="{{ $item->link_vk }}"><i class="fa fa-vk"></i></a></li>@endif
-                                            @if($item->link_facebook)<li><a href="{{ $item->link_facebook }}"><i class="fa fa-facebook"></i></a></li>@endif
-                                            @if($item->link_instagram)<li><a href="{{ $item->link_instagram }}"><i class="fa fa-instagram"></i></a></li>@endif
-                                            @if($item->link_twitter)<li><a href="{{ $item->link_twitter }}"><i class="fa fa-twitter"></i></a></li>@endif
-                                            @if($item->link_google)<li><a href="{{ $item->link_google }}"><i class="fa fa-google-plus"></i></a></li>@endif
-                                            @if($item->link_youtube)<li><a href="{{ $item->link_youtube }}"><i class="fa fa-youtube"></i></a></li>@endif
+                                            @if($item->link_website)<li><a href="{{ $item->link_website }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-globe"></i></a></li>@endif
+                                            @if($item->link_vk)<li><a href="{{ $item->link_vk }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-vk"></i></a></li>@endif
+                                            @if($item->link_facebook)<li><a href="{{ $item->link_facebook }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-facebook"></i></a></li>@endif
+                                            @if($item->link_instagram)<li><a href="{{ $item->link_instagram }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-instagram"></i></a></li>@endif
+                                            @if($item->link_twitter)<li><a href="{{ $item->link_twitter }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-twitter"></i></a></li>@endif
+                                            @if($item->link_google)<li><a href="{{ $item->link_google }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-google-plus"></i></a></li>@endif
+                                            @if($item->link_youtube)<li><a href="{{ $item->link_youtube }}" target="_blank" rel="nofollow, noopener"><i class="fa fa-youtube"></i></a></li>@endif
                                         </ul>
                                         <div class="text">
                                             @if($item->name)

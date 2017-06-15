@@ -35,22 +35,25 @@
                         <div class="social-links social-links-team_members-{{ $item->id }}">
                             <h4 class="header-title open-social-links-form" data-id="{{ $item->id }}">
                                 <a href="#" class="m-r-10 text-muted">Социальные сети</a>
-                                <a href="{{ $item->link_vk }}" target="_blank" rel="nofollow noopener" class="button-link_vk btn btn-vk waves-effect waves-light" @if(!$item->link_vk) style="display: none" @endif>
+                                <a href="{{ $item->link_website }}" target="_blank" rel="nofollow noopener" class="button-link_website btn btn-default waves-effect waves-light m-b-5" @if(!$item->link_website) style="display: none" @endif>
+                                    <i class="fa fa-globe"></i>
+                                </a>
+                                <a href="{{ $item->link_vk }}" target="_blank" rel="nofollow noopener" class="button-link_vk btn btn-vk waves-effect waves-light m-b-5" @if(!$item->link_vk) style="display: none" @endif>
                                     <i class="fa fa-vk"></i>
                                 </a>
-                                <a href="{{ $item->link_facebook }}" target="_blank" rel="nofollow noopener" class="button-link_facebook btn btn-facebook waves-effect waves-light" @if(!$item->link_facebook) style="display: none" @endif>
+                                <a href="{{ $item->link_facebook }}" target="_blank" rel="nofollow noopener" class="button-link_facebook btn btn-facebook waves-effect waves-light m-b-5" @if(!$item->link_facebook) style="display: none" @endif>
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                                <a href="{{ $item->link_instagram }}" target="_blank" rel="nofollow noopener" class="button-link_instagram btn btn-instagram waves-effect waves-light" @if(!$item->link_instagram) style="display: none" @endif>
+                                <a href="{{ $item->link_instagram }}" target="_blank" rel="nofollow noopener" class="button-link_instagram btn btn-instagram waves-effect waves-light m-b-5" @if(!$item->link_instagram) style="display: none" @endif>
                                     <i class="fa fa-instagram"></i>
                                 </a>
-                                <a href="{{ $item->link_twitter }}" target="_blank" rel="nofollow noopener" class="button-link_twitter btn btn-twitter waves-effect waves-light" @if(!$item->link_twitter) style="display: none" @endif>
+                                <a href="{{ $item->link_twitter }}" target="_blank" rel="nofollow noopener" class="button-link_twitter btn btn-twitter waves-effect waves-light m-b-5" @if(!$item->link_twitter) style="display: none" @endif>
                                     <i class="fa fa-twitter"></i>
                                 </a>
-                                <a href="{{ $item->link_google }}" target="_blank" rel="nofollow noopener" class="button-link_googleplus btn btn-googleplus waves-effect waves-light" @if(!$item->link_google) style="display: none" @endif>
+                                <a href="{{ $item->link_google }}" target="_blank" rel="nofollow noopener" class="button-link_googleplus btn btn-googleplus waves-effect waves-light m-b-5" @if(!$item->link_google) style="display: none" @endif>
                                     <i class="fa fa-google-plus"></i>
                                 </a>
-                                <a href="{{ $item->link_youtube }}" target="_blank" rel="nofollow noopener" class="button-link_youtube btn btn-youtube waves-effect waves-light" @if(!$item->link_youtube) style="display: none" @endif>
+                                <a href="{{ $item->link_youtube }}" target="_blank" rel="nofollow noopener" class="button-link_youtube btn btn-youtube waves-effect waves-light m-b-5" @if(!$item->link_youtube) style="display: none" @endif>
                                     <i class="fa fa-youtube"></i>
                                 </a>
                                 <a href="#" title="Добавить" data-toggle="tooltip">
@@ -58,6 +61,10 @@
                                 </a>
                             </h4>
                             <div class="social-links-form-{{ $item->id }}" style="display: none">
+                                <p>
+                                    <b class="font-13 text-muted" style="width: 75px; display: inline-block">Сайт:</b>
+                                    <a href="#" class="editable-text" data-value="{{ $item->link_website }}" data-name="link_website" data-type="text" data-pk="{{ $item->id }}" data-url="{{ route('admin.partners.setValue') }}">{{ $item->link_website }}</a>
+                                </p>
                                 <p>
                                     <b class="font-13 text-muted" style="width: 75px; display: inline-block">VK:</b>
                                     <a href="#" class="editable-text" data-value="{{ $item->link_vk }}" data-name="link_vk" data-type="text" data-pk="{{ $item->id }}" data-url="{{ route('admin.teamMembers.setValue') }}">{{ $item->link_vk }}</a>
