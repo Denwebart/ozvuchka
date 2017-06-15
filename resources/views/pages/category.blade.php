@@ -35,32 +35,6 @@
         </div>
     </section>
 
-    <!-- PAGE TITLE AND INTROTEXT -->
-    @if($page->title || $page->introtext)
-        <section class="section featured-shop">
-            <div class="container">
-                @if($page->title)
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="voffset50"></div>
-                            <h2 class="title">{{ $page->title }}</h2>
-                        </div>
-                    </div>
-                @endif
-                @if($page->introtext)
-                    <div class="row">
-                        <div class="voffset50"></div>
-                        <div class="col-lg-12 col-md-12 col-xs-12">
-                            <div class="page-content">
-                                {!! $page->introtext !!}
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </section>
-    @endif
-
     @if(!$page->parent || ($page->parent && $page->parent->type != \App\Models\Page::TYPE_SYSTEM_PAGE))
         @if(count($articles))
             <!-- POSTS -->
@@ -69,47 +43,71 @@
                     <div class="voffset50"></div>
                     <div class="row">
                         <div class="col-md-9">
-                            @foreach($articles as $item)
-                                <article class="post-item">
+                            <!-- PAGE TITLE AND INTROTEXT -->
+                            @if($page->title || $page->introtext)
+                                @if($page->title)
                                     <div class="row">
-                                        {{-- @if($item->getPageImage())--}}
-                                        <div class="col-sm-6">
-                                            <a href="{{ $item->getUrl() }}">
-                                                <img src="{{ $item->getPageImage(true, 'full') }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}" class="photo-post">
-                                            </a>
-                                            <p class="date-sticker">
-                                                <span class="day">{{ \App\Helpers\Date::make($item->published_at, 'j') }}</span>
-                                                <span class="month">{{ \App\Helpers\Date::make($item->published_at, 'M') }}</span>
-                                                @if(date('Y') != \App\Helpers\Date::make($item->published_at, 'Y'))
-                                                    <span class="year">{{ \App\Helpers\Date::make($item->published_at, 'Y') }}</span>
-                                                @endif
-                                            </p>
-                                        </div>
-                                        {{--@endif--}}
-                                        <div class="col-sm-6">
-                                            <div class="voffset30"></div>
-                                            {{--<h4 class="title small"><span>теги: </span>тег 1, тег 2</h4>--}}
-                                            @if($item->title)
-                                                <h2 class="title post">
-                                                    <a href="{{ $item->getUrl() }}">
-                                                        {{ $item->title }}
-                                                    </a>
-                                                </h2>
-                                            @endif
-                                            @if($item->getIntrotext())
-                                                <div class="introtext">
-                                                    {!! $item->getIntrotext() !!}
-                                                </div>
-                                        @endif
-                                        <!--<span class="btn rounded close-new">view less</span>-->
-                                            <a href="{{ $item->getUrl() }}" class="btn rounded">Читать далее</a>
-                                            <section class="section news-window">
-                                                <div class="news-content"></div><!-- AJAX Dinamic Content -->
-                                            </section>
+                                        <div class="col-md-8 col-md-offset-2">
+                                            <h2 class="title">{{ $page->title }}</h2>
+                                            <div class="voffset50"></div>
                                         </div>
                                     </div>
-                                </article>
-                            @endforeach()
+                                @endif
+                                @if($page->introtext)
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-xs-12">
+                                            <div class="page-content">
+                                                {!! $page->introtext !!}
+                                            </div>
+                                            <div class="voffset50"></div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
+
+                            <div id="pagination-content">
+                                @foreach($articles as $item)
+                                    <article class="post-item">
+                                        <div class="row">
+                                            {{-- @if($item->getPageImage())--}}
+                                            <div class="col-sm-6">
+                                                <a href="{{ $item->getUrl() }}">
+                                                    <img src="{{ $item->getPageImage(true, 'full') }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}" class="photo-post">
+                                                </a>
+                                                <p class="date-sticker">
+                                                    <span class="day">{{ \App\Helpers\Date::make($item->published_at, 'j') }}</span>
+                                                    <span class="month">{{ \App\Helpers\Date::make($item->published_at, 'M') }}</span>
+                                                    @if(date('Y') != \App\Helpers\Date::make($item->published_at, 'Y'))
+                                                        <span class="year">{{ \App\Helpers\Date::make($item->published_at, 'Y') }}</span>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            {{--@endif--}}
+                                            <div class="col-sm-6">
+                                                <div class="voffset30"></div>
+                                                {{--<h4 class="title small"><span>теги: </span>тег 1, тег 2</h4>--}}
+                                                @if($item->title)
+                                                    <h2 class="title post">
+                                                        <a href="{{ $item->getUrl() }}">
+                                                            {{ $item->title }}
+                                                        </a>
+                                                    </h2>
+                                                @endif
+                                                @if($item->getIntrotext())
+                                                    <div class="introtext">
+                                                        {!! $item->getIntrotext() !!}
+                                                    </div>
+                                            @endif
+                                            <!--<span class="btn rounded close-new">view less</span>-->
+                                                <a href="{{ $item->getUrl() }}" class="btn rounded">Читать далее</a>
+                                                <section class="section news-window">
+                                                    <div class="news-content"></div><!-- AJAX Dinamic Content -->
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </article>
+                                @endforeach()
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <div class="sidebar">
@@ -157,34 +155,7 @@
             </div>
 
             <!-- PAGINATION -->
-            <section class="section paginationposts">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <nav>
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Предыдущая">
-                                            <i class="fa fa-caret-left hidden-lg hidden-md"></i>
-                                            <span aria-hidden="true" class="hidden-sm hidden-xs">Предыдущая</span>
-                                        </a>
-                                    </li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Следующая">
-                                            <i class="fa fa-caret-right hidden-lg hidden-md"></i>
-                                            <span aria-hidden="true" class="hidden-sm hidden-xs">Следующая</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {!! $articles->links('parts.pagination') !!}
         @endif
     @endif
 
