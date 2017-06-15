@@ -4789,16 +4789,6 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 header.overflow.fixed .navbar-default .navbar-nav {
     margin-top: 5px;
 }
-/*
-.fixed .navbar-brand.logo {
-    display: none;
-}
-.fixed .navbar-brand.logo-sm
-.fixed .navbar-brand.logo-dark-sm {
-    display: inline-block;
-    height: 40px;
-}
-*/
 
 .navbar-brand:focus, .navbar-brand:hover {
     text-decoration: none
@@ -4815,7 +4805,7 @@ header.overflow.fixed .navbar-default .navbar-nav {
     float: right;
     margin-right: 15px;
     padding: 9px 10px;
-    margin-top: 8px;
+    margin-top: 16px;
     margin-bottom: 8px;
     background-color: transparent;
     background-image: none;
@@ -9592,9 +9582,14 @@ button, input, select, textarea {
 @media (min-width: 768px) {
     .vcenter {
         position: absolute;
-        top: 50%;
+        top: 40%;
         transform: translateY(-50%);
         -webkit-transform: translateY(-50%)
+    }
+}
+@media (min-width: 1200px) {
+    .vcenter {
+        top: 45%;
     }
 }
 
@@ -10681,8 +10676,12 @@ header .navbar-brand img {
         padding-right: 55px
     }
 }
-
 @media (min-width: 992px) {
+    .navbar-default .navbar-nav {
+        margin: 10px 0 15px
+    }
+}
+@media (min-width: 1200px) {
     .navbar-default .navbar-nav {
         margin: 20px 0 15px
     }
@@ -10691,12 +10690,17 @@ header .navbar-brand img {
     padding-right: 20px;
 }
 .navbar-default .navbar-nav > li > a {
-    font-size: 20px;
+    font-size: 18px;
     /*text-transform: lowercase;*/
     padding: 10px 12px;
     color: #000000;
     -webkit-transition: color .3s;
     transition: color .3s
+}
+@media (min-width: 1600px) {
+    .navbar-default .navbar-nav > li > a {
+        font-size: 20px;
+    }
 }
 @media (max-width: 1199px) {
     .navbar-default .navbar-nav > li > a {
@@ -10711,6 +10715,7 @@ header .navbar-brand img {
     }
     .navbar-default .navbar-brand {
         float: none !important;
+        padding-bottom: 0;
     }
     .navbar-default .navbar-nav {
         float: none !important;
@@ -10783,7 +10788,11 @@ header .navbar-brand img {
     color: #fff
 }
 
-.navbar-default .navbar-nav > li.active > a, .navbar-default .navbar-nav > li.active > a:focus, .navbar-default .navbar-nav > li.active > a:hover, .navbar-default .navbar-nav > li > a:hover {
+.navbar-default .navbar-nav > li.active > a,
+.navbar-default .navbar-nav > li.active > a:focus,
+.navbar-default .navbar-nav > li.active > a:hover,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
     color: #ed2b45
 }
 
@@ -10825,7 +10834,7 @@ header .navbar-brand img {
     }
 }
 
-@media (max-width: 990px) {
+@media (max-width: 991px) {
     .navbar-header {
         float: none
     }
@@ -10856,6 +10865,24 @@ header .navbar-brand img {
     .navbar-nav > li > a {
         padding-top: 10px;
         padding-bottom: 10px
+    }
+    .navbar-default .navbar-nav > li > a {
+        color: #fff;
+    }
+
+    .navbar-default .navbar-brand {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .navbar-default .navbar-brand img {
+        max-height: 50px;
+    }
+
+    .logo {
+        display: inline-block;
+    }
+    .logo-dark {
+        display: none;
     }
 }
 
@@ -11192,23 +11219,27 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
 }
 /* Slider */
 .intro {
-    background-color: #000;
+    background-color: #ffffff;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
     height: 100%;
-    min-height: 540px
+    min-height: 340px
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .intro {
         height: 540px /* Slider height */
     }
-
     .intro.full-height {
         height: 100%
+    }
+}
+@media (max-width: 991px) {
+    .intro {
+        height: 350px; /* Slider height */
     }
 }
 
@@ -11333,6 +11364,12 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
         line-height: 90px;
     }
 }
+@media (max-width: 459px) {
+    .primary-title {
+        font-size: 46px;
+        letter-spacing: 0
+    }
+}
 
 .coming-title {
     font-weight: 700;
@@ -11437,7 +11474,7 @@ footer ul.menu-footer li, footer ul.menu-footer li a {
 }
 
 #mask {
-    background-color: #000;
+    background-color: #ffffff;
     height: 100%;
     position: fixed;
     width: 100%;
