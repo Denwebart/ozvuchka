@@ -127,13 +127,16 @@
                                     <div class="voffset50"></div>
                                 @endif
 
-                            <!-- Social links -->
+                                <!-- Social links -->
                                 @include('parts.socialLinks')
 
-                            <!-- Latest News -->
+                                <!-- VK GROUPS -->
+                                @include('parts.VKgroupWidget')
+
+                                <!-- Latest News -->
                                 {!! $latestNews->vertical() !!}
 
-                            <!-- Reviews -->
+                                <!-- Reviews -->
                                 {!! $reviews->vertical() !!}
 
                                 {{--<div class="title small">Мы в инстаграмме</div>--}}
