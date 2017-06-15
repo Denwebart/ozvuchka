@@ -35,6 +35,7 @@
     <div class="col-xs-12 m-b-20">
         <a href="{{ route('admin.settings.index') }}" class="btn btn-default btn-rounded w-md waves-effect m-r-5">Общие настройки</a>
         <a href="{{ route('admin.settings.widgets') }}" class="btn btn-inverse btn-rounded w-md waves-effect m-r-5">Виджеты</a>
+        <a href="{{ route('admin.settings.advanced') }}" class="btn btn-default btn-rounded w-md waves-effect m-r-5">Расширенные</a>
     </div>
 </div>
 <!-- end row -->

@@ -2720,6 +2720,17 @@ ul.ColVis_collection li {
   top: 70px !important;
 }
 /* Data table editable */
+/*.editable-wrap,*/
+/*.editable-container.editable-inline,*/
+/*.control-group.form-group {*/
+    /*width: 100% !important;*/
+/*}*/
+/*.editable-input {*/
+    /*width: 100%;*/
+/*}*/
+/*.form-control.input-large {*/
+    /*width: 90% !important;*/
+/*}*/
 .add-edit-table td,
 .add-edit-table th {
   vertical-align: middle !important;

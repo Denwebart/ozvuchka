@@ -30,6 +30,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('settings/set_is_active/', ['as' => 'settings.setIsActive', 'uses' => 'SettingsController@setIsActive']);
 	Route::post('settings/set_value/', ['as' => 'settings.setValue', 'uses' => 'SettingsController@setValue']);
 	Route::get('settings/widgets', ['as' => 'settings.widgets', 'uses' => 'SettingsController@widgets']);
+	Route::get('settings/advanced', ['as' => 'settings.advanced', 'uses' => 'SettingsController@advanced']);
 	
 	Route::post('menus/rename', ['as' => 'menus.rename', 'uses' => 'MenusController@rename']);
 	Route::post('menus/delete', ['as' => 'menus.delete', 'uses' => 'MenusController@delete']);
