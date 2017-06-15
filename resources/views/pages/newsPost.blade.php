@@ -74,73 +74,75 @@
 
                         <div class="post-comments" id="comments">
 
-                            <h4 class="title small">
-                                <span class="comments-count">3 комментария</span>
-                            </h4>
+                            <div class="fb-comments" data-href="{{ $page->getUrl() }}" data-numposts="5"></div>
 
-                            <!-- Comment -->
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="{{ asset('frontend/images/person.png') }}" alt="">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Иван Иванов
-                                        <small>14 апреля в 19:41</small>
-                                    </h4>
-                                    Вдали от всех живут они в буквенных домах на берегу
-                                    Семантика большого языкового океана. Маленький ручеек
-                                    Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами.
-                                    <span class="reply">Ответить</span>
+                            {{--<h4 class="title small">--}}
+                                {{--<span class="comments-count">3 комментария</span>--}}
+                            {{--</h4>--}}
 
-                                    <hr>
+                            {{--<!-- Comment -->--}}
+                            {{--<div class="media">--}}
+                                {{--<a class="pull-left" href="#">--}}
+                                    {{--<img class="media-object" src="{{ asset('frontend/images/person.png') }}" alt="">--}}
+                                {{--</a>--}}
+                                {{--<div class="media-body">--}}
+                                    {{--<h4 class="media-heading">Иван Иванов--}}
+                                        {{--<small>14 апреля в 19:41</small>--}}
+                                    {{--</h4>--}}
+                                    {{--Вдали от всех живут они в буквенных домах на берегу--}}
+                                    {{--Семантика большого языкового океана. Маленький ручеек--}}
+                                    {{--Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами.--}}
+                                    {{--<span class="reply">Ответить</span>--}}
 
-                                    <!-- Nested Comment -->
-                                    <div class="media">
-                                        <a class="pull-left" href="#">
-                                            <img class="media-object" src="{{ asset('frontend/images/person.png') }}" alt="">
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Семён Семёныч
-                                                <small>15 апреля в 10:13</small>
-                                            </h4>
-                                            Эта парадигматическая страна, в которой жаренные
-                                            члены предложения залетают прямо в рот.
-                                            <span class="reply">Ответить</span>
-                                        </div>
-                                    </div>
-                                    <!-- End Nested Comment -->
-                                </div>
+                                    {{--<hr>--}}
 
-                                <hr>
+                                    {{--<!-- Nested Comment -->--}}
+                                    {{--<div class="media">--}}
+                                        {{--<a class="pull-left" href="#">--}}
+                                            {{--<img class="media-object" src="{{ asset('frontend/images/person.png') }}" alt="">--}}
+                                        {{--</a>--}}
+                                        {{--<div class="media-body">--}}
+                                            {{--<h4 class="media-heading">Семён Семёныч--}}
+                                                {{--<small>15 апреля в 10:13</small>--}}
+                                            {{--</h4>--}}
+                                            {{--Эта парадигматическая страна, в которой жаренные--}}
+                                            {{--члены предложения залетают прямо в рот.--}}
+                                            {{--<span class="reply">Ответить</span>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<!-- End Nested Comment -->--}}
+                                {{--</div>--}}
 
-                                <!-- Comment -->
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object" src="{{ asset('frontend/images/person.png') }}" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Ирина
-                                            <small>15 апреля в 16:30</small>
-                                        </h4>
-                                        Даже всемогущая пунктуация не имеет власти над рыбными
-                                        текстами, ведущими безорфографичный образ жизни.
-                                        <span class="reply">Ответить</span>
-                                    </div>
-                                </div>
-                            </div>
+                                {{--<hr>--}}
+
+                                {{--<!-- Comment -->--}}
+                                {{--<div class="media">--}}
+                                    {{--<a class="pull-left" href="#">--}}
+                                        {{--<img class="media-object" src="{{ asset('frontend/images/person.png') }}" alt="">--}}
+                                    {{--</a>--}}
+                                    {{--<div class="media-body">--}}
+                                        {{--<h4 class="media-heading">Ирина--}}
+                                            {{--<small>15 апреля в 16:30</small>--}}
+                                        {{--</h4>--}}
+                                        {{--Даже всемогущая пунктуация не имеет власти над рыбными--}}
+                                        {{--текстами, ведущими безорфографичный образ жизни.--}}
+                                        {{--<span class="reply">Ответить</span>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
 
-                        <div class="voffset50"></div>
+                        {{--<div class="voffset50"></div>--}}
 
-                        <div class="post-reply">
-                            <h4 class="title small">Оставьте комментарий</h4>
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Имя:">
-                                <input type="email" class="form-control" placeholder="Email:">
-                                <textarea class="form-control" rows="7" placeholder="Комментарий:"></textarea>
-                                <input type="submit" value="Отправить" class="btn rounded">
-                            </form>
-                        </div>
+                        {{--<div class="post-reply">--}}
+                            {{--<h4 class="title small">Оставьте комментарий</h4>--}}
+                            {{--<form action="#">--}}
+                                {{--<input type="text" class="form-control" placeholder="Имя:">--}}
+                                {{--<input type="email" class="form-control" placeholder="Email:">--}}
+                                {{--<textarea class="form-control" rows="7" placeholder="Комментарий:"></textarea>--}}
+                                {{--<input type="submit" value="Отправить" class="btn rounded">--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
                     </article>
                 </div>
 

@@ -12874,11 +12874,12 @@ ul.contact li {
 .quote {
     border: 10px solid #ed2b45;
     position: relative;
-    margin: 0;
+    margin: 0 0 10px;
     width: 100%;
     padding: 20px;
     float: none;
-    font-family: Roboto, sans-serif
+    font-family: Roboto, sans-serif;
+    line-height: 32px;
 }
 
 @media (min-width: 768px) {

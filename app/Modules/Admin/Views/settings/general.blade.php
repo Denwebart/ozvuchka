@@ -135,7 +135,7 @@
         @endif
 
         <!-- Социальные сети -->
-        @if(isset($settings[\App\Models\Setting::CATEGORY_SITE]['socialLinks']))
+        @if(isset($settings[\App\Models\Setting::CATEGORY_SITE]) && isset($settings[\App\Models\Setting::CATEGORY_SITE]['socialLinks']))
             <div class="card-box m-b-20">
 
                 <h4 class="header-title m-t-0 m-b-20">Социальные сети</h4>
@@ -240,6 +240,43 @@
                         </tbody>
                     </table>
                 @endif
+            </div>
+        @endif
+
+        <!-- Расширенные настройки -->
+        @if(isset($settings[\App\Models\Setting::CATEGORY_SITE]))
+            <div class="card-box m-b-20">
+
+                <h4 class="header-title m-t-0 m-b-20">Расширенные настройки</h4>
+                <p class="text-muted font-13 m-b-15"></p>
+
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    @foreach($settings[\App\Models\Setting::CATEGORY_SITE]['code'] as $key => $setting)
+                        <tr>
+                            <td width="25%">
+                                <div>
+                                    {{ $setting->title }}
+                                    @if($setting->description)
+                                        <p class="text-muted font-12 m-b-0">
+                                            {{ $setting->description }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </td>
+                            <td width="60%">
+                                <a href="#" class="editable-text" data-type="textarea" data-value="{{ $setting->value }}" data-pk="{{ $setting->id }}">{{ $setting->value }}</a>
+                            </td>
+                            <td width="15%">
+                                <div class="switchery-demo">
+                                    {!! Form::hidden('is_active', 0) !!}
+                                    {!! Form::checkbox('is_active', 1, $setting->is_active, ['id' => 'is_active', 'data-plugin' => 'switchery', 'class' => 'ajax-checkbox', 'data-url' => route('admin.settings.setIsActive'), 'data-color' => '#3bafda', 'data-size' => 'small', 'data-id' => $setting->id]) !!}
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         @endif
 

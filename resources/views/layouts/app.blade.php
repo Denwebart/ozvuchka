@@ -9,7 +9,6 @@
 <html class="no-js" lang="{{ config('app.locale') }}"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-
     <title>{{ $page->getMetaTitle() }}</title>
     <meta name="description" content="{{ $page->getMetaDesc() }}">
     <meta name="keywords" content="{{ $page->getMetaKey() }}">
@@ -60,8 +59,22 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    <!-- Custom Code -->
+    @if(isset($siteSettings['code']))
+        @if(isset($siteSettings['code']['head']) && is_object($siteSettings['code']['head']))
+            {!! $siteSettings['code']['head']->value !!}
+        @endif
+    @endif
 </head>
 <body class="@if(isset($headerClass)) {{ $headerClass }} @endif" data-spy="scroll" data-target="#navbar-muziq" data-offset="80">
+
+<!-- Custom Code -->
+@if(isset($siteSettings['code']))
+    @if(isset($siteSettings['code']['body']) && is_object($siteSettings['code']['body']))
+        {!! $siteSettings['code']['body']->value !!}
+    @endif
+@endif
 
 <!-- LOADER -->
 <div id="mask">
