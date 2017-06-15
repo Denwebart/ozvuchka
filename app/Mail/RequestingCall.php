@@ -1,6 +1,6 @@
 <?php
 /**
- * Class FromContactformToUser
+ * Class RequestingCall
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
@@ -8,28 +8,28 @@
 
 namespace App\Mail;
 
-use App\Models\Letter;
+use App\Models\RequestedCall;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class FromContactformToUser extends Mailable
+class RequestingCall extends Mailable
 {
 	use Queueable, SerializesModels;
 	
-	// Letter data.
-	protected $letter;
+	// Call data.
+	protected $call;
 	
 	/**
 	 * LetterFromContactformToUser constructor. Create a new message instance.
 	 *
-	 * @param Letter $letter
+	 * @param RequestedCall $call
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function __construct(Letter $letter)
+	public function __construct(RequestedCall $call)
 	{
-		$this->letter = $letter;
+		$this->call = $call;
 	}
 	
 	/**
@@ -39,9 +39,9 @@ class FromContactformToUser extends Mailable
 	 */
 	public function build()
 	{
-		return $this->subject('Копия письма, отправленного с сайта ' . \Config::get('settings.domain'))
-			->markdown('emails.fromContactform.toUser')->with([
-				'letter' => $this->letter,
+		return $this->subject('Заказан звонок! (с сайта ' . \Config::get('settings.domain') . ')')
+			->markdown('emails.requestedCall.toAdmin')->with([
+				'call' => $this->call,
 			]);
 	}
 }

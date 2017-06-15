@@ -39,7 +39,7 @@ class FromContactformToAdmin extends Mailable
 	 */
 	public function build()
 	{
-		return $this->subject('Письмо с сайта' . \Config::get('settings.domain'))
+		return $this->subject('Письмо с сайта ' . \Config::get('settings.domain'))
 			->markdown('emails.fromContactform.toAdmin')->with([
 				'letter' => $this->letter,
 			]);

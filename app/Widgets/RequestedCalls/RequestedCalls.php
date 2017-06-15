@@ -8,9 +8,12 @@
 
 namespace App\Widgets\RequestedCalls;
 
+use App\Mail\RequestingCall;
 use App\Models\RequestedCall;
+use App\Models\User;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RequestedCalls extends BaseController
 {
@@ -60,6 +63,12 @@ class RequestedCalls extends BaseController
 //				'[letterText]' => $letter->message,
 //				'[letterCreatedAt]' => $letter->created_at,
 //			]);
+			
+			// Email to admin
+			$admins = User::whereRole(User::ROLE_ADMIN)->active()->get();
+			foreach ($admins as $admin) {
+				Mail::to($admin->email)->send(new RequestingCall($call));
+			}
 			
 			if($request->ajax()) {
 				return \Response::json([

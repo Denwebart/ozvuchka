@@ -7,16 +7,28 @@
 
 @component('mail::message')
 
-Письмо, отправленное вами с контактной формы сайта {{ Config::get('settings.domain') }}.
+<h2>Письмо, отправленное вами с контактной формы сайта {{ Config::get('settings.domain') }}.</h2>
 <br>
-Тема: {{ $letter->subject }}
+<b>Тема:</b>
 <br>
-Отправлено: {{ \App\Helpers\Date::format($letter->created_at) }}
+{{ $letter->subject }}
 <br>
-Имя отправителя: {{ $letter->name }}
 <br>
-Email отправителя: {{ $letter->email }}
+<b>Отправлено:</b>
 <br>
-Текст письма: {{ $letter->message }}
+{{ \App\Helpers\Date::format($letter->created_at) }}
+<br>
+<br>
+<b>Имя отправителя:</b>
+<br>
+{{ $letter->name }}
+<br>
+<br>
+<b>Email отправителя:</b>
+<br>
+{{ $letter->email }}
+<br>
+<br>
+<b>Текст письма:</b> {{ $letter->message }}
 
 @endcomponent

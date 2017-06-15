@@ -437,49 +437,6 @@ class PagesController extends Controller
 				return back()->with('successMessage', 'Ваше письмо успешно отправлено!');
 			}
 		}
-		
-	}
-	
-	/**
-	 * Requesting call
-	 *
-	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function requestCall(Request $request)
-	{
-		if($request->ajax()) {
-			$data = $request->all();
-			$messages = [
-				'name.required' => 'Введите Ваше имя',
-				'phone.required' => 'Введите Ваш номер телефона'
-			];
-			$validator = \Validator::make($data, RequestedCall::rules(), $messages);
-			
-			if($validator->fails()) {
-				return \Response::json([
-					'success' => false,
-					'message' => 'Запрос не отправлен. Исправьте ошибки.',
-					'errors' => $validator->errors()
-				]);
-			}
-			
-			if($call = RequestedCall::create($data)) {
-				Notification::forAllUsers(Notification::TYPE_NEW_REQUESTED_CALL, [
-					'[linkToCall]' => route('admin.calls.edit', ['id' => $call->id]),
-					'[userName]' => $call->name,
-					'[userPhone]' => $call->phone,
-				]);
-				
-				return \Response::json([
-					'success' => true,
-					'message' => 'Ваш запрос успешно отправлен! Менеджер свяжется с вами в течение рабочего дня call-центра.',
-				]);
-			}
-		}
 	}
 	
 	/**
