@@ -33,25 +33,27 @@
     <!-- ABOUT -->
     <section class="section" id="anchor03">
         <div class="container">
-            <div class="voffset50"></div>
             @if($page->title)
+                <div class="voffset50"></div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h2 class="title">{{ $page->title }}</h2>
-                        <div class="voffset50"></div>
                     </div>
                 </div>
             @endif
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-content">
-                        @if($page->getImageUrl())
-                            <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" width="50%" class="pull-left m-r-50 m-b-20">
-                        @endif
-                        {!! $page->content !!}
+            @if($page->content || $page->getImageUrl())
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="voffset50"></div>
+                        <div class="page-content">
+                            @if($page->getImageUrl())
+                                <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" width="50%" class="pull-left m-r-50 m-b-20">
+                            @endif
+                            {!! $page->content !!}
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </section>
 
