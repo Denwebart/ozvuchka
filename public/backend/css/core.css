@@ -1,4 +1,67 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Karla:700|Nunito+Sans:600,700');
+/* Open Sans 100, 400, 700 */
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/OpenSans/OpenSansRegular/OpenSansRegular.eot?#iefix) format("embedded-opentype"), url(../fonts/OpenSans/OpenSansRegular/OpenSansRegular.woff) format("woff"), url(../fonts/OpenSans/OpenSansRegular/OpenSansRegular.ttf) format("truetype")
+}
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 100;
+    src: url(../fonts/OpenSans/OpenSansLight/OpenSansLight.eot?#iefix) format("embedded-opentype"), url(../fonts/OpenSans/OpenSansLight/OpenSansLight.woff) format("woff"), url(../fonts/OpenSans/OpenSansLight/OpenSansLight.ttf) format("truetype")
+}
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/OpenSans/OpenSansSemiBold/OpenSansSemiBold.eot?#iefix) format("embedded-opentype"), url(../fonts/OpenSans/OpenSansSemiBold/OpenSansSemiBold.woff) format("woff"), url(../fonts/OpenSans/OpenSansSemiBold/OpenSansSemiBold.ttf) format("truetype")
+}
+
+/* Roboto 200, 300, 400, 500, 700 */
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/Roboto/RobotoRegular/RobotoRegular.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoRegular/RobotoRegular.woff) format("woff"), url(../fonts/Roboto/RobotoRegular/RobotoRegular.ttf) format("truetype")
+}
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/Roboto/RobotoBold/RobotoBold.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoBold/RobotoBold.woff) format("woff"), url(../fonts/Roboto/RobotoBold/RobotoBold.ttf) format("truetype")
+}
+@font-face {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 400;
+    src: url(../fonts/Roboto/RobotoItalic/Robotoitalic.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoItalic/Robotoitalic.woff) format("woff"), url(../fonts/Roboto/RobotoItalic/Robotoitalic.ttf) format("truetype")
+}
+@font-face {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 700;
+    src: url(../fonts/Roboto/RobotoBoldItalic/Robotobolditalic.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoBoldItalic/Robotobolditalic.woff) format("woff"), url(../fonts/Roboto/RobotoBoldItalic/Robotobolditalic.ttf) format("truetype")
+}
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 200; /*100*/
+    src: url(../fonts/Roboto/RobotoThin/RobotoThin.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoThin/RobotoThin.woff) format("woff"), url(../fonts/Roboto/RobotoThin/RobotoThin.ttf) format("truetype")
+}
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    src: url(../fonts/Roboto/RobotoLight/RobotoLight.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoLight/RobotoLight.woff) format("woff"), url(../fonts/Roboto/RobotoLight/RobotoLight.ttf) format("truetype")
+}
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    src: url(../fonts/Roboto/RobotoMedium/RobotoMedium.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto/RobotoMedium/RobotoMedium.woff) format("woff"), url(../fonts/Roboto/RobotoMedium/RobotoMedium.ttf) format("truetype")
+}
+
 /*
 Template Name: Adminox Dashboard
 Author: CoderThemes
@@ -46,7 +109,7 @@ h4,
 h5,
 h6 {
   color: #666f7b;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 10px 0;
   font-weight: 700;
 }
@@ -61,7 +124,7 @@ p {
 }
 b,
 strong {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 a:hover {
   outline: 0;
@@ -230,7 +293,7 @@ a:focus {
   overflow: hidden;
 }
 .font-secondary {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .font-600 {
   font-weight: 600;
@@ -516,7 +579,7 @@ a:focus {
 /* Labels */
 .label {
   padding: 0.3em .6em;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .label-white {
   background-color: rgba(255, 255, 255, 0.7);
@@ -558,7 +621,7 @@ a:focus {
   padding: 3px 5px;
   margin-top: 1px;
   background-color: #64c5b1;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .badge-xs {
   font-size: 9px;
@@ -860,7 +923,7 @@ a:focus {
   background-color: #f3f3f3;
   margin-bottom: 18px;
   padding: 12px 20px;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 /* Demo Animation */
 .demo-animation {

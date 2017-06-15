@@ -195,7 +195,7 @@ File: Menu
   background: #87949b;
 }
 .mail-list a {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   vertical-align: middle;
 }
 .mail-list a.active,
@@ -289,7 +289,7 @@ File: Menu
   border: none;
   background: #313a46;
   color: white;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   padding: 5px 8px;
 }
@@ -307,7 +307,7 @@ File: Menu
   max-width: 200px;
   display: none;
   color: #ffffff;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .mapael .zoomIn,
 .mapael .zoomOut,
@@ -680,7 +680,7 @@ h3.timeline-title {
 #count-down .clock-presenter .digit {
   margin-top: 20px;
   font-size: 60px;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   line-height: 60px;
   font-weight: bold;
   height: 60px;
@@ -698,7 +698,7 @@ h3.timeline-title {
   cursor: default;
   font-size: 16px;
   color: #ffffff;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
 }
 @media (max-width: 992px) {
@@ -759,7 +759,7 @@ h3.timeline-title {
 }
 .pricing-column .plan-title {
   font-size: 16px;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 10px;
   color: #ffffff;
   text-transform: uppercase;
@@ -767,7 +767,7 @@ h3.timeline-title {
 }
 .pricing-column .plan-price {
   font-size: 48px;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 10px;
   color: #ffffff;
 }
@@ -940,7 +940,7 @@ h3.timeline-title {
 Lightbox
 ===== */
 .lb-data .lb-caption {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   font-size: 15px;
   line-height: 2em;

@@ -64,7 +64,7 @@ File: Menu
   color: #ffffff !important;
   /*font-size: 24px;*/
   text-transform: uppercase;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 70px;
@@ -254,7 +254,7 @@ File: Menu
   font-size: 11px;
   text-transform: uppercase;
   color: #98a6ad;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .menu-delimiter {
     margin: 20px 0 !important;
