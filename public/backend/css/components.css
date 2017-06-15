@@ -1466,11 +1466,20 @@ button {
   height: 80px;
   width: 80px;
   text-align: center;
-  line-height: 74px;
+  line-height: 66px;
   border-radius: 50%;
+}
+.fa.widget-two-icon {
+  line-height: 74px;
 }
 .widget-box-two .wigdet-two-content {
   position: relative;
+}
+.widget-box-two .wigdet-two-content h2 .small-text {
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+    top: -3px;
 }
 .widget-two-custom .widget-two-icon {
   color: #64c5b1;
