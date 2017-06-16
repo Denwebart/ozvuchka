@@ -54,6 +54,12 @@
     margin-bottom: 20px;
 }
 
+@media (max-width: 459px) {
+    .full-xxs {
+        width: 100% !important;
+    }
+}
+
 #slides {
     position: relative
 }
@@ -4786,6 +4792,12 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 .fixed .logo-dark {
     display: none;
 }
+header.fixed .navbar-brand img {
+    max-height: 50px;
+}
+header.overflow.fixed .navbar-brand {
+    padding-top: 0;
+}
 header.overflow.fixed .navbar-default .navbar-nav {
     margin-top: 5px;
 }
@@ -4811,6 +4823,9 @@ header.overflow.fixed .navbar-default .navbar-nav {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px
+}
+.fixed .navbar-toggle {
+    margin-top: 12px;
 }
 
 .navbar-toggle .icon-bar {
@@ -10223,13 +10238,13 @@ textarea {
     color: #000;
     text-align: center;
     font-size: 15px;
-    line-height: 15px
+    line-height: 22px
 }
 
 @media (min-width: 768px) {
     .pretitle {
         font-size: 18px;
-        line-height: 18px
+        line-height: 22px
     }
 }
 
@@ -10491,7 +10506,7 @@ p.quote-post {
     position: relative;
     margin: 0 auto;
     overflow: hidden;
-    max-width: 800px;
+    /*max-width: 800px;*/
     width: auto;
     padding: 0
 }
@@ -10522,6 +10537,13 @@ p.quote-post {
     body.page-shop .container [class*=" col-"], body.page-shop .container [class^=col-] {
         padding: 0 19px
     }
+}
+
+
+.section.latest-news .container,
+.section.featured-artists .container {
+    max-width: 1540px;
+    width: auto;
 }
 
 @media (min-width: 1600px) {
@@ -10705,7 +10727,7 @@ header .navbar-brand img {
 @media (max-width: 1199px) {
     .navbar-default .navbar-nav > li > a {
         font-size: 16px;
-        padding: 10px 12px;
+        padding: 10px 8px;
     }
 
     .navbar-header,
@@ -10720,6 +10742,9 @@ header .navbar-brand img {
     .navbar-default .navbar-nav {
         float: none !important;
         display: inline-block;
+    }
+    .fixed .navbar-default .navbar-nav {
+        float: right !important;
     }
 
     .fixed .navbar-header,
@@ -10756,7 +10781,6 @@ header .navbar-brand img {
         margin: 0 16px
     }
 }
-
 @media (min-width: 992px) {
     .navbar-default .navbar-nav > li > a:before {
         content: "";
@@ -10766,6 +10790,11 @@ header .navbar-brand img {
         display: block;
         position: absolute;
         bottom: 12px;
+        right: 4px
+    }
+}
+@media (min-width: 1200px) {
+    .navbar-default .navbar-nav > li > a:before {
         right: 9px
     }
 
@@ -11189,6 +11218,20 @@ footer p.created-by a * {
 }
 footer p.created-by img {
     height: 22px;
+}
+@media (max-width: 767px) {
+    footer {
+        text-align: center;
+    }
+    footer p.copy,
+    footer p.created-by {
+        float: none;
+        margin-bottom: 15px;
+    }
+    footer p.created-by {
+        display: inline-block;
+        width: auto;
+    }
 }
 
 footer a, footer a span {
@@ -12497,24 +12540,33 @@ input.btn.rounded {
 .latest-news .gallery-cell {
     padding-left: 30px;
     padding-right: 30px;
-    height: 380px
+    /*height: 380px*/
 }
-
+.latest-news .featured-artist {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+@media (max-width: 767px) {
+    .latest-news .gallery-cell {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
 @media (min-width: 768px) {
     .latest-news .gallery-cell {
-        height: 450px
+        /*height: 450px*/
     }
 }
 
 @media (min-width: 992px) {
     .latest-news .gallery-cell {
-        height: 360px
+        /*height: 360px*/
     }
 }
 
 @media (min-width: 1600px) {
     .latest-news .gallery-cell {
-        height: 360px
+        /*height: 360px*/
     }
 }
 
@@ -12927,6 +12979,11 @@ ul.contact li {
     }
 }
 
+@media (max-width: 1199px) {
+    .quote {
+        margin-right: 30px;
+    }
+}
 @media (min-width: 1200px) {
     .quote {
         max-width: 380px;
@@ -13243,23 +13300,23 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 .last-media .thumbnails {
     margin: 0 auto;
     overflow: hidden;
-    max-width: 800px
+    /*max-width: 800px*/
 }
 
 @media (min-width: 1200px) {
     .last-media .thumbnails {
-        max-width: 1200px
+        /*max-width: 1200px*/
     }
 }
 
 @media (min-width: 1600px) {
     .last-media .thumbnails {
-        max-width: 1480px
+        /*max-width: 1480px*/
     }
 }
 
 .last-media .thumbnails .thumbnail {
-    width: 100%;
+    width: 50%;
     position: absolute;
     display: block;
     overflow: hidden;
@@ -13334,6 +13391,11 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     top: 50%
 }
 
+@media (max-width: 767px) {
+    .upcomming-events .loadmore {
+        margin-top: 20px;
+    }
+}
 .upcomming-events .loadmore,
 .last-media .loadmore {
     text-align: center
@@ -13350,7 +13412,8 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 .upcomming-events .upevent {
     text-align: center;
     color: #333; /* #fff */
-    margin-bottom: 12px
+    margin-bottom: 12px;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -13396,7 +13459,7 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     background: rgba(255, 255, 255, 0.5); /* rgba(0, 0, 0, 0.7) */
     margin: 10px;
     border: 1px solid rgba(255, 255, 255, .5);
-    padding: 20px 20px 15px;
+    padding: 20px 10px 15px;
     position: relative;
     transition: border-color .25s ease-in-out
 }
@@ -13411,6 +13474,11 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     border-width: 3px;
     border-color: #fff;
     padding: 18px 28px 13px
+}
+@media (max-width: 767px) {
+    .upcomming-events .upevent:hover .content {
+        padding: 20px 10px 15px
+    }
 }
 
 .upcomming-events .upevent:hover .bg-image {
@@ -13473,8 +13541,27 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
     font-size: 44px;
     line-height: 43px
 }
-
-@media (min-width: 992px) {
+@media (max-width: 459px) {
+    .upcomming-events .upevent .title {
+        font-size: 36px;
+    }
+}
+@media (max-width: 420px) {
+    .upcomming-events .upevent .title {
+        font-size: 30px;
+    }
+}
+@media (min-width: 768px) and (max-width: 900px) {
+    .upcomming-events .upevent .title {
+        font-size: 36px;
+    }
+}
+@media (min-width: 1200px) {
+    .upcomming-events .upevent .title {
+        font-size: 38px;
+    }
+}
+@media (min-width: 1400px) {
     .upcomming-events .upevent .title {
         font-size: 48px;
         line-height: 55px
@@ -14770,6 +14857,12 @@ ul.slider-twitter .flickity-page-dots .dot.is-selected {
 .page-content ul {
     margin-bottom: 30px;
     padding-left: 30px;
+}
+@media (max-width: 459px) {
+    .page-content ol,
+    .page-content ul {
+        padding-left: 10px;
+    }
 }
 .page-content li {
     font-size: 16px;

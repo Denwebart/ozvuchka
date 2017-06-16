@@ -25,21 +25,20 @@
         <div class="voffset50"></div>
         <div class="row">
             {!! Form::open(['route' => ['call.request'], 'class' => 'ajax-form', 'id' => 'request-call-form']) !!}
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="response-message success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
-                        @if(Session::has('successMessage'))
-                            {{ Session::get('successMessage') }}
-                        @endif
-                    </div>
 
-                    <div class="response-message error" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
-                        @if(Session::has('errorMessage'))
-                            {{ Session::get('errorMessage') }}
-                        @endif
-                    </div>
+                <div class="response-message success" role="alert" @if(!Session::has('successMessage')) style="display: none" @endif>
+                    @if(Session::has('successMessage'))
+                        {{ Session::get('successMessage') }}
+                    @endif
                 </div>
+                <div class="response-message error" role="alert" @if(!Session::has('errorMessage')) style="display: none" @endif>
+                    @if(Session::has('errorMessage'))
+                        {{ Session::get('errorMessage') }}
+                    @endif
+                </div>
+
                 <div class="form-fields">
-                    <div class="col-sm-4 col-md-offset-2">
+                    <div class="full-xxs col-xs-6 col-sm-4 col-sm-offset-2">
                         <div class="form-group @if($errors->has('name')) has-error @endif" title="Имя *">
                             {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'placeholder' => 'Имя *']) !!}
                             {{--Errors--}}
@@ -48,7 +47,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="full-xxs col-xs-6 col-sm-4">
                         <div class="form-group @if($errors->has('phone')) has-error @endif" title="phone *">
                             {!! Form::text('phone', null, ['id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Телефон *']) !!}
                             {{--Errors--}}
@@ -57,7 +56,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-8 col-md-offset-2 tex">
+                    <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                         <p class="loadmore">
                             <button type="submit" class="btn rounded border btn-dark">
                                 Перезвоните мне
