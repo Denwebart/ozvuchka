@@ -8,7 +8,6 @@ use App\Mail\FromContactformToUser;
 use App\Models\GalleryCategory;
 use App\Models\Letter;
 use App\Models\Page;
-use App\Models\RequestedCall;
 use App\Models\User;
 use App\Widgets\Gallery\Gallery;
 use App\Widgets\News\News;
@@ -215,7 +214,7 @@ class PagesController extends Controller
 				}
 			]);
 		$query = $query->orderBy('published_at', 'DESC');
-		$news = $query->paginate(2);
+		$news = $query->paginate(10);
 		
 		$latestNews = new News();
 		$reviews = new Reviews();
