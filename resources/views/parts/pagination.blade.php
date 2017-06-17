@@ -18,8 +18,10 @@
                                 {{-- Previous Page Link --}}
                                 @if ($paginator->onFirstPage())
                                     <li class="disabled">
-                                        <i class="fa fa-caret-left hidden-lg hidden-md"></i>
-                                        <span aria-hidden="true" class="hidden-sm hidden-xs">Предыдущая</span>
+                                        <span aria-hidden="true">
+                                            <i class="fa fa-caret-left hidden-lg hidden-md"></i>
+                                            <span class="hidden-sm hidden-xs">Предыдущая</span>
+                                        </span>
                                     </li>
                                 @else
                                     <li>
@@ -56,8 +58,10 @@
                                     </li>
                                 @else
                                     <li class="disabled">
-                                        <i class="fa fa-caret-right hidden-lg hidden-md"></i>
-                                        <span aria-hidden="true" class="hidden-sm hidden-xs">Следующая</span>
+                                        <span aria-hidden="true">
+                                            <i class="fa fa-caret-right hidden-lg hidden-md"></i>
+                                            <span class="hidden-sm hidden-xs">Следующая</span>
+                                        </span>
                                     </li>
                                 @endif
                             @endforeach

@@ -5,7 +5,7 @@
  */
 ?>
 
-<section class="section last-media border-top border-bottom" style="background: url({{ asset('frontend/images/backgrounds/gallery-widget.jpg') }})">
+<section class="section requesting-call border-top border-bottom">
     <div class="container">
         @if($title || $description)
             <div class="row">

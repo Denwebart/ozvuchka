@@ -26,7 +26,7 @@
                         <!-- col-xlg-3 -->
 
                         @foreach($items as $item)
-                            <li class="gallery-cell col-xs-12 col-sm-6 col-md-3">
+                            <li class="gallery-cell full-xxs col-xs-6 col-sm-6 col-md-3">
                                 <div class="info-album">
                                     <div class="cover open-disc" data-url="discs/disc-01.html">
                                         <img src="{{  $item->getImageUrl() }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">

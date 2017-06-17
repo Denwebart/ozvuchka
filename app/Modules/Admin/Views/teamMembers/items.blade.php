@@ -63,7 +63,7 @@
                             <div class="social-links-form-{{ $item->id }}" style="display: none">
                                 <p>
                                     <b class="font-13 text-muted" style="width: 75px; display: inline-block">Сайт:</b>
-                                    <a href="#" class="editable-text" data-value="{{ $item->link_website }}" data-name="link_website" data-type="text" data-pk="{{ $item->id }}" data-url="{{ route('admin.partners.setValue') }}">{{ $item->link_website }}</a>
+                                    <a href="#" class="editable-text" data-value="{{ $item->link_website }}" data-name="link_website" data-type="text" data-pk="{{ $item->id }}" data-url="{{ route('admin.teamMembers.setValue') }}">{{ $item->link_website }}</a>
                                 </p>
                                 <p>
                                     <b class="font-13 text-muted" style="width: 75px; display: inline-block">VK:</b>

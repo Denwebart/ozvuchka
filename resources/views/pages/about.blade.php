@@ -47,7 +47,7 @@
                         <div class="voffset50"></div>
                         <div class="page-content">
                             @if($page->getImageUrl())
-                                <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" width="50%" class="pull-left m-r-50 m-b-20">
+                                <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" class=page-image>
                             @endif
                             {!! $page->content !!}
                         </div>

@@ -51,7 +51,7 @@
                     <div class="col-lg-12 col-md-12 col-xs-12">
                         <div class="page-content">
                             @if($page->getImageUrl())
-                                <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" width="50%" class="pull-left m-r-50 m-b-20">
+                                <img src="{{ $page->getImageUrl('full') }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}" class=page-image>
                             @endif
                             {!! $page->content !!}
                         </div>

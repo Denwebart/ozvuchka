@@ -2508,6 +2508,14 @@ textarea.form-control {
   padding-bottom: 20px !important;
   border-bottom: 0 !important;
 }
+/* TinyMCE content styles */
+.mce-content-body .quote,
+.mce-content-body blockquote {
+    border: 5px solid #ed2b45 !important;
+    margin: 0 0 10px !important;;
+    padding: 20px !important;;
+}
+
 /* == Form Uploads == */
 .jFiler-input-dragDrop {
   width: 100%;

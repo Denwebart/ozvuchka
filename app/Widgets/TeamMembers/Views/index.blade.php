@@ -32,7 +32,7 @@
                     <div class="voffset50"></div>
                     <div class="carousel-team-members js-flickity" data-flickity-options='{ "cellAlign": "left", "wrapAround": true, "contain": true, "prevNextButtons": false }'>
                         @foreach($items as $item)
-                            <div class="gallery-cell col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="gallery-cell full-xxs col-xs-6 col-sm-6 col-md-4 col-lg-3">
                                 <div class="featured-artist">
                                     <div class="image">
                                         <img src="{{  $item->getImageUrl() }}" alt="{{ $item->image_alt }}" title="{{ $item->image_alt }}">

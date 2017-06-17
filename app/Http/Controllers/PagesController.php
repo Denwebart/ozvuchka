@@ -215,7 +215,7 @@ class PagesController extends Controller
 				}
 			]);
 		$query = $query->orderBy('published_at', 'DESC');
-		$news = $query->paginate(10);
+		$news = $query->paginate(2);
 		
 		$latestNews = new News();
 		$reviews = new Reviews();
