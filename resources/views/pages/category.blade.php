@@ -137,17 +137,6 @@
                                 <!-- Reviews -->
                                 {!! $reviews->vertical() !!}
 
-                                {{--<div class="title small">Мы в инстаграмме</div>--}}
-                                {{--<div class="instagram-feed">--}}
-                                {{--<ul>--}}
-                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram1.jpg') }}" alt=""></li>--}}
-                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram2.jpg') }}" alt=""></li>--}}
-                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram3.jpg') }}" alt=""></li>--}}
-                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram4.jpg') }}" alt=""></li>--}}
-                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram5.jpg') }}" alt=""></li>--}}
-                                {{--<li><img src="{{ asset('frontend/images/uploads/instagram6.jpg') }}" alt=""></li>--}}
-                                {{--</ul>--}}
-                                {{--</div>--}}
                             </div>
                         </div>
                     </div>
@@ -164,6 +153,7 @@
         <section class="section featured-shop">
             <div class="container">
                 <div class="row">
+                    <div class="voffset50"></div>
                     <div class="col-lg-12 col-md-12 col-xs-12">
                         <div class="page-content">
                             @if($page->getImageUrl())
