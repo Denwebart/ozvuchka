@@ -47,7 +47,7 @@ class RequestedCallsController extends Controller
 			if(is_object($call)) {
 				return \Response::json([
 					'success' => true,
-					'resultHtml' => view('admin::requestedCalls._editForm', compact('call'))->render(),
+					'resultHtml' => view('admin::requestedCalls._form', compact('call'))->render(),
 				]);
 			} else {
 				return \Response::json([

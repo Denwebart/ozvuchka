@@ -83,9 +83,9 @@
                     <hr/>
 
                     <div class="media m-b-30 ">
-                        <a href="#" class="pull-left">
-                            <img alt="" src="/backend/images/users/avatar-2.jpg" class="media-object thumb-sm img-circle">
-                        </a>
+                        <span class="pull-left">
+                            <img alt="" src="{{ asset('images/default-avatar.png') }}" class="pull-left media-object thumb-sm img-circle">
+                        </span>
                         <div class="media-body">
                             <span class="media-meta pull-right">{{ \App\Helpers\Date::format($letter->created_at, true, true) }}</span>
                             <h4 class="text-primary m-0">{{ $letter->name }}</h4>

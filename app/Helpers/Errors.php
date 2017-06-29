@@ -40,7 +40,7 @@ class Errors
 			return \Response::json([
 				'success' => 'false',
 				'message' => 'Недостаточно прав для сорершения действия.'
-			]);
+			], 403);
 		}
 	}
 	

@@ -11,7 +11,7 @@
             <div class="card-box">
                 <div class="member-card-alt">
                     <a href="{{ route('admin.users.show', ['id' => $user->id]) }}" class="thumb-xl member-thumb pull-left">
-                        <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-thumbnail" alt="{{ $user->login }}">
+                        <img src="{{ $user->getAvatarUrl() }}" class="img-thumbnail" alt="{{ $user->login }}">
                         @if(!$user->deleted_at)
                             <i class="mdi mdi-account-circle member-star text-success" title="Пользователь активен" data-toggle="tooltip"></i>
                         @else
@@ -42,9 +42,9 @@
 
                         <!-- Edit -->
                         @if(Auth::user()->hasAdminPermission() || Auth::user()->is($user))
-                            {{--<a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-default btn-sm m-t-15 waves-effect waves-light">--}}
-                                {{--Редактировать--}}
-                            {{--</a>--}}
+                            <a href="#" class="button-edit btn btn-default btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-toggle="modal" data-target="#users-modal" data-modal-id="users-modal" data-animation="fadein" data-overlaySpeed="200" data-overlayColor="#36404a">
+                                Редактировать
+                            </a>
                         @endif
                         <!-- Deleted/undeleted -->
                         @if(Auth::user()->hasAdminPermission() && !Auth::user()->is($user))

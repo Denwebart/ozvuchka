@@ -7,6 +7,8 @@
 
 @component('mail::message')
 
+Для Вас был создан аккаунт на сайте {{ Config::get('settings.domain') }}.
+
 Для активации аккаунта перейдите по ссылке
 
 @component('mail::button', ['url' => $activationLink])

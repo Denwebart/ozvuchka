@@ -54,7 +54,6 @@
                     {{ session('status') }}
                 </p>
 
-                <a href="{{ url('/') }}" class="btn btn-md btn-block btn-primary waves-effect waves-light m-t-30">Back to Home</a>
             </div>
 
         @else
@@ -121,7 +120,7 @@
                         <div class="checkbox checkbox-success">
                             <input id="is_agree" type="checkbox" name="is_agree" value="1">
                             <label for="is_agree">
-                                Я согласен с <a href="#">Правилами сайта</a>
+                                Я соглашаюсь с <a href="#">правилами сайта</a>
                             </label>
                             @if ($errors->has('is_agree'))
                                 <span class="help-block error is_agree_error">

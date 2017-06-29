@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Mail\ActivateAccount;
 use App\Mail\ActivateSuccess;
-use App\Helpers\Translit;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -67,8 +66,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-	        'login'       => 'required|unique:users|max:10|regex:/^[0-9A-Za-zА-Яа-яЁёЇїІіЄєЭэ\-\']+$/u',
-	        'email'       => 'required|unique:users|email|max:150',
+	        'login'       => 'required|unique:users|max:20|regex:/^[0-9A-Za-z\-\']+$/u',
+	        'email'       => 'required|unique:users|email|max:100',
 	        'password'    => 'required|min:6|max:100|confirmed',
 	        'is_agree'    => 'required|integer|in:1',
         ]);

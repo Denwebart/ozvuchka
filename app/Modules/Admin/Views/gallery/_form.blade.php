@@ -59,7 +59,7 @@
                 </span>
             </div>
             <div class="col-sm-12">
-                <div class="no-margin m-b-20">
+                <div class="no-margin m-b-10">
                     {!! Form::label('title', 'Заголовок изображения:', ['class' => 'control-label m-b-10']) !!}
                     {!! Form::text('title', null, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
                     <span class="help-block error title_error text-danger font-12" style="display: none">
@@ -69,7 +69,7 @@
                 </div>
             </div>
             {{--<div class="col-md-6">--}}
-                {{--<div class="no-margin m-b-20">--}}
+                {{--<div class="no-margin m-b-10">--}}
                     {{--{!! Form::label('description', 'Описание изображения:', ['class' => 'control-label m-b-10']) !!}--}}
                     {{--{!! Form::textarea('description', null, ['id' => 'description', 'class' => 'form-control maxlength', 'maxlength' => 1000, 'rows' => 2]) !!}--}}
                     {{--<span class="help-block error description_error text-danger font-12" style="display: none">--}}
@@ -79,7 +79,7 @@
                 {{--</div>--}}
             {{--</div>--}}
             <div class="col-md-12">
-                <div class="no-margin m-b-20">
+                <div class="no-margin m-b-10">
                     {!! Form::label('image_alt', 'Альт изображения:', ['class' => 'control-label m-b-10']) !!}
                     <!-- Info text: image_alt -->
                     <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
@@ -93,8 +93,8 @@
                 </div>
             </div>
             <div class="col-md-12">
-                {!! Form::label('image_alt', 'Теги:', ['class' => 'control-label m-b-10']) !!}
-                <select name="categories[]" multiple data-role="tagsinput" class="tagsinput">
+                {!! Form::label('categories', 'Теги:', ['class' => 'control-label m-b-10']) !!}
+                <select name="categories[]" id="categories" multiple data-role="tagsinput" class="tagsinput">
                     @foreach($galleryImage->categories as $category)
                         <option value="{{ $category->title }}">{{ $category->title }}</option>
                     @endforeach

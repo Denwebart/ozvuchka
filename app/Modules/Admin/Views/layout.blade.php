@@ -201,12 +201,12 @@
                     {{--</li>--}}
 
                     <li class="dropdown user-box">
-                        <a href="" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true">
+                        <a href="#" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true">
                             <img src="{{ Auth::user()->getAvatarUrl() }}" alt="{{ Auth::user()->login }}" title="{{ Auth::user()->login }}" class="img-circle user-img">
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
-                            <li class="m-t-5"><a href="javascript:void(0)">Профиль</a></li>
+                            <li class="m-t-5"><a href="{{ route('user.profile', ['id' => Auth::user()->id]) }}">Профиль</a></li>
                             {{--<li><a href="javascript:void(0)">Настройки</a></li>--}}
                             {{--<li><a href="javascript:void(0)">Экран блокировки</a></li>--}}
                             <li class="divider"></li>

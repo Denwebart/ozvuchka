@@ -9,8 +9,10 @@
 namespace Modules\Admin\Controllers;
 
 use App\Helpers\Errors;
+use App\Mail\ActivateAccount;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -27,57 +29,6 @@ class UsersController extends Controller
 	}
 	
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create()
-	{
-		$user = new User();
-		
-		$backUrl = \Request::has('back_url') ? urldecode(\Request::get('back_url')) : \URL::previous();
-		
-		return view('admin::users.create', compact('user', 'backUrl'));
-	}
-	
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request)
-	{
-		$user = new User();
-		$data = $request->except('avatar');
-		
-		$validator = \Validator::make($data, User::rules());
-		
-		if ($validator->fails())
-		{
-			return redirect(route('admin.users.create', ['back_url' => urlencode($request->get('backUrl'))]))
-				->withErrors($validator->errors())
-				->withInput()
-				->with('errorMessage', 'Информация о пользователе не сохранена. Исправьте ошибки.');
-		} else {
-			$data['password'] = bcrypt($data['password']);
-			$data['password_confirmation'] = bcrypt($data['password_confirmation']);
-			
-			$user->fill($data);
-			$user->save();
-			
-			$user->setImage($request);
-			$user->save();
-			
-			if($request->get('returnBack')) {
-				return redirect($request->get('backUrl'))->with('successMessage', 'Пользователь создан!');
-			} else {
-				return redirect(route('admin.users.edit', ['id' => $user->id, 'back_url' => urlencode($request->get('backUrl'))]))->with('successMessage', 'Пользователь создан!');
-			}
-		}
-	}
-	
-	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
@@ -91,31 +42,147 @@ class UsersController extends Controller
 	}
 	
 	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function create(Request $request)
+	{
+		$user = new User();
+		
+		if(\Request::ajax()) {
+			return \Response::json([
+				'success' => true,
+				'resultHtml' => view('admin::users._form', compact('user'))->render(),
+			]);
+		} else {
+			return view('admin::users.create', compact('user'));
+		}
+	}
+	
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function store(Request $request)
+	{
+		if($request->ajax()) {
+			$data = $request->all();
+			$validator = \Validator::make($data, User::rules());
+			
+			if ($validator->fails())
+			{
+				return \Response::json([
+					'success' => false,
+					'errors' => $validator->errors(),
+					'message' => 'Информация о пользователе не сохранена. Исправьте ошибки.'
+				]);
+			} else {
+				$user = User::create($data);
+				$user->setImage($request);
+				$user->save();
+				
+				// Send user message for activation account.
+				if($user) {
+					Mail::to($user)->send(new ActivateAccount($user, $this->redirectPath()));
+				}
+				
+				$users = $this->getUsers();
+				
+				return \Response::json([
+					'success' => true,
+					'message' => 'Пользователь успешно создан.',
+					'itemId' => $user->id,
+					'resultHtml' => view('admin::users._table', compact('users'))->render(),
+				]);
+			}
+		}
+	}
+	
+	/**
+	 * Activation user.
+	 *
+	 * @param $userId
+	 * @param $token
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function activation($userId, $token)
+	{
+		$user = User::findOrFail($userId);
+		
+		// Check token in user DB. if null then check data (user make first activation).
+		if (!$user->isActive()) {
+			// Check token from url.
+			if (md5($user->email) == $token) {
+				// Change status and login user.
+				$user->role = User::ROLE_MODERATOR;
+				$user->save();
+				
+				\Session::flash('flash_message', trans('interface.ActivatedSuccess'));
+				
+				// Make login user.
+				Auth::login($user, true);
+				
+				// Send user message for activation account.
+				Mail::to($user)->send(new ActivateSuccess($user));
+			} else {
+				// Wrong token.
+				\Session::flash('flash_message_error', trans('interface.ActivatedWrong'));
+			}
+		} else {
+			// User was activated early.
+			\Session::flash('flash_message_error', trans('interface.ActivatedAlready'));
+		}
+		
+		return \Request::get('redirect')
+			? redirect(urldecode(\Request::get('redirect')))
+			: redirect('/');
+	}
+	
+	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
+	 * @param Request $request
+	 * @param $id
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Illuminate\View\View
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function edit(Request $request, $id)
 	{
-		$user = User::findOrFail($id);
+		$user = User::find($id);
 		
 		if (!\Auth::user()->hasAdminPermission() && !\Auth::user()->is($user)) {
 			return Errors::error403($request);
 		}
 		
-		$backUrl = \Request::has('back_url') ? urldecode(\Request::get('back_url')) : \URL::previous();
-		
-		return view('admin::users.edit', compact('user', 'backUrl'));
+		if(\Request::ajax()) {
+			return \Response::json([
+				'success' => true,
+				'resultHtml' => view('admin::users._form', compact('user'))->render()
+			]);
+		} else {
+			return view('admin::users.edit', compact('user'));
+		}
 	}
 	
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
+	 * @param Request $request
+	 * @param $id
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function update(Request $request, $id)
 	{
@@ -125,34 +192,36 @@ class UsersController extends Controller
 			return Errors::error403($request);
 		}
 		
-		$data = $request->except('avatar');
-		
-		$rules = User::rules($user->id);
-		$rules['password'] = 'min:6|max:255|confirmed';
-		$validator = \Validator::make($data, $rules);
-		
-		if ($validator->fails())
-		{
-			return redirect(route('admin.users.edit', ['id' => $user->id, 'back_url' => urlencode($request->get('backUrl'))]))
-				->withErrors($validator->errors())
-				->withInput()
-				->with('errorMessage', 'Информация о пользователе не сохранена. Исправьте ошибки.');
-		} else {
-			if($data['password']) {
-				$data['password'] = bcrypt($data['password']);
-				$data['password_confirmation'] = bcrypt($data['password_confirmation']);
-			} else {
-				unset($data['password']);
-			}
+		if($request->ajax()) {
+			$data = $request->all();
+			$validator = \Validator::make($data, User::rules($user->id));
 			
-			$user->fill($data);
-			$user->setImage($request);
-			$user->save();
-			
-			if($request->get('returnBack')) {
-				return redirect($request->get('backUrl'))->with('successMessage', 'Информация о пользователе сохранена!');
+			if ($validator->fails())
+			{
+				return \Response::json([
+					'success' => false,
+					'errors' => $validator->errors(),
+					'message' => 'Информация о пользователе не сохранена. Исправьте ошибки.'
+				]);
 			} else {
-				return redirect(route('admin.users.edit', ['id' => $user->id, 'back_url' => urlencode($request->get('backUrl'))]))->with('successMessage', 'Информация о пользователе сохранена!');
+				if($data['password']) {
+					$data['password'] = bcrypt($data['password']);
+					$data['password_confirmation'] = bcrypt($data['password_confirmation']);
+				} else {
+					unset($data['password']);
+				}
+				$user->fill($data);
+				$user->setImage($request);
+				$user->save();
+				
+				$users = $this->getUsers();
+				
+				return \Response::json([
+					'success' => true,
+					'message' => 'Информация о пользователе успешно обновлена.',
+					'itemId' => $user->id,
+					'resultHtml' => view('admin::users._table', compact('users'))->render(),
+				]);
 			}
 		}
 	}
