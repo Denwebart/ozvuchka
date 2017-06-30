@@ -225,33 +225,6 @@
             });
         });
 
-        // Change active status or boolean value
-        $(document).on('change', '.ajax-checkbox', function (e) {
-            e.preventDefault ? e.preventDefault() : e.returnValue = false;
-
-            var value = 0;
-            if($(this).is(':checked')) {
-                value = 1;
-            }
-            var url = $(this).data('url') ? $(this).data('url') : "{{ route('admin.gallery.setIsActive') }}";
-            $.ajax({
-                url: url,
-                dataType: "text json",
-                type: "POST",
-                data: {id: $(this).data('id'), value: value, name: $(this).attr('name')},
-                beforeSend: function(request) {
-                    return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                },
-                success: function(response) {
-                    if(response.success){
-                        notification(response.message, 'success');
-                    } else {
-                        notification(response.message, 'error');
-                    }
-                }
-            });
-        });
-
         /* Deleting users :mark user as deleted */
         $('#table-container').on('click', '.button-delete', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
