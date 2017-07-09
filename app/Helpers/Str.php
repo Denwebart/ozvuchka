@@ -113,7 +113,9 @@ class Str
 		$class = $class ? ' class="'. $class .'"' : '';
 		if ($word) {
 			$pos = max(mb_stripos(strip_tags($text), $word, null, 'UTF-8') - 100, 0);
-			$fragment = mb_substr(strip_tags($text), $pos, 200, 'UTF-8');
+			$startText = ($pos > 100) ? '...' : '';
+			$endText = ($pos < (mb_strlen(strip_tags($text)) - 100)) ? '...' : '';
+			$fragment = $startText . mb_substr(strip_tags($text), $pos, 200, 'UTF-8') . $endText;
 			$highlighted = preg_replace("[(".quotemeta($word).")]iu", '<mark'. $class .'>$1</mark>', $fragment);
 		} else {
 			$highlighted = mb_substr(strip_tags($text), 0, 200, 'UTF-8');

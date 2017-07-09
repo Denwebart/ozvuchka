@@ -24,7 +24,7 @@
             <div class="card-box widget-box-two widget-two-custom">
                 <i class="fi-paper widget-two-icon"></i>
                 <div class="wigdet-two-content">
-                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Страницы сайта</p>
+                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Страницы сайта" data-toggle="tooltip">Страницы сайта</p>
                     <h2 class="">
                         <span class="small-text text-muted">Всего:</span>
                         <span data-plugin="counterup">{{ count(\App\Models\Page::all()) }}</span>
@@ -38,7 +38,7 @@
             <div class="card-box widget-box-two widget-two-custom">
                 <i class="fi-camera widget-two-icon"></i>
                 <div class="wigdet-two-content">
-                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Галерея</p>
+                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Галерея изображений и видео" data-toggle="tooltip">Галерея</p>
                     <h2 class="">
                         <span class="small-text text-muted">Всего:</span>
                         <span data-plugin="counterup">{{ count(\App\Models\Gallery::all()) }}</span>
@@ -56,7 +56,7 @@
             <div class="card-box widget-box-two widget-two-custom">
                 <i class="fa fa-phone widget-two-icon"></i>
                 <div class="wigdet-two-content">
-                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Заказанные звонки</p>
+                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Звонки, заказанные пользователями через форму &#34;Заказать звонок&#34;" data-toggle="tooltip">Заказанные звонки</p>
                     <h2 class="">
                         @if($newCalls = count(\App\Models\RequestedCall::whereNull('updated_at')->get()))
                             <span class="small-text text-success m-r-15">Новых: {{ $newCalls }}</span>
@@ -77,7 +77,7 @@
             <div class="card-box widget-box-two widget-two-custom">
                 <i class="fi-mail widget-two-icon"></i>
                 <div class="wigdet-two-content">
-                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Письма</p>
+                    <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Письма с контактной формы" data-toggle="tooltip">Письма</p>
                     <h2 class="">
                         @if($newLetters = count(\App\Models\Letter::whereNull('read_at')->get()))
                             <span class="small-text text-success m-r-15">Новых: {{ $newLetters }}</span>

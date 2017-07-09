@@ -85,8 +85,9 @@ class MenusController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пункт меню успешно удалён.',
-					'menuItemsHtml' => view('admin::menus.items', compact('items'))
+					'resultHtml' => view('admin::menus.items', compact('items'))
 						->with('menuType', $request->get('menuType'))->render(),
+					'itemsCount' => count($items),
 				]);
 			}
 
@@ -124,7 +125,7 @@ class MenusController extends Controller
 			'message' => 'Позиция пункта меню изменена.',
 		));
 	}
-
+	
 	/**
 	 * Autocomplete pages for adding to menus
 	 * (with jQuery-Autocomplete https://github.com/devbridge/jQuery-Autocomplete)
@@ -144,9 +145,9 @@ class MenusController extends Controller
 			->get(['id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title']);
 		$result = ['query' => "Unit", 'suggestions' => []];
 		foreach($pages as $item) {
-			$title = ($item->menu_title != $item->title)
-				? $item->menu_title . ' (' . $item->title . ' | URL: ' . $item->getUrl(true) . ')'
-				: $item->getTitle() . ' (' . $item->getUrl(true) . ')';
+			$title = ($item->title && $item->menu_title != $item->title)
+				? $item->getTitle() . ' (' . $item->title . ' | URL: ' . $item->getUrl(true) . ')'
+				: $item->getTitle() . ' (URL: ' . $item->getUrl(true) . ')';
 			$result['suggestions'][] = [
 				'value' => $title, 'data' => $item->id
 			];
@@ -210,8 +211,9 @@ class MenusController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пункт меню успешно добавлен.',
-					'menuItemsHtml' => view('admin::menus.items', compact('items'))
+					'resultHtml' => view('admin::menus.items', compact('items'))
 						->with('menuType', $request->get('menuType'))->render(),
+					'itemsCount' => count($items),
 				]);
 			}
 		}

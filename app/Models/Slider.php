@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use App\Helpers\Translit;
+use App\Traits\Rules;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -39,6 +40,8 @@ use Intervention\Image\Facades\Image;
  */
 class Slider extends Model
 {
+	use Rules;
+	
 	protected $table = 'slider';
 
 	protected $imagePath = '/uploads/slider/';
@@ -109,25 +112,6 @@ class Slider extends Model
 		'text_align' => 'integer|min:0|max:2',
 		'position' => 'integer',
 	];
-	
-	/**
-	 * Get validation rules for current field
-	 *
-	 * @param null $attribute
-	 * @return array|mixed
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function getRules($attribute = null)
-	{
-		if($attribute) {
-			return isset(self::$rules[$attribute])
-				? [$attribute => self::$rules[$attribute]]
-				: [$attribute => ''];
-		}
-		return self::$rules;
-	}
 	
 	public static function boot()
 	{

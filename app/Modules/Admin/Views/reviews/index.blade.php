@@ -7,7 +7,7 @@
 <div class="card-box m-b-20">
 
     <h4 class="header-title m-t-0">Отзывы</h4>
-    <p class="text-muted font-13 m-b-30">
+    <p class="text-muted font-13 m-b-20">
         @php $page = \App\Models\Page::find(\App\Models\Page::ID_NEWS_PAGE) @endphp
         Виджет отображается на страницах, категории, странице
         "<a href="{{ $page->getUrl() }}" target="_blank" rel="nofollow, noopener">{{ $page->getTitle() }}</a>"
@@ -85,20 +85,6 @@
         </div>
     </div>
 </div>
-
-@push('styles')
-<!-- Sweet Alert -->
-<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
-@endpush
-
-@push('scripts')
-<!-- Sweet-Alert  -->
-<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
-<!-- For Sortable -->
-<script src="{{ asset('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Bootstrap MaxLength -->
-<script src="{{ asset('backend/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
-@endpush
 
 @push('scriptsBottom')
 <script type="text/javascript">

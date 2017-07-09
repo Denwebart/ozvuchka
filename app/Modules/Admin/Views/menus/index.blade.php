@@ -18,6 +18,7 @@
                 <div class="menu-heading m-b-10">
                     <h5 class="header-title m-b-0 pull-left">
                         {{ $menuTitle }}
+                        (<span class="menu-items-count" data-menu-type="{{ $menuType }}">{{ count(isset($menuItems[$menuType]) ? $menuItems[$menuType] : []) }}</span>)
                     </h5>
                     <div class="menu-control-buttons pull-right m-t-10">
                         <a href="#" class="open-menu-item-form pull-right m-r-15" data-menu-type="{{ $menuType }}" data-toggle="tooltip" title="Добавить пункт меню">
@@ -151,7 +152,8 @@
                     if(response.success) {
                         notification(response.message, 'success');
 
-                        $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
+                        $('.menu-items[data-menu-type='+ menuType +']').html(response.resultHtml);
+                        $('.menu-items-count[data-menu-type='+ menuType +']').text(response.itemsCount);
                         $(".sortable, .sortable-sublist").sortable(sortableOptions);
                         $('.editable-menu-item').editable(getMenuEditableOptions());
                     } else {
@@ -210,7 +212,8 @@
 
                     input.removeAttr('data-page-id').val('');
 
-                    $('.menu-items[data-menu-type='+ menuType +']').html(response.menuItemsHtml);
+                    $('.menu-items[data-menu-type='+ menuType +']').html(response.resultHtml);
+                    $('.menu-items-count[data-menu-type='+ menuType +']').text(response.itemsCount);
                     $(".sortable, .sortable-sublist").sortable(sortableOptions);
                     $('.editable-menu-item').editable(getMenuEditableOptions());
                 } else {

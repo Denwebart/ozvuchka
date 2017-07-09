@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use App\Helpers\Translit;
+use App\Traits\Rules;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -53,6 +54,8 @@ use Intervention\Image\Facades\Image;
  */
 class TeamMember extends Model
 {
+	use Rules;
+	
 	protected $table = 'team_members';
 
 	protected $imagePath = '/uploads/team_members/';
@@ -112,25 +115,6 @@ class TeamMember extends Model
 		'link_google' => 'nullable|url|max:255',
 		'link_youtube' => 'nullable|url|max:255',
 	];
-	
-	/**
-	 * Get validation rules for current field
-	 *
-	 * @param null $attribute
-	 * @return array|mixed
-	 *
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function getRules($attribute = null)
-	{
-		if($attribute) {
-			return isset(self::$rules[$attribute])
-				? [$attribute => self::$rules[$attribute]]
-				: [$attribute => ''];
-		}
-		return self::$rules;
-	}
 	
 	public static function boot()
 	{

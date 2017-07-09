@@ -206,7 +206,7 @@
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
-                            <li class="m-t-5"><a href="{{ route('user.profile', ['id' => Auth::user()->id]) }}">Профиль</a></li>
+                            <li class="m-t-5"><a href="{{ route('admin.users.show', ['id' => Auth::user()->id]) }}">Профиль</a></li>
                             {{--<li><a href="javascript:void(0)">Настройки</a></li>--}}
                             {{--<li><a href="javascript:void(0)">Экран блокировки</a></li>--}}
                             <li class="divider"></li>

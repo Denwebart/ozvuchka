@@ -6,6 +6,10 @@
 ?>
 
 @if(count($partners))
+    <p class="text-muted font-13 m-b-10">
+        Всего:
+        {{ count($partners) }}
+    </p>
     <div class="sortable sortable-partners">
         @foreach($partners as $item)
             <div class="row item partners-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}">

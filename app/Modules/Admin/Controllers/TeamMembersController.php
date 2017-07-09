@@ -111,8 +111,9 @@ class TeamMembersController extends Controller
 			$field = $request->get('name');
 			if($teamMember && $field) {
 				$data = $request->all();
+				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : '';
 				
-				$validator = \Validator::make($data, $teamMember->getRules($field));
+				$validator = \Validator::make($data, $teamMember->rulesForAttribute($field));
 				
 				if ($validator->fails())
 				{

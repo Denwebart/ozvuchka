@@ -111,8 +111,9 @@ class PartnersController extends Controller
 			$field = $request->get('name');
 			if($partner && $field) {
 				$data = $request->all();
+				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : '';
 				
-				$validator = \Validator::make($data, $partner->getRules($field));
+				$validator = \Validator::make($data, $partner->rulesForAttribute($field));
 				
 				if ($validator->fails())
 				{

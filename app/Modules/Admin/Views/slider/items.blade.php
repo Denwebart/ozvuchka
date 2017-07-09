@@ -6,6 +6,10 @@
 ?>
 
 @if(count($slider))
+    <p class="text-muted font-13 m-b-10">
+        Всего:
+        {{ count($slider) }}
+    </p>
     <div class="sortable sortable-slider">
         @foreach($slider as $item)
             <div class="row item slide-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}">

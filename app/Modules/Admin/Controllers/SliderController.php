@@ -113,7 +113,7 @@ class SliderController extends Controller
 				$data = $request->all();
 				$data[$field] = trim($request->get('value')) ? trim($request->get('value')) : '';
 				
-				$validator = \Validator::make($data, $slider->getRules($field));
+				$validator = \Validator::make($data, $slider->rulesForAttribute($field));
 				
 				if ($validator->fails())
 				{

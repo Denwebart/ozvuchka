@@ -15,7 +15,7 @@
         Слайд будет отображен только в том случае,
         если загружено изображение и cлайд опубликован.
     </p>
-    <p class="text-muted font-13 m-b-30">
+    <p class="text-muted font-13 m-b-20">
         Рекомендуемая ширина изображения – 2550px. <br>Минимальная ширина изображения – 1600px.
     </p>
 
@@ -110,20 +110,6 @@
         </div>
     </div>
 </div>
-
-@push('styles')
-<!-- Sweet Alert -->
-<link href="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
-@endpush
-
-@push('scripts')
-<!-- Sweet-Alert  -->
-<script src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
-<!-- For Sortable -->
-<script src="{{ asset('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Bootstrap MaxLength -->
-<script src="{{ asset('backend/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
-@endpush
 
 @push('scriptsBottom')
 <script type="text/javascript">

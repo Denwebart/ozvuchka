@@ -6,6 +6,10 @@
 ?>
 
 @if(count($reviews))
+    <p class="text-muted font-13 m-b-10">
+        Всего:
+        {{ count($reviews) }}
+    </p>
     <div class="sortable sortable-reviews">
         @foreach($reviews as $item)
             <div class="row item reviews-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}">

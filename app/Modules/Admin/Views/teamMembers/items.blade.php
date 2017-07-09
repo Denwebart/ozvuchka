@@ -6,6 +6,10 @@
 ?>
 
 @if(count($teamMembers))
+    <p class="text-muted font-13 m-b-10">
+        Всего:
+        {{ count($teamMembers) }}
+    </p>
     <div class="sortable sortable-team-members">
         @foreach($teamMembers as $item)
             <div class="row item team-members-item" id="{{ $item->id }}" data-item-id="{{ $item->id }}">
